@@ -1,3 +1,30 @@
-<p>
-  add-bill works!
-</p>
+<form [formGroup]="addBillForm" (ngSubmit)="addBill()">
+  <div>
+    <label for="provider">Fournisseur</label>
+    <input type="text" formControlName="provider" id="provider">
+  </div>
+  <div>
+    <label for="date">Date</label>
+    <input type="date" formControlName="date" id="date">
+  </div>
+  <div>
+    <label for="taxStamp">Timbre fiscal</label>
+    <input type="text" formControlName="taxStamp" id="taxStamp">
+  </div>
+  <div>
+    <label >Méthode de paiement</label>
+    <ul>
+      <li>
+        <label for="paymentMethod1">Espece</label>
+        <input type="radio" formControlName="paymentMethod" value="0" id="paymentMethod1">
+      </li>
+
+      <li>
+        <label for="paymentMethod2">Cheèque</label>
+        <input type="radio" formControlName="paymentMethod" value="1" id="paymentMethod2">
+      </li>
+    </ul>
+  </div>
+  <input type="submit" value="ajouter" >
+  <a routerLink="/bills">Retour</a>
+</form>

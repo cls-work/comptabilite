@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-add-bill',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddBillComponent implements OnInit {
 
-  constructor() { }
+  addBillForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.addBillForm = this.formBuilder.group({
+      provider: '',
+      date: '',
+      taxStamp: '',
+      paymentMethod: '0'
+    });
   }
 
+  addBill() {
+    console.log('hi',this.addBillForm.value);
+  }
 }
