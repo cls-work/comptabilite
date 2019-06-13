@@ -1,3 +1,5 @@
+import {ProductModel} from './product.model';
+
 export class BillModel {
   id: string;
   provider: string;
@@ -6,6 +8,6 @@ export class BillModel {
   totalTVA: number;
   totalTTC: number;
   taxStamp: number;
-  checkReference: string;
+  checkReference?: string;
   checkPayment: boolean;
 }
