@@ -11,6 +11,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {JwtInterceptor} from './_helpers/jewt.interceptor';
 import {ReactiveFormsModule} from '@angular/forms';
+import {BillService} from './_services/bill.service';
+import {User} from './_models/user.model';
+import {UserService} from './_services/user.service';
+import {AuthenticationService} from './_services/authentication.service';
+import { AddBillComponent } from './add-bill/add-bill.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     BillsComponent,
     BillDetailsComponent,
     AddUserComponent,
-    LoginComponent
+    LoginComponent,
+    AddBillComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +35,9 @@ import {ReactiveFormsModule} from '@angular/forms';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    BillService,
+    UserService,
+    AuthenticationService
 
   ],
   bootstrap: [AppComponent]
