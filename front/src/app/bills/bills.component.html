@@ -1,3 +1,4 @@
+<a routerLink="/add-bill">Ajouter une facture</a>
 <table>
   <tr>
     <td>Réference Facture</td>
@@ -22,7 +23,7 @@
     <td>{{bill.checkPayment?'Chèque':'Espèce'}}</td>
     <td>{{bill.checkPayment?bill.checkReference:''}}</td>
     <td ><a [routerLink]="['/bill-detail',bill.id]">Détails</a></td>
-    <td ><a [routerLink]="['/edit-bill',bill.id]">Détails</a></td>
+    <td ><a [routerLink]="['/edit-bill',bill.id]">Modifier</a></td>
     <td (click)="deleteBill(bill.id)">supprimer</td>
   </tr>
 </table>

@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="bill">
     <div>
     <p>Réference facture : <b>{{bill.id}}</b></p>
     <p>Fournisseur : {{bill.provider}}</p>
@@ -9,7 +9,7 @@
     <tr>
       <td>Désignation</td>
       <td>Qté</td>
-      <td>PRix Unitaire</td>
+      <td>Prix Unitaire</td>
       <td>Remise</td>
       <td>Prix unitaire après remise</td>
       <td>Montant HT</td>
@@ -32,6 +32,8 @@
       <td (click)="deleteProduct(product.id)">Supprimer</td>
     </tr>
   </table>
+  <td ><a [routerLink]="['/add-products',bill.id]">Ajouter un produit</a></td>
+
 
   <div>
     <p>Montant HT : {{bill.totalHT}}</p>

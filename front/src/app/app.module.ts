@@ -16,6 +16,7 @@ import {User} from './_models/user.model';
 import {UserService} from './_services/user.service';
 import {AuthenticationService} from './_services/authentication.service';
 import { AddBillComponent } from './add-bill/add-bill.component';
+import { AddProductsComponent } from './add-products/add-products.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AddBillComponent } from './add-bill/add-bill.component';
     BillDetailsComponent,
     AddUserComponent,
     LoginComponent,
-    AddBillComponent
+    AddBillComponent,
+    AddProductsComponent
   ],
   imports: [
     BrowserModule,
