@@ -1,0 +1,26 @@
+<div class="add-products-forms" [formGroup]="productsForm">
+  <a style="cursor:pointer;" (click)="addProduct()">ajouter un article</a>
+
+  <div formArrayName="products">
+    <div *ngFor="let product of products.controls; let i=index">
+      <div formGroupName="{{i}}">
+
+        <label for="designation">Designation</label>
+        <input type="text" formControlName="designation" id="designation">
+
+        <label for="quantity">Qté</label>
+        <input type="text" formControlName="quantity" id="quantity">
+
+        <label for="unitPrice">Prix Unitaire</label>
+        <input type="text" formControlName="unitPrice" id="unitPrice">
+
+        <label for="discount">Réduction</label>
+        <input type="text" formControlName="discount" id="discount">
+
+        <label for="tva">TVA</label>
+        <input type="text" formControlName="tva" id="tva">
+      </div>
+    </div>
+  </div>
+  <a style="cursor:pointer;" (click)="pushProducts()">submit</a>
+</div>
