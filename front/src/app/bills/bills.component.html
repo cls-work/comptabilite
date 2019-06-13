@@ -1,3 +1,28 @@
-<p>
-  factures works!
-</p>
+<table>
+  <tr>
+    <td>Réference Facture</td>
+    <td>Fournisseur</td>
+    <td>Date</td>
+    <td>Total HT</td>
+    <td>Total TVA</td>
+    <td>Timbre Fiscal</td>
+    <td>Total TTC</td>
+    <td>Méthode de paiement</td>
+    <td>Si chèque, réference chèque</td>
+    <td></td>
+  </tr>
+  <tr *ngFor="let bill of bills">
+    <td>{{bill.id}}</td>
+    <td>{{bill.provider}}</td>
+    <td>{{bill.date}}</td>
+    <td>{{bill.totalHT}}</td>
+    <td>{{bill.totalTVA}}</td>
+    <td>{{bill.taxStamp}}</td>
+    <td>{{bill.totalTTC}}</td>
+    <td>{{bill.checkPayment?'Chèque':'Espèce'}}</td>
+    <td>{{bill.checkPayment?bill.checkReference:''}}</td>
+    <td ><a [routerLink]="['/bill-detail',bill.id]">Détails</a></td>
+    <td ><a [routerLink]="['/edit-bill',bill.id]">Détails</a></td>
+    <td (click)="deleteBill(bill.id)">supprimer</td>
+  </tr>
+</table>
