@@ -10,7 +10,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
   {
-    path: 'bill-detail',
+    path: 'bill-detail/:id',
     component: BillDetailsComponent,
   },
   {
