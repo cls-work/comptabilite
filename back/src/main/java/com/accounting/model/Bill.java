@@ -41,6 +41,9 @@ public class Bill {
     @Column(nullable = false)
     private Boolean checkPayment;
 
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
     @OneToMany
     private List<Product> products;
 
