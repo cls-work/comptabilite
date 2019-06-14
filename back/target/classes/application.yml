@@ -9,6 +9,7 @@ spring:
     max-idle: 20
     min-idle: 15
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: create-drop
     properties:
@@ -19,14 +20,14 @@ spring:
           new_generator_mappings: false
 
 server:
-   port: 8080 # This is the default port anyway, but you can change it here
+  port: 8080 # This is the default port anyway, but you can change it here
 
 security:
   jwt:
     token:
       secret-key: secret-key
       expire-length: 300000 # 5 minutes duration by default: 5 minutes * 60 seconds * 1000 miliseconds
-      
+
 UserController:
   signin: Authenticates user and returns its JWT token.
   signup: Creates user and returns its JWT token
