@@ -5,42 +5,37 @@
     <p>Date: : {{bill.date}}</p>
 
   </div>
-  <table>
-    <tr>
-      <td>Désignation</td>
-      <td>Qté</td>
-      <td>Prix Unitaire</td>
-      <td>Remise</td>
-      <td>Prix unitaire après remise</td>
-      <td>Montant HT</td>
-      <td>TVA</td>
-      <td>Montant TVA</td>
-      <td>Montant TTC</td>
-      <td></td>
-    </tr>
-    <tr *ngFor="let product of products">
-      <td>{{product.designation}}</td>
-      <td>{{product.quantity}}</td>
-      <td>{{product.unitPrice}}</td>
-      <td>{{product.discount}}</td>
-      <td>{{product.unitPriceAfterDiscount}}</td>
-      <td>{{product.amountHT}}</td>
-      <td>{{product.amountTVA}}</td>
-      <td>{{product.amountTVA}}</td>
-      <td>{{product.amountTTC}}</td>
-      <td><a [routerLink]="['/edit-product/',product.id]">Modifier</a></td>
-      <td (click)="deleteProduct(product.id)">Supprimer</td>
-    </tr>
-  </table>
-  <td ><a [routerLink]="['/add-products',bill.id]">Ajouter un produit</a></td>
+<div class="">
+    <div class="row">
+      <div class="col">Désignation</div>
+      <div class="col">Qté</div>
+      <div class="col">Prix Unitaire</div>
+      <div class="col">Remise</div>
+      <div class="col">Prix unitaire après remise</div>
+      <div class="col">Montant HT</div>
+      <div class="col">TVA</div>
+      <div class="col">Montant TVA</div>
+      <div class="col">Montant TTC</div>
+      <div class="col"></div>
+    </div>
+      <app-product-details [product]="product" *ngFor="let product of products"></app-product-details>
 
 
-  <div>
+</div>
+
+
+  <div class="col-3 offset-9">
     <p>Montant HT : {{bill.totalHT}}</p>
     <p>Montant TVA : {{bill.totalTVA}}</p>
     <p>Timbre fiscal : {{bill.taxStamp}}</p>
     <p>Montant TTC : {{bill.totalTTC}}</p>
   </div>
-
-  <a routerLink="/bills">Retour</a>
+<div>
+  <div class="mb-1">
+  <button class="btn btn-secondary" [routerLink]="['/add-products',bill.id]">Ajouter un produit</button>
+  </div>
+  <div>
+  <button class="btn btn-secondary" routerLink="/bills">Retour</button>
+  </div>
+</div>
 </div>
