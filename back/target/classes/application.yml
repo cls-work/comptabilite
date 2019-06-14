@@ -8,6 +8,9 @@ spring:
     max-active: 50
     max-idle: 20
     min-idle: 15
+  h2:
+      console:
+      enabled: true
   jpa:
     show-sql: true
     hibernate:

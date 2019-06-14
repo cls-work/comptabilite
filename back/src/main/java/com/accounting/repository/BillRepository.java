@@ -1,4 +1,8 @@
 package com.accounting.repository;
 
-public class BillRepository {
+import com.accounting.model.Bill;
+import org.springframework.data.repository.CrudRepository;
+
+public interface BillRepository extends CrudRepository<Bill,String> {
+
 }
