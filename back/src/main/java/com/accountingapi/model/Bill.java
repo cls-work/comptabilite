@@ -1,5 +1,7 @@
 package com.accountingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +16,7 @@ public class Bill {
 
     @Id
     @Column(unique=true,nullable = false)
-    private String id;
+    private String bill_id;
 
     @Column(nullable = false)
     private String provider;
@@ -44,19 +46,21 @@ public class Bill {
     @Column(nullable = false)
     private Boolean isDeleted=false;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "bill")
     private List<Product> products;
 
 
 
     //************Getters & Setters************
 
-    public String getId() {
-        return id;
+
+    public String getBill_id() {
+        return bill_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBill_id(String bill_id) {
+        this.bill_id = bill_id;
     }
 
     public String getProvider() {

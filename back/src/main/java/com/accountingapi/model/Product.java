@@ -1,13 +1,10 @@
 package com.accountingapi.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Size;
-import java.sql.Date;
-import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 
@@ -15,7 +12,7 @@ public class Product {
 
     @Id
     @Column(unique=true,nullable = false)
-    private String id;
+    private String product_id;
 
     @Column(nullable = false)
     private String designation;
@@ -48,18 +45,30 @@ public class Product {
     @Column(nullable = false)
     private Boolean checkPayment;
 
+    @JsonIgnore
     @ManyToOne
+    @MapsId("bill_id")
+    @JoinColumn(name="bill_id")
     private Bill bill;
 
 
     //************Getters & Setters************
 
-    public String getId() {
-        return id;
+
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     public String getDesignation() {
@@ -142,3 +151,4 @@ public class Product {
         this.checkPayment = checkPayment;
     }
 }
+

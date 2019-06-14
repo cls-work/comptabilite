@@ -1,15 +1,8 @@
 package com.accountingapi.model;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class User {
@@ -28,9 +21,9 @@ public class User {
   @Size(min = 8, message = "Minimum password length: 8 characters")
   private String password;
 
-  /*@ElementCollection(fetch = FetchType.EAGER)
+  @ElementCollection(fetch = FetchType.EAGER)
   List<Role> roles;
-*/
+
   public Integer getId() {
     return id;
   }
@@ -63,14 +56,14 @@ public class User {
     this.password = password;
   }
 
- /* public List<Role> getRoles() {
+  public List<Role> getRoles() {
     return roles;
   }
 
   public void setRoles(List<Role> roles) {
     this.roles = roles;
   }
-  
-  */
+
+
 
 }
