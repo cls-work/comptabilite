@@ -1,26 +1,70 @@
+<label for="ht">Hors Taxe</label>
+<input type="radio" id="ht" (click)="editTax(0);calculateAllPrices()" checked name="taxType">
+
+<label for="ttc">TTC</label>
+<input type="radio" id="ttc" (click)="editTax(1);calculateAllPrices()" name="taxType">
+
+<div>
+  <p>Réference facture : <b>{{bill.id}}</b></p>
+  <p>Fournisseur : {{bill.provider}}</p>
+  <p>Date: : {{bill.date}}</p>
+
+</div>
+
 <div class="add-products-forms" [formGroup]="productsForm">
   <a style="cursor:pointer;" (click)="addProduct()">ajouter un article</a>
 
   <div formArrayName="products">
     <div *ngFor="let product of products.controls; let i=index">
       <div formGroupName="{{i}}">
+        <a style="cursor: pointer;" (click)="removeProduct(i)">effacer produit</a>
+        <br>
 
         <label for="designation">Designation</label>
         <input type="text" formControlName="designation" id="designation">
+        <br>
 
         <label for="quantity">Qté</label>
-        <input type="text" formControlName="quantity" id="quantity">
+        <input type="text" formControlName="quantity" id="quantity" (change)="calculatePrices(i)">
+        <br>
 
-        <label for="unitPrice">Prix Unitaire</label>
-        <input type="text" formControlName="unitPrice" id="unitPrice">
+        <label *ngIf="taxType==0" for="unitPrice">Prix Unitaire HT</label>
+        <label *ngIf="taxType==1" for="unitPrice">Prix Unitaire TTC</label>
+        <input type="text" formControlName="unitPrice" id="unitPrice" (change)="calculatePrices(i)">
+        <br>
 
         <label for="discount">Réduction</label>
-        <input type="text" formControlName="discount" id="discount">
+        <input type="text" formControlName="discount" id="discount" (change)="calculatePrices(i)">
+        <br>
 
         <label for="tva">TVA</label>
-        <input type="text" formControlName="tva" id="tva">
+        <input type="number" formControlName="tva" id="tva" (change)="calculatePrices(i)">
+        <br>
+
+        <label *ngIf="taxType==0" for="unitPriceAfterDiscount">Prix Unitaire HT après réduction</label>
+        <label *ngIf="taxType==1" for="unitPriceAfterDiscount">Prix Unitaire TTC après réduction</label>
+        <input type="number" formControlName="unitPriceAfterDiscount" id="unitPriceAfterDiscount" readonly [value]="calculateDiscount(i)">
+        <br>
+
+        <label for="amountHT">Montant HT</label>
+        <input type="number" formControlName="amountHT" id="amountHT" readonly [value]="calculateHT(i)">
+        <br>
+
+        <label for="amountTVA">Montant TVA</label>
+        <input type="number" formControlName="amountTVA" id="amountTVA" readonly [value]="calculateTVA(i)">
+        <br>
+
+        <label for="amountTTC">Montant TTC</label>
+        <input type="number" formControlName="amountTTC" id="amountTTC" readonly [value]="calculateTTC(i)">
       </div>
     </div>
+  </div>
+
+  <div>
+    <p>Total HT : {{totalHT}}</p>
+    <p>Total TVA : {{totalTVA}}</p>
+    <p>Timbre fiscal : {{bill.taxStamp}}</p>
+    <p>Total TTC : {{totalTTC}}</p>
   </div>
   <a style="cursor:pointer;" (click)="pushProducts()">submit</a>
 </div>
