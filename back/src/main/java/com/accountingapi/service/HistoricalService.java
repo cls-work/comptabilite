@@ -15,8 +15,8 @@ public class HistoricalService {
         historicalRepository.save(historical);
     }
 
-    /*public void addComment(String comment){
-        return
-    }*/
+    public String addComment(String comment){
+        return "this is a comment";
+    }
 
 }

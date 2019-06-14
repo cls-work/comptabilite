@@ -9,7 +9,7 @@ public class HistoricalKey implements Serializable {
 
     private Long user_id;
 
-    private Long bill_id;
+    private Long billId;
 
     public Long getUser_id() {
         return user_id;
@@ -19,12 +19,12 @@ public class HistoricalKey implements Serializable {
         this.user_id = user_id;
     }
 
-    public Long getBill_id() {
-        return bill_id;
+    public Long getBillId() {
+        return billId;
     }
 
-    public void setBill_id(Long bill_id) {
-        this.bill_id = bill_id;
+    public void setBillId(Long billId) {
+        this.billId = billId;
     }
 
     @Override
@@ -33,11 +33,11 @@ public class HistoricalKey implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         HistoricalKey that = (HistoricalKey) o;
         return Objects.equals(user_id, that.user_id) &&
-                Objects.equals(bill_id, that.bill_id);
+                Objects.equals(billId, that.billId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, bill_id);
+        return Objects.hash(user_id, billId);
     }
 }

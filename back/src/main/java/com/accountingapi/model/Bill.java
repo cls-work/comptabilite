@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,8 +14,8 @@ import java.util.List;
 public class Bill {
 
     @Id
-    @Column(unique=true,nullable = false)
-    private String bill_id;
+    @Column(name = "id",unique=true,nullable = false)
+    private String billId="aee";
 
     @Column(nullable = false)
     private String provider;
@@ -25,20 +24,19 @@ public class Bill {
     private Date date;
 
     @Column(nullable = false)
-    private Long totalHT;
+    private Long totalHT=Long.valueOf(0);
 
     @Column(nullable = false)
-    private Long totalTTC;
+    private Long totalTTC=Long.valueOf(0);
 
     @Column(nullable = false)
-    private Long totalTVA;
+    private Long totalTVA=Long.valueOf(0);
 
     @Column(nullable = false)
     private Long taxStamp;
 
-    @Size(min = 7, max = 7, message = "Check reference length must be 7")
     @Column(nullable = false)
-    private Long checkReference;
+    private Long checkReference= Long.valueOf(0);
 
     @Column(nullable = false)
     private Boolean checkPayment;
@@ -55,12 +53,12 @@ public class Bill {
     //************Getters & Setters************
 
 
-    public String getBill_id() {
-        return bill_id;
+    public String getBillId() {
+        return billId;
     }
 
-    public void setBill_id(String bill_id) {
-        this.bill_id = bill_id;
+    public void setBillId(String billId) {
+        this.billId = billId;
     }
 
     public String getProvider() {

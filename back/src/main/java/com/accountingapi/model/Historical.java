@@ -18,8 +18,8 @@ public class Historical {
 
     @JsonIgnore
     @ManyToOne
-    @MapsId("bill_id")
-    @JoinColumn(name = "bill_id")
+    @MapsId("billId")
+    @JoinColumn(name = "billId")
     private Bill bill;
 
     private String message;
