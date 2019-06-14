@@ -1,0 +1,14 @@
+
+  <div class="row">
+    <div class="col">{{product.designation}}</div>
+    <div class="col">{{product.quantity}}</div>
+    <div class="col">{{product.unitPrice}}</div>
+    <div class="col">{{product.discount}}</div>
+    <div class="col">{{product.unitPriceAfterDiscount}}</div>
+    <div class="col">{{product.amountHT}}</div>
+    <div class="col">{{product.amountTVA}}</div>
+    <div class="col">{{product.amountTVA}}</div>
+    <div class="col">{{product.amountTTC}}</div>
+    <div class="col" (click)="deleteProduct(product.id)"><button type="button" class="btn btn-outline-danger">Supprimer</button></div>
+  </div>
+
