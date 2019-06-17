@@ -18,6 +18,7 @@ import {AuthenticationService} from './_services/authentication.service';
 import { AddBillComponent } from './add-bill/add-bill.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { BillComponent } from './bill/bill.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     LoginComponent,
     AddBillComponent,
     AddProductsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    BillComponent
   ],
   imports: [
     BrowserModule,
