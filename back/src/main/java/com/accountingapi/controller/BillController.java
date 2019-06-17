@@ -43,19 +43,10 @@ public class BillController {
     @PutMapping("/{billId}")
     public Bill editBill(@PathVariable String billId,@RequestBody Bill bill){
 
-        Bill oldBill = billService.getBillById(billId);
-        oldBill.setCheckPayment(bill.getCheckPayment()?bill.getCheckPayment():oldBill.getCheckPayment());
-        oldBill.setCheckReference(bill.getCheckReference()!=null?bill.getCheckReference(): oldBill.getCheckReference());
-        oldBill.setProvider(bill.getProvider()!=null?bill.getProvider():oldBill.getProvider());
-        oldBill.setTaxStamp(bill.getTaxStamp()!=null?bill.getTaxStamp():oldBill.getTaxStamp());
-        oldBill.setDate(bill.getDate()!=null?bill.getDate():oldBill.getDate());
-        oldBill.setTotalHT(bill.getTotalHT()!=null?bill.getTotalHT():oldBill.getTotalHT());
-        oldBill.setTotalTTC(bill.getTotalTTC()!=null?bill.getTotalTTC():oldBill.getTotalTTC());
-        oldBill.setTotalTVA(bill.getTotalTVA()!=null?bill.getTotalTVA():oldBill.getTotalTVA());
-        oldBill.setProducts(bill.getProducts()!=null?bill.getProducts():oldBill.getProducts());
-        
+        bill.setBillId(billId);
         System.out.println("************************"+bill.toString());
-        return billService.updateBill(oldBill);
+        return billService.updateBill(bill);
     }
+
 
 }
