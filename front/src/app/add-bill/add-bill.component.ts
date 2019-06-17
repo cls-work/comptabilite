@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-add-bill',
@@ -14,14 +14,14 @@ export class AddBillComponent implements OnInit {
 
   ngOnInit() {
     this.addBillForm = this.formBuilder.group({
-      provider: '',
-      date: '',
-      taxStamp: '',
-      paymentMethod: '0'
+      provider: ['', Validators.required],
+      date: ['', Validators.required],
+      taxStamp: ['', Validators.required],
+      paymentMethod: ['0', Validators.required]
     });
   }
 
   addBill() {
-    console.log('hi',this.addBillForm.value);
+    console.log('hi', this.addBillForm.value);
   }
 }
