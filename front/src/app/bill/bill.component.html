@@ -1,0 +1,14 @@
+<div class="row mb-3 border-top">
+  <div class="col">{{bill.id}}</div>
+  <div class="col">{{bill.provider}}</div>
+  <div class="col">{{bill.date}}</div>
+  <div class="col">{{bill.totalHT}}</div>
+  <div class="col">{{bill.totalTVA}}</div>
+  <div class="col">{{bill.taxStamp}}</div>
+  <div class="col">{{bill.totalTTC}}</div>
+  <div class="col">{{bill.checkPayment?'Chèque':'Espèce'}}</div>
+  <div class="col">{{bill.checkPayment?bill.checkReference:''}}</div>
+  <div class="col" ><a [routerLink]="['/bill-detail',bill.id]">Détails</a></div>
+  <div class="col" ><a [routerLink]="['/edit-bill',bill.id]">Modifier</a></div>
+  <div class="col" (click)="deleteBill(bill.id)"><button class="btn btn-outline-danger" type="button">Supprimer</button></div>
+</div>

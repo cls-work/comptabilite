@@ -1,29 +1,23 @@
-<a routerLink="/add-bill">Ajouter une facture</a>
-<table>
-  <tr>
-    <td>Réference Facture</td>
-    <td>Fournisseur</td>
-    <td>Date</td>
-    <td>Total HT</td>
-    <td>Total TVA</td>
-    <td>Timbre Fiscal</td>
-    <td>Total TTC</td>
-    <td>Méthode de paiement</td>
-    <td>Si chèque, réference chèque</td>
-    <td></td>
-  </tr>
-  <tr *ngFor="let bill of bills">
-    <td>{{bill.id}}</td>
-    <td>{{bill.provider}}</td>
-    <td>{{bill.date}}</td>
-    <td>{{bill.totalHT}}</td>
-    <td>{{bill.totalTVA}}</td>
-    <td>{{bill.taxStamp}}</td>
-    <td>{{bill.totalTTC}}</td>
-    <td>{{bill.checkPayment?'Chèque':'Espèce'}}</td>
-    <td>{{bill.checkPayment?bill.checkReference:''}}</td>
-    <td ><a [routerLink]="['/bill-detail',bill.id]">Détails</a></td>
-    <td ><a [routerLink]="['/edit-bill',bill.id]">Modifier</a></td>
-    <td (click)="deleteBill(bill.id)">supprimer</td>
-  </tr>
-</table>
+<div>
+  <div class="">
+  <a routerLink="/add-bill" class="btn btn-secondary">Ajouter une facture</a>
+
+  <div class="row mb-3">
+    <div class="col">Réference Facture</div>
+    <div class="col">Fournisseur</div>
+    <div class="col">Date</div>
+    <div class="col">Total HT</div>
+    <div class="col">Total TVA</div>
+    <div class="col">Timbre Fiscal</div>
+    <div class="col">Total TTC</div>
+    <div class="col">Méthode de paiement</div>
+    <div class="col">Si chèque, réference chèque</div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+</div>
+  <app-bill [bill]="bill" *ngFor="let bill of bills">
+  </app-bill>
+
+</div>
