@@ -40,10 +40,14 @@ public class BillController {
         return bill;
     }
 
-    @PutMapping("/{id}")
-    public Bill editBill(@PathVariable String id,@RequestBody Bill bill){
-        
+    @PutMapping("/{billId}")
+    public Bill editBill(@PathVariable String billId,@RequestBody Bill bill){
+
+        Bill oldBill = billService.getBillById(billId);
+        oldBill.setCheckPayment(true);
+        oldBill =bill;
         System.out.println("************************"+bill.toString());
-        return billService.updateBill(id,bill);
+        return billService.updateBill(oldBill);
     }
+
 }

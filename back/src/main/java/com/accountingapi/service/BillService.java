@@ -41,11 +41,8 @@ public class BillService {
     }
 
     //Bill update
-    public Bill updateBill(String billId,Bill bill){
-
-        Bill oldBill = billRepository.findByBillId(billId);
-        oldBill =bill;
-        return billRepository.save(oldBill);
+    public Bill updateBill(Bill bill) {
+        return billRepository.save(bill);
     }
 
     public void deleteBill(Bill bill){
