@@ -28,7 +28,7 @@ public class BillService {
         allbills=billRepository.findAll();
         List<Bill> bills = new ArrayList<>();
         for(Bill bill:allbills){
-            if(bill.getDeleted()){
+            if(!bill.getDeleted()){
                 bills.add(bill);
             }
         }
