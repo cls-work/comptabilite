@@ -44,6 +44,7 @@ public class BillController {
     public Bill editBill(@PathVariable String id,@RequestBody Bill bill){
 
         bill.setBillId(id);
+        System.out.println("************************"+bill.toString());
         return billService.updateBill(bill);
     }
 }

@@ -140,4 +140,21 @@ public class Bill {
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "billId='" + billId + '\'' +
+                ", provider='" + provider + '\'' +
+                ", date=" + date +
+                ", totalHT=" + totalHT +
+                ", totalTTC=" + totalTTC +
+                ", totalTVA=" + totalTVA +
+                ", taxStamp=" + taxStamp +
+                ", checkReference=" + checkReference +
+                ", checkPayment=" + checkPayment +
+                ", isDeleted=" + isDeleted +
+                ", products=" + products +
+                '}';
+    }
 }

@@ -23,16 +23,10 @@ public class ProductService {
         System.out.println(bill.getBillId());
         for (Product product:products) {
             product.setBill(bill);
-            System.out.println("_____________________________________________________________");
-            System.out.println(product);
             product.setProductId(IdService.getAlphaNumericString(20));
-            productRepository.savee(product);
-            System.out.println("_____________________________________________________________");
+            productRepository.save(product);
         }
 
-       /* Bill bill=billService.getBillById(billId);
-        Product product = new Product("123456", "skander", Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0), Long.valueOf(0),Long.valueOf(0), Long.valueOf(0), Long.valueOf(0),true, bill);
-        productRepository.save(product);*/
     }
 
     // 7amza bch yaamel trigger fel bdd ki tajouti produit yekhou les produits mtaa l bill illi zednelou des produits w y3awed ye7seb totalttc totalht total tva
