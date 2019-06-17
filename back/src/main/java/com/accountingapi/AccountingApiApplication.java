@@ -23,7 +23,7 @@ public class AccountingApiApplication implements CommandLineRunner{
     @Override
     public void run(String... params) throws Exception {
         Bill bill = new Bill();
-        bill.setBillId("abc");
+        //bill.setBillId("abc");
         bill.setCheckPayment(true);
         bill.setCheckReference(Long.valueOf(5647893));
         String str="2015-03-31";

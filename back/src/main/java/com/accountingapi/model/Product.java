@@ -4,15 +4,14 @@ package com.accountingapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 @Entity
 
 public class Product {
 
     @Id
-    @Column(unique=true,nullable = false)
-    private String product_id;
+    @Column(name="product_id",unique=true,nullable = false)
+    private String productId;
 
     @Column(nullable = false)
     private String designation;
@@ -41,7 +40,6 @@ public class Product {
     @Column(nullable = false)
     private Long amountTTC;
 
-    @Size(min = 7, max = 7, message = "Check reference length must be 7")
     @Column(nullable = false)
     private Boolean checkPayment;
 
@@ -49,18 +47,39 @@ public class Product {
     @ManyToOne
     @MapsId("billId")
     @JoinColumn(name="billId")
-    private Bill bill;
+    private Bill bill=null;
+
+    //************Constructor*****************
+
+
+    public Product() {
+    }
+
+    public Product(String productId, String designation, Long quantity, Long unitPrice, Long discount, Long TVA, Long unitPriceAfterDiscount, Long amountHT, Long amountTVA, Long amountTTC, Boolean checkPayment, Bill bill) {
+        this.productId = productId;
+        this.designation = designation;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.discount = discount;
+        this.TVA = TVA;
+        this.unitPriceAfterDiscount = unitPriceAfterDiscount;
+        this.amountHT = amountHT;
+        this.amountTVA = amountTVA;
+        this.amountTTC = amountTTC;
+        this.checkPayment = checkPayment;
+        this.bill = bill;
+    }
 
 
     //************Getters & Setters************
 
 
-    public String getProduct_id() {
-        return product_id;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public Bill getBill() {

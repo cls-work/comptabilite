@@ -1,26 +1,14 @@
 package com.accountingapi.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 public class Historical {
 
     @EmbeddedId
     private HistoricalKey id;
-
-    @JsonIgnore
-    @ManyToOne
-    @MapsId("user_id")
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @JsonIgnore
-    @ManyToOne
-    @MapsId("billId")
-    @JoinColumn(name = "billId")
-    private Bill bill;
 
     private String message;
 
@@ -38,22 +26,6 @@ public class Historical {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -68,5 +40,20 @@ public class Historical {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Historical that = (Historical) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(message, that.message) &&
+                Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, message, comment);
     }
 }

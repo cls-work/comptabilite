@@ -4,15 +4,12 @@ package com.accountingapi.controller;
 import com.accountingapi.model.Bill;
 import com.accountingapi.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/bill")
+@RequestMapping("/bills")
 public class BillController {
 
     @Autowired
@@ -21,10 +18,32 @@ public class BillController {
     @GetMapping("")
     public List<Bill> displayAllBills(){
         return billService.findAll();
-    }
+    }// na7i les bills isdeleted=true
 
     @GetMapping("/{id}")
-    public Bill displayAllBills(@PathVariable("id") String id){
-        return billService.findById(id);
+    public Bill getBillById(@PathVariable("id") String id){
+        return billService.getBillById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Boolean deleteBill( @PathVariable String id) {
+
+        Bill bill = billService.getBillById(id);
+        bill.setDeleted(true);
+        billService.updateBill(bill);
+        return bill.getDeleted();
+    }
+
+    @PostMapping("")
+    public Bill addBill(@RequestBody Bill bill ){
+        billService.addBill(bill);
+        return bill;
+    }
+
+    @PutMapping("/{id}")
+    public Bill editBill(@PathVariable String id,@RequestBody Bill bill){
+
+        bill.setBillId(id);
+        return billService.updateBill(bill);
     }
 }

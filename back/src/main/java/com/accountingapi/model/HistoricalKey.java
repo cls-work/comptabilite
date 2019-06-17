@@ -1,30 +1,44 @@
 package com.accountingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class HistoricalKey implements Serializable {
 
-    private Long user_id;
 
-    private Long billId;
+    @JsonIgnore
+    @ManyToOne
+    @MapsId("user_id")
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Long getUser_id() {
-        return user_id;
+    @JsonIgnore
+    @ManyToOne
+    @MapsId("billId")
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Long getBillId() {
-        return billId;
+    public Bill getBill() {
+        return bill;
     }
 
-    public void setBillId(Long billId) {
-        this.billId = billId;
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     @Override
@@ -32,12 +46,12 @@ public class HistoricalKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HistoricalKey that = (HistoricalKey) o;
-        return Objects.equals(user_id, that.user_id) &&
-                Objects.equals(billId, that.billId);
+        return Objects.equals(user, that.user) &&
+                Objects.equals(bill, that.bill);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, billId);
+        return Objects.hash(user, bill);
     }
 }

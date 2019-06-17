@@ -16,21 +16,23 @@ public class BillService {
     private BillRepository billRepository;
 
     //Bill save into database
-    public void addBill(Bill bill){
-        billRepository.save(bill);
+    public Bill addBill(Bill bill){
+        bill.setBillId(IdService.getAlphaNumericString(20));
+        return(billRepository.save(bill));
+
     }
 
     public List<Bill> findAll(){
         return billRepository.findAll();
     }
 
-    public Bill findById(String id){
+    public Bill getBillById(String id){
         return billRepository.findByBillId(id);
     }
 
     //Bill update
-    public void updateBill(Bill bill){
-        billRepository.save(bill);
+    public Bill updateBill(Bill bill){
+        return billRepository.save(bill);
     }
 
     public void deleteBill(Bill bill){
