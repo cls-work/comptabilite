@@ -7,6 +7,7 @@ import com.accountingapi.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,7 +24,16 @@ public class BillService {
     }
 
     public List<Bill> findAll(){
-        return billRepository.findAll();
+        List<Bill> allbills = new ArrayList<>();
+        allbills=billRepository.findAll();
+        List<Bill> bills = new ArrayList<>();
+        for(Bill bill:allbills){
+            if(bill.getDeleted()){
+                bills.add(bill);
+            }
+        }
+
+        return bills;
     }
 
     public Bill getBillById(String id){
