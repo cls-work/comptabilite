@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BillModel} from '../_models/bill.model';
 import {BillService} from '../_services/bill.service';
 import {ActivatedRoute} from '@angular/router';
@@ -15,9 +15,9 @@ export class AddProductsComponent implements OnInit {
   productsForm: FormGroup ;
   bill: BillModel;
   taxType = 0;
-  totalTTC;
-  totalTVA;
-  totalHT;
+  totalTTC: number;
+  totalTVA: number;
+  totalHT: number;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -30,6 +30,7 @@ export class AddProductsComponent implements OnInit {
       .then(bill => {
         this.bill = bill;
         this.calculateTotals();
+        console.log(typeof (this.bill.totalTTC));
       });
 
     this.productsForm = this.formBuilder.group(
@@ -40,19 +41,21 @@ export class AddProductsComponent implements OnInit {
           ])
       });
 
+
+
   }
 
   productForm() {
     return this.formBuilder.group({
-      designation: '',
-      quantity: '0',
-      unitPrice: '0',
-      discount: '0',
-      tva: '19',
-      unitPriceAfterDiscount: '0',
-      amountHT: '0',
-      amountTVA: '0',
-      amountTTC: '0'
+      designation: ['', Validators.required],
+      quantity: ['', Validators.required],
+      unitPrice: ['', Validators.required],
+      discount: ['0', Validators.required],
+      tva: ['19', Validators.required],
+      unitPriceAfterDiscount: ['0', Validators.required],
+      amountHT: ['0', Validators.required],
+      amountTVA: ['0', Validators.required],
+      amountTTC: ['0', Validators.required]
     });
   }
 
@@ -73,12 +76,12 @@ export class AddProductsComponent implements OnInit {
 
   calculateTotals() {
 
-    this.totalHT=this.bill.totalHT;
-    this.totalTVA=this.bill.totalTVA;
-    this.totalTTC=this.bill.totalTTC;
+    this.totalHT = this.bill.totalHT;
+    this.totalTVA = this.bill.totalTVA;
+    this.totalTTC = this.bill.totalTTC;
 
     for (let i = 0; i < this.products.value.length; i++) {
-      console.log('total',i)
+      console.log('total', i);
       this.totalTTC += this.calculateTTC(i);
       this.totalHT += this.calculateHT(i);
       this.totalTVA += this.calculateTVA(i);
@@ -107,35 +110,42 @@ export class AddProductsComponent implements OnInit {
   calculateDiscount(i) {
     const newPrice = this.products.value[i].unitPrice - this.products.value[i].unitPrice * this.products.value[i].discount / 100;
     this.products.value[i].unitPriceAfterDiscount = newPrice;
-    return newPrice;
+    return newPrice.toFixed(3);
   }
 
   calculateTVA(i) {
     if (this.taxType === 0) {
-      this.products.value[i].amountTVA = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].tva / 100;
-      return this.products.value[i].unitPriceAfterDiscount * this.products.value[i].tva / 100;
+      const amountTVA = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].tva / 100;
+      this.products.value[i].amountTVA =  amountTVA;
+      return parseFloat(amountTVA.toFixed(3));
     }
-    this.products.value[i].amountTVA = (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].unitPriceAfterDiscount / (1 + (this.products.value[i].tva / 100)));
-    return this.products.value[i].unitPriceAfterDiscount - this.products.value[i].unitPriceAfterDiscount / (1 + (this.products.value[i].tva / 100));
+    const amountTVA = (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].unitPriceAfterDiscount / (1 + (this.products.value[i].tva / 100)));
+    this.products.value[i].amountTVA = amountTVA;
+    return parseFloat(amountTVA.toFixed(3));
   }
 
   calculateHT(i: number) {
+    let amountHT;
     if (this.taxType === 0) {
-      this.products.value[i].amountHT = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
-      return this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
+      amountHT = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
+      this.products.value[i].amountHT = amountHT;
+      return parseFloat(amountHT.toFixed(3));
     }
-    console.log(this.products.value[i].amountTVA, this.products.value[i].unitPriceAfterDiscount, this.products.value[i].unitPriceAfterDiscount - this.products.value[i].amountTVA);
-    this.products.value[i].amountHT = (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].amountTVA ) * this.products.value[i].quantity;
-    return (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].amountTVA ) * this.products.value[i].quantity;
+    amountHT = (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].amountTVA ) * this.products.value[i].quantity;
+    this.products.value[i].amountHT = amountHT;
+    return parseFloat(amountHT.toFixed(3));
   }
 
   calculateTTC(i: number) {
+    let amountTTC;
     if (this.taxType === 1) {
-      this.products.value[i].amountTTC = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
-      return this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
+      amountTTC = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
+      this.products.value[i].amountTTC = amountTTC;
+      return parseFloat(amountTTC.toFixed(3));
     }
-    this.products.value[i].amountTTC = (this.products.value[i].unitPriceAfterDiscount + this.products.value[i].amountTVA ) * this.products.value[i].quantity;
-    return (this.products.value[i].unitPriceAfterDiscount + this.products.value[i].amountTVA ) * this.products.value[i].quantity;
+    amountTTC=(this.products.value[i].unitPriceAfterDiscount + this.products.value[i].amountTVA ) * this.products.value[i].quantity
+    this.products.value[i].amountTTC = amountTTC;
+    return parseFloat(amountTTC.toFixed(3));
   }
 
   calculateAllPrices() {
