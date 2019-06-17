@@ -18,7 +18,7 @@ public class BillService {
 
     //Bill save into database
     public Bill addBill(Bill bill){
-        bill.setBillId(IdService.getAlphaNumericString(20));
+        bill.setBillId(IdService.getAlphaNumericString(5));
         return(billRepository.save(bill));
 
     }
@@ -28,7 +28,7 @@ public class BillService {
         allbills=billRepository.findAll();
         List<Bill> bills = new ArrayList<>();
         for(Bill bill:allbills){
-            if(bill.getDeleted()){
+            if(!bill.getDeleted()){
                 bills.add(bill);
             }
         }
