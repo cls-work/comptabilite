@@ -18,7 +18,7 @@ public class BillService {
 
     //Bill save into database
     public Bill addBill(Bill bill){
-        bill.setBillId(IdService.getAlphaNumericString(20));
+        bill.setBillId(IdService.getAlphaNumericString(5));
         return(billRepository.save(bill));
 
     }
