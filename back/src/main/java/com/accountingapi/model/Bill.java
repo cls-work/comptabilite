@@ -14,8 +14,8 @@ import java.util.List;
 public class Bill {
 
     @Id
-    @Column(name = "id",unique=true,nullable = false)
-    private String billId="sss";
+    @Column(name = "bill_id",unique=true,nullable = false)
+    private String billId;
 
     @Column(nullable = false)
     private String provider;

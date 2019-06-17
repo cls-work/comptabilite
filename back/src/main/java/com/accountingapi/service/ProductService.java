@@ -20,23 +20,21 @@ public class ProductService {
     public void addProduct(String billId,List<Product> products){
 
         Bill bill=billService.getBillById(billId);
-        System.out.println(bill.getBillId());
+
+        System.out.println("________________________________________________");
+        System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+bill.toString());
+        System.out.println("________________________________________________");
         for (Product product:products) {
             product.setBill(bill);
             product.setProductId(IdService.getAlphaNumericString(20));
+            System.out.println("________________________________________________");
+            System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+product.toString());
+            System.out.println("________________________________________________");
             productRepository.save(product);
         }
 
     }
 
-    // 7amza bch yaamel trigger fel bdd ki tajouti produit yekhou les produits mtaa l bill illi zednelou des produits w y3awed ye7seb totalttc totalht total tva
-
-        /*List<Product> newProducts=productRepository.findProductsByBill(bill);
-        double
-
-        for (Product product:products){
-
-        }*/
 
     public Product getProductById(String id){
         return productRepository.findByProductId(id);

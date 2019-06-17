@@ -32,7 +32,7 @@ public class Product {
     private Long unitPriceAfterDiscount;
 
     @Column(nullable = false)
-    private Long amountHT;
+    private Long amountHT= Long.valueOf(0);
 
     @Column(nullable = false)
     private Long amountTVA;
@@ -168,6 +168,24 @@ public class Product {
 
     public void setCheckPayment(Boolean checkPayment) {
         this.checkPayment = checkPayment;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId='" + productId + '\'' +
+                ", designation='" + designation + '\'' +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", discount=" + discount +
+                ", TVA=" + TVA +
+                ", unitPriceAfterDiscount=" + unitPriceAfterDiscount +
+                ", amountHT=" + amountHT +
+                ", amountTVA=" + amountTVA +
+                ", amountTTC=" + amountTTC +
+                ", checkPayment=" + checkPayment +
+                ", bill=" + bill +
+                '}';
     }
 }
 
