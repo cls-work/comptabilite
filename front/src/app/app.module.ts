@@ -19,6 +19,8 @@ import { AddBillComponent } from './add-bill/add-bill.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { BillComponent } from './bill/bill.component';
+import { EditBillComponent } from './edit-bill/edit-bill.component';
+import {DisableControlDirective} from './_directives/disable-controle.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { BillComponent } from './bill/bill.component';
     AddBillComponent,
     AddProductsComponent,
     ProductDetailsComponent,
-    BillComponent
+    BillComponent,
+    EditBillComponent,
+    DisableControlDirective
   ],
   imports: [
     BrowserModule,

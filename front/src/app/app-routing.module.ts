@@ -4,6 +4,7 @@ import {BillsComponent} from './bills/bills.component';
 import {BillDetailsComponent} from './bill-details/bill-details.component';
 import {AddBillComponent} from './add-bill/add-bill.component';
 import {AddProductsComponent} from './add-products/add-products.component';
+import {EditBillComponent} from './edit-bill/edit-bill.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'add-bill',
     component: AddBillComponent,
+  },
+  {
+    path: 'edit-bill/:id',
+    component: EditBillComponent,
   },
   {
     path: 'add-products/:id',
