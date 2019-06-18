@@ -1,7 +1,7 @@
 import {ProductModel} from './product.model';
 
 export class BillModel {
-  id: string;
+  billId: string;
   provider: string;
   date: string;
   totalHT: number;
@@ -9,5 +9,5 @@ export class BillModel {
   totalTTC: number;
   taxStamp: number;
   checkReference?: string;
-  checkPayment: boolean;
+  checkPayment: number; // 1 if payment method is check, 0 otherwise
 }
