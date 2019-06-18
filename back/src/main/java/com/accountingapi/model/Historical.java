@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Historical {
 
     @EmbeddedId
-    private HistoricalKey id;
+    private HistoryKey id;
 
     private String message;
 
@@ -18,11 +18,11 @@ public class Historical {
 
 
     //************Getters & Setters************
-    public HistoricalKey getId() {
+    public HistoryKey getId() {
         return id;
     }
 
-    public void setId(HistoricalKey id) {
+    public void setId(HistoryKey id) {
         this.id = id;
     }
 

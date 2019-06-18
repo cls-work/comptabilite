@@ -12,9 +12,7 @@ public interface ProductRepository extends JpaRepository<Product,String> {
 
     Product findByProductId(String id);
 
-    boolean deleteByProductId(String id);
-
-   // @Query(value = "insert into product (commit_id, activity_id) VALUES (?1, ?2)", nativeQuery = true)
+    void deleteByProductId(String id);
 
 
 }

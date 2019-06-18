@@ -17,30 +17,33 @@ public class ProductService {
     @Autowired
     BillService billService;
 
+    //Add Product
     public void addProduct(String billId,List<Product> products){
 
         Bill bill=billService.getBillById(billId);
+        System.out.println("billId="+billId);
 
-        System.out.println("________________________________________________");
-        System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+bill.toString());
-        System.out.println("________________________________________________");
         for (Product product:products) {
+            product.setProductId(LogicService.getAlphaNumericString(20));
             product.setBill(bill);
-            product.setProductId(IdService.getAlphaNumericString(20));
-            System.out.println("________________________________________________");
-            System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"+product.toString());
-            System.out.println("________________________________________________");
             productRepository.save(product);
         }
 
     }
 
 
+    //Update Product
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    //Find Product by its id
     public Product getProductById(String id){
         return productRepository.findByProductId(id);
     }
 
 
+    //Find product by bill id
     public List<Product> getProductsByBillId(String billId){
         Bill bill = new Bill();
         bill=billService.getBillById(billId);
@@ -48,15 +51,9 @@ public class ProductService {
         return productRepository.findProductsByBill(bill);
     }
 
-    public boolean deleteProduct(String productId) {
-        return productRepository.deleteByProductId(productId);
+    //Delete product by its id
+    public void deleteProductById(String productId) {
+        productRepository.deleteByProductId(productId);
     }
 
-   /* public List<Product> getProductsByBillId(String id){
-        return productRepository.findProductsByBill_Bill_id(id);
-    }
-
-    public void deleteProduct(Product product){
-        productRepository.delete(product);
-    }*/
 }

@@ -1,8 +1,6 @@
 package com.accountingapi.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
@@ -40,14 +38,9 @@ public class Product {
     @Column(nullable = false)
     private Long amountTTC;
 
-    @Column(nullable = false)
-    private Boolean checkPayment;
-
-    @JsonIgnore
     @ManyToOne
-    @MapsId("billId")
-    @JoinColumn(name="billId")
-    private Bill bill=null;
+    @JoinColumn(name = "billId")
+    private Bill bill= new Bill();
 
     //************Constructor*****************
 
@@ -66,7 +59,6 @@ public class Product {
         this.amountHT = amountHT;
         this.amountTVA = amountTVA;
         this.amountTTC = amountTTC;
-        this.checkPayment = checkPayment;
         this.bill = bill;
     }
 
@@ -162,30 +154,5 @@ public class Product {
         this.amountTTC = amountTTC;
     }
 
-    public Boolean getCheckPayment() {
-        return checkPayment;
-    }
-
-    public void setCheckPayment(Boolean checkPayment) {
-        this.checkPayment = checkPayment;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId='" + productId + '\'' +
-                ", designation='" + designation + '\'' +
-                ", quantity=" + quantity +
-                ", unitPrice=" + unitPrice +
-                ", discount=" + discount +
-                ", TVA=" + TVA +
-                ", unitPriceAfterDiscount=" + unitPriceAfterDiscount +
-                ", amountHT=" + amountHT +
-                ", amountTVA=" + amountTVA +
-                ", amountTTC=" + amountTTC +
-                ", checkPayment=" + checkPayment +
-                ", bill=" + bill +
-                '}';
-    }
 }
 

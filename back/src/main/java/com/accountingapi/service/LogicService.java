@@ -1,8 +1,12 @@
 package com.accountingapi.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
-public class IdService {
+public class LogicService {
     public static String getAlphaNumericString(int n)
     {
 
@@ -30,5 +34,14 @@ public class IdService {
 
         // return the resultant string
         return r.toString();
+    }
+
+    public static String getCurrentTimeUsingCalendar() {
+        Calendar cal = Calendar.getInstance();
+        Date date=cal.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm/dd-MM-yyyy");
+        String formattedDate=dateFormat.format(date);
+        System.out.println("Current time of the day using Calendar - 24 hour format: "+ formattedDate);
+                return formattedDate;
     }
 }

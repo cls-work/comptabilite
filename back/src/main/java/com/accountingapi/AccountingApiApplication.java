@@ -2,6 +2,7 @@ package com.accountingapi;
 
 import com.accountingapi.model.Bill;
 import com.accountingapi.service.BillService;
+import com.accountingapi.service.LogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,12 +28,14 @@ public class AccountingApiApplication implements CommandLineRunner{
         bill.setCheckPayment(true);
         bill.setCheckReference(Long.valueOf(5647893));
         String str="2015-03-31";
-        Date date=Date.valueOf(str);//converting string into sql date
+        Date date= Date.valueOf(str);//converting string into sql date
         bill.setDate(date);
         bill.setDeleted(false);
         bill.setProvider("ddfg");
-        bill.setTaxStamp((long) 12);
+        bill.setTaxStamp((double)12);
+        System.out.println(bill.toString());
         billService.addBill(bill);
+        System.out.println(LogicService.getCurrentTimeUsingCalendar());
 
     }
 }

@@ -2,10 +2,7 @@ package com.accountingapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
@@ -14,7 +11,7 @@ import java.util.List;
 public class Bill {
 
     @Id
-    @Column(name = "bill_id",unique=true,nullable = false)
+    @Column(name = "billId",unique=true,nullable = false)
     private String billId;
 
     @Column(nullable = false)
@@ -33,7 +30,7 @@ public class Bill {
     private Long totalTVA=Long.valueOf(0);
 
     @Column(nullable = false)
-    private Long taxStamp;
+    private Double taxStamp;
 
     @Column(nullable = false)
     private Long checkReference= Long.valueOf(0);
@@ -45,7 +42,7 @@ public class Bill {
     private Boolean isDeleted=false;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "bill")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "bill")
     private List<Product> products;
 
 
@@ -101,11 +98,11 @@ public class Bill {
         this.totalTVA = totalTVA;
     }
 
-    public Long getTaxStamp() {
+    public Double getTaxStamp() {
         return taxStamp;
     }
 
-    public void setTaxStamp(Long taxStamp) {
+    public void setTaxStamp(Double taxStamp) {
         this.taxStamp = taxStamp;
     }
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class HistoricalKey implements Serializable {
+public class HistoryKey implements Serializable {
 
 
     @JsonIgnore
@@ -22,8 +22,11 @@ public class HistoricalKey implements Serializable {
     @JsonIgnore
     @ManyToOne
     @MapsId("billId")
-    @JoinColumn(name = "bill_id")
+    @JoinColumn(name = "billId")
     private Bill bill;
+
+
+    private int id_historical;
 
     public User getUser() {
         return user;
@@ -41,17 +44,26 @@ public class HistoricalKey implements Serializable {
         this.bill = bill;
     }
 
+    public int getId_historical() {
+        return id_historical;
+    }
+
+    public void setId_historical(int id_historical) {
+        this.id_historical = id_historical;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HistoricalKey that = (HistoricalKey) o;
-        return Objects.equals(user, that.user) &&
+        HistoryKey that = (HistoryKey) o;
+        return id_historical == that.id_historical &&
+                Objects.equals(user, that.user) &&
                 Objects.equals(bill, that.bill);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, bill);
+        return Objects.hash(user, bill, id_historical);
     }
 }

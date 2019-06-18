@@ -6,6 +6,7 @@ import com.accountingapi.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -41,7 +42,7 @@ public class BillController {
     }
 
     @PutMapping("/{billId}")
-    public Bill editBill(@PathVariable String billId,@RequestBody Bill bill){
+    public Bill editBill(@PathVariable String billId,@Valid @RequestBody Bill bill){
 
         bill.setBillId(billId);
         return billService.updateBill(bill);
