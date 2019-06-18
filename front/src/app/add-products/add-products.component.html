@@ -2,7 +2,7 @@
 
 
   <div>
-    <p>Réference facture : <b>{{bill.id}}</b></p>
+    <p>Réference facture : <b>{{bill.billId}}</b></p>
     <p>Fournisseur : {{bill.provider}}</p>
     <p>Date: : {{bill.date}}</p>
 
@@ -36,43 +36,53 @@
       <div *ngFor="let product of products.controls; let i=index">
         <div formGroupName="{{i}}" class="row">
 
-            <input type="text" required formControlName="designation" [class.alert-danger]="products.controls[i].controls.designation.invalid&&(products.controls[i].controls.designation.dirty||products.controls[i].controls.designation.touched)" class="form-control col" placeholder="Désignation" aria-describedby="basic-addon2">
+          <input type="text" required formControlName="designation"
+                 [class.alert-danger]="products.controls[i].controls.designation.invalid&&(products.controls[i].controls.designation.dirty||products.controls[i].controls.designation.touched)"
+                 class="form-control col" placeholder="Désignation" aria-describedby="basic-addon2">
 
 
 
-            <input type="number" required formControlName="quantity" [class.alert-danger]="products.controls[i].controls.quantity.invalid&&(products.controls[i].controls.quantity.dirty||products.controls[i].controls.quantity.touched)" class="form-control col" id="quantity" placeholder="Qté" (change)="calculatePrices(i)">
+          <input type="number" required formControlName="quantity"
+                 [class.alert-danger]="products.controls[i].controls.quantity.invalid&&(products.controls[i].controls.quantity.dirty||products.controls[i].controls.quantity.touched)"
+                 class="form-control col" id="quantity" placeholder="Qté" (change)="calculatePrices(i)">
 
 
-            <input type="number" required formControlName="unitPrice" [class.alert-danger]="products.controls[i].controls.unitPrice.invalid&&(products.controls[i].controls.unitPrice.dirty||products.controls[i].controls.unitPrice.touched)" class="form-control col" placeholder="Prix Unitaire" id="unitPrice" (change)="calculatePrices(i)">
-
-            <div class="input-group col ">
-              <input type="number" required formControlName="discount" [class.alert-danger]="products.controls[i].controls.discount.invalid&&(products.controls[i].controls.discount.dirty||products.controls[i].controls.discount.touched)" class="form-control col" id="discount" placeholder="Réduction" (change)="calculatePrices(i)">
-
-              <div class="input-group-prepend">
-                  <span class="input-group-text" >%</span>
-              </div>
-            </div>
+          <input type="number" required formControlName="unitPrice"
+                 [class.alert-danger]="products.controls[i].controls.unitPrice.invalid&&(products.controls[i].controls.unitPrice.dirty||products.controls[i].controls.unitPrice.touched)"
+                 class="form-control col" placeholder="Prix Unitaire" id="unitPrice" (change)="calculatePrices(i)">
 
           <div class="input-group col ">
-              <input type="number" required formControlName="tva" [class.alert-danger]="products.controls[i].controls.tva.invalid&&(products.controls[i].controls.tva.dirty||products.controls[i].controls.tva.touched)" class="form-control col" id="tva" (change)="calculatePrices(i)" placeholder="TVA">
+            <input type="number" required formControlName="discount"
+                   [class.alert-danger]="products.controls[i].controls.discount.invalid&&(products.controls[i].controls.discount.dirty||products.controls[i].controls.discount.touched)"
+                   class="form-control col" id="discount" placeholder="Réduction" (change)="calculatePrices(i)">
 
-
-              <div class="input-group-prepend">
+            <div class="input-group-prepend">
                 <span class="input-group-text" >%</span>
-              </div>
             </div>
+          </div>
 
-            <input type="number" required formControlName="unitPriceAfterDiscount" class="form-control col" id="unitPriceAfterDiscount" readonly [value]="calculateDiscount(i)">
-
-
-            <input type="number" required formControlName="amountHT" class="form-control col" id="amountHT" readonly [value]="calculateHT(i)">
-
-
-            <input type="number" required formControlName="amountTVA" class="form-control col" id="amountTVA" readonly [value]="calculateTVA(i)">
+          <div class="input-group col ">
+            <input type="number" required formControlName="tva"
+                   [class.alert-danger]="products.controls[i].controls.tva.invalid&&(products.controls[i].controls.tva.dirty||products.controls[i].controls.tva.touched)"
+                   class="form-control col" id="tva" (change)="calculatePrices(i)" placeholder="TVA">
 
 
-            <input type="number" required formControlName="amountTTC" class="form-control col" id="amountTTC" readonly [value]="calculateTTC(i)">
-            <input  (click)="removeProduct(i)" class="form-control col" type="button" value="Effacer">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >%</span>
+            </div>
+          </div>
+
+          <input type="number" required formControlName="unitPriceAfterDiscount" class="form-control col" id="unitPriceAfterDiscount" readonly [value]="calculateDiscount(i)">
+
+
+          <input type="number" required formControlName="amountHT" class="form-control col" id="amountHT" readonly [value]="calculateHT(i)">
+
+
+          <input type="number" required formControlName="amountTVA" class="form-control col" id="amountTVA" readonly [value]="calculateTVA(i)">
+
+
+          <input type="number" required formControlName="amountTTC" class="form-control col" id="amountTTC" readonly [value]="calculateTTC(i)">
+          <input  (click)="removeProduct(i)" class="form-control col" type="button" value="Effacer">
         </div>
       </div>
       <button type="submit" (click)="addProduct()" class="btn btn-secondary mt-1 add-button">Ajouter un article</button>
@@ -87,7 +97,7 @@
         <button type="button" class="btn btn-outline-secondary" (click)="pushProducts()" [disabled]="!productsForm.valid">Ajouter les articles</button>
       </div>
       <div>
-        <button  type="button" class="btn btn-outline-secondary"  [routerLink]="['/bill-detail',bill.id]">Annuler</button>
+        <button  type="button" class="btn btn-outline-secondary"  [routerLink]="['/bill-detail',bill.billId]">Annuler</button>
       </div>
     </div>
   </div>

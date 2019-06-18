@@ -1,6 +1,6 @@
 <div *ngIf="bill">
   <div>
-    <p>Réference facture : <b>{{bill.id}}</b></p>
+    <p>Réference facture : <b>{{bill.billId}}</b></p>
     <p>Fournisseur : {{bill.provider}}</p>
     <p>Date: : {{bill.date}}</p>
 
@@ -18,21 +18,21 @@
       <div class="col">Montant TTC</div>
       <div class="col"></div>
     </div>
-      <app-product-details [product]="product" *ngFor="let product of products"></app-product-details>
+      <app-product-details [product]="product" *ngFor="let product of products" (productChange)="productChange($event)"></app-product-details>
 
 
 </div>
 
 
   <div class="col-3 offset-9">
-    <p>Montant HT : {{bill.totalHT}}</p>
-    <p>Montant TVA : {{bill.totalTVA}}</p>
-    <p>Timbre fiscal : {{bill.taxStamp}}</p>
-    <p>Montant TTC : {{bill.totalTTC}}</p>
+    <p>Montant HT : {{bill.totalHT|number:'.3'}}</p>
+    <p>Montant TVA : {{bill.totalTVA|number:'.3'}}</p>
+    <p>Timbre fiscal : {{bill.taxStamp|number:'.3'}}</p>
+    <p>Montant TTC : {{bill.totalTTC+bill.taxStamp|number:'.3'}}</p>
   </div>
 <div>
   <div class="mb-1">
-  <button class="btn btn-secondary" [routerLink]="['/add-products',bill.id]">Ajouter un produit</button>
+  <button class="btn btn-secondary" [routerLink]="['/add-products',bill.billId]">Ajouter un produit</button>
   </div>
   <div>
   <button class="btn btn-secondary" routerLink="/bills">Retour</button>

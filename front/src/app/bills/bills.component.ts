@@ -13,14 +13,22 @@ export class BillsComponent implements OnInit {
   constructor(private billService: BillService) { }
 
   ngOnInit() {
-    this.billService.getAllBills()
-      .then(bills => {
-        this.bills = bills;
-        console.log(this.bills);
-      });
+    this.getAllProducts();
   }
 
-  deleteBill(id: string) {
-    console.log('bill to delete ', id);
+  productChange($event: boolean) {
+    if ($event) {
+      this.getAllProducts();
+    }
+  }
+
+  private getAllProducts() {
+
+    this.billService.getAllBills()
+      .subscribe(bills => {
+        // @ts-ignore
+        this.bills = bills;
+        console.log(bills);
+      });
   }
 }
