@@ -18,7 +18,7 @@ public class Product {
     private Long quantity;
 
     @Column(nullable = false)
-    private Long unitPrice;
+    private Double unitPrice;
 
     @Column(nullable = false)
     private Long discount;
@@ -27,16 +27,16 @@ public class Product {
     private Long TVA;
 
     @Column(nullable = false)
-    private Long unitPriceAfterDiscount;
+    private Double unitPriceAfterDiscount;
 
     @Column(nullable = false)
-    private Long amountHT= Long.valueOf(0);
+    private Double amountHT= Double.valueOf(0);
 
     @Column(nullable = false)
-    private Long amountTVA;
+    private Double amountTVA;
 
     @Column(nullable = false)
-    private Long amountTTC;
+    private Double amountTTC;
 
     @ManyToOne
     @JoinColumn(name = "billId")
@@ -48,7 +48,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productId, String designation, Long quantity, Long unitPrice, Long discount, Long TVA, Long unitPriceAfterDiscount, Long amountHT, Long amountTVA, Long amountTTC, Boolean checkPayment, Bill bill) {
+    public Product(String productId, String designation, Long quantity, Double unitPrice, Long discount, Long TVA, Double unitPriceAfterDiscount, Double amountHT, Double amountTVA, Double amountTTC, Boolean checkPayment, Bill bill) {
         this.productId = productId;
         this.designation = designation;
         this.quantity = quantity;
@@ -98,11 +98,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Long getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Long unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -122,35 +122,35 @@ public class Product {
         this.TVA = TVA;
     }
 
-    public Long getUnitPriceAfterDiscount() {
+    public Double getUnitPriceAfterDiscount() {
         return unitPriceAfterDiscount;
     }
 
-    public void setUnitPriceAfterDiscount(Long unitPriceAfterDiscount) {
+    public void setUnitPriceAfterDiscount(Double unitPriceAfterDiscount) {
         this.unitPriceAfterDiscount = unitPriceAfterDiscount;
     }
 
-    public Long getAmountHT() {
+    public Double getAmountHT() {
         return amountHT;
     }
 
-    public void setAmountHT(Long amountHT) {
+    public void setAmountHT(Double amountHT) {
         this.amountHT = amountHT;
     }
 
-    public Long getAmountTVA() {
+    public Double getAmountTVA() {
         return amountTVA;
     }
 
-    public void setAmountTVA(Long amountTVA) {
+    public void setAmountTVA(Double amountTVA) {
         this.amountTVA = amountTVA;
     }
 
-    public Long getAmountTTC() {
+    public Double getAmountTTC() {
         return amountTTC;
     }
 
-    public void setAmountTTC(Long amountTTC) {
+    public void setAmountTTC(Double amountTTC) {
         this.amountTTC = amountTTC;
     }
 
