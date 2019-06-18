@@ -1,5 +1,6 @@
 package com.accountingapi.model;
 
+import com.accountingapi.security.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Embeddable;
