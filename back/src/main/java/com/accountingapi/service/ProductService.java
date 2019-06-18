@@ -21,10 +21,13 @@ public class ProductService {
     public void addProduct(String billId,List<Product> products){
 
         Bill bill=billService.getBillById(billId);
-        System.out.println("billId="+billId);
 
         for (Product product:products) {
             product.setProductId(LogicService.getAlphaNumericString(20));
+            bill.setTotalHT(bill.getTotalHT()+product.getAmountHT());
+            bill.setTotalTVA(bill.getTotalTVA()+product.getAmountTVA());
+            bill.setTotalTTC(bill.getTotalTTC()+product.getAmountTTC());
+            billService.updateBill(bill);
             product.setBill(bill);
             productRepository.save(product);
         }
@@ -53,6 +56,12 @@ public class ProductService {
 
     //Delete product by its id
     public void deleteProductById(String productId) {
+        Product product = getProductById(productId);
+        Bill bill = billService.getBillById(product.getBill().getBillId());
+        bill.setTotalHT(bill.getTotalHT()-product.getAmountHT());
+        bill.setTotalTVA(bill.getTotalTVA()-product.getAmountTVA());
+        bill.setTotalTTC(bill.getTotalTTC()-product.getAmountTTC());
+        billService.updateBill(bill);
         productRepository.deleteByProductId(productId);
     }
 
