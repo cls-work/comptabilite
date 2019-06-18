@@ -26,7 +26,7 @@ public class AccountingApiApplication implements CommandLineRunner{
         Bill bill = new Bill();
         //bill.setBillId("abc");
         bill.setCheckPayment(true);
-        bill.setCheckReference(Long.valueOf(5647893));
+        bill.setCheckReference(Double.valueOf(5647893));
         String str="2015-03-31";
         Date date= Date.valueOf(str);//converting string into sql date
         bill.setDate(date);
