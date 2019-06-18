@@ -32,6 +32,7 @@ export class AddBillComponent implements OnInit {
     // @ts-ignore
     this.billService.postBill(this.addBillForm.value)
       .subscribe(d =>
+        // @ts-ignore
         this.router.navigate(['/add-products', d.billId])
       );
   }
