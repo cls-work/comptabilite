@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
 import {BillModel} from '../_models/bill.model';
 import {ProductModel} from '../_models/product.model';
+import {HttpClient} from '@angular/common/http';
+import {BASE_URL, BILLS, PRODUCTS} from '../_globals/vars';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BillService {
-
+/*
   private bills: BillModel[] = [
     {
-      id: 'string',
+      billId: 'string',
       provider: 'string',
-      date: 'string',
+      date: '2012-12-13',
       totalHT: 123,
       totalTVA: 123,
       totalTTC: 123,
       taxStamp: 0.6,
       checkReference: 'string',
-      checkPayment: true,
+      checkPayment: 1,
     },
     {
       id: 'string1',
@@ -28,7 +30,7 @@ export class BillService {
       totalTTC: 123,
       taxStamp: 0.6,
       checkReference: 'string',
-      checkPayment: true
+      checkPayment: 1
     },
     {
       id: 'string2',
@@ -38,9 +40,9 @@ export class BillService {
       totalTVA: 123,
       totalTTC: 123,
       taxStamp: 0.6,
-      checkPayment: false
+      checkPayment: 0
     }
-  ];
+  ];*/
 
   private products: ProductModel[] = [
     {
@@ -84,26 +86,41 @@ export class BillService {
     }
   ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllBills(): Promise<BillModel[]> {
-    return new Promise<BillModel[]>(resolve => {
-      resolve(this.bills);
-    });
+  getAllBills() {
+    return this.http.get(BASE_URL + BILLS);
   }
 
-  getProductsByBillId(id): Promise<ProductModel[]> {
+  getProductsByBillId(id) {
     console.log(id);
-    return new Promise<ProductModel[]>(resolve => {
-      resolve(this.products);
-    });
+    return this.http.get(BASE_URL + PRODUCTS + id);
+
   }
 
   getBillByID(id: any) {
-    console.log(id);
-    return new Promise<BillModel>(resolve => {
-      resolve(this.bills[0]);
-    });
+    return this.http.get(BASE_URL + BILLS + id);
+  }
 
+  postBill(bill) {
+    return this.http.post(BASE_URL + BILLS, bill);
+  }
+
+  deleteBill(billId) {
+    return this.http.delete(BASE_URL + BILLS + billId);
+  }
+
+  editBill(billId: any, value: any) {
+    console.log(value);
+    return this.http.put(BASE_URL + BILLS + billId, value);
+  }
+
+  postProducts(billId: any, value) {
+    console.log(value);
+    return this.http.post(BASE_URL + PRODUCTS + billId, value);
+  }
+
+  deleteProduct(productId: string) {
+    return this.http.delete(BASE_URL + PRODUCTS + productId);
   }
 }

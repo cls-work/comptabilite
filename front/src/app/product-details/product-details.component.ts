@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProductModel} from '../_models/product.model';
+import {BillService} from '../_services/bill.service';
 
 @Component({
   selector: 'app-product-details',
@@ -9,17 +10,21 @@ import {ProductModel} from '../_models/product.model';
 export class ProductDetailsComponent implements OnInit {
 
   @Input() product: ProductModel;
-  constructor() { }
+  @Output() productChange = new EventEmitter<boolean>();
+  constructor(private billService: BillService) { }
 
   ngOnInit() {
 
   }
 
-  preventDefault($event: MouseEvent) {
-    $event.preventDefault();
-  }
 
-  deleteProduct(id: string) {
-    
+
+  deleteProduct(productId: string) {
+    this.billService.deleteProduct(productId)
+      .subscribe(d => {
+        console.log(d);
+        this.productChange.emit(true);
+    });
+
   }
 }

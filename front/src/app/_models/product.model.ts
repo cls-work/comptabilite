@@ -1,10 +1,10 @@
 export class ProductModel {
-  id: string;
+  productId: string;
   designation: string;
   quantity: number;
   unitPrice: number;
   discount: number;
-  TVA: number;
+  tva: number;
   unitPriceAfterDiscount: number;
   amountHT: number;
   amountTVA: number;

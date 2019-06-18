@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BillModel} from '../_models/bill.model';
 import {BillService} from '../_services/bill.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-products',
@@ -14,7 +14,7 @@ export class AddProductsComponent implements OnInit {
 
   productsForm: FormGroup ;
   bill: BillModel;
-  taxType = 0;
+  taxType;
   totalTTC: number;
   totalTVA: number;
   totalHT: number;
@@ -22,15 +22,17 @@ export class AddProductsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private billService: BillService,
+              private router: Router,
               private route: ActivatedRoute) {}
 
   ngOnInit() {
 
     this.billService.getBillByID(this.route.snapshot.params.id)
-      .then(bill => {
+      .subscribe(bill => {
+        // @ts-ignore
         this.bill = bill;
         this.calculateTotals();
-        console.log(typeof (this.bill.totalTTC));
+        console.log(bill)
       });
 
     this.productsForm = this.formBuilder.group(
@@ -41,7 +43,7 @@ export class AddProductsComponent implements OnInit {
           ])
       });
 
-
+    this.taxType = 0;
 
   }
 
@@ -50,12 +52,12 @@ export class AddProductsComponent implements OnInit {
       designation: ['', Validators.required],
       quantity: ['', Validators.required],
       unitPrice: ['', Validators.required],
-      discount: ['0', Validators.required],
-      tva: ['19', Validators.required],
+      discount: [0, Validators.required],
+      tva: [19, Validators.required],
       unitPriceAfterDiscount: ['0', Validators.required],
-      amountHT: ['0', Validators.required],
-      amountTVA: ['0', Validators.required],
-      amountTTC: ['0', Validators.required]
+      amountHT: [0, Validators.required],
+      amountTVA: [0, Validators.required],
+      amountTTC: [0, Validators.required]
     });
   }
 
@@ -81,46 +83,52 @@ export class AddProductsComponent implements OnInit {
     this.totalTTC = this.bill.totalTTC;
 
     for (let i = 0; i < this.products.value.length; i++) {
-      console.log('total', i);
       this.totalTTC += this.calculateTTC(i);
       this.totalHT += this.calculateHT(i);
       this.totalTVA += this.calculateTVA(i);
     }
 
+    this.totalTTC += this.bill.taxStamp;
+
 
   }
 
   pushProducts() {
-    console.log(this.productsForm.value.products);
+    const billId = this.route.snapshot.params.id;
+    this.billService.postProducts(billId, this.productsForm.value.products)
+      .subscribe(d => {
+        console.log(d);
+        this.router.navigate(['/bill-detail', billId]);
+      });
   }
 
   editTax(taxType: number) {
     this.taxType = taxType;
-    console.log(this.taxType);
   }
 
   calculatePrices(i) {
     this.calculateDiscount(i);
-    this.calculateTVA(i);
     this.calculateHT(i);
+    this.calculateTVA(i);
     this.calculateTotals();
     console.log(this.products.value[i]);
   }
 
   calculateDiscount(i) {
     const newPrice = this.products.value[i].unitPrice - this.products.value[i].unitPrice * this.products.value[i].discount / 100;
-    this.products.value[i].unitPriceAfterDiscount = newPrice;
+    this.products.value[i].unitPriceAfterDiscount = parseFloat(newPrice.toFixed(3));
     return newPrice.toFixed(3);
   }
 
   calculateTVA(i) {
+    let amountTVA;
     if (this.taxType === 0) {
-      const amountTVA = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].tva / 100;
-      this.products.value[i].amountTVA =  amountTVA;
+      amountTVA = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].tva / 100 * this.products.value[i].quantity;
+      this.products.value[i].amountTVA =  parseFloat(amountTVA.toFixed(3));
       return parseFloat(amountTVA.toFixed(3));
     }
-    const amountTVA = (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].unitPriceAfterDiscount / (1 + (this.products.value[i].tva / 100)));
-    this.products.value[i].amountTVA = amountTVA;
+    amountTVA = (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].unitPriceAfterDiscount / (1 + (this.products.value[i].tva / 100))) * this.products.value[i].quantity;
+    this.products.value[i].amountTVA = parseFloat(amountTVA.toFixed(3));
     return parseFloat(amountTVA.toFixed(3));
   }
 
@@ -128,23 +136,25 @@ export class AddProductsComponent implements OnInit {
     let amountHT;
     if (this.taxType === 0) {
       amountHT = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
-      this.products.value[i].amountHT = amountHT;
+      this.products.value[i].amountHT = parseFloat(amountHT.toFixed(3));
       return parseFloat(amountHT.toFixed(3));
     }
-    amountHT = (this.products.value[i].unitPriceAfterDiscount - this.products.value[i].amountTVA ) * this.products.value[i].quantity;
-    this.products.value[i].amountHT = amountHT;
+    amountHT = (this.products.value[i].unitPriceAfterDiscount ) * this.products.value[i].quantity - this.products.value[i].amountTVA;
+    this.products.value[i].amountHT = parseFloat(amountHT.toFixed(3));
     return parseFloat(amountHT.toFixed(3));
   }
 
   calculateTTC(i: number) {
     let amountTTC;
-    if (this.taxType === 1) {
+    amountTTC = this.calculateTVA(i) + this.calculateHT(i);
+    /*if (this.taxType === 1) {
       amountTTC = this.products.value[i].unitPriceAfterDiscount * this.products.value[i].quantity;
       this.products.value[i].amountTTC = amountTTC;
       return parseFloat(amountTTC.toFixed(3));
     }
-    amountTTC=(this.products.value[i].unitPriceAfterDiscount + this.products.value[i].amountTVA ) * this.products.value[i].quantity
-    this.products.value[i].amountTTC = amountTTC;
+    amountTTC = (this.products.value[i].unitPriceAfterDiscount + this.products.value[i].amountTVA ) * this.products.value[i].quantity;
+    */
+    this.products.value[i].amountTTC = parseFloat(amountTTC.toFixed(3));
     return parseFloat(amountTTC.toFixed(3));
   }
 
@@ -152,5 +162,6 @@ export class AddProductsComponent implements OnInit {
     for (let i = 0; i < this.products.value; i++) {
       this.calculatePrices(i);
     }
+    this.calculateTotals();
   }
 }

@@ -1,6 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
     "outDir": "./out-tsc/app",
     "types": []
   },

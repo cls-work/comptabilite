@@ -17,7 +17,7 @@
     <div class="col"></div>
   </div>
 </div>
-  <app-bill [bill]="bill" *ngFor="let bill of bills">
+  <app-bill [bill]="bill" *ngFor="let bill of bills" (productChange)="productChange($event)">
   </app-bill>
 
 </div>

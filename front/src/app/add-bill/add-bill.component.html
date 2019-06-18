@@ -9,26 +9,32 @@
   </div>
   <div class="form-group row">
     <label for="taxStamp" class="col-form-label col-1">Timbre fiscal</label>
-    <input type="text" formControlName="taxStamp" id="taxStamp" class="col-3 form-control">
+    <input type="number" formControlName="taxStamp" id="taxStamp" class="col-3 form-control">
   </div>
   <div class="form-group ">
     <div class="row">
       <label class="col-form-label col-1">Méthode de paiement</label>
       <div class="col-3 padding-top-down">
         <div class="form-check ">
-          <input type="radio" formControlName="paymentMethod" value="0" id="paymentMethod1" class="form-check-input">
-          <label for="paymentMethod1" class="form-check-label">Espece</label>
+          <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1" class="form-check-input" >
+          <label for="paymentMethod1" class="form-check-label" >Espece</label>
         </div>
 
         <div class="form-check ">
-          <input type="radio" formControlName="paymentMethod" value="1" id="paymentMethod2" class="form-check-input">
-          <label for="paymentMethod2" class="form-check-label">Cheèque</label>
+          <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2" class="form-check-input"  >
+          <label for="paymentMethod2" class="form-check-label" >Chèque</label>
         </div>
       </div>
     </div>
   </div>
+  <div class="form-group row">
+    <label for="checkReference" class="col-form-label col-1" >Réference Chèque</label>
+    <input type="text" formControlName="checkReference" id="checkReference" class="col-3 form-control" [disableControl]="editCheckPayment()" >
+  </div>
+
+
   <div class="mb-1">
-    <button type="button" class="btn btn-outline-secondary" (click)="addBill()" [disabled]="!addBillForm.valid">Ajouter une facture</button>
+    <button type="submit" class="btn btn-outline-secondary" (click)="addBill()" [disabled]="!addBillForm.valid">Ajouter une facture</button>
   </div>
   <div>
     <button type="button" class="btn btn-outline-secondary"  routerLink="/bills">Annuler</button>

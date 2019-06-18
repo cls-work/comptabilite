@@ -3,6 +3,7 @@ import {BillModel} from '../_models/bill.model';
 import {ProductModel} from '../_models/product.model';
 import {BillService} from '../_services/bill.service';
 import {ActivatedRoute} from '@angular/router';
+import {Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-bill-details',
@@ -20,22 +21,38 @@ export class BillDetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.billService.getBillByID(this.route.snapshot.params.id)
-      .then(bill => {
-        this.bill = bill;
-        console.log(this.bill);
-      });
+    this.getBill();
 
+    this.getAllProducts();
+  }
+
+  getAllProducts() {
     this.billService.getProductsByBillId(this.route.snapshot.params.id)
-      .then(products => {
+      .subscribe(products => {
+        // @ts-ignore
         this.products = products;
         console.log(this.products);
       });
-
-
   }
 
   deleteProduct(id: string) {
     console.log('effacer ', id);
+  }
+
+  productChange($event: boolean) {
+    if ($event) {
+      this.getAllProducts();
+    }
+  }
+
+  getBill() {
+
+    this.billService.getBillByID(this.route.snapshot.params.id)
+      .subscribe(bill => {
+        // @ts-ignore
+        this.bill = bill;
+        console.log(this.bill);
+
+      });
   }
 }
