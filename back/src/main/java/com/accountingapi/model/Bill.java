@@ -21,19 +21,19 @@ public class Bill {
     private Date date;
 
     @Column(nullable = false)
-    private Long totalHT=Long.valueOf(0);
+    private Double totalHT= Double.valueOf(0);
 
     @Column(nullable = false)
-    private Long totalTTC=Long.valueOf(0);
+    private Double totalTTC=Double.valueOf(0);
 
     @Column(nullable = false)
-    private Long totalTVA=Long.valueOf(0);
+    private Double totalTVA=Double.valueOf(0);
 
     @Column(nullable = false)
     private Double taxStamp;
 
     @Column(nullable = false)
-    private Long checkReference= Long.valueOf(0);
+    private Double checkReference= Double.valueOf(0);
 
     @Column(nullable = false)
     private Boolean checkPayment;
@@ -74,27 +74,27 @@ public class Bill {
         this.date = date;
     }
 
-    public Long getTotalHT() {
+    public Double getTotalHT() {
         return totalHT;
     }
 
-    public void setTotalHT(Long totalHT) {
+    public void setTotalHT(Double totalHT) {
         this.totalHT = totalHT;
     }
 
-    public Long getTotalTTC() {
+    public Double getTotalTTC() {
         return totalTTC;
     }
 
-    public void setTotalTTC(Long totalTTC) {
+    public void setTotalTTC(Double totalTTC) {
         this.totalTTC = totalTTC;
     }
 
-    public Long getTotalTVA() {
+    public Double getTotalTVA() {
         return totalTVA;
     }
 
-    public void setTotalTVA(Long totalTVA) {
+    public void setTotalTVA(Double totalTVA) {
         this.totalTVA = totalTVA;
     }
 
@@ -106,11 +106,11 @@ public class Bill {
         this.taxStamp = taxStamp;
     }
 
-    public Long getCheckReference() {
+    public Double getCheckReference() {
         return checkReference;
     }
 
-    public void setCheckReference(Long checkReference) {
+    public void setCheckReference(Double checkReference) {
         this.checkReference = checkReference;
     }
 
@@ -122,20 +122,20 @@ public class Bill {
         this.checkPayment = checkPayment;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public Boolean getDeleted() {
         return isDeleted;
     }
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override

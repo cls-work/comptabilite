@@ -15,16 +15,16 @@ public class Product {
     private String designation;
 
     @Column(nullable = false)
-    private Long quantity;
+    private int quantity;
 
     @Column(nullable = false)
     private Double unitPrice;
 
     @Column(nullable = false)
-    private Long discount;
+    private Double discount;
 
     @Column(nullable = false)
-    private Long TVA;
+    private Double TVA;
 
     @Column(nullable = false)
     private Double unitPriceAfterDiscount;
@@ -48,7 +48,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productId, String designation, Long quantity, Double unitPrice, Long discount, Long TVA, Double unitPriceAfterDiscount, Double amountHT, Double amountTVA, Double amountTTC, Boolean checkPayment, Bill bill) {
+    public Product(String productId, String designation, int quantity, Double unitPrice, Double discount, Double TVA, Double unitPriceAfterDiscount, Double amountHT, Double amountTVA, Double amountTTC, Bill bill) {
         this.productId = productId;
         this.designation = designation;
         this.quantity = quantity;
@@ -74,14 +74,6 @@ public class Product {
         this.productId = productId;
     }
 
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
-
     public String getDesignation() {
         return designation;
     }
@@ -90,11 +82,11 @@ public class Product {
         this.designation = designation;
     }
 
-    public Long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -106,19 +98,19 @@ public class Product {
         this.unitPrice = unitPrice;
     }
 
-    public Long getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Long discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
-    public Long getTVA() {
+    public Double getTVA() {
         return TVA;
     }
 
-    public void setTVA(Long TVA) {
+    public void setTVA(Double TVA) {
         this.TVA = TVA;
     }
 
@@ -154,5 +146,12 @@ public class Product {
         this.amountTTC = amountTTC;
     }
 
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
 }
 
