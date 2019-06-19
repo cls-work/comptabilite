@@ -27,6 +27,7 @@ public class Historical {
     @JoinColumn(name="user_id")
     private User user;
 
+    @Column(name = "date",unique=false,nullable = false)
     private String date;
 
 
@@ -70,6 +71,14 @@ public class Historical {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

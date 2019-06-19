@@ -24,6 +24,7 @@ public class HistoricalService {
         Historical historical=billHistorical.getHistorical();
         historical.setBill(billHistorical.getBill());
         historical.setUser(user);
+        historical.setDate(LogicService.getCurrentTimeUsingCalendar());
         historicalRepository.save(historical);
     }
 
