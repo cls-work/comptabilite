@@ -1,12 +1,15 @@
 package com.accountingapi.security.model;
 
+import com.accountingapi.model.Historical;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -47,6 +50,10 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(targetEntity= Historical.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Historical> historicals = new ArrayList<>();
+
 
     public User() {
 

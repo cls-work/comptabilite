@@ -1,28 +1,40 @@
 package com.accountingapi.model;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import com.accountingapi.security.model.User;
+
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 public class Historical {
 
-    @EmbeddedId
-    private HistoryKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "message",unique=false,nullable = true)
     private String message;
 
+    @Column(name = "comment",unique=false,nullable = true)
     @Size(min = 4, max = 255, message = "Minimum note length: 4 characters")
     private String comment;
 
+    @ManyToOne()
+    @JoinColumn(name="bill_id", insertable = false, updatable = false)
+    private Bill bill;
+
+    @ManyToOne()
+    @JoinColumn(name="user_id", insertable = false, updatable = false)
+    private User user;
 
 
     //************Getters & Setters************
-    public HistoryKey getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(HistoryKey id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

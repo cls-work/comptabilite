@@ -1,8 +1,6 @@
 
 package com.accountingapi.service;
 import com.accountingapi.model.Bill;
-
-
 import com.accountingapi.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +14,15 @@ public class BillService {
     @Autowired
     private BillRepository billRepository;
 
+    @Autowired
+    private HistoricalService historicalService;
+
     //Bill save into database
-    public Bill addBill(Bill bill){
+    public Bill addBill(Long userId,Bill bill){
         bill.setBillId(LogicService.getAlphaNumericString(5));
+       /* Historical historical = new Historical();
+        historical.se
+        historicalService.addHistorical();*/
         return(billRepository.save(bill));
 
     }

@@ -2,6 +2,8 @@ package com.accountingapi.controller;
 
 
 import com.accountingapi.model.Bill;
+import com.accountingapi.security.JWT.CurrentUser;
+import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,8 +41,9 @@ public class BillController {
     }
 
     @PostMapping("")
-    public Bill addBill(@RequestBody Bill bill ){
-        billService.addBill(bill);
+    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody Bill bill ){
+        Long userId=currentUser.getId();
+        billService.addBill(userId,bill);
         return bill;
     }
 

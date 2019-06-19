@@ -34,7 +34,7 @@ public class AccountingApiApplication implements CommandLineRunner{
         bill.setProvider("ddfg");
         bill.setTaxStamp((double)12);
         System.out.println(bill.toString());
-        billService.addBill(bill);
+        billService.addBill((long) 5,bill);
         System.out.println(LogicService.getCurrentTimeUsingCalendar());
 
     }
