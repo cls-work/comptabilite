@@ -22,6 +22,7 @@ import { EditBillComponent } from './edit-bill/edit-bill.component';
 import {DisableControlDirective} from './_directives/disable-controle.directive';
 import {FilterPipe} from './_pipes/filter.pipe';
 import {OrderByPipe} from './_pipes/order-by.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {OrderByPipe} from './_pipes/order-by.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
