@@ -1,6 +1,7 @@
 <div>
   <div class="">
   <a routerLink="/add-bill" class="btn btn-secondary">Ajouter une facture</a>
+    <input placeholder="Type to filter" [(ngModel)]="searchToken"/>
 
   <div class="row mb-3">
     <div class="col">Réference Facture</div>
@@ -17,7 +18,21 @@
     <div class="col"></div>
   </div>
 </div>
-  <app-bill [bill]="bill" *ngFor="let bill of bills" (productChange)="productChange($event)">
-  </app-bill>
+  <div class="row mb-3 border-top" *ngFor="let bill of bills|filter:searchToken|orderBy:'billId':'asc'">
+
+    <div class="col">{{bill.billId}}</div>
+    <div class="col">{{bill.provider}}</div>
+    <div class="col">{{bill.date}}</div>
+    <div class="col">{{bill.totalHT|number:'.3'}} TND</div>
+    <div class="col">{{bill.totalTVA|number:'.3'}} TND</div>
+    <div class="col">{{bill.taxStamp|number:'.3'}} TND</div>
+    <div class="col">{{bill.totalTTC+bill.taxStamp|number:'.3'}} TND</div>
+    <div class="col">{{bill.checkPayment?'Chèque':'Espèce'}}</div>
+    <div class="col">{{bill.checkPayment?bill.checkReference:''}}</div>
+    <div class="col" ><a [routerLink]="['/bill-detail',bill.billId]">Détails</a></div>
+    <div class="col" ><a [routerLink]="['/edit-bill',bill.billId]"  >Modifier</a></div>
+    <div class="col" (click)="deleteBill(bill.billId)"><button class="btn btn-outline-danger" type="button">Supprimer</button></div>
+
+  </div>
 
 </div>

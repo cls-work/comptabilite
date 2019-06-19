@@ -10,25 +10,36 @@ import {BillService} from '../_services/bill.service';
 export class BillsComponent implements OnInit {
 
   bills: BillModel[];
+  searchToken: string;
   constructor(private billService: BillService) { }
 
   ngOnInit() {
-    this.getAllProducts();
+    this.getAllBills();
   }
 
   productChange($event: boolean) {
     if ($event) {
-      this.getAllProducts();
+      this.getAllBills();
     }
   }
 
-  private getAllProducts() {
+  private getAllBills() {
 
     this.billService.getAllBills()
       .subscribe(bills => {
         // @ts-ignore
         this.bills = bills;
         console.log(bills);
+      });
+  }
+
+
+
+  deleteBill(id: string) {
+    this.billService.deleteBill(id)
+      .subscribe(d => {
+        console.log(d);
+        this.getAllBills();
       });
   }
 }
