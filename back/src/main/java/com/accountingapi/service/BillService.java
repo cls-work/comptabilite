@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BillService {
@@ -27,12 +28,11 @@ public class BillService {
     //Bill save into database
     public Bill addBill(Long userId,Bill bill){
         bill.setBillId(LogicService.getAlphaNumericString(5));
-        Historical historical = new Historical();
-        User user = userRepository.findUserById(userId);
-        historical.setUser(user);
-        historical.setBill(bill);
-        historicalService.addHistorical(historical);
-        return(billRepository.save(bill));
+
+        Bill newBill=billRepository.save(bill);
+        System.out.println("bill save");
+        System.out.println("____________________________________");
+        return(newBill);
 
     }
 

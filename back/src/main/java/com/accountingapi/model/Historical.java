@@ -19,12 +19,12 @@ public class Historical {
     @Size(min = 4, max = 255, message = "Minimum note length: 4 characters")
     private String comment;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="bill_id", insertable = false, updatable = false)
+    @ManyToOne()
+    @JoinColumn(name="BillId")
     private Bill bill;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="user_id", insertable = false, updatable = false)
+    @ManyToOne()
+    @JoinColumn(name="user_id")
     private User user;
 
 

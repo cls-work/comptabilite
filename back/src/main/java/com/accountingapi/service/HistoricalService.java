@@ -11,9 +11,12 @@ public class HistoricalService {
     @Autowired
     private HistoricalRepository historicalRepository;
 
-    public Historical addHistorical(Historical historical){
+    public void addHistorical(Historical historical){
+        System.out.println("add historical 1");
+        System.out.println(historical.getBill().getBillId());
+        System.out.println(historical.getUser().getId());
         historicalRepository.save(historical);
-        return historical;
+        System.out.println("add historical 2");
     }
 
     public String addComment(String comment){

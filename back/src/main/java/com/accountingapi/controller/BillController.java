@@ -2,9 +2,13 @@ package com.accountingapi.controller;
 
 
 import com.accountingapi.model.Bill;
+import com.accountingapi.model.Historical;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.security.model.User;
+import com.accountingapi.security.repository.UserRepository;
 import com.accountingapi.service.BillService;
+import com.accountingapi.service.HistoricalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,11 @@ public class BillController {
 
     @Autowired
     BillService billService;
+    @Autowired
+    HistoricalService historicalService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @PreAuthorize("hasRole('USER')")
 
@@ -43,8 +52,13 @@ public class BillController {
     @PostMapping("")
     public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody Bill bill ){
         Long userId=currentUser.getId();
-        billService.addBill(userId,bill);
-        return bill;
+        Bill newBill=billService.addBill(userId,bill);
+        Historical historical=new Historical();
+        historical.setBill(newBill);
+        User user=userRepository.getById(userId);
+        historical.setUser(user);
+        historicalService.addHistorical(historical);
+        return newBill;
     }
 
     @PutMapping("/{billId}")
