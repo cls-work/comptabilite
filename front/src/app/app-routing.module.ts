@@ -5,6 +5,7 @@ import {BillDetailsComponent} from './bill-details/bill-details.component';
 import {AddBillComponent} from './add-bill/add-bill.component';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {EditBillComponent} from './edit-bill/edit-bill.component';
+import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'bill-detail/:id',
     component: BillDetailsComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'add-bill',
