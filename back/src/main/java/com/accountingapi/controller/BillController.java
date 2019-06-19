@@ -4,6 +4,7 @@ package com.accountingapi.controller;
 import com.accountingapi.model.Bill;
 import com.accountingapi.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,6 +16,8 @@ public class BillController {
 
     @Autowired
     BillService billService;
+
+    @PreAuthorize("hasRole('USER')")
 
     @GetMapping("")
     public List<Bill> displayAllBills(){
