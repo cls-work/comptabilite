@@ -2,10 +2,9 @@ package com.accountingapi.controller;
 
 
 import com.accountingapi.model.Bill;
-import com.accountingapi.model.Historical;
+import com.accountingapi.model.BillHistorical;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.UserRepository;
 import com.accountingapi.service.BillService;
 import com.accountingapi.service.HistoricalService;
@@ -50,14 +49,11 @@ public class BillController {
     }
 
     @PostMapping("")
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody Bill bill ){
-        Long userId=currentUser.getId();
-        Bill newBill=billService.addBill(userId,bill);
-        Historical historical=new Historical();
-        historical.setBill(newBill);
-        User user=userRepository.getById(userId);
-        historical.setUser(user);
-        historicalService.addHistorical(historical);
+    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillHistorical billHistorical){
+
+        Bill newBill=billService.addBill(billHistorical.getBill());
+        billHistorical.setBill(newBill);
+        historicalService.addHistorical(currentUser,billHistorical);
         return newBill;
     }
 

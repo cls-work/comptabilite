@@ -27,6 +27,8 @@ public class Historical {
     @JoinColumn(name="user_id")
     private User user;
 
+    private String date;
+
 
     //************Getters & Setters************
 

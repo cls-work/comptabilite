@@ -2,16 +2,13 @@
 package com.accountingapi.service;
 
 import com.accountingapi.model.Bill;
-import com.accountingapi.model.Historical;
 import com.accountingapi.repository.BillRepository;
-import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BillService {
@@ -26,13 +23,9 @@ public class BillService {
     private UserRepository userRepository;
 
     //Bill save into database
-    public Bill addBill(Long userId,Bill bill){
+    public Bill addBill(Bill bill){
         bill.setBillId(LogicService.getAlphaNumericString(5));
-
-        Bill newBill=billRepository.save(bill);
-        System.out.println("bill save");
-        System.out.println("____________________________________");
-        return(newBill);
+        return(billRepository.save(bill));
 
     }
 
