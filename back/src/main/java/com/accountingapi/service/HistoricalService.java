@@ -11,8 +11,9 @@ public class HistoricalService {
     @Autowired
     private HistoricalRepository historicalRepository;
 
-    public void addHistorical(Historical historical){
+    public Historical addHistorical(Historical historical){
         historicalRepository.save(historical);
+        return historical;
     }
 
     public String addComment(String comment){
