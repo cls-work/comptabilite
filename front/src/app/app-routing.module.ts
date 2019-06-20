@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {BillsComponent} from './bills/bills.component';
 import {BillDetailsComponent} from './bill-details/bill-details.component';
-import {AddBillComponent} from './add-bill/add-bill.component';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {BillFormComponent} from './bill-form/bill-form.component';
 import {LoginComponent} from './login/login.component';
