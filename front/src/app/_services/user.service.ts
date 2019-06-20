@@ -10,6 +10,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAllUsers() {
-    return this.http.get<UserModel[]>(BASE_URL+USERS);
+    return this.http.get<UserModel[]>(BASE_URL + USERS);
+  }
+
+  getUserById(id) {
+    return this.http.get<UserModel>(BASE_URL + USERS + id);
   }
 }

@@ -2,6 +2,6 @@
   <span>Name: {{user.name}}</span><br>
   <span>Username: {{user.username}}</span><br>
   <span>email: {{user.email}}</span><br>
-  <a class="btn" [routerLink]="['/user-form']">Edit</a>
+  <a class="btn" [routerLink]="['/user-form',user.id]">Edit</a>
   <button class="btn" (click)="deleteUser(user.id)">delete</button>
 </p>

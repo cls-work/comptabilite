@@ -1,6 +1,6 @@
 <div>
   <div class="">
-  <a routerLink="/add-bill" class="btn btn-secondary">Ajouter une facture</a>
+  <a routerLink="/bill-form" class="btn btn-secondary">Ajouter une facture</a>
     <label for="search">Rechercher avec Réference facture, Fournisseur, Date ou Réference chéque</label><input id="search" placeholder="Mots clés" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
 
   <div class="row mb-3">
@@ -31,7 +31,7 @@
       <div class="col">{{bill.checkPayment?'Chèque':'Espèce'}}</div>
       <div class="col">{{bill.checkPayment?bill.checkReference:''}}</div>
       <div class="col" ><a [routerLink]="['/bill-detail',bill.billId]">Détails</a></div>
-      <div class="col" ><a [routerLink]="['/edit-bill',bill.billId]"  >Modifier</a></div>
+      <div class="col" ><a [routerLink]="['/bill-form',bill.billId]"  >Modifier</a></div>
       <div class="col" (click)="deleteBill(bill.billId)"><button class="btn btn-outline-danger" type="button">Supprimer</button></div>
 
     </div>

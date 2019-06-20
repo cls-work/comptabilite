@@ -1,5 +1,5 @@
 <!-- Editable table -->
-<div class="card">
+<div class="card" >
   <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Ajouter des produits</h3>
 
 
@@ -101,7 +101,7 @@
 
             </tr>
             <tr>
-              <td colspan="5"></td>
+              <td colspan="4"></td>
 
               <td>
                 <p>Total HT : {{totalHT|number:'1.3'}}</p>
@@ -118,6 +118,9 @@
               </td>
               <td>
                 <button type="button" class="btn btn-outline-secondary" (click)="pushProducts()" [disabled]="!productsForm.valid">Ajouter les articles</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary" [routerLink]="['/bill-detail',bill.billId]" >Annuler</button>
               </td>
             </tr>
 

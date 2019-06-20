@@ -1,11 +1,11 @@
-<ng-container *ngIf="editBillForm">
+<ng-container *ngIf="billForm">
 
 <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
   <div class="wrapper wrapper--w680">
     <div class="card card-4">
       <div class="card-body">
         <h2 class="title">Modifier une facture</h2>
-        <form [formGroup]="editBillForm">
+        <form [formGroup]="billForm">
           <div class="row row-space">
             <div class="col-md-5">
               <div class="input-group">
@@ -58,8 +58,11 @@
 
           </div>
 
-          <div class="p-t-15">
-            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editBill()" [disabled]="!editBillForm.valid">Modifier la facture</button>
+          <div class="p-t-15" *ngIf="!bill">
+            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addBill()" [disabled]="!billForm.valid">Ajouter la facture</button>
+          </div>
+          <div class="p-t-15" *ngIf="bill">
+            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editBill()" [disabled]="!billForm.valid">Modifier la facture</button>
           </div>
           <div class="p-t-15">
             <button class="btn btn--radius-2 btn--blue" routerLink="/bills">Annuler</button>

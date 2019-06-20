@@ -10,7 +10,7 @@
     <div class="col">{{bill.checkPayment?'Chèque':'Espèce'}}</div>
     <div class="col">{{bill.checkPayment?bill.checkReference:''}}</div>
     <div class="col" ><a [routerLink]="['/bill-detail',bill.billId]">Détails</a></div>
-    <div class="col" ><a [routerLink]="['/edit-bill',bill.billId]"  >Modifier</a></div>
+    <div class="col" ><a [routerLink]="['/bill-form',bill.billId]"  >Modifier</a></div>
     <div class="col" (click)="deleteBill(bill.billId)"><button class="btn btn-outline-danger" type="button">Supprimer</button></div>
 
 </div>
