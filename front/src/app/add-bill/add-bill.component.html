@@ -1,42 +1,77 @@
-<form [formGroup]="addBillForm">
-  <div class="form-group row">
-    <label for="provider" class="col-form-label col-1">Fournisseur</label>
-    <input type="text" formControlName="provider" id="provider" class="col-3 form-control">
-  </div>
-  <div class="form-group row">
-    <label for="date" class="col-form-label col-1">Date</label>
-    <input type="date" formControlName="date" id="date" class="col-3 form-control">
-  </div>
-  <div class="form-group row">
-    <label for="taxStamp" class="col-form-label col-1">Timbre fiscal</label>
-    <input type="number" formControlName="taxStamp" id="taxStamp" class="col-3 form-control">
-  </div>
-  <div class="form-group ">
-    <div class="row">
-      <label class="col-form-label col-1">Méthode de paiement</label>
-      <div class="col-3 padding-top-down">
-        <div class="form-check ">
-          <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1" class="form-check-input" >
-          <label for="paymentMethod1" class="form-check-label" >Espece</label>
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+  <div class="wrapper wrapper--w680">
+    <div class="card card-4">
+      <div class="card-body">
+        <h2 class="title">Ajouter une facture</h2>
+        <form [formGroup]="addBillForm">
+          <div class="row row-space">
+            <div class="col-md-5">
+              <div class="input-group">
+                <label class="label">Fournisseur</label>
+                <input class="input--style-4" type="text" formControlName="provider" placeholder="Fournisseur"
+                       [class.invalid-input]="addBillForm.controls.provider.invalid&&(addBillForm.controls.provider.dirty||addBillForm.controls.provider.touched)" id="provider"/>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="input-group">
+                <label class="label">Méthode de paiement</label>
+                <div class="p-t-10">
+                  <label class="radio-container m-r-45">Espece
+                    <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="radio-container">Chèque
+                    <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row row-space">
+
+            <div class="col-md-5">
+              <div class="input-group">
+                <label class="label">Timbre fiscal</label>
+                <input class="input--style-4" type="number" formControlName="taxStamp" placeholder="Timbre Fiscal"
+                       [class.invalid-input]="addBillForm.controls.taxStamp.invalid&&(addBillForm.controls.taxStamp.dirty||addBillForm.controls.taxStamp.touched)" id="taxStamp" />
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="input-group">
+                <label class="label">Réference Chèque</label>
+                <input class="input--style-4" type="text" formControlName="checkReference" id="checkReference" placeholder="Réference Chèque"
+                       [class.invalid-input]="addBillForm.controls.checkReference.invalid&&(addBillForm.controls.checkReference.dirty||addBillForm.controls.checkReference.touched)" [disableControl]="editCheckPayment()">
+              </div>
+            </div>
+
+          </div>
+          <div class="row row-space">
+            <div class="col-md-5">
+              <div class="input-group">
+                <div class="input-group-icon">
+                  <input class="input--style-4 js-datepicker" type="date" formControlName="date"
+                         [class.invalid-input]="addBillForm.controls.date.invalid&&(addBillForm.controls.date.dirty||addBillForm.controls.date.touched)" id="date">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="p-t-15">
+            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addBill()" [disabled]="!addBillForm.valid">Ajouter une facture</button>
+          </div>
+          <div class="p-t-15">
+          <button class="btn btn--radius-2 btn--blue" routerLink="/bills">Annuler</button>
         </div>
 
-        <div class="form-check ">
-          <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2" class="form-check-input"  >
-          <label for="paymentMethod2" class="form-check-label" >Chèque</label>
-        </div>
+
+        </form>
       </div>
     </div>
   </div>
-  <div class="form-group row">
-    <label for="checkReference" class="col-form-label col-1" >Réference Chèque</label>
-    <input type="text" formControlName="checkReference" id="checkReference" class="col-3 form-control" [disableControl]="editCheckPayment()" >
-  </div>
+</div>
 
-
-  <div class="mb-1">
-    <button type="submit" class="btn btn-outline-secondary" (click)="addBill()" [disabled]="!addBillForm.valid">Ajouter une facture</button>
-  </div>
-  <div>
-    <button type="button" class="btn btn-outline-secondary"  routerLink="/bills">Annuler</button>
-  </div>
-</form>
