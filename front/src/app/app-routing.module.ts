@@ -6,6 +6,7 @@ import {AddBillComponent} from './add-bill/add-bill.component';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {EditBillComponent} from './edit-bill/edit-bill.component';
 import {LoginComponent} from './login/login.component';
+import {AddUserComponent} from './add-user/add-user.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'add-bill',
     component: AddBillComponent,
+  },
+  {
+    path: 'add-user',
+    component: AddUserComponent,
   },
   {
     path: 'edit-bill/:id',

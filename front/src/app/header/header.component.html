@@ -1,0 +1,4 @@
+<p  *ngIf="authenticationService.currentUserValue">
+  <span (click)="logout()">logout</span>
+  <span routerLink="/add-user">add user</span>
+</p>
