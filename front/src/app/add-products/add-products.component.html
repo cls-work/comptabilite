@@ -1,104 +1,136 @@
-<div class="m-3" >
+<!-- Editable table -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Ajouter des produits</h3>
 
 
-  <div>
-    <p>Réference facture : <b>{{bill.billId}}</b></p>
-    <p>Fournisseur : {{bill.provider}}</p>
-    <p>Date: : {{bill.date}}</p>
-
-  </div>
-
-  <div class="add-products-forms mt-5" [formGroup]="productsForm">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="ht" (click)="editTax(0);calculateAllPrices()" checked name="taxType">
-      <label class="form-check-label" for="ht">Hors Taxes</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" id="ttc" (click)="editTax(1);calculateAllPrices()" name="taxType">
-      <label class="form-check-label" for="ttc">TTC</label>
-    </div>
-    <div class="row mt-3">
-      <div class="col">Designation</div>
-      <div class="col">Qté</div>
-      <div class="col" *ngIf="taxType==0">Prix Unitaire HT</div>
-      <div class="col" *ngIf="taxType==1">Prix Unitaire TTC</div>
-      <div class="col">Réduction</div>
-      <div class="col">TVA</div>
-      <div class="col" *ngIf="taxType==0">Prix Unitaire HT après réduction</div>
-      <div class="col" *ngIf="taxType==1">Prix Unitaire TTC après réduction</div>
-      <div class="col">Montant HT</div>
-      <div class="col">Montant TVA</div>
-      <div class="col">Montant TTC</div>
-      <div class="col"></div>
-    </div>
-
-    <div formArrayName="products" >
-      <div *ngFor="let product of products.controls; let i=index">
-        <div formGroupName="{{i}}" class="row">
-
-          <input type="text" required formControlName="designation"
-                 [class.alert-danger]="products.controls[i].controls.designation.invalid&&(products.controls[i].controls.designation.dirty||products.controls[i].controls.designation.touched)"
-                 class="form-control col" placeholder="Désignation" aria-describedby="basic-addon2">
+  <ul class="list-group">
+    <li class="list-group-item">  <h3>Réference facture : </h3>  <h5>{{bill.billId}}</h5> </li>
+    <li class="list-group-item">  <h3>Fournisseur : </h3> <h5>{{bill.provider}}</h5></li>
+    <li class="list-group-item">  <h3>Date : </h3> <h5>{{bill.date}}</h5></li>
+  </ul>
 
 
 
-          <input type="number" required formControlName="quantity"
-                 [class.alert-danger]="products.controls[i].controls.quantity.invalid&&(products.controls[i].controls.quantity.dirty||products.controls[i].controls.quantity.touched)"
-                 class="form-control col" id="quantity" placeholder="Qté" (change)="calculatePrices(i)">
+
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <a class="text-success" (click)="addProduct()">
+        </a>
+      </span>
+
+      <form [formGroup]="productsForm">
+        <div formArrayName="products" >
+
+          <table class="table table-bordered table-responsive-md table-striped text-center">
 
 
-          <input type="number" required formControlName="unitPrice"
-                 [class.alert-danger]="products.controls[i].controls.unitPrice.invalid&&(products.controls[i].controls.unitPrice.dirty||products.controls[i].controls.unitPrice.touched)"
-                 class="form-control col" placeholder="Prix Unitaire" id="unitPrice" (change)="calculatePrices(i)">
+            <tr>
+              <th class="text-center">Designation</th>
+              <th class="text-center">Qté</th>
+              <th class="text-center" *ngIf="taxType==0">Prix Unitaire HT</th>
+              <th class="text-center" *ngIf="taxType==1">Prix Unitaire TTC</th>
+              <th class="text-center">Réduction</th>
+              <th class="text-center">TVA</th>
+              <th class="text-center" *ngIf="taxType==0">Prix Unitaire HT après réduction</th>
+              <th class="text-center" *ngIf="taxType==1">Prix Unitaire TTC après réduction</th>
+              <th class="text-center">Montant HT</th>
+              <th class="text-center">Montant TVA</th>
+              <th class="text-center">Montant TTC
+              <th> <i class="fa fa-plus"  (click)="addProduct()"></i></th>
 
-          <div class="input-group col ">
-            <input type="number" required formControlName="discount"
-                   [class.alert-danger]="products.controls[i].controls.discount.invalid&&(products.controls[i].controls.discount.dirty||products.controls[i].controls.discount.touched)"
-                   class="form-control col" id="discount" placeholder="Réduction" (change)="calculatePrices(i)">
+            </tr>
 
-            <div class="input-group-prepend">
-                <span class="input-group-text" >%</span>
-            </div>
-          </div>
-
-          <div class="input-group col ">
-            <input type="number" required formControlName="tva"
-                   [class.alert-danger]="products.controls[i].controls.tva.invalid&&(products.controls[i].controls.tva.dirty||products.controls[i].controls.tva.touched)"
-                   class="form-control col" id="tva" (change)="calculatePrices(i)" placeholder="TVA">
-
-
-            <div class="input-group-prepend">
-              <span class="input-group-text" >%</span>
-            </div>
-          </div>
-
-          <input type="number" required formControlName="unitPriceAfterDiscount" class="form-control col" id="unitPriceAfterDiscount" readonly [value]="calculateDiscount(i)">
+            <tr *ngFor="let product  of products.controls; let i = index" [formGroupName]="i">
 
 
-          <input type="number" required formControlName="amountHT" class="form-control col" id="amountHT" readonly [value]="calculateHT(i)">
+              <td>
+                <input type="text" required formControlName="designation"
+                       [class.alert-danger]="products.controls[i].controls.designation.invalid&&(products.controls[i].controls.designation.dirty||products.controls[i].controls.designation.touched)"
+                       class="form-control col" placeholder="Désignation" aria-describedby="basic-addon2">
+              </td>
+              <td>
+                <input type="number" required formControlName="quantity"
+                       [class.alert-danger]="products.controls[i].controls.quantity.invalid&&(products.controls[i].controls.quantity.dirty||products.controls[i].controls.quantity.touched)"
+                       class="form-control col" id="quantity" placeholder="Qté" (change)="calculatePrices(i)">
+              </td>
+              <td>
+                <input type="number" required formControlName="unitPrice"
+                       [class.alert-danger]="products.controls[i].controls.unitPrice.invalid&&(products.controls[i].controls.unitPrice.dirty||products.controls[i].controls.unitPrice.touched)"
+                       class="form-control col" placeholder="Prix Unitaire" id="unitPrice" (change)="calculatePrices(i)">
+              </td>
+              <td>
+                <div class="input-group col ">
+                  <input type="number" required formControlName="discount"
+                         [class.alert-danger]="products.controls[i].controls.discount.invalid&&(products.controls[i].controls.discount.dirty||products.controls[i].controls.discount.touched)"
+                         class="form-control col" id="discount" placeholder="Réduction" (change)="calculatePrices(i)">
+                  <span class="input-group-text" >%</span></div>
+              </td>
+
+              <td>
+                <div class="input-group col ">
+                  <input type="number" required formControlName="tva"
+                         [class.alert-danger]="products.controls[i].controls.tva.invalid&&(products.controls[i].controls.tva.dirty||products.controls[i].controls.tva.touched)"
+                         class="form-control col" id="tva" (change)="calculatePrices(i)" placeholder="TVA">
 
 
-          <input type="number" required formControlName="amountTVA" class="form-control col" id="amountTVA" readonly [value]="calculateTVA(i)">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" >%</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <input type="number" required formControlName="unitPriceAfterDiscount" class="form-control col" id="unitPriceAfterDiscount" readonly [value]="calculateDiscount(i)">
+
+              </td>
+              <td>
+                <input type="number" required formControlName="amountHT" class="form-control col" id="amountHT" readonly [value]="calculateHT(i)">
+
+              </td>
+              <td>
+                <input type="number" required formControlName="amountTVA" class="form-control col" id="amountTVA" readonly [value]="calculateTVA(i)">
+
+              </td>
+              <td>
+                <input type="number" required formControlName="amountTTC" class="form-control col" id="amountTTC" readonly [value]="calculateTTC(i)">
+
+              </td>
+              <td>
+                <input  (click)="removeProduct(i)" class="form-control col" type="button" value="Effacer">
+              </td>
+
+            </tr>
+            <tr>
+              <td colspan="5"></td>
+
+              <td>
+                <p>Total HT : {{totalHT|number:'1.3'}}</p>
+
+              </td>
+              <td>
+                <p>Total TVA : {{totalTVA|number:'1.3'}}</p>
+              </td>
+              <td>
+                <p>fiscal : {{bill.taxStamp|number:'1.3'}}</p>
+              </td>
+              <td>
+                <p>Total TTC : {{totalTTC|number:'1.3'}}</p>
+              </td>
+              <td>
+                <button type="button" class="btn btn-outline-secondary" (click)="pushProducts()" [disabled]="!productsForm.valid">Ajouter les articles</button>
+              </td>
+            </tr>
 
 
-          <input type="number" required formControlName="amountTTC" class="form-control col" id="amountTTC" readonly [value]="calculateTTC(i)">
-          <input  (click)="removeProduct(i)" class="form-control col" type="button" value="Effacer">
+
+
+          </table>
         </div>
-      </div>
-      <button type="submit" (click)="addProduct()" class="btn btn-secondary mt-1 add-button">Ajouter un article</button>
+
+      </form>
+
     </div>
 
-    <div class="col-3 offset-9 mt-3">
-      <p>Total HT : {{totalHT|number:'1.3'}}</p>
-      <p>Total TVA : {{totalTVA|number:'1.3'}}</p>
-      <p>fiscal : {{bill.taxStamp|number:'1.3'}}</p>
-      <p>Total TTC : {{totalTTC|number:'1.3'}}</p>
-      <div class="mb-1">
-        <button type="button" class="btn btn-outline-secondary" (click)="pushProducts()" [disabled]="!productsForm.valid">Ajouter les articles</button>
-      </div>
-      <div>
-        <button  type="button" class="btn btn-outline-secondary"  [routerLink]="['/bill-detail',bill.billId]">Annuler</button>
-      </div>
-    </div>
   </div>
 </div>
+<!-- Editable table -->
