@@ -42,7 +42,7 @@ public class PasswordForgotController {
         return "forgot-password";
     }*/
 
-    @PostMapping
+    @PostMapping(value = "")
     public String processForgotPasswordForm(@Valid @RequestBody PasswordForgotDto form,
                                             BindingResult result,
                                             HttpServletRequest httpServletRequest) throws IOException, MessagingException {
@@ -53,29 +53,39 @@ public class PasswordForgotController {
 
 
         User user = userRepository.findByEmail(form.getEmail());
+        //User not found
         if (user == null){
             return "We could not find an account for that e-mail address.";
         }
 
+        //Token Creation-Save
         PasswordResetToken token = new PasswordResetToken();
         token.setToken(UUID.randomUUID().toString());
         token.setUser(user);
         token.setExpiryDate(30);
         tokenRepository.save(token);
 
+
+        //Mail Creation-Save
         Mail mail = new Mail();
         mail.setTo(user.getEmail());
-        mail.setSubject("Password reset request");
+
+        String toServer="localhost";
+        String toServerPort="4200";
 
         Map<String, Object> model = new HashMap<>();
         model.put("token", token);
         model.put("user", user);
-        String url = httpServletRequest.getScheme() + "://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort()+httpServletRequest.getContextPath();
-        model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
+        //String appUrl = "http://"+httpServletRequest.getServerName()+":"+httpServletRequest.getServerPort()+httpServletRequest.getContextPath();
+        String appUrl = "http://"+toServer+":"+toServerPort;
+        String url = appUrl +"/reset-password/"+token.getToken();
+        model.put("resetUrl", url );
+
+
         mail.setModel(model);
         emailService.sendEmailWithAttachment(mail);
 
-        return "redirect:/forgot-password?success";
+        return "your password has been successfully sent";
 
     }
 
