@@ -1,6 +1,6 @@
 package com.accountingapi.service;
 
-import com.accountingapi.model.BillHistorical;
+import com.accountingapi.dto.BillHistoricalDto;
 import com.accountingapi.model.Historical;
 import com.accountingapi.repository.HistoricalRepository;
 import com.accountingapi.security.JWT.UserPrincipal;
@@ -18,11 +18,11 @@ public class HistoricalService {
     @Autowired
     private UserRepository userRepository;
 
-    public void addHistorical(UserPrincipal currentUser, BillHistorical billHistorical){
+    public void addHistorical(UserPrincipal currentUser, BillHistoricalDto billHistoricalDto){
         Long userId=currentUser.getId();
         User user=userRepository.getById(userId);
-        Historical historical=billHistorical.getHistorical();
-        historical.setBill(billHistorical.getBill());
+        Historical historical= billHistoricalDto.getHistorical();
+        historical.setBill(billHistoricalDto.getBill());
         historical.setUser(user);
         historical.setDate(LogicService.getCurrentTimeUsingCalendar());
         historicalRepository.save(historical);
