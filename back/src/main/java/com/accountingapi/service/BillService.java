@@ -1,9 +1,9 @@
 
 package com.accountingapi.service;
+
 import com.accountingapi.model.Bill;
-
-
 import com.accountingapi.repository.BillRepository;
+import com.accountingapi.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,12 @@ public class BillService {
 
     @Autowired
     private BillRepository billRepository;
+
+    @Autowired
+    private HistoricalService historicalService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     //Bill save into database
     public Bill addBill(Bill bill){
