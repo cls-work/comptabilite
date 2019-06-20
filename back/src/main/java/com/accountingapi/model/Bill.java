@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,6 +45,11 @@ public class Bill {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "bill")
     private List<Product> products;
+
+
+    @OneToMany(targetEntity=Historical.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Historical> historicals = new ArrayList<>();
+
 
 
 
