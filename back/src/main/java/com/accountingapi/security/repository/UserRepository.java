@@ -33,4 +33,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updatePassword(@Param("password") String password, @Param("id") Long id);
     
     void deleteById(Long id);
+
 }
