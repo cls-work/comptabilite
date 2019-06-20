@@ -23,7 +23,7 @@ public class AccountingApiApplication implements CommandLineRunner{
 
     @Override
     public void run(String... params) throws Exception {
-       /* Bill bill = new Bill();
+        Bill bill = new Bill();
         //bill.setBillId("abc");
         bill.setCheckPayment(true);
         bill.setCheckReference(Double.valueOf(5647893));
@@ -34,7 +34,7 @@ public class AccountingApiApplication implements CommandLineRunner{
         bill.setProvider("ddfg");
         bill.setTaxStamp((double)12);
         System.out.println(bill.toString());
-        billService.addBill((long) 5,bill);*/
+        billService.addBill(bill);
         System.out.println(LogicService.getCurrentTimeUsingCalendar());
 
     }

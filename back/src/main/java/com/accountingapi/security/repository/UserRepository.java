@@ -1,6 +1,6 @@
 package com.accountingapi.security.repository;
 
-import com.accountingapi.security.model.User;
+import com.accountingapi.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

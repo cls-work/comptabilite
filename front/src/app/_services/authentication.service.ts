@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {User} from '../_models/user.model';
-import {AUTH, BASE_URL, SIGN_IN, SIGN_UP} from '../_globals/vars';
-import * as jwt_decode from 'jwt-decode';
+import {BASE_URL} from '../_globals/vars'
 
 
 @Injectable({ providedIn: 'root' })
@@ -21,15 +20,13 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(usernameOrEmail: string, password: string) {
-    return this.http.post<any>(BASE_URL + AUTH + SIGN_IN, { usernameOrEmail, password })
+  login(username: string, password: string) {
+    return this.http.post<any>(BASE_URL+`/users/authenticate`, { username, password })
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
-        if (user && user.accessToken) {
+        if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
-          console.log(localStorage.getItem('currentUser'));
-          console.log(this.getDecodedAccessToken(JSON.parse(localStorage.getItem('currentUser')).accessToken))
           this.currentUserSubject.next(user);
         }
 
@@ -37,21 +34,9 @@ export class AuthenticationService {
       }));
   }
 
-  addUser(user) {
-    return this.http.post(BASE_URL + AUTH + SIGN_UP, user);
-  }
-
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-  }
-
-  getDecodedAccessToken(token: string): any {
-    try {
-      return jwt_decode(token);
-    } catch (Error) {
-      return null;
-    }
   }
 }

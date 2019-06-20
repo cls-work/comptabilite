@@ -25,15 +25,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      usernameOrEmail: ['username', Validators.required],
-      password: ['password', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
 
     // reset login status
     this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   // convenience getter for easy access to form fields
@@ -47,16 +47,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    // this.loading = true;
-    this.authenticationService.login(this.f.usernameOrEmail.value, this.f.password.value)
+    this.loading = true;
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          console.log('error');
           this.error = error;
           this.loading = false;
         });
