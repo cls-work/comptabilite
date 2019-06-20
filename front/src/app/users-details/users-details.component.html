@@ -1,0 +1,10 @@
+<p>
+  <a routerLink="/add-user">add user</a>
+</p>
+
+<ng-container *ngIf="users">
+
+  <div>
+    <app-user-details *ngFor="let user of users" [user]="user"></app-user-details>
+  </div>
+</ng-container>
