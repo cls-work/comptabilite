@@ -1,6 +1,6 @@
 package com.accountingapi.security.controller;
 
-import com.accountingapi.model.User;
+import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
