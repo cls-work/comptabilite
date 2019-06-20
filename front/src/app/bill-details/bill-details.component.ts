@@ -35,18 +35,15 @@ export class BillDetailsComponent implements OnInit {
       });
   }
 
-  deleteProduct(id: string) {
-    console.log('effacer ', id);
-  }
 
   productChange($event: boolean) {
     if ($event) {
       this.getAllProducts();
+      this.getBill();
     }
   }
 
   getBill() {
-
     this.billService.getBillByID(this.route.snapshot.params.id)
       .subscribe(bill => {
         // @ts-ignore

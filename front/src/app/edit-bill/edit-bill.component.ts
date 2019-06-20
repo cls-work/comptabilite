@@ -33,6 +33,7 @@ export class EditBillComponent implements OnInit {
           provider: [this.bill.provider, Validators.required],
           date: [this.bill.date, Validators.required],
           taxStamp: [this.bill.taxStamp, Validators.required],
+          // @ts-ignore
           checkPayment: [this.bill.checkPayment === true ? '1' : '0', Validators.required],
           checkReference: [this.bill.checkReference],
         });

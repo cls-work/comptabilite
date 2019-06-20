@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {User} from '../_models/user.model';
-import {BASE_URL} from '../_globals/vars';
+import { UserModel} from '../_models/user.model';
+import {BASE_URL, USERS} from '../_globals/vars';
 
 
 
@@ -9,7 +9,7 @@ import {BASE_URL} from '../_globals/vars';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.http.get<User[]>(BASE_URL+'/users');
+  getAllUsers() {
+    return this.http.get<UserModel[]>(BASE_URL+USERS);
   }
 }

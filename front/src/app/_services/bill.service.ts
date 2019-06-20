@@ -44,7 +44,7 @@ export class BillService {
     }
   ];*/
 
-  private products: ProductModel[] = [
+ /* private products: ProductModel[] = [
     {
       id: 'string',
       designation: 'string',
@@ -84,7 +84,7 @@ export class BillService {
       amountTTC: 123,
       idBill: 'string'
     }
-  ];
+  ];*/
 
   constructor(private http: HttpClient) { }
 

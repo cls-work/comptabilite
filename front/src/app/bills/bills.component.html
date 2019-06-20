@@ -1,11 +1,12 @@
 <div>
   <div class="">
   <a routerLink="/add-bill" class="btn btn-secondary">Ajouter une facture</a>
+    <label for="search">Rechercher avec Réference facture, Fournisseur, Date ou Réference chéque</label><input id="search" placeholder="Mots clés" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
 
   <div class="row mb-3">
-    <div class="col">Réference Facture</div>
-    <div class="col">Fournisseur</div>
-    <div class="col">Date</div>
+    <div class="col">Réference Facture <span (click)="orderBy('billId','asc')">asc/</span> <span (click)="orderBy('billId','desc')">desc</span></div>
+    <div class="col">Fournisseur <span (click)="orderBy('provider','asc')">asc/</span> <span (click)="orderBy('provider','desc')">desc</span></div>
+    <div class="col">Date <span (click)="orderBy('date','asc')">asc/</span> <span (click)="orderBy('date','desc')">desc</span></div>
     <div class="col">Total HT</div>
     <div class="col">Total TVA</div>
     <div class="col">Timbre Fiscal</div>
@@ -17,7 +18,24 @@
     <div class="col"></div>
   </div>
 </div>
-  <app-bill [bill]="bill" *ngFor="let bill of bills" (productChange)="productChange($event)">
-  </app-bill>
+  <ng-container *ngIf="(bills|filter:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
+    <div class="row mb-3 border-top" *ngFor="let bill of filteredBills" >
+
+      <div class="col">{{bill.billId}}</div>
+      <div class="col">{{bill.provider}}</div>
+      <div class="col">{{bill.date}}</div>
+      <div class="col">{{bill.totalHT|number:'.3'}} TND</div>
+      <div class="col">{{bill.totalTVA|number:'.3'}} TND</div>
+      <div class="col">{{bill.taxStamp|number:'.3'}} TND</div>
+      <div class="col">{{bill.totalTTC+bill.taxStamp|number:'.3'}} TND</div>
+      <div class="col">{{bill.checkPayment?'Chèque':'Espèce'}}</div>
+      <div class="col">{{bill.checkPayment?bill.checkReference:''}}</div>
+      <div class="col" ><a [routerLink]="['/bill-detail',bill.billId]">Détails</a></div>
+      <div class="col" ><a [routerLink]="['/edit-bill',bill.billId]"  >Modifier</a></div>
+      <div class="col" (click)="deleteBill(bill.billId)"><button class="btn btn-outline-danger" type="button">Supprimer</button></div>
+
+    </div>
+  </ng-container>
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
 
 </div>

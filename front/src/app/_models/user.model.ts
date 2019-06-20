@@ -1,6 +1,8 @@
-export class User {
+export class UserModel {
   id: string;
   username: string;
+  name: string;
+  email: string;
   role: string;
-  token?: string;
+  accessToken?: string;
 }
