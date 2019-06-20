@@ -1,5 +1,6 @@
 package com.accountingapi.service;
 
+import com.accountingapi.security.payload.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,22 +17,23 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmailWithAttachment() throws MessagingException, IOException {
+    public void sendEmailWithAttachment(Mail mail) throws MessagingException, IOException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();
+
 
         // true = multipart message
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 
-        helper.setTo("ss.sellami.slim@gmail.com");
+        helper.setTo(mail.getTo());
 
-        helper.setSubject("Testing from Spring Boot");
+        helper.setSubject(mail.getSubject());
 
         // default = text/plain
         //helper.setText("Check attachment for image!");
 
         // true = text/html
-        helper.setText("<h1>Check attachment for image!</h1>", true);
+        helper.setText(mail.getModel().get("resetUrl").toString(), true);
 
         // hard coded a file path
         //FileSystemResource file = new FileSystemResource(new File("path/android.png"));

@@ -13,7 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -32,11 +37,6 @@ public class PasswordForgotController {
     @Autowired
     private EmailService emailService;
 
-    @ModelAttribute("forgotPasswordForm")
-    public PasswordForgotDto forgotPasswordDto() {
-        return new PasswordForgotDto();
-    }
-
     /*@GetMapping
     public String displayForgotPasswordPage() {
         return "forgot-password";
@@ -44,7 +44,8 @@ public class PasswordForgotController {
 
     @PostMapping
     public String processForgotPasswordForm(@Valid @RequestBody PasswordForgotDto form,
-                                            BindingResult result) {
+                                            BindingResult result,
+                                            HttpServletRequest httpServletRequest) throws IOException, MessagingException {
 
         if (result.hasErrors()){
             return "forgot-password";
@@ -53,8 +54,7 @@ public class PasswordForgotController {
 
         User user = userRepository.findByEmail(form.getEmail());
         if (user == null){
-            result.rejectValue("email", null, "We could not find an account for that e-mail address.");
-            return "forgot-password";
+            return "We could not find an account for that e-mail address.";
         }
 
         PasswordResetToken token = new PasswordResetToken();
@@ -67,14 +67,13 @@ public class PasswordForgotController {
         mail.setTo(user.getEmail());
         mail.setSubject("Password reset request");
 
-       /* Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = new HashMap<>();
         model.put("token", token);
         model.put("user", user);
-        model.put("signature", "https://memorynotfound.com");
-        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String url = httpServletRequest.getScheme() + "://" + httpServletRequest.getServerName() + ":" + httpServletRequest.getServerPort()+httpServletRequest.getContextPath();
         model.put("resetUrl", url + "/reset-password?token=" + token.getToken());
         mail.setModel(model);
-        emailService.sendEmail(mail);*/
+        emailService.sendEmailWithAttachment(mail);
 
         return "redirect:/forgot-password?success";
 
