@@ -22,14 +22,15 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail: string, password: string) {
-    return this.http.post<any>(BASE_URL + AUTH + SIGN_IN, { usernameOrEmail, password })
+    console.log(BASE_URL + AUTH + SIGN_IN);
+    return this.http.post<UserModel>(BASE_URL + AUTH + SIGN_IN, { usernameOrEmail, password })
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.accessToken) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
           console.log(localStorage.getItem('currentUser'));
-          console.log(this.getDecodedAccessToken(JSON.parse(localStorage.getItem('currentUser')).accessToken))
+          console.log(this.getDecodedAccessToken(JSON.parse(localStorage.getItem('currentUser')).accessToken));
           this.currentUserSubject.next(user);
         }
 
