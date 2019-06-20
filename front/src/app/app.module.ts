@@ -26,6 +26,7 @@ import { HeaderComponent } from './header/header.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {BillComponent} from './bill/bill.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     UsersDetailsComponent,
     UserDetailsComponent,
     ResetPasswordComponent,
+    BillComponent
   ],
   imports: [
     BrowserModule,

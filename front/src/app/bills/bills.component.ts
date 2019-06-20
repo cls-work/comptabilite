@@ -14,7 +14,7 @@ export class BillsComponent implements OnInit {
   searchToken: string;
   orderByOrder: string;
   orderByColumn: string;
-  private config: any;
+  config: any;
   constructor(private billService: BillService) {
     this.initializeConfig(0, 0, 0);
   }

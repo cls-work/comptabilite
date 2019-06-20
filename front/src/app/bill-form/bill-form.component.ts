@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class BillFormComponent implements OnInit {
 
 
-  private billForm: FormGroup;
+  billForm: FormGroup;
   isCheckPayment = false;
   bill: BillModel;
   constructor(private formBuilder: FormBuilder,
