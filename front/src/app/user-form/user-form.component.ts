@@ -5,10 +5,10 @@ import {UserModel} from '../_models/user.model';
 
 @Component({
   selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.scss']
 })
-export class AddUserComponent implements OnInit {
+export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
   @Input() user: UserModel;
