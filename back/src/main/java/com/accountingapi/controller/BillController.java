@@ -27,7 +27,7 @@ public class BillController {
     @Autowired
     UserRepository userRepository;
 
-    @PreAuthorize("hasRole('USER')")
+   // @PreAuthorize("hasRole('USER')")
 
     @GetMapping("")
     public List<Bill> displayAllBills(){
