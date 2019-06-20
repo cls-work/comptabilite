@@ -15,7 +15,6 @@ import {BillService} from './_services/bill.service';
 import {UserModel} from './_models/user.model';
 import {UserService} from './_services/user.service';
 import {AuthenticationService} from './_services/authentication.service';
-import { AddBillComponent } from './add-bill/add-bill.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { BillFormComponent } from './bill-form/bill-form.component';
@@ -34,7 +33,6 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     BillDetailsComponent,
     UserFormComponent,
     LoginComponent,
-    AddBillComponent,
     AddProductsComponent,
     ProductDetailsComponent,
     BillFormComponent,
