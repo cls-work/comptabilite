@@ -1,15 +1,14 @@
 package com.accountingapi.controller;
 
 
-import com.accountingapi.model.Bill;
 import com.accountingapi.dto.BillHistoricalDto;
+import com.accountingapi.model.Bill;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
 import com.accountingapi.service.BillService;
 import com.accountingapi.service.HistoricalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
