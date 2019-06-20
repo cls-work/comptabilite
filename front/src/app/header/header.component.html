@@ -1,5 +1,5 @@
-<p  *ngIf="authenticationService.currentUserValue">
-  <span (click)="logout()">logout</span>
-  <span routerLink="/users">Users</span>
+<p  *ngIf="currentUser">
+  <span (click)="logout()">Se déconnecter</span>
+  <span routerLink="/users">Utilisateurs</span>
   <span routerLink="/bills">Factures</span>
 </p>
