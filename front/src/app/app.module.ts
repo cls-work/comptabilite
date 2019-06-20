@@ -23,6 +23,7 @@ import {DisableControlDirective} from './_directives/disable-controle.directive'
 import {FilterPipe} from './_pipes/filter.pipe';
 import {OrderByPipe} from './_pipes/order-by.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     EditBillComponent,
     DisableControlDirective,
     FilterPipe,
-    OrderByPipe
+    OrderByPipe,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
