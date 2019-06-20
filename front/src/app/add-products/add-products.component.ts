@@ -32,7 +32,7 @@ export class AddProductsComponent implements OnInit {
         // @ts-ignore
         this.bill = bill;
         this.calculateTotals();
-        console.log(bill)
+        console.log(bill);
       });
 
     this.productsForm = this.formBuilder.group(
