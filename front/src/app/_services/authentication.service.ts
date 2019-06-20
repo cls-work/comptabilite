@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {UserModel} from '../_models/user.model';
 import {AUTH, BASE_URL, SIGN_IN, SIGN_UP} from '../_globals/vars';
-import * as jwt_decode from 'jwt-decode';
+// import * as jwt_decode from 'jwt-decode';
 
 
 @Injectable({ providedIn: 'root' })
@@ -48,10 +48,10 @@ export class AuthenticationService {
   }
 
   getDecodedAccessToken(token: string): any {
-    try {
+   /* try {
       return jwt_decode(token);
     } catch (Error) {
       return null;
-    }
+    }*/
   }
 }

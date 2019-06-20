@@ -42,7 +42,7 @@
     <button type="submit" class="btn btn-outline-secondary" (click)="addUser()" [disabled]="!userForm.valid">Ajouter un utilisateur</button>
   </div>
   <div class="mb-1" *ngIf="user">
-    <button type="submit" class="btn btn-outline-secondary" (click)="addUser()" [disabled]="!userForm.valid">Ajouter un utilisateur</button>
+    <button type="submit" class="btn btn-outline-secondary" (click)="editUser()" [disabled]="!userForm.valid">Modifier un utilisateur</button>
   </div>
   <div>
     <button type="button" class="btn btn-outline-secondary"  routerLink="/bills">Annuler</button>

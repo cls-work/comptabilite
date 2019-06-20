@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BillsComponent } from './bills/bills.component';
 import { BillDetailsComponent } from './bill-details/bill-details.component';
-import { AddUserComponent } from './add-user/add-user.component';
+import { UserFormComponent } from './user-form/user-form.component';
 import { LoginComponent } from './login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
@@ -32,7 +32,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     AppComponent,
     BillsComponent,
     BillDetailsComponent,
-    AddUserComponent,
+    UserFormComponent,
     LoginComponent,
     AddBillComponent,
     AddProductsComponent,
