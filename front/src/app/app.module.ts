@@ -25,6 +25,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { HeaderComponent } from './header/header.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     HeaderComponent,
     UsersDetailsComponent,
     UserDetailsComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

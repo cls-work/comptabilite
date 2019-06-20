@@ -7,6 +7,7 @@ import {BillFormComponent} from './bill-form/bill-form.component';
 import {LoginComponent} from './login/login.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UsersDetailsComponent} from './users-details/users-details.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path: 'user-form/:id',
     component: UserFormComponent,
+  },
+  {
+    path: 'reset-password/:token',
+    component: ResetPasswordComponent,
   },
 
 
