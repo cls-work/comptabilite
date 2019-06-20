@@ -1,6 +1,9 @@
-package com.accountingapi.model;
+package com.accountingapi.dto;
 
-public class BillHistorical {
+import com.accountingapi.model.Bill;
+import com.accountingapi.model.Historical;
+
+public class BillHistoricalDto {
 
     private Bill bill;
     private Historical historical;
