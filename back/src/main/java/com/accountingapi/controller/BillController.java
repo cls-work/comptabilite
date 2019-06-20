@@ -2,7 +2,7 @@ package com.accountingapi.controller;
 
 
 import com.accountingapi.model.Bill;
-import com.accountingapi.model.BillHistorical;
+import com.accountingapi.dto.BillHistoricalDto;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
@@ -49,11 +49,11 @@ public class BillController {
     }
 
     @PostMapping("")
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillHistorical billHistorical){
+    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillHistoricalDto billHistoricalDto){
 
-        Bill newBill=billService.addBill(billHistorical.getBill());
-        billHistorical.setBill(newBill);
-        historicalService.addHistorical(currentUser,billHistorical);
+        Bill newBill=billService.addBill(billHistoricalDto.getBill());
+        billHistoricalDto.setBill(newBill);
+        historicalService.addHistorical(currentUser, billHistoricalDto);
         return newBill;
     }
 
