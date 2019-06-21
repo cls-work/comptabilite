@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +27,16 @@ import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {BillComponent} from './bill/bill.component';
+import {TranslateService} from './_services/translate.service';
+import { TranslatePipe } from './_pipes/translate.pipe';
+
+
+export function setupHeaderTranslateFactory(service: TranslateService) {
+  return () => service.componentLang('fr', 'header');
+}
+export function setupBillsTranslateFactory(service: TranslateService) {
+  return () => service.componentLang('fr', 'bills');
+}
 
 @NgModule({
   declarations: [
@@ -45,7 +55,8 @@ import {BillComponent} from './bill/bill.component';
     UsersDetailsComponent,
     UserDetailsComponent,
     ResetPasswordComponent,
-    BillComponent
+    BillComponent,
+    TranslatePipe
   ],
   imports: [
     BrowserModule,
@@ -60,7 +71,20 @@ import {BillComponent} from './bill/bill.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     BillService,
     UserService,
-    AuthenticationService
+    AuthenticationService,
+    TranslateService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: setupBillsTranslateFactory,
+      deps: [ TranslateService ],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: setupHeaderTranslateFactory,
+      deps: [ TranslateService ],
+      multi: true
+    }
 
   ],
   bootstrap: [AppComponent]
