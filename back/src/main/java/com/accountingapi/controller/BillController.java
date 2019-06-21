@@ -30,7 +30,7 @@ public class BillController {
     /*
         Displaying all bills
      */
-   // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("")
     public List<Bill> displayAllBills(){
         return billService.findAll();
