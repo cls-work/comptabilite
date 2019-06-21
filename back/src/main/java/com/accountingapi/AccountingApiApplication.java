@@ -1,16 +1,18 @@
 package com.accountingapi;
 
-import com.accountingapi.model.Bill;
+import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.service.BillService;
 import com.accountingapi.service.LogicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.sql.Date;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties({
+        FileStorageProperties.class
+})
 public class AccountingApiApplication implements CommandLineRunner{
 
     @Autowired

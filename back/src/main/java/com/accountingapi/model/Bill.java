@@ -52,8 +52,8 @@ public class Bill {
     private List<Historical> historicals = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(targetEntity=PdfDocument.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PdfDocument> pdfDocuments= new ArrayList<>();
+    @OneToMany(targetEntity=FileStorageProperties.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FileStorageProperties> fileStorageProperties= new ArrayList<>();
 
 
 
@@ -157,12 +157,12 @@ public class Bill {
         this.historicals = historicals;
     }
 
-    public List<PdfDocument> getPdfDocuments() {
-        return pdfDocuments;
+    public List<FileStorageProperties> getFileStorageProperties() {
+        return fileStorageProperties;
     }
 
-    public void setPdfDocuments(List<PdfDocument> pdfDocuments) {
-        this.pdfDocuments = pdfDocuments;
+    public void setFileStorageProperties(List<FileStorageProperties> fileStorageProperties) {
+        this.fileStorageProperties = fileStorageProperties;
     }
 
     @Override
