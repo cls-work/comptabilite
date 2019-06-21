@@ -105,7 +105,7 @@ public class PasswordForgotController {
     }
 
 
-    @PostMapping(value = "/verif")
+    @PostMapping(value = "/verify")
     public ResponseEntity<?> tokenVerif(@Valid @RequestBody TokenDto tokenDto){
         String token = tokenDto.getToken();
         return tokenVerificationService.verifyEmail(token);
