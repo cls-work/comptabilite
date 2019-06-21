@@ -22,4 +22,5 @@
     <button [disabled]="!loginForm.valid" class="btn btn-primary">Login</button>
   </div>
   <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <a routerLink="/reset-password">Reset Password</a>
 </form>
