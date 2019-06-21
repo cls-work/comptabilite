@@ -106,7 +106,7 @@ public class PasswordForgotController {
 
 
     @PostMapping(value = "/verify")
-    public ResponseEntity<?> tokenVerif(@Valid @RequestBody TokenDto tokenDto){
+    public ResponseEntity<?> tokenVerify(@Valid @RequestBody TokenDto tokenDto){
         String token = tokenDto.getToken();
         return tokenVerificationService.verifyEmail(token);
     }
@@ -124,6 +124,8 @@ public class PasswordForgotController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User result = userRepository.save(user);
+        passwordResetToken.setUsed(true);
+        passwordResetTokenRepository.save(passwordResetToken);
 
         return new ResponseEntity(new ApiResponse(true, "Password changed successfully"),
                 HttpStatus.ACCEPTED);    }

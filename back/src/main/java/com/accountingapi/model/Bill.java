@@ -50,6 +50,9 @@ public class Bill {
     @OneToMany(targetEntity=Historical.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
 
+    @OneToMany(targetEntity=PdfDocument.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PdfDocument> pdfDocuments= new ArrayList<>();
+
 
 
 
@@ -142,6 +145,22 @@ public class Bill {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public List<Historical> getHistoricals() {
+        return historicals;
+    }
+
+    public void setHistoricals(List<Historical> historicals) {
+        this.historicals = historicals;
+    }
+
+    public List<PdfDocument> getPdfDocuments() {
+        return pdfDocuments;
+    }
+
+    public void setPdfDocuments(List<PdfDocument> pdfDocuments) {
+        this.pdfDocuments = pdfDocuments;
     }
 
     @Override
