@@ -29,8 +29,8 @@ export class AuthenticationService {
         if (user && user.accessToken) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
-          console.log(localStorage.getItem('currentUser'));
-          console.log(this.getDecodedAccessToken(JSON.parse(localStorage.getItem('currentUser')).accessToken));
+          // console.log(localStorage.getItem('currentUser'));
+
           this.currentUserSubject.next(user);
         }
 
@@ -48,11 +48,4 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
-  getDecodedAccessToken(token: string): any {
-   /* try {
-      return jwt_decode(token);
-    } catch (Error) {
-      return null;
-    }*/
-  }
 }
