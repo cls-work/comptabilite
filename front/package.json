@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "node src/lang.js&&ng serve",
+    "build": "node src/lang.js&&ng build",
+    "test": "node src/lang.js&&ng test",
+    "lint": "node src/lang.js&&ng lint",
+    "e2e": "node src/lang.js&&ng e2e"
   },
   "private": true,
   "dependencies": {
