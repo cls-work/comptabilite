@@ -1,6 +1,7 @@
 package com.accountingapi.security.model;
 
 import com.accountingapi.model.Historical;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -42,15 +43,18 @@ public class User {
     private String email;
 
     @NotBlank
+    @JsonIgnore
     @Size(max = 100)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(targetEntity= Historical.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
 
