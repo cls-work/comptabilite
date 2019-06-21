@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../_services/authentication.service';
 import {Router} from '@angular/router';
 import {UserModel} from '../_models/user.model';
+import {TranslateService} from '../_services/translate.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,9 @@ export class HeaderComponent implements OnInit {
 
   currentUser: UserModel;
   constructor(private router: Router,
+              private translateService: TranslateService,
               private authenticationService: AuthenticationService) {
+
     this.authenticationService.currentUser
       .subscribe(x => {
         this.currentUser = x;
@@ -20,6 +23,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.translateService.data);
+  }
+
+  changeLang(lang: string) {
+    this.translateService.use(lang);
   }
 
   logout() {

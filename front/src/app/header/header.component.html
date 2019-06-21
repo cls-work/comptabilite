@@ -1,5 +1,8 @@
-<p  *ngIf="currentUser">
-  <span (click)="logout()">Se déconnecter</span>
-  <span routerLink="/users">Utilisateurs</span>
-  <span routerLink="/bills">Factures</span>
+<p>
+  <span *ngIf="currentUser" (click)="logout()">{{'LOGOUT'|translate}}</span>
+  <span *ngIf="currentUser" routerLink="/users">{{'USERS'|translate}}</span>
+  <span *ngIf="currentUser" routerLink="/bills">{{'BILLS'|translate}}</span>
+  <span (click)="changeLang('en')">en</span>
+  <span (click)="changeLang('fr')">fr</span>
 </p>
+

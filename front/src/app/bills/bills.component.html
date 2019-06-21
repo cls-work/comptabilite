@@ -4,7 +4,7 @@
     <label for="search">Rechercher avec Réference facture, Fournisseur, Date ou Réference chéque</label><input id="search" placeholder="Mots clés" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
 
   <div class="row mb-3">
-    <div class="col">Réference Facture <span (click)="orderBy('billId','asc')">asc/</span> <span (click)="orderBy('billId','desc')">desc</span></div>
+    <div class="col">{{'BILL_ID'|translate}} <span (click)="orderBy('billId','asc')">asc/</span> <span (click)="orderBy('billId','desc')">desc</span></div>
     <div class="col">Fournisseur <span (click)="orderBy('provider','asc')">asc/</span> <span (click)="orderBy('provider','desc')">desc</span></div>
     <div class="col">Date <span (click)="orderBy('date','asc')">asc/</span> <span (click)="orderBy('date','desc')">desc</span></div>
     <div class="col">Total HT</div>
