@@ -48,7 +48,6 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -78,20 +77,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -116,5 +115,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Historical> getHistoricals() {
+        return historicals;
+    }
+
+    public void setHistoricals(List<Historical> historicals) {
+        this.historicals = historicals;
     }
 }

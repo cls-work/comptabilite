@@ -54,6 +54,10 @@ public class PasswordForgotController {
     PasswordEncoder passwordEncoder;
 
 
+    /*
+        Sending reset token if email exists
+     */
+
     @PostMapping(value = "")
     public ResponseEntity<?> processForgotPasswordForm(@Valid @RequestBody PasswordForgotDto form,
                                             BindingResult result,
@@ -105,11 +109,18 @@ public class PasswordForgotController {
     }
 
 
+    /*
+        Verify the validity of reset token
+     */
     @PostMapping(value = "/verify")
     public ResponseEntity<?> tokenVerify(@Valid @RequestBody TokenDto tokenDto){
         String token = tokenDto.getToken();
         return tokenVerificationService.verifyEmail(token);
     }
+
+    /*
+        updating new password + token verification
+     */
 
     @PostMapping(value = "/new-password")
     public ResponseEntity<?> newPassword(@Valid @RequestBody NewPasswordDto newPasswordDto){

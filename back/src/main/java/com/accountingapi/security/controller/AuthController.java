@@ -14,6 +14,7 @@ import com.accountingapi.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -51,6 +52,12 @@ public class AuthController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
+
+    /*
+        user login
+     */
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -69,6 +76,12 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,user));
     }
 
+
+    /*
+        signup a new user , ONLY ADMIN
+     */
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         if(userRepository.existsByUsername(signUpRequest.getUsername())) {
