@@ -8,11 +8,11 @@ export class TranslateService {
 
   data: any = {};
 
-  components = [
+  /*components = [
     'header',
     'bills',
     'bill-form'
-  ];
+  ];*/
 
   constructor(private http: HttpClient) {
   }
