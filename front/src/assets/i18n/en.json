@@ -1,4 +1,6 @@
 {
+  "BILL_ID": "Bill reference"
+,
   "LOGOUT": "logout",
   "USERS": "users",
   "BILLS": "bills"
