@@ -39,6 +39,7 @@ public class Bill {
     @Column(nullable = false)
     private Boolean checkPayment;
 
+    @JsonIgnore
     @Column(nullable = false)
     private Boolean isDeleted=false;
 
