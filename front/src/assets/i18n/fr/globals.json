@@ -1,3 +1,11 @@
 {
-  "ABORT": "Annuler"
+  "ABORT": "Annuler",
+  "BACK": "Retour",
+  "EDIT": "Modifier",
+  "DETAILS": "Détails",
+  "DELETE": "Supprimer",
+  "TOTAL_HT": "Total HT",
+  "TOTAL_TVA": "Total TVA",
+  "TOTAL_TTC": "Total TTC",
+  "TVA": "TVA"
 }

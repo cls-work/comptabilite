@@ -1,17 +1,35 @@
 {
-  "ADD_BILL": "Ajouter une facture",
-  "EDIT_BILL": "Modifier une facture",
-  "PROVIDER": "Fournisseur",
+  "BILL_DETAILS": "Détails de la facture",
+  "PRODUCT_ID": "Désignation",
+  "QUANTITY": "Qté",
+  "UNIT_PRICE": "Prix Unitaire",
+  "DISCOUNT": "Remise",
+  "UNIT_PRICE_AFTER_DISCOUNT": "Prix unitaire après remise",
+  "AMOUNT_HT": "Montant HT",
+  "AMOUNT_TTC": "Montant TTC",
+  "AMOUNT_TVA": "Montant TVA",
+  "ADD_PRODUCTS": "Ajouter des produits"
+,
+  "BILL_ID": "Réference Facture",
   "PAYMENT_METHOD": "Méthode de paiement",
   "TAX_STAMP": "Timbre Fiscal",
   "CHECK_REFERENCE": "Réference Chèque",
   "CASH": "Espèce",
-  "CHECK": "Chèque"
-
+  "CHECK": "Chèque",
+  "PROVIDER":"Fournisseur",
+  "DATE": "Date",
+  "ADD_BILL": "Ajouter une facture",
+  "EDIT_BILL": "Modifier une facture"
 ,
-  "BILL_ID": "Réference Facture"
-,
-  "ABORT": "Annuler"
+  "ABORT": "Annuler",
+  "BACK": "Retour",
+  "EDIT": "Modifier",
+  "DETAILS": "Détails",
+  "DELETE": "Supprimer",
+  "TOTAL_HT": "Total HT",
+  "TOTAL_TVA": "Total TVA",
+  "TOTAL_TTC": "Total TTC",
+  "TVA": "TVA"
 ,
   "LOGOUT": "Se déconnecter",
   "USERS": "Utilisateurs",

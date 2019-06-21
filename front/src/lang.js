@@ -7,7 +7,7 @@ const LANG_PATH='./src/assets/i18n/'
 const files=fs.readdirSync(LANG_PATH);
 
 
-console.log(typeof fs.readFileSync('./src/assets/i18n/'+files[3],'utf8'))
+// console.log(typeof fs.readFileSync('./src/assets/i18n/'+files[3],'utf8'))
 
 
 for(let file of files){

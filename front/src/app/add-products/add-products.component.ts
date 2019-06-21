@@ -29,6 +29,7 @@ export class AddProductsComponent implements OnInit {
 
     this.billService.getBillByID(this.route.snapshot.params.id)
       .subscribe(bill => {
+        console.log('add-product component')
         // @ts-ignore
         this.bill = bill;
         this.calculateTotals();
