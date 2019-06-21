@@ -46,10 +46,11 @@ public class Bill {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "bill")
     private List<Product> products;
 
-
+    @JsonIgnore
     @OneToMany(targetEntity=Historical.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(targetEntity=PdfDocument.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PdfDocument> pdfDocuments= new ArrayList<>();
 

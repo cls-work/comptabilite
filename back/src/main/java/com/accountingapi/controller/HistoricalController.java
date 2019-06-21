@@ -30,26 +30,26 @@ public class HistoricalController {
     @Autowired
     private BillService billService;
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("")
     public List<Historical> displayAllHistoricals(){
         return historicalService.findAll();
     }
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{historicalId}")
     public Historical getHistoricalById(@PathVariable("historicalId") Long historicalId){
         return historicalService.findById(historicalId);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{userId}")
     public List<Historical> getHistoricalByUserId(@PathVariable("userId") Long userId){
         User user = userRepository.findById(userId).get();
         return historicalService.findAllByUser(user);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{billId}")
     public List<Historical> getHistoricalByUserId(@PathVariable("billId") String billId){
         Bill bill = billService.getBillById(billId);
