@@ -11,7 +11,10 @@
             <div class="col-md-5">
               <div class="input-group">
                 <label class="label">{{'PROVIDER'|translate}}</label>
-                <input class="input--style-4" type="text" formControlName="provider" id="provider" />
+
+                <input class="input--style-4" type="text" *ngIf="billForm.controls.provider.invalid"
+                       [class.alert-danger]="billForm.controls.provider.invalid&&(billForm.controls.provider.dirty||billForm.controls.provider.touched)"
+                       formControlName="provider" id="provider" />
               </div>
             </div>
 
