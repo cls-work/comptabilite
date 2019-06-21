@@ -111,7 +111,7 @@ public class PasswordForgotController {
         return tokenVerificationService.verifyEmail(token);
     }
 
-    @PostMapping(value = "/newPassword")
+    @PostMapping(value = "/new-password")
     public ResponseEntity<?> newPassword(@Valid @RequestBody NewPasswordDto newPasswordDto){
         if (tokenVerificationService.verifyEmail(newPasswordDto.getToken()).getStatusCode()==HttpStatus.BAD_REQUEST){
                 return tokenVerificationService.verifyEmail(newPasswordDto.getToken());
