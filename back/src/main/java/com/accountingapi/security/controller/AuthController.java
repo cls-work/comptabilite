@@ -48,6 +48,9 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -60,10 +63,10 @@ public class AuthController {
 
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        System.out.println("_________________________________________________");
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        Long userId = jwtTokenProvider.getUserIdFromJWT(jwt);
+        User user = userRepository.getById(userId);
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,user));
     }
 
     @PostMapping("/signup")
