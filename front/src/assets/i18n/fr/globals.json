@@ -4,8 +4,10 @@
   "EDIT": "Modifier",
   "DETAILS": "Détails",
   "DELETE": "Supprimer",
-  "TOTAL_HT": "Total HT",
-  "TOTAL_TVA": "Total TVA",
-  "TOTAL_TTC": "Total TTC",
-  "TVA": "TVA"
+  "AMOUNT": "Montant",
+  "HT": "HT",
+  "TTC": "TTC",
+  "TVA": "TVA",
+  "TOTAL": "Total",
+  "CURRENCY": "TND"
 }

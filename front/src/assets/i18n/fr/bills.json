@@ -8,5 +8,6 @@
   "PROVIDER":"Fournisseur",
   "DATE": "Date",
   "ADD_BILL": "Ajouter une facture",
-  "EDIT_BILL": "Modifier une facture"
+  "EDIT_BILL": "Modifier une facture",
+  "KEYWORD": "Mots Clés"
 }
