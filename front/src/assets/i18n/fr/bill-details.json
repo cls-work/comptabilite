@@ -5,8 +5,6 @@
   "UNIT_PRICE": "Prix Unitaire",
   "DISCOUNT": "Remise",
   "UNIT_PRICE_AFTER_DISCOUNT": "Prix unitaire après remise",
-  "AMOUNT_HT": "Montant HT",
-  "AMOUNT_TTC": "Montant TTC",
-  "AMOUNT_TVA": "Montant TVA",
+
   "ADD_PRODUCTS": "Ajouter des produits"
 }

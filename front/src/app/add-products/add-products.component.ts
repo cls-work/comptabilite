@@ -14,6 +14,7 @@ export class AddProductsComponent implements OnInit {
 
   productsForm: FormGroup ;
   bill: BillModel;
+  // taxType=0 if HT, ==1 if ttc
   taxType;
   totalTTC: number;
   totalTVA: number;
