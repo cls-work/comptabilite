@@ -27,6 +27,7 @@ public class FileStorageController {
     @Autowired
     private FileStorageService fileStorageService;
 
+
     @PostMapping("/uploadFile")
     public UploadFileResponseDto uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
@@ -35,6 +36,7 @@ public class FileStorageController {
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
+
 
         return new UploadFileResponseDto(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());

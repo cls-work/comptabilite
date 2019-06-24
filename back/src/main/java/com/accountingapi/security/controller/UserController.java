@@ -2,10 +2,10 @@ package com.accountingapi.security.controller;
 
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.security.dto.UserUpdateDto;
 import com.accountingapi.security.exception.AppException;
 import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
+import com.accountingapi.security.payload.SignUpRequest;
 import com.accountingapi.security.repository.RoleRepository;
 import com.accountingapi.security.repository.UserRepository;
 import com.accountingapi.service.HistoricalService;
@@ -55,14 +55,14 @@ public class UserController {
 
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{userId}")
-    public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody UserUpdateDto userUpdateDto){
+    public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody SignUpRequest signUpRequest){
 
         User oldUser = userRepository.getById(userId);
-        oldUser.setUsername(userUpdateDto.getUsername());
-        oldUser.setName(userUpdateDto.getName());
-        oldUser.setEmail(userUpdateDto.getEmail());
-        oldUser.setPassword(passwordEncoder.encode(userUpdateDto.getPassword()));
-        Role userRole = roleRepository.findById(userUpdateDto.getId())
+        oldUser.setUsername(signUpRequest.getUsername());
+        oldUser.setName(signUpRequest.getName());
+        oldUser.setEmail(signUpRequest.getEmail());
+        oldUser.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        Role userRole = roleRepository.findById(Long.parseLong(signUpRequest.getRoleId()))
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         oldUser.setRoles(Collections.singleton(userRole));

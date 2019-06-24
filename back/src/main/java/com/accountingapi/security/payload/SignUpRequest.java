@@ -23,6 +23,10 @@ public class SignUpRequest {
     @NotBlank
     private String roleId;
 
+
+    private String repeatPassword;
+
+
     public String getName() {
         return name;
     }
@@ -61,5 +65,13 @@ public class SignUpRequest {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 }
