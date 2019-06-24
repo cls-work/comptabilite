@@ -1,7 +1,7 @@
 package com.accountingapi.security.model;
 
 import com.accountingapi.model.Historical;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -35,14 +35,13 @@ public class User {
     @Size(max = 15)
     private String username;
 
-    //@NaturalId
+    @NaturalId
     @NotBlank
     @Size(max = 40)
     @Email
     private String email;
 
-    //@NotBlank
-    @JsonIgnore
+    @NotBlank
     @Size(max = 100)
     private String password;
 
@@ -52,7 +51,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @JsonIgnore
     @OneToMany(targetEntity= Historical.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
 
@@ -76,20 +74,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -114,13 +112,5 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public List<Historical> getHistoricals() {
-        return historicals;
-    }
-
-    public void setHistoricals(List<Historical> historicals) {
-        this.historicals = historicals;
     }
 }

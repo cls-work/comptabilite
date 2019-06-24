@@ -5,9 +5,4 @@ export const AUTH = 'api/auth/';
 export const SIGN_IN = 'signin/';
 export const SIGN_UP = 'signup/';
 export const USERS = 'users/';
-export const FORGOT_PASSWORD = 'forgot-password/';
-export const VERIFY = 'verify/';
-export const NEW_PASSWORD = 'new-password/';
-export const ADMIN_ROLE = 'ROLE_ADMIN';
-export const USER_ROLE = 'ROLE_USER';
 

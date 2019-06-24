@@ -4,29 +4,25 @@
   <div class="wrapper wrapper--w680">
     <div class="card card-4">
       <div class="card-body">
-        <h2 class="title" *ngIf="!bill">{{'ADD_BILL'|translate}}</h2>
-        <h2 class="title" *ngIf="bill">{{'EDIT_BILL'|translate}}</h2>
+        <h2 class="title">Modifier une facture</h2>
         <form [formGroup]="billForm">
           <div class="row row-space">
             <div class="col-md-5">
               <div class="input-group">
-                <label class="label">{{'PROVIDER'|translate}}</label>
-
-                <input class="input--style-4" type="text" *ngIf="billForm.controls.provider.invalid"
-                       [class.alert-danger]="billForm.controls.provider.invalid&&(billForm.controls.provider.dirty||billForm.controls.provider.touched)"
-                       formControlName="provider" id="provider" />
+                <label class="label">Fournisseur</label>
+                <input class="input--style-4" type="text" formControlName="provider" id="provider" />
               </div>
             </div>
 
             <div class="col-6">
               <div class="input-group">
-                <label class="label">{{'PAYMENT_METHOD'|translate}}</label>
+                <label class="label">Méthode de paiement</label>
                 <div class="p-t-10">
-                  <label class="radio-container m-r-45">{{'CASH'|translate}}
+                  <label class="radio-container m-r-45">Espece
                     <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1">
                     <span class="checkmark"></span>
                   </label>
-                  <label class="radio-container">{{'CHECK'|translate}}
+                  <label class="radio-container">Chèque
                     <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2">
                     <span class="checkmark"></span>
                   </label>
@@ -39,14 +35,14 @@
 
             <div class="col-md-5">
               <div class="input-group">
-                <label class="label">{{'TAX_STAMP'|translate}}</label>
+                <label class="label">Timbre fiscal</label>
                 <input class="input--style-4" input type="number" formControlName="taxStamp" id="taxStamp" />
               </div>
             </div>
 
             <div class="col-6">
               <div class="input-group">
-                <label class="label">{{'CHECK_REFERENCE'|translate}}</label>
+                <label class="label">Réference Chèque</label>
                 <input class="input--style-4" type="text" formControlName="checkReference" id="checkReference" [disableControl]="editCheckPayment()" >
               </div>
             </div>

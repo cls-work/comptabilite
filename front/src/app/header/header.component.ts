@@ -24,12 +24,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.translateService.data);
-    console.log(this.currentUser);
   }
 
   changeLang(lang: string) {
     this.translateService.use(lang);
-
   }
 
   logout() {
@@ -37,7 +35,4 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  preventDefault($event: MouseEvent) {
-    $event.preventDefault();
-  }
 }

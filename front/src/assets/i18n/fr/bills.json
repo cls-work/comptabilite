@@ -1,13 +1,3 @@
 {
-  "BILL_ID": "Réference Facture",
-  "PAYMENT_METHOD": "Méthode de paiement",
-  "TAX_STAMP": "Timbre Fiscal",
-  "CHECK_REFERENCE": "Réference Chèque",
-  "CASH": "Espèce",
-  "CHECK": "Chèque",
-  "PROVIDER":"Fournisseur",
-  "DATE": "Date",
-  "ADD_BILL": "Ajouter une facture",
-  "EDIT_BILL": "Modifier une facture",
-  "KEYWORD": "Mots Clés"
+  "BILL_ID": "Réference Facture"
 }

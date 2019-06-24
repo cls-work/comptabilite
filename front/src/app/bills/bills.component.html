@@ -1,83 +1,41 @@
-
 <div>
   <div class="">
+  <a routerLink="/bill-form" class="btn btn-secondary">Ajouter une facture</a>
+    <label for="search">Rechercher avec Réference facture, Fournisseur, Date ou Réference chéque</label><input id="search" placeholder="Mots clés" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
 
+  <div class="row mb-3">
+    <div class="col">{{'BILL_ID'|translate}} <span (click)="orderBy('billId','asc')">asc/</span> <span (click)="orderBy('billId','desc')">desc</span></div>
+    <div class="col">Fournisseur <span (click)="orderBy('provider','asc')">asc/</span> <span (click)="orderBy('provider','desc')">desc</span></div>
+    <div class="col">Date <span (click)="orderBy('date','asc')">asc/</span> <span (click)="orderBy('date','desc')">desc</span></div>
+    <div class="col">Total HT</div>
+    <div class="col">Total TVA</div>
+    <div class="col">Timbre Fiscal</div>
+    <div class="col">Total TTC</div>
+    <div class="col">Méthode de paiement</div>
+    <div class="col">Si chèque, réference chèque</div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
 </div>
+  <ng-container *ngIf="(bills|filter:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
+    <div class="row mb-3 border-top" *ngFor="let bill of filteredBills" >
 
-  <table class="table table-bordered table-responsive-md table-striped text-center">
+      <div class="col">{{bill.billId}}</div>
+      <div class="col">{{bill.provider}}</div>
+      <div class="col">{{bill.date}}</div>
+      <div class="col">{{bill.totalHT|number:'.3'}} TND</div>
+      <div class="col">{{bill.totalTVA|number:'.3'}} TND</div>
+      <div class="col">{{bill.taxStamp|number:'.3'}} TND</div>
+      <div class="col">{{bill.totalTTC+bill.taxStamp|number:'.3'}} TND</div>
+      <div class="col">{{bill.checkPayment?'Chèque':'Espèce'}}</div>
+      <div class="col">{{bill.checkPayment?bill.checkReference:''}}</div>
+      <div class="col" ><a [routerLink]="['/bill-detail',bill.billId]">Détails</a></div>
+      <div class="col" ><a [routerLink]="['/bill-form',bill.billId]"  >Modifier</a></div>
+      <div class="col" (click)="deleteBill(bill.billId)"><button class="btn btn-outline-danger" type="button">Supprimer</button></div>
 
-
-    <tr>
-      <th class="text-center">{{'BILL_ID'|translate|titlecase}} <span (click)="orderBy('billId','asc')"><i class="fas fa-angle-up"></i></span> <span (click)="orderBy('billId','desc')">desc</span></th>
-      <th class="text-center">{{'PROVIDER'|translate|titlecase}} <span (click)="orderBy('provider','asc')">asc/</span> <span (click)="orderBy('provider','desc')">desc</span></th>
-      <th class="text-center" >{{'DATE'|translate|titlecase}} <span (click)="orderBy('date','asc')">asc/</span> <span (click)="orderBy('date','desc')">desc</span></th>
-      <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
-      <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
-      <th class="text-center">{{'TAX_STAMP'|translate|titlecase}}</th>
-      <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
-      <th class="text-center">{{'PAYMENT_METHOD'|translate|titlecase}}</th>
-      <th class="text-center">{{'CHECK_REFERENCE'|translate|titlecase}}</th>
-      <th colspan="2"><input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
-
-      </th>
-      <th><i class="fa fa-plus pointer"  routerLink="/bill-form"> </i></th>
-
-    </tr>
-
-    <ng-container *ngIf="(bills|filter:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
-             <tr *ngFor="let bill of filteredBills">
-
-
-                      <td>
-                        <p>{{bill.billId}}</p>
-                      </td>
-                      <td>
-                        <p>{{bill.provider}}</p>
-                      </td>
-                      <td>
-                        <p>{{bill.date}}</p>
-                      </td>
-                      <td>
-                        <p>{{bill.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</p>
-
-                      </td>
-
-                      <td>
-                        <p>{{bill.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</p>
-                      </td>
-
-                      <td>
-                        {{bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}
-                      </td>
-                      <td>
-
-                        <p>{{bill.totalTTC+bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</p>
-
-                      </td>
-                      <td>
-                        {{(bill.checkPayment?'CHECK':'CASH')|translate}}
-                      </td>
-                      <td>
-                        {{bill.checkPayment?bill.checkReference:''}}
-                      </td>
-
-                      <td><button class="btn btn-outline-info" type="button" [routerLink]="['/bill-detail',bill.billId]">{{'DETAILS'|translate|titlecase}}</button></td>
-                      <td><button class="btn btn-outline-secondary" type="button" [routerLink]="['/bill-form',bill.billId]">{{'EDIT'|translate|titlecase}}</button></td>
-                      <td (click)="deleteBill(bill.billId)"><button class="btn btn-outline-danger" type="button">{{'DELETE'|translate|titlecase}}</button></td>
-
-             </tr>
-    </ng-container>
-
-
-
-
-
-
-  </table>
-
-  <ul class="pagination pagination-right">
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-  </ul>
-
+    </div>
+  </ng-container>
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
 
 </div>

@@ -1,12 +1,12 @@
 <!-- Editable table -->
 <div class="card" >
-  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{'ADD_PRODUCTS'|translate|titlecase}}</h3>
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Ajouter des produits</h3>
 
 
   <ul class="list-group">
-    <li class="list-group-item">  <h3>{{'BILL_ID'|translate}} : </h3>  <h5>{{bill.billId}}</h5> </li>
-    <li class="list-group-item">  <h3>{{'PROVIDER'|translate}} : </h3> <h5>{{bill.provider}}</h5></li>
-    <li class="list-group-item">  <h3>{{'DATE'|translate}} : </h3> <h5>{{bill.date}}</h5></li>
+    <li class="list-group-item">  <h3>Réference facture : </h3>  <h5>{{bill.billId}}</h5> </li>
+    <li class="list-group-item">  <h3>Fournisseur : </h3> <h5>{{bill.provider}}</h5></li>
+    <li class="list-group-item">  <h3>Date : </h3> <h5>{{bill.date}}</h5></li>
   </ul>
 
 
@@ -14,8 +14,6 @@
 
   <div class="card-body">
     <div id="table" class="table-editable">
-      <label for="taxType1" (click)="editTax(0)">HT</label><input checked type="radio" name="taxType" id="taxType1"(click)="editTax(0)">
-      <label for="taxType2" (click)="editTax(1)">TTC</label><input type="radio" name="taxType" id="taxType2" (click)="editTax(1)">
       <span class="table-add float-right mb-3 mr-2">
         <a class="text-success" (click)="addProduct()">
         </a>
@@ -26,16 +24,19 @@
 
           <table class="table table-bordered table-responsive-md table-striped text-center">
 
+
             <tr>
-              <th class="text-center">{{'PRODUCT_ID'|translate|titlecase}}</th>
-              <th class="text-center">{{'QUANTITY'|translate|titlecase}}</th>
-              <th class="text-center" >{{'UNIT_PRICE'|translate|titlecase}} {{(taxType===0?'HT':'TTC')|translate}}</th>
-              <th class="text-center">{{'DISCOUNT'|translate|titlecase}}</th>
-              <th class="text-center">{{'UNIT_PRICE_AFTER_DISCOUNT'|translate|titlecase}} {{(taxType===0?'HT':'TTC')|translate}}</th>
-              <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'HT'|translate}}</th>
-              <th class="text-center"> {{'TVA'|translate|titlecase}} </th>
-              <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TVA'|translate}}</th>
-              <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TTC'|translate}}</th>
+              <th class="text-center">Designation</th>
+              <th class="text-center">Qté</th>
+              <th class="text-center" *ngIf="taxType==0">Prix Unitaire HT</th>
+              <th class="text-center" *ngIf="taxType==1">Prix Unitaire TTC</th>
+              <th class="text-center">Réduction</th>
+              <th class="text-center">TVA</th>
+              <th class="text-center" *ngIf="taxType==0">Prix Unitaire HT après réduction</th>
+              <th class="text-center" *ngIf="taxType==1">Prix Unitaire TTC après réduction</th>
+              <th class="text-center">Montant HT</th>
+              <th class="text-center">Montant TVA</th>
+              <th class="text-center">Montant TTC
               <th> <i class="fa fa-plus"  (click)="addProduct()"></i></th>
 
             </tr>
@@ -95,34 +96,31 @@
 
               </td>
               <td>
-                <input  (click)="removeProduct(i)" class="form-control col" type="button" value="{{'DELETE'|translate|titlecase}}">
+                <input  (click)="removeProduct(i)" class="form-control col" type="button" value="Effacer">
               </td>
 
             </tr>
             <tr>
               <td colspan="4"></td>
 
+              <td>
+                <p>Total HT : {{totalHT|number:'1.3'}}</p>
 
-              <td>
-                <p>{{'TOTAL'|translate|titlecase}} {{'HT'|translate}} : {{bill.totalHT|number:'1.3'}}</p>
-
               </td>
               <td>
-                <p>{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}} : {{bill.totalTVA|number:'1.3'}}</p>
+                <p>Total TVA : {{totalTVA|number:'1.3'}}</p>
               </td>
               <td>
-                <p>{{'TAX_STAMP'|translate|titlecase}} : {{bill.taxStamp|number:'1.3'}}</p>
+                <p>fiscal : {{bill.taxStamp|number:'1.3'}}</p>
               </td>
               <td>
-                <p>{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}} : {{bill.totalTTC|number:'1.3'}}</p>
+                <p>Total TTC : {{totalTTC|number:'1.3'}}</p>
               </td>
               <td>
-                <button type="button" class="btn btn-outline-secondary"
-                        (click)="pushProducts()" [disabled]="!productsForm.valid">
-                  {{'ADD_PRODUCTS'|translate|titlecase}}</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="pushProducts()" [disabled]="!productsForm.valid">Ajouter les articles</button>
               </td>
               <td>
-                <button type="button" class="btn btn-outline-secondary" [routerLink]="['/bill-detail',bill.billId]" >{{'ABORT'|translate|titlecase}}</button>
+                <button type="button" class="btn btn-outline-secondary" [routerLink]="['/bill-detail',bill.billId]" >Annuler</button>
               </td>
             </tr>
 

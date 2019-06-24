@@ -92,15 +92,14 @@ export class BillService {
     return this.http.get(BASE_URL + BILLS);
   }
 
-  getProductsByBillId(billId) {
-    console.log(billId);
-    return this.http.get(BASE_URL + PRODUCTS + billId);
+  getProductsByBillId(id) {
+    console.log(id);
+    return this.http.get(BASE_URL + PRODUCTS + id);
 
   }
 
-  getBillByID(billId: any) {
-    console.log(billId)
-    return this.http.get(BASE_URL + BILLS + billId);
+  getBillByID(id: any) {
+    return this.http.get(BASE_URL + BILLS + id);
   }
 
   postBill(bill) {

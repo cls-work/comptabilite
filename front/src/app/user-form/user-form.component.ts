@@ -22,11 +22,7 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
-      email: ['', Validators.compose([
-          Validators.required,
-          Validators.email
-        ])
-      ],
+      email: ['', Validators.required, Validators.email],
       password: ['', Validators.required],
       repeatPassword: '',
       name: ['', Validators.required],
@@ -38,7 +34,7 @@ export class UserFormComponent implements OnInit {
       this.userService.getUserById(id)
         .subscribe(user => {
           this.user = user;
-          console.log(user);
+          console.log(user)
           this.userForm = this.fb.group({
             username: [this.user.username , Validators.required],
             email: [this.user.email , Validators.compose([

@@ -39,7 +39,7 @@ public class LogicService {
     public static String getCurrentTimeUsingCalendar() {
         Calendar cal = Calendar.getInstance();
         Date date=cal.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm/dd-MM-yyyy");
         String formattedDate=dateFormat.format(date);
         System.out.println("Current time of the day using Calendar - 24 hour format: "+ formattedDate);
                 return formattedDate;

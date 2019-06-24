@@ -1,15 +1,11 @@
 package com.accountingapi.security.payload;
 
-import com.accountingapi.security.model.User;
-
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType = "Bearer";
-    private User user;
 
-    public JwtAuthenticationResponse(String accessToken,User user) {
+    public JwtAuthenticationResponse(String accessToken) {
         this.accessToken = accessToken;
-        this.user=user;
     }
 
     public String getAccessToken() {
@@ -26,13 +22,5 @@ public class JwtAuthenticationResponse {
 
     public void setTokenType(String tokenType) {
         this.tokenType = tokenType;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
