@@ -18,7 +18,9 @@
   "DATE": "Date",
   "ADD_BILL": "Ajouter une facture",
   "EDIT_BILL": "Modifier une facture",
-  "KEYWORD": "Mots Clés"
+  "KEYWORD": "Mots Clés",
+  "NEXT": "Suivant",
+  "PREVIOUS": "Précedent"
 ,
   "ABORT": "Annuler",
   "BACK": "Retour",
@@ -34,7 +36,8 @@
 ,
   "LOGOUT": "Se déconnecter",
   "USERS": "Utilisateurs",
-  "BILLS": "Factures"
+  "BILLS": "Factures",
+  "HISTORY": "Historique"
 
 
 

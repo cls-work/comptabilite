@@ -36,11 +36,11 @@ export class BillDetailsComponent implements OnInit {
   }
 
 
-  productChange($event: boolean) {
-    if ($event) {
+  productChange() {
+
       this.getAllProducts();
       this.getBill();
-    }
+
   }
 
   getBill() {
@@ -57,7 +57,7 @@ export class BillDetailsComponent implements OnInit {
       .subscribe(d => {
         console.log(d);
         //this.productChange.emit(true);
-        this.getAllProducts();
+        this.productChange();
       });
 
   }

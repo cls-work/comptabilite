@@ -10,7 +10,7 @@
           <div class="row row-space">
             <div class="col-md-5">
               <div class="input-group">
-                <label class="label">{{'PROVIDER'|translate}}</label>
+                <label class="label" for="provider">{{'PROVIDER'|translate}}</label>
 
                 <input class="input--style-4" type="text"
                        [class.alert-danger]="billForm.controls.provider.invalid&&(billForm.controls.provider.dirty||billForm.controls.provider.touched)"
@@ -22,11 +22,11 @@
               <div class="input-group">
                 <label class="label">{{'PAYMENT_METHOD'|translate}}</label>
                 <div class="p-t-10">
-                  <label class="radio-container m-r-45">{{'CASH'|translate}}
+                  <label class="radio-container m-r-45" for="paymentMethod1">{{'CASH'|translate}}
                     <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1">
                     <span class="checkmark"></span>
                   </label>
-                  <label class="radio-container">{{'CHECK'|translate}}
+                  <label class="radio-container" for="paymentMethod2">{{'CHECK'|translate}}
                     <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2">
                     <span class="checkmark"></span>
                   </label>
@@ -39,15 +39,17 @@
 
             <div class="col-md-5">
               <div class="input-group">
-                <label class="label">{{'TAX_STAMP'|translate}}</label>
-                <input class="input--style-4" input type="number" formControlName="taxStamp" id="taxStamp" />
+                <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
+                <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"
+                       [class.alert-danger]="billForm.controls.taxStamp.invalid&&(billForm.controls.taxStamp.dirty||billForm.controls.taxStamp.touched)"/>
               </div>
             </div>
 
             <div class="col-6">
               <div class="input-group">
-                <label class="label">{{'CHECK_REFERENCE'|translate}}</label>
-                <input class="input--style-4" type="text" formControlName="checkReference" id="checkReference" [disableControl]="editCheckPayment()" >
+                <label class="label" for="checkReference">{{'CHECK_REFERENCE'|translate}}</label>
+                <input class="input--style-4" type="text" formControlName="checkReference"
+                       id="checkReference" [disableControl]="editCheckPayment()" >
               </div>
             </div>
           </div>
@@ -55,7 +57,9 @@
             <div class="col-md-5">
               <div class="input-group">
                 <div class="input-group-icon">
-                  <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
+                  <label class="label" for="date">{{'DATE'|translate}}</label>
+                  <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date"
+                         [class.alert-danger]="billForm.controls.date.invalid&&(billForm.controls.date.dirty||billForm.controls.date.touched)">
                 </div>
               </div>
             </div>
@@ -63,13 +67,13 @@
           </div>
 
           <div class="p-t-15" *ngIf="!bill">
-            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addBill()" [disabled]="!billForm.valid">Ajouter la facture</button>
+            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addBill()" [disabled]="!billForm.valid">{{'ADD_BILL'|translate}}</button>
           </div>
           <div class="p-t-15" *ngIf="bill">
-            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editBill()" [disabled]="!billForm.valid">Modifier la facture</button>
+            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editBill()" [disabled]="!billForm.valid">{{'EDIT_BILL'|translate}}</button>
           </div>
           <div class="p-t-15">
-            <button class="btn btn--radius-2 btn--blue" routerLink="/bills">Annuler</button>
+            <button class="btn btn--radius-2 btn--blue" routerLink="/bills">{{'ABORT'|translate|titlecase}}</button>
           </div>
 
 

@@ -71,7 +71,7 @@ export class BillsComponent implements OnInit {
   // ------------------------
   // calling service methods (CRUD)
   deleteBill(id: string) {
-    if(confirm('Supprimer cette facture')) {
+    if (confirm('Supprimer cette facture')) {
       this.billService.deleteBill(id)
         .subscribe(d => {
           console.log(d);
@@ -90,5 +90,15 @@ export class BillsComponent implements OnInit {
         this.searchToken = null;
         this.initializeConfig(5, 1, this.bills.length);
       });
+  }
+
+  disableArrow(index: number, arrowType: string) {
+    const arrows = document.getElementsByClassName('arrow');
+    const arrow = document.getElementsByClassName(arrowType)[index];
+    // @ts-ignore
+    for (const item of arrows) {
+      item.classList.remove('hide');
+    }
+    arrow.classList.add('hide');
   }
 }

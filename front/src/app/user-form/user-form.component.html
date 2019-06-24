@@ -71,13 +71,13 @@
             </div>
 
             <div class="p-t-15" *ngIf="!user">
-              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addUser()" [disabled]="!userForm.valid">Ajouter un produit</button>
+              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addUser()" [disabled]="!userForm.valid">{{'ADD_USER'|translate}}</button>
             </div>
             <div class="p-t-15" *ngIf="user">
-              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editUser()" [disabled]="!userForm.valid||!checkEqualPasswords()">Modifier un produit</button>
+              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editUser()" [disabled]="!userForm.valid||!checkEqualPasswords()">{{'EDIT_USER'|translate}}</button>
             </div>
             <div class="p-t-15">
-              <button class="btn btn--radius-2 btn--blue" routerLink="/users">Annuler</button>
+              <button class="btn btn--radius-2 btn--blue" routerLink="/users">{{'ABORT'|translate|titlecase}}</button>
             </div>
 
 

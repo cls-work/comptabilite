@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 import {BillsComponent} from './bills/bills.component';
 import {BillDetailsComponent} from './bill-details/bill-details.component';
 import {AddProductsComponent} from './add-products/add-products.component';
@@ -8,9 +8,10 @@ import {LoginComponent} from './login/login.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UsersDetailsComponent} from './users-details/users-details.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
-import {AuthGuard} from "./_guards/auth.guard";
-import {AdminGuard} from "./_guards/admin.guard";
-import {HistoricalsListComponent} from "./historicals-list/historicals-list.component";
+import {AuthGuard} from './_guards/auth.guard';
+import {AdminGuard} from './_guards/admin.guard';
+import {GuestGuard} from './_guards/guest.guard';
+import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
 
 const routes: Routes = [
   {
@@ -24,10 +25,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'historicals',
-    component: HistoricalsListComponent,
-  },
-  {
     path: 'bill-form',
     component: BillFormComponent,
     canActivate: [AuthGuard]
@@ -37,6 +34,7 @@ const routes: Routes = [
     component: BillFormComponent,
     canActivate: [AuthGuard]
   },
+
 
   {
     path: 'users',
@@ -55,6 +53,13 @@ const routes: Routes = [
   },
 
 
+  {
+    path: 'historicals',
+    component: HistoricalsListComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+
+
 
   {
     path: 'add-products/:id',
@@ -67,14 +72,17 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate:[GuestGuard]
   },
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
+    canActivate:[GuestGuard]
   },
   {
     path: 'reset-password/:token',
     component: ResetPasswordComponent,
+    canActivate:[GuestGuard]
   },
 
 
