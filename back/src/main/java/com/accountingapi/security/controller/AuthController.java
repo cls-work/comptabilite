@@ -3,7 +3,6 @@ package com.accountingapi.security.controller;
 import com.accountingapi.security.JWT.JwtTokenProvider;
 import com.accountingapi.security.exception.AppException;
 import com.accountingapi.security.model.Role;
-import com.accountingapi.security.model.RoleName;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.payload.ApiResponse;
 import com.accountingapi.security.payload.JwtAuthenticationResponse;
@@ -19,13 +18,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -97,7 +98,7 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findById(signUpRequest.getRoleId())
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
