@@ -4,6 +4,7 @@ import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
+import com.accountingapi.security.repository.RoleRepository;
 import com.accountingapi.security.repository.UserRepository;
 import com.accountingapi.service.HistoricalService;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
+    RoleRepository roleRepository;
 
     private HistoricalService historicalService;
 
