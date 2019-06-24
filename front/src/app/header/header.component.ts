@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.translateService.data);
+    console.log(this.currentUser);
   }
 
   changeLang(lang: string) {
