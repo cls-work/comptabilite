@@ -12,7 +12,7 @@ import java.util.List;
 public interface HistoricalRepository extends CrudRepository<Historical,Long> {
 
     List<Historical> findAll();
-    Historical getById(Long id );
+    Historical getById(Long id);
     List<Historical> findAllByUser(User user);
     List<Historical> findAllByBill(Bill bill);
 }
