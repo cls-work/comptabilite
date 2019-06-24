@@ -1,0 +1,37 @@
+{
+  "BILL_DETAILS": "Rechnungsdetails",
+  "PRODUCT_ID": "Bezeichnung",
+  "QUANTITY": "Menge",
+  "UNIT_PRICE": "Stückpreis",
+  "DISCOUNT": "Rabatt",
+  "UNIT_PRICE_AFTER_DISCOUNT": "Stückpreis nach Abzug",
+  "AMOUNT_HT": "Betrag steuerfrei",
+  "AMOUNT_TTC": "Betrag incl.Mwst",
+  "AMOUNT_TVA": "MwSt",
+  "ADD_PRODUCTS": "Produkte hinzufügen"
+,
+  "BILL_ID": "Rechnungsreferenz",
+  "PAYMENT_METHOD": "Zahlungsart",
+  "TAX_STAMP": "Steuerstempel",
+  "CHECK_REFERENCE": "Schecks Referenz ",
+  "CASH": "Bargeld",
+  "CHECK": "Schecks",
+  "PROVIDER":"Versorger",
+  "DATE": "Datum",
+  "ADD_BILL": "Rechnung hinzufügen",
+  "EDIT_BILL": "Rechnung bearbeiten"
+,
+  "ABORT": "Abbrechen",
+  "BACK": "Zurück",
+  "EDIT": "Bearbeiten",
+  "DETAILS": "Details",
+  "DELETE": "Löschen",
+  "TOTAL_HT": "Gesamtsumme steuerfrei",
+  "TOTAL_TVA": "Gesamtsumme Mwst",
+  "TOTAL_TTC": "Gesamtsumme incl.Mwst",
+  "TVA": "Mwst"
+,
+  "LOGOUT": "Abmelden",
+  "USERS": "Users",
+  "BILLS": "Rechnungen"
+}

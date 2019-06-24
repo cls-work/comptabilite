@@ -1,50 +1,90 @@
-<form [formGroup]="userForm">
-  <div class="form-group row">
-    <label for="name" class="col-form-label col-1">Nom</label>
-    <input type="text" formControlName="name" id="name" class="col-3 form-control">
-  </div>
-  <div class="form-group row">
-    <label for="username" class="col-form-label col-1">Username</label>
-    <input type="text" formControlName="username" id="username" class="col-3 form-control">
-  </div>
-  <div class="form-group row">
-    <label for="email" class="col-form-label col-1">Email</label>
-    <input type="email" formControlName="email" id="email" class="col-3 form-control">
-  </div>
-  <div class="form-group row">
-    <label for="password" class="col-form-label col-1">Mot de passe</label>
-    <input type="password" formControlName="password" id="password" class="col-3 form-control">
-  </div>
-  <div *ngIf="user" class="form-group row">
-    <label for="repeatPassword" class="col-form-label col-1">Répeter Mot de passe</label>
-    <input type="password" formControlName="repeatPassword" id="repeatPassword" class="col-3 form-control">
-  </div>
+<ng-container *ngIf="userForm">
 
-  <div class="form-group ">
-    <div class="row">
-      <label class="col-form-label col-1">Type utilisateur</label>
-      <div class="col-3 padding-top-down">
+  <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+    <div class="wrapper wrapper--w680">
+      <div class="card card-4">
+        <div class="card-body">
+          <h2 class="title" *ngIf="!user">{{'ADD_USER'|translate}}</h2>
+          <h2 class="title" *ngIf="user">{{'EDIT_USER'|translate}}</h2>
+          <form [formGroup]="userForm">
+            <div class="row row-space">
+              <div class="col-md-5">
+                <div class="input-group">
+                  <label class="label" for="name">{{'NAME'|translate}}</label>
 
-        <div class="form-check ">
-          <input type="radio" formControlName="role" value="1" id="user" class="form-check-input"  >
-          <label for="user" class="form-check-label" >Utilisateur</label>
-        </div>
-        <div class="form-check ">
-          <input type="radio" formControlName="role" value="0" id="admin" class="form-check-input" >
-          <label for="admin" class="form-check-label" >Admin</label>
+                  <input class="input--style-4" type="text"
+                         [class.alert-danger]="userForm.controls.name.invalid&&(userForm.controls.name.dirty||userForm.controls.name.touched)"
+                         formControlName="name" id="name" />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group" *ngIf="roles">
+                  <label class="label" >{{'USER_TYPE'|translate}}</label>
+                  <div class="p-t-10">
+                    <label class="radio-container m-r-45" *ngFor="let role of roles" for="role{{role.id}}">{{role.name|translate|titlecase}}
+                      <input type="radio" formControlName="role" name="role" value="{{role.id}}" id="role{{role.id}}">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="row row-space">
+
+              <div class="col-md-5">
+                <div class="input-group">
+                  <label class="label" for="username">{{'USERNAME'|translate}}</label>
+                  <input class="input--style-4"  type="text" formControlName="username" id="username"
+                         [class.alert-danger]="userForm.controls.username.invalid&&(userForm.controls.username.dirty||userForm.controls.username.touched)"/>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="input-group">
+                  <label class="label" for="email">{{'EMAIL'|translate}}</label>
+                  <input class="input--style-4" type="text" formControlName="email" id="email"
+                         [class.alert-danger]="userForm.controls.email.invalid&&(userForm.controls.email.dirty||userForm.controls.email.touched)">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row row-space">
+              <div class="col-md-5">
+                <div class="input-group">
+                  <label for="password" class="label">{{'PASSWORD'|translate}}</label>
+                  <input type="password" formControlName="password" id="password" class="input--style-4"
+                         [class.alert-danger]="userForm.controls.password.invalid&&(userForm.controls.password.dirty||userForm.controls.password.touched)">
+                </div>
+              </div>
+              <div class="col-6">
+                <div *ngIf="user" class="input-group">
+                  <label for="repeatPassword" class="label">Répeter Mot de passe</label>
+                  <input type="password" formControlName="repeatPassword" id="repeatPassword" class="input--style-4"
+                         [class.alert-danger]="(userForm.controls.repeatPassword.invalid||!checkEqualPasswords())&&(userForm.controls.repeatPassword.dirty||userForm.controls.repeatPassword.touched)">
+                  <small *ngIf="!checkEqualPasswords()&&(userForm.controls.repeatPassword.dirty||userForm.controls.repeatPassword.touched)">Les mots de passes doivent être identiques</small>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="p-t-15" *ngIf="!user">
+              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addUser()" [disabled]="!userForm.valid">Ajouter un produit</button>
+            </div>
+            <div class="p-t-15" *ngIf="user">
+              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editUser()" [disabled]="!userForm.valid||!checkEqualPasswords()">Modifier un produit</button>
+            </div>
+            <div class="p-t-15">
+              <button class="btn btn--radius-2 btn--blue" routerLink="/users">Annuler</button>
+            </div>
+
+
+          </form>
         </div>
       </div>
     </div>
   </div>
+</ng-container>
 
-
-  <div *ngIf="!user" class="mb-1">
-    <button type="submit" class="btn btn-outline-secondary" (click)="addUser()" [disabled]="!userForm.valid">Ajouter un utilisateur</button>
-  </div>
-  <div class="mb-1" *ngIf="user">
-    <button type="submit" class="btn btn-outline-secondary" (click)="editUser()" [disabled]="!userForm.valid">Modifier un utilisateur</button>
-  </div>
-  <div>
-    <button type="button" class="btn btn-outline-secondary"  routerLink="/users">Annuler</button>
-  </div>
-</form>

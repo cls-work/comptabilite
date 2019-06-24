@@ -1,0 +1,11 @@
+{
+  "ABORT": "Abbrechen",
+  "BACK": "Zurück",
+  "EDIT": "Bearbeiten",
+  "DETAILS": "Details",
+  "DELETE": "Löschen",
+  "TOTAL_HT": "Gesamtsumme steuerfrei",
+  "TOTAL_TVA": "Gesamtsumme Mwst",
+  "TOTAL_TTC": "Gesamtsumme incl.Mwst",
+  "TVA": "Mwst"
+}

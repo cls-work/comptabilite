@@ -14,6 +14,7 @@ export class AddProductsComponent implements OnInit {
 
   productsForm: FormGroup ;
   bill: BillModel;
+  // taxType=0 if HT, ==1 if ttc
   taxType;
   totalTTC: number;
   totalTVA: number;
@@ -29,6 +30,7 @@ export class AddProductsComponent implements OnInit {
 
     this.billService.getBillByID(this.route.snapshot.params.id)
       .subscribe(bill => {
+        console.log('add-product component')
         // @ts-ignore
         this.bill = bill;
         this.calculateTotals();

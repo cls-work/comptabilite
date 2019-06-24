@@ -1,10 +1,48 @@
-<p>
-  <a routerLink="/user-form">add user</a>
-</p>
 
-<ng-container *ngIf="users">
 
-  <div>
-    <app-user-details *ngFor="let user of users" [user]="user"></app-user-details>
-  </div>
-</ng-container>
+<table class="table table-bordered table-responsive-md table-striped text-center">
+
+
+  <tr>
+    <th class="text-center">{{'NAME'|translate|titlecase}}  </th>
+    <th class="text-center">{{'USERNAME'|translate|titlecase}}  </th>
+    <th class="text-center" >{{'EMAIL'|translate|titlecase}}  </th>
+    <th class="text-center">{{'ROLE'|translate|titlecase}} </th>
+   <!-- <th colspan="2"><input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
+
+    </th>-->
+    <th><i class="fa fa-plus pointer"  routerLink="/user-form"> </i></th>
+
+  </tr>
+
+  <!--<ng-container *ngIf="//(bills|filter:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
+-->    <tr *ngFor="let user of users">
+
+
+
+      <td>
+        <p>{{user.name}}</p>
+      </td>
+      <td>
+        <p>{{user.username}}</p>
+      </td>
+      <td>
+        <p>{{user.email}}</p>
+      </td>
+      <td>
+        <p>{{user.roles[0].name|translate|titlecase}}</p>
+      </td>
+
+
+      <td><button class="btn btn-outline-secondary" type="button" [routerLink]="['/user-form',user.id]">{{'EDIT'|translate|titlecase}}</button></td>
+      <td (click)="deleteUser(user.id)"><button class="btn btn-outline-danger" type="button">{{'DELETE'|translate|titlecase}}</button></td>
+
+    </tr>
+ <!-- </ng-container>
+-->
+
+
+
+
+
+</table>
