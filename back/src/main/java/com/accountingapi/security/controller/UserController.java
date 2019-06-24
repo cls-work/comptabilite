@@ -1,13 +1,19 @@
 package com.accountingapi.security.controller;
 
+import com.accountingapi.security.JWT.CurrentUser;
+import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.UserRepository;
+import com.accountingapi.service.HistoricalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,6 +22,10 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+
+    private HistoricalService historicalService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -34,6 +44,22 @@ public class UserController {
     public void deleteUserById (@PathVariable("userId") Long userId){
         userRepository.deleteById(userId);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{userId}")
+    public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody User user){
+
+        user.setId(userId);
+        return userRepository.save(user);
+    }
+
+    @GetMapping("/roles")
+
+    public List<Role> getAllRoles(){
+        return roleRepository.findAll();
+    }
+
+
 
    /* @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
