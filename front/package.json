@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
     "bootstrap": "^4.3.1",
+    "flag-icon-css": "^3.3.0",
+    "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
     "ngx-pagination": "^4.0.0",
     "rxjs": "~6.4.0",
