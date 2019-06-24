@@ -39,6 +39,7 @@ public class Bill {
     @Column(nullable = false)
     private Boolean checkPayment;
 
+    @JsonIgnore
     @Column(nullable = false)
     private Boolean isDeleted=false;
 
@@ -46,9 +47,13 @@ public class Bill {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "bill")
     private List<Product> products;
 
-
+    @JsonIgnore
     @OneToMany(targetEntity=Historical.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(targetEntity=FileStorageProperties.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FileStorageProperties> fileStorageProperties= new ArrayList<>();
 
 
 
@@ -142,6 +147,22 @@ public class Bill {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public List<Historical> getHistoricals() {
+        return historicals;
+    }
+
+    public void setHistoricals(List<Historical> historicals) {
+        this.historicals = historicals;
+    }
+
+    public List<FileStorageProperties> getFileStorageProperties() {
+        return fileStorageProperties;
+    }
+
+    public void setFileStorageProperties(List<FileStorageProperties> fileStorageProperties) {
+        this.fileStorageProperties = fileStorageProperties;
     }
 
     @Override

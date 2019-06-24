@@ -8,24 +8,53 @@ import {LoginComponent} from './login/login.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UsersDetailsComponent} from './users-details/users-details.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {AuthGuard} from './_guards/auth.guard';
+import {AdminGuard} from './_guards/admin.guard';
 
 const routes: Routes = [
   {
     path: 'bills',
     component: BillsComponent,
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'bill-detail/:id',
     component: BillDetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'bill-form',
     component: BillFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'bill-form/:id',
     component: BillFormComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'users',
+    component: UsersDetailsComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'user-form',
+    component: UserFormComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
+    path: 'user-form/:id',
+    component: UserFormComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+
+
+
+  {
+    path: 'add-products/:id',
+    component: AddProductsComponent,
+    canActivate: [AuthGuard]
   },
 
 
@@ -35,29 +64,13 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'users',
-    component: UsersDetailsComponent,
-  },
-  {
-    path: 'user-form',
-    component: UserFormComponent,
-  },
-  {
-    path: 'user-form/:id',
-    component: UserFormComponent,
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
   {
     path: 'reset-password/:token',
     component: ResetPasswordComponent,
   },
-
-
-
-  {
-    path: 'add-products/:id',
-    component: AddProductsComponent,
-  },
-
 
 
   {

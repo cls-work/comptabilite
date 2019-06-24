@@ -13,11 +13,23 @@ export class UsersDetailsComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.getAllUsers();
+  }
+
+  getAllUsers() {
     this.userService.getAllUsers()
-      .subscribe(users=>{
-        this.users=users;
-        console.log(users)
-      })
+      .subscribe(users => {
+        this.users = users;
+        console.log(users);
+      });
+  }
+
+
+  deleteUser(id: string) {
+    this.userService.deleteUser(id)
+      .subscribe(() => {
+        this.getAllUsers();
+      });
   }
 
 }

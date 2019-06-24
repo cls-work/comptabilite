@@ -29,6 +29,11 @@ public class TokenVerificationService {
                     HttpStatus.BAD_REQUEST);
         }
 
+        if(passwordResetToken.isUsed()){
+            return new ResponseEntity(new ApiResponse(false, "Used Token. "),
+                    HttpStatus.BAD_REQUEST);
+        }
+
 
         if (passwordResetToken.getExpiryDate().before(Calendar.getInstance().getTime())) {
             return new ResponseEntity(new ApiResponse(false, "Expired token "),

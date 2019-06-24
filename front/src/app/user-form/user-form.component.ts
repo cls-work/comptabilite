@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../_services/authentication.service';
 import {UserModel} from '../_models/user.model';
 import {UserService} from '../_services/user.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -14,55 +14,73 @@ export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
   user: UserModel;
+  roles: any[];
   constructor(private authenticationService: AuthenticationService,
               private userService: UserService,
               private route: ActivatedRoute,
+              private router: Router,
               private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.userForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
-      password: ['', Validators.required],
-      repeatPassword: '',
-      name: ['', Validators.required],
-      role: ['1', Validators.required]
-    });
+    if (!this.userService.roles) {
+      this.router.navigate(['/users']);
+      return;
+    }
+    this.userForm = this.initUserForm('', '', '', this.userService.roles[0].id.toString());
 
     const id = this.route.snapshot.params.id;
     if (id) {
       this.userService.getUserById(id)
         .subscribe(user => {
           this.user = user;
-          console.log(user)
-          this.userForm = this.fb.group({
-            username: [this.user.username , Validators.required],
-            email: [this.user.email , Validators.compose([
-              Validators.required,
-              Validators.email]
-            )],
-            password: ['', Validators.required],
-            repeatPassword: ['', Validators.required],
-            name: [this.user.name , Validators.required],
-            role: ['', Validators.required]
-          });
+          console.log(user);
+          // @ts-ignore
+          this.userForm = this.initUserForm(this.user.name, this.user.username, this.user.email, this.user.roles[0].id.toString());
         });
     }
+
+    this.roles = this.userService.roles;
+  }
+
+  initUserForm(name: string, username: string, email: string, role: string) {
+    return this.fb.group({
+      username: [username , Validators.required],
+      email: [email , Validators.compose([
+        Validators.required,
+        Validators.email]
+      )],
+      password: ['', Validators.required],
+      repeatPassword: ['', name !== '' ? Validators.required : null],
+      name: [name , Validators.required],
+      role: [role, Validators.required]
+    });
   }
 
   addUser() {
     this.userForm.value.role = parseInt(this.userForm.value.role, 10);
-    this.authenticationService.addUser(this.userForm.value)
-      .subscribe(d => {
+    this.authenticationService.addUser(this.userForm.value);
+      /*.subscribe(d => {
         console.log(d);
-      });
+      });*/
   }
 
   editUser() {
     this.userForm.value.role = parseInt(this.userForm.value.role, 10);
-    this.authenticationService.addUser(this.userForm.value)
-      .subscribe(d => {
+    this.authenticationService.addUser(this.userForm.value);
+      /*.subscribe(d => {
         console.log(d);
+      });*/
+  }
+
+  checkEqualPasswords() {
+    return this.userForm.value.password === this.userForm.value.repeatPassword;
+  }
+
+  getAllRoles() {
+    this.userService.getAllRoles()
+      .subscribe(roles => {
+        this.roles = roles;
+        console.log(roles);
       });
   }
 
