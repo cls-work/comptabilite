@@ -21,7 +21,7 @@ public class SignUpRequest {
     private String password;
 
     @NotBlank
-    private Long roleId;
+    private String roleId;
 
     public String getName() {
         return name;
@@ -55,11 +55,11 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public Long getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 }

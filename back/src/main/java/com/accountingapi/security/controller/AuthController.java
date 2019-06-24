@@ -98,11 +98,10 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findById(signUpRequest.getRoleId())
+        Role userRole = roleRepository.findById(Long.parseLong(signUpRequest.getRoleId()))
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
-
         User result = userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
