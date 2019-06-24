@@ -31,7 +31,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     @Transactional
-    public void deleteProductById (@PathVariable("userId") Long userId){
+    public void deleteUserById (@PathVariable("userId") Long userId){
         userRepository.deleteById(userId);
     }
 
