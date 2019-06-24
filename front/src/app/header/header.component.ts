@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../_services/authentication.service';
 import {Router} from '@angular/router';
 import {UserModel} from '../_models/user.model';
@@ -12,6 +12,8 @@ import {TranslateService} from '../_services/translate.service';
 export class HeaderComponent implements OnInit {
 
   currentUser: UserModel;
+  Currentlangue = 'fr';
+
   constructor(private router: Router,
               private translateService: TranslateService,
               private authenticationService: AuthenticationService) {

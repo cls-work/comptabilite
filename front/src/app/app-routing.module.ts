@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {BillsComponent} from './bills/bills.component';
 import {BillDetailsComponent} from './bill-details/bill-details.component';
 import {AddProductsComponent} from './add-products/add-products.component';
@@ -8,8 +8,9 @@ import {LoginComponent} from './login/login.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UsersDetailsComponent} from './users-details/users-details.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
-import {AuthGuard} from './_guards/auth.guard';
-import {AdminGuard} from './_guards/admin.guard';
+import {AuthGuard} from "./_guards/auth.guard";
+import {AdminGuard} from "./_guards/admin.guard";
+import {HistoricalsListComponent} from "./historicals-list/historicals-list.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
     path: 'bill-detail/:id',
     component: BillDetailsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'historicals',
+    component: HistoricalsListComponent,
   },
   {
     path: 'bill-form',

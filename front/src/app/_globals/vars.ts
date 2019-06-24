@@ -8,6 +8,8 @@ export const USERS = 'users/';
 export const FORGOT_PASSWORD = 'forgot-password/';
 export const VERIFY = 'verify/';
 export const NEW_PASSWORD = 'new-password/';
+export const HISTORICALS = 'historicals';
+
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';
 export const ROLES = 'roles/';

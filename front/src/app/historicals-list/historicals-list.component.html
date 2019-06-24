@@ -1,0 +1,23 @@
+<div *ngIf="historicals">
+  <table class="row-border hover" datatable>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Facture ID</th>
+      <th>User name</th>
+      <th>message</th>
+    </tr>
+    <tr *ngFor="let item  of historicals">
+      <td>{{item.id}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.bill.billId}}</td>
+      <td>{{item.user.name}}</td>
+      <td>{{item.message}}</td>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>

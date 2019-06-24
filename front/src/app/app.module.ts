@@ -1,34 +1,36 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BillsComponent } from './bills/bills.component';
-import { BillDetailsComponent } from './bill-details/bill-details.component';
-import { UserFormComponent } from './user-form/user-form.component';
-import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BillsComponent} from './bills/bills.component';
+import {BillDetailsComponent} from './bill-details/bill-details.component';
+import {UserFormComponent} from './user-form/user-form.component';
+import {LoginComponent} from './login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BillService} from './_services/bill.service';
-import {UserModel} from './_models/user.model';
 import {UserService} from './_services/user.service';
 import {AuthenticationService} from './_services/authentication.service';
-import { AddProductsComponent } from './add-products/add-products.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { BillFormComponent } from './bill-form/bill-form.component';
+import {AddProductsComponent} from './add-products/add-products.component';
+import {ProductDetailsComponent} from './product-details/product-details.component';
+import {BillFormComponent} from './bill-form/bill-form.component';
 import {DisableControlDirective} from './_directives/disable-controle.directive';
 import {FilterPipe} from './_pipes/filter.pipe';
 import {OrderByPipe} from './_pipes/order-by.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { HeaderComponent } from './header/header.component';
-import { UsersDetailsComponent } from './users-details/users-details.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {HeaderComponent} from './header/header.component';
+import {UsersDetailsComponent} from './users-details/users-details.component';
+import {UserDetailsComponent} from './user-details/user-details.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {BillComponent} from './bill/bill.component';
 import {TranslateService} from './_services/translate.service';
-import { TranslatePipe } from './_pipes/translate.pipe';
+import {TranslatePipe} from './_pipes/translate.pipe';
+import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
+import {DataTablesModule} from "angular-datatables";
+import {HistoricalService} from "./_services/historical.service";
 
 
 /*export function setupHeaderTranslateFactory(service: TranslateService) {
@@ -59,7 +61,8 @@ export function setupTranslateFactory(service: TranslateService) {
     UserDetailsComponent,
     ResetPasswordComponent,
     BillComponent,
-    TranslatePipe
+    TranslatePipe,
+    HistoricalsListComponent
   ],
   imports: [
     BrowserModule,
@@ -67,18 +70,21 @@ export function setupTranslateFactory(service: TranslateService) {
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DataTablesModule
+
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     BillService,
     UserService,
     AuthenticationService,
-    TranslateService,{
+    HistoricalService,
+    TranslateService, {
       provide: APP_INITIALIZER,
       useFactory: setupTranslateFactory,
-      deps: [ TranslateService ],
+      deps: [TranslateService],
       multi: true
     }/*
     {
@@ -103,4 +109,5 @@ export function setupTranslateFactory(service: TranslateService) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
