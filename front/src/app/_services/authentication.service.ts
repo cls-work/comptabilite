@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {UserModel} from '../_models/user.model';
-import {AUTH, BASE_URL, SIGN_IN, SIGN_UP} from '../_globals/vars';
+import {ADMIN_ROLE, AUTH, BASE_URL, SIGN_IN, SIGN_UP, USER_ROLE} from '../_globals/vars';
 // import * as jwt_decode from 'jwt-decode';
 
 
@@ -11,6 +11,7 @@ import {AUTH, BASE_URL, SIGN_IN, SIGN_UP} from '../_globals/vars';
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<UserModel>;
   public currentUser: Observable<UserModel>;
+  private roles = [ADMIN_ROLE, USER_ROLE];
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('currentUser')));
@@ -22,15 +23,23 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail: string, password: string) {
-    console.log(BASE_URL + AUTH + SIGN_IN);
-    return this.http.post<UserModel>(BASE_URL + AUTH + SIGN_IN, { usernameOrEmail, password })
-      .pipe(map(user => {
+    // console.log(BASE_URL + AUTH + SIGN_IN);
+    return this.http.post<any>(BASE_URL + AUTH + SIGN_IN, { usernameOrEmail, password })
+      .pipe(map(data => {
+        const user: UserModel = new UserModel();
         // login successful if there's a jwt token in the response
-        if (user && user.accessToken) {
+        if (data && data.accessToken && data.user) {
+          user.id = data.user.id;
+          user.name = data.user.name;
+          user.username = data.user.username;
+          user.email = data.user.email;
+          user.accessToken = data.accessToken;
+          user.role = data.user.roles[0].name;
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
-          console.log(localStorage.getItem('currentUser'));
-          console.log(this.getDecodedAccessToken(JSON.parse(localStorage.getItem('currentUser')).accessToken));
+          // console.log(localStorage.getItem('currentUser'));
+
+          // console.log(user)
           this.currentUserSubject.next(user);
         }
 
@@ -48,11 +57,4 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
-  getDecodedAccessToken(token: string): any {
-   /* try {
-      return jwt_decode(token);
-    } catch (Error) {
-      return null;
-    }*/
-  }
 }

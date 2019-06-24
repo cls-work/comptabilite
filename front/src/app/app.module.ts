@@ -31,11 +31,14 @@ import {TranslateService} from './_services/translate.service';
 import { TranslatePipe } from './_pipes/translate.pipe';
 
 
-export function setupHeaderTranslateFactory(service: TranslateService) {
+/*export function setupHeaderTranslateFactory(service: TranslateService) {
   return () => service.componentLang('fr', 'header');
 }
 export function setupBillsTranslateFactory(service: TranslateService) {
   return () => service.componentLang('fr', 'bills');
+}*/
+export function setupTranslateFactory(service: TranslateService) {
+  return () => service.use('fr');
 }
 
 @NgModule({
@@ -72,7 +75,12 @@ export function setupBillsTranslateFactory(service: TranslateService) {
     BillService,
     UserService,
     AuthenticationService,
-    TranslateService,
+    TranslateService,{
+      provide: APP_INITIALIZER,
+      useFactory: setupTranslateFactory,
+      deps: [ TranslateService ],
+      multi: true
+    }/*
     {
       provide: APP_INITIALIZER,
       useFactory: setupBillsTranslateFactory,
@@ -84,7 +92,13 @@ export function setupBillsTranslateFactory(service: TranslateService) {
       useFactory: setupHeaderTranslateFactory,
       deps: [ TranslateService ],
       multi: true
-    }
+    },*/
+    /*{
+      provide: APP_INITIALIZER,
+      useFactory: setupBillFormTranslateFactory,
+      deps: [ TranslateService ],
+      multi: true
+    }*/
 
   ],
   bootstrap: [AppComponent]

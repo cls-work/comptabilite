@@ -3,7 +3,6 @@ package com.accountingapi.security.controller;
 import com.accountingapi.security.JWT.JwtTokenProvider;
 import com.accountingapi.security.exception.AppException;
 import com.accountingapi.security.model.Role;
-import com.accountingapi.security.model.RoleName;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.payload.ApiResponse;
 import com.accountingapi.security.payload.JwtAuthenticationResponse;
@@ -48,6 +47,15 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+
+    /*
+        user login
+     */
+
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -58,11 +66,19 @@ public class AuthController {
                 )
         );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        Long userId = jwtTokenProvider.getUserIdFromJWT(jwt);
+        User user = userRepository.getById(userId);
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,user));
     }
+
+
+    /*
+        signup a new user , ONLY ADMIN
+     */
+
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
@@ -82,7 +98,7 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findById(signUpRequest.getRoleId())
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
@@ -95,6 +111,7 @@ public class AuthController {
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
+
 
 
 }

@@ -2,7 +2,6 @@ package com.accountingapi.model;
 import com.accountingapi.security.model.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -14,10 +13,6 @@ public class Historical {
 
     @Column(name = "message",unique=false,nullable = true)
     private String message;
-
-    @Column(name = "comment",unique=false,nullable = true)
-    @Size(min = 4, max = 255, message = "Minimum note length: 4 characters")
-    private String comment;
 
     @ManyToOne()
     @JoinColumn(name="BillId")
@@ -49,13 +44,6 @@ public class Historical {
         this.message = message;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 
     public Bill getBill() {
         return bill;
@@ -87,12 +75,11 @@ public class Historical {
         if (o == null || getClass() != o.getClass()) return false;
         Historical that = (Historical) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(message, that.message) &&
-                Objects.equals(comment, that.comment);
+                Objects.equals(message, that.message);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, message, comment);
+        return Objects.hash(id, message);
     }
 }

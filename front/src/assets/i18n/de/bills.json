@@ -1,0 +1,12 @@
+{
+  "BILL_ID": "Rechnungsreferenz",
+  "PAYMENT_METHOD": "Zahlungsart",
+  "TAX_STAMP": "Steuerstempel",
+  "CHECK_REFERENCE": "Schecks Referenz ",
+  "CASH": "Bargeld",
+  "CHECK": "Schecks",
+  "PROVIDER":"Versorger",
+  "DATE": "Datum",
+  "ADD_BILL": "Rechnung hinzufügen",
+  "EDIT_BILL": "Rechnung bearbeiten"
+}
