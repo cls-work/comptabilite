@@ -26,7 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Boolean existsByEmail(String email);
 
-    User getById(Long id );
+    User getById(Long id);
 
     @Modifying
     @Query("update User u set u.password = :password where u.id = :id")

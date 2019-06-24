@@ -1,4 +1,4 @@
-package com.accounting;
+package com.accountingapi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
