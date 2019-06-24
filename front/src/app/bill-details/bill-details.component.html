@@ -32,10 +32,10 @@
             <th class="text-center" >{{'UNIT_PRICE'|translate|titlecase}}</th>
             <th class="text-center">{{'DISCOUNT'|translate|titlecase}}</th>
             <th class="text-center">{{'UNIT_PRICE_AFTER_DISCOUNT'|translate|titlecase}}</th>
-            <th class="text-center">{{'AMOUNT_HT'|translate|titlecase}}</th>
-            <th class="text-center"> {{'TVA'|translate|titlecase}} </th>
-            <th class="text-center">{{'AMOUNT_TTC'|translate|titlecase}}</th>
-            <th class="text-center">{{'AMOUNT_TVA'|translate|titlecase}}</th>
+            <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'HT'|translate}}</th>
+            <th class="text-center"> {{'TVA'|translate}} </th>
+            <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TVA'|translate}}</th>
+            <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TTC'|translate}}</th>
 
           </tr>
 
@@ -99,7 +99,7 @@
             </td>
             <td>
               <button type="button" class="btn btn-outline-secondary" [routerLink]="['/add-products',bill.billId]" >{{'ADD_PRODUCTS'|translate|titlecase}}</button>
-              <button type="button" class="btn btn-outline-secondary" [routerLink]="['bills']" >{{'ADD_PRODUCTS'|translate|titlecase}}</button>
+              <button type="button" class="btn btn-outline-secondary" [routerLink]="['bills']" >{{'BACK'|translate|titlecase}}</button>
             </td>
 
           </tr>

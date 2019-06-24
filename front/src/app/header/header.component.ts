@@ -3,6 +3,7 @@ import {AuthenticationService} from '../_services/authentication.service';
 import {Router} from '@angular/router';
 import {UserModel} from '../_models/user.model';
 import {TranslateService} from '../_services/translate.service';
+import {ROLE_ADMIN} from '../_globals/vars';
 
 @Component({
   selector: 'app-header',
@@ -41,5 +42,9 @@ export class HeaderComponent implements OnInit {
 
   preventDefault($event: MouseEvent) {
     $event.preventDefault();
+  }
+
+  get adminRole(){
+    return ROLE_ADMIN;
   }
 }
