@@ -8,9 +8,18 @@
 
 
     <tr>
-      <th class="text-center">{{'BILL_ID'|translate|titlecase}} <span (click)="orderBy('billId','asc')"><i class="fas fa-angle-up"></i></span> <span (click)="orderBy('billId','desc')">desc</span></th>
-      <th class="text-center">{{'PROVIDER'|translate|titlecase}} <span (click)="orderBy('provider','asc')">asc/</span> <span (click)="orderBy('provider','desc')">desc</span></th>
-      <th class="text-center" >{{'DATE'|translate|titlecase}} <span (click)="orderBy('date','asc')">asc/</span> <span (click)="orderBy('date','desc')">desc</span></th>
+      <th class="text-center">{{'BILL_ID'|translate|titlecase}}
+        <span class="arrow-up arrow up" (click)="orderBy('billId','asc');disableArrow(0,'arrow-up')"></span>
+        <span class="arrow-down arrow down" (click)="orderBy('billId','desc');disableArrow(0,'arrow-down')"></span>
+      </th>
+      <th class="text-center">{{'PROVIDER'|translate|titlecase}}
+        <span class="arrow-up arrow up" (click)="orderBy('provider','asc');disableArrow(1,'arrow-up')"></span>
+        <span class="arrow-down arrow down" (click)="orderBy('provider','desc');disableArrow(1,'arrow-down')"></span>
+      </th>
+      <th class="text-center" >{{'DATE'|translate|titlecase}}
+        <span class="arrow-up arrow up" (click)="orderBy('date','asc');disableArrow(2,'arrow-up')"></span>
+        <span class="arrow-down arrow down hide" (click)="orderBy('date','desc');disableArrow(2,'arrow-down')"></span>
+      </th>
       <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
       <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
       <th class="text-center">{{'TAX_STAMP'|translate|titlecase}}</th>
@@ -76,7 +85,9 @@
   </table>
 
   <ul class="pagination pagination-right">
-    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    <pagination-controls (pageChange)="pageChanged($event)"
+                         [nextLabel]="'NEXT'|translate"
+                         [previousLabel]="'PREVIOUS'|translate"></pagination-controls>
   </ul>
 
 
