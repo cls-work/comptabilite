@@ -32,7 +32,7 @@ public class HistoricalController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("")
-    public List<Historical> displayAllHistoricals(){
+    public List<Historical> displayAllHistorical(){
         return historicalService.findAll();
     }
 

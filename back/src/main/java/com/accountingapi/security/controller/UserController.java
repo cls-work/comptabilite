@@ -2,6 +2,8 @@ package com.accountingapi.security.controller;
 
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.security.dto.UserUpdateDto;
+import com.accountingapi.security.exception.AppException;
 import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.RoleRepository;
@@ -10,11 +12,12 @@ import com.accountingapi.service.HistoricalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -26,6 +29,9 @@ public class UserController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     private HistoricalService historicalService;
 
@@ -47,13 +53,23 @@ public class UserController {
         userRepository.deleteById(userId);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{userId}")
-    public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody User user){
+    public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody UserUpdateDto userUpdateDto){
 
-        user.setId(userId);
-        return userRepository.save(user);
+        User oldUser = userRepository.getById(userId);
+        oldUser.setUsername(userUpdateDto.getUsername());
+        oldUser.setName(userUpdateDto.getName());
+        oldUser.setEmail(userUpdateDto.getEmail());
+        oldUser.setPassword(passwordEncoder.encode(userUpdateDto.getPassword()));
+        Role userRole = roleRepository.findById(userUpdateDto.getId())
+                .orElseThrow(() -> new AppException("User Role not set."));
+
+        oldUser.setRoles(Collections.singleton(userRole));
+
+        return userRepository.save(oldUser);
     }
+
 
     @GetMapping("/roles")
 

@@ -2,7 +2,6 @@ package com.accountingapi.security.model;
 
 import com.accountingapi.model.Historical;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -36,13 +35,13 @@ public class User {
     @Size(max = 15)
     private String username;
 
-    @NaturalId
+    //@NaturalId
     @NotBlank
     @Size(max = 40)
     @Email
     private String email;
 
-    @NotBlank
+    //@NotBlank
     @JsonIgnore
     @Size(max = 100)
     private String password;
