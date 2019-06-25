@@ -29,9 +29,11 @@
            <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-text"><i class="fa fa-key"></i></div>
-                    <input type="password"  placeholder="{{'PASSWORD'|translate}}" formControlName="password" class="form-control" id="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <input type="password"  placeholder="{{'PASSWORD'|translate}}" formControlName="password" class="form-control" id="password"  [ngClass]="{ 'is-invalid':loginForm.get('password').touched && loginForm.get('password').invalid }" />
+
                     <div *ngIf="submitted && f.password.errors" >
                       <div *ngIf="f.password.errors.required">Password is required</div>
+
 
                     </div>
                   </div>
@@ -48,6 +50,9 @@
                 <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.usernameOrEmail.valid " ></i>
                 <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.usernameOrEmail.invalid"></i>
                 Username should be minimum 4 character long
+                 <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.password.valid " ></i>
+                <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.password.invalid"></i>
+                Password should be minimum 6 character long
 
               </span>
 
