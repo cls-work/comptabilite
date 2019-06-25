@@ -1,0 +1,13 @@
+{
+  "ROLE_ADMIN":"administrator",
+  "ROLE_USER":"User",
+  "ADD_USER": "Add user",
+  "EDIT_USER": "Edit user",
+  "USER_TYPE": "User type",
+  "SAME_PASSWORD_ERROR": "Passwords must be identical",
+  "PASSWORD": "Password",
+  "REPEAT": "Repeat",
+  "NAME":"Name",
+  "USERNAME":"Username",
+  "EMAIL":"Email"
+}

@@ -13,20 +13,35 @@ public class FileStorageProperties{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "uploadDir",unique=false,nullable = true)
+    @Column(name = "uploadDir",unique=false,nullable = false)
     private String uploadDir;
+
+    @Column(name = "fileType",unique=false,nullable = false)
+    private String fileType;
+
+    @Column(name = "size",unique=false,nullable = true)
+    private long size;
 
     @ManyToOne()
     @JoinColumn(name="BillId")
     private Bill bill;
 
-    public Long getId() {
-        return id;
+
+    //Constructor
+
+
+    public FileStorageProperties() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public FileStorageProperties(String uploadDir, String fileType, long size) {
+        this.uploadDir = uploadDir;
+        this.fileType = fileType;
+        this.size = size;
     }
+
+
+    //Getter & Setters
+
 
     public String getUploadDir() {
         return uploadDir;
@@ -36,11 +51,35 @@ public class FileStorageProperties{
         this.uploadDir = uploadDir;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Bill getBill() {
         return bill;
     }
 
     public void setBill(Bill bill) {
         this.bill = bill;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 }
