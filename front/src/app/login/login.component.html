@@ -12,7 +12,7 @@
         <div class="card-body">
           <div class="text-center">
             <h3><i class="fa fa-sign-in fa-4x"></i></h3>
-            <h2 class="text-center">Log In</h2>
+            <h2 class="text-center">{{'AUTHENTICATION'|translate|titlecase}}</h2>
             <div class="card-body">
 
               <form id="register-form" role="form" autocomplete="off" class="form"  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -20,7 +20,7 @@
                 <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-text"><i class="fa fa-envelope"></i></div>
-                    <input type="text" placeholder="Username" formControlName="usernameOrEmail"  class="form-control" id="username" [ngClass]="{ 'is-invalid': submitted && f.usernameOrEmail.errors }" />
+                    <input type="text" placeholder="{{'USERNAME'|translate}}" formControlName="usernameOrEmail"  class="form-control" id="username" [ngClass]="{ 'is-invalid': submitted && f.usernameOrEmail.errors }" />
                     <div *ngIf="submitted && f.usernameOrEmail.errors" >
                       <div *ngIf="f.usernameOrEmail.errors.required">Username is required</div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-text"><i class="fa fa-key"></i></div>
-                    <input type="password"  placeholder="Password" formControlName="password" class="form-control" id="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <input type="password"  placeholder="{{'PASSWORD'|translate}}" formControlName="password" class="form-control" id="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                     <div *ngIf="submitted && f.password.errors" >
                       <div *ngIf="f.password.errors.required">Password is required</div>
 
@@ -38,9 +38,9 @@
                   </div>
                 </div>
 
-                <input type="submit" value="Log in" [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block"/>
+                <input type="submit" value="{{'LOG_IN'|translate}}" [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block"/>
                 <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-                <a routerLink="/reset-password">Reset Password </a>
+                <a routerLink="/reset-password">{{'FORGOT_PASSWORD'|translate}}</a>
 
 
               </form>
