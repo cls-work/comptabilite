@@ -47,6 +47,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.scss",
               "node_modules/bootstrap-fileinput/css/fileinput.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",

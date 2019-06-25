@@ -1,7 +1,10 @@
 package com.accountingapi.controller;
 
 
+import com.accountingapi.dto.BillRequestDto;
 import com.accountingapi.model.Bill;
+import com.accountingapi.model.FileStorageProperties;
+import com.accountingapi.repository.FileStorageRepository;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
@@ -27,6 +30,9 @@ public class BillController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    FileStorageRepository fileStorageRepository;
 
 
     /*
@@ -69,10 +75,17 @@ public class BillController {
         add a new Bill
     */
 
+
+
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("")
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody Bill bill){
+    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto){
 
+        List<Long> documentsIds = billRequestDto.getDocumentIds();
+        Bill bill=billRequestDto.toBill();
+        List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+        bill.setFileStorageProperties(documents);
+        documents.forEach(elt->elt.setBill(bill));
         Bill newBill=billService.addBill(bill);
         historicalService.addHistorical(currentUser, "added a new Bill",bill);
         return newBill;

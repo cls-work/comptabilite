@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../_services/user.service';
 import {map} from 'rxjs/operators';
+import {passValidator} from "./customValidator";
 
 @Component({
   selector: 'app-reset-password',
@@ -17,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
   validToken;
   emailSent;
   passwordReset;
-  formSubmitted;
+  loading;
   samePassword;
 
   constructor(private route: ActivatedRoute,
@@ -28,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit() {
     this.token = this.route.snapshot.params.token;
     this.validToken = false;
-    this.formSubmitted = false;
+    this.loading = false;
     if (this.token) {
       (this.verifyToken());
 
@@ -41,14 +42,14 @@ export class ResetPasswordComponent implements OnInit {
     console.log('!token');
     this.resetPasswordForm = this.formBuilder.group({
 
-        password: ['', Validators.required],
-        confirmPassword: ['', Validators.required]
+        password: ['', Validators.required, ],
+        confirmPassword: ['', passValidator]
       });
   }
 
   getToken() {
     this.emailSent = null;
-    this.formSubmitted = true;
+    this.loading = true;
     if (!this.token) {
       this.userService.getToken(this.sendEmailForgottenPasswordForm.value.email)
         .subscribe(data => {
@@ -56,14 +57,14 @@ export class ResetPasswordComponent implements OnInit {
           console.log('data');
           // @ts-ignore
           this.emailSent = data.success;
-          this.formSubmitted = false;
+          this.loading = false;
           console.log(this.emailSent);
         }, error => {
           console.log(error);
           console.log('error');
           // @ts-ignore
           this.emailSent = false;
-          this.formSubmitted = false;
+          this.loading = false;
 
         });
     }
@@ -87,26 +88,26 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    this.formSubmitted = true;
+    this.loading = true;
     this.passwordReset = null;
     this.samePassword = this.confirmPassword();
     if (!this.samePassword) {
       console.log('not confirm password');
-      this.formSubmitted = false;
+      this.loading = false;
       return;
     }
     this.userService.resetPassword( this.resetPasswordForm.value.password, this.token)
       .subscribe(data => {
         console.log(data);
         this.passwordReset = true;
-        this.formSubmitted = false;
+        this.loading = false;
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 3000);
       }, error => {
         console.log(error);
         this.passwordReset = false;
-        this.formSubmitted = false;
+        this.loading = false;
       });
   }
 

@@ -26,7 +26,7 @@ public class AccountingApiApplication implements CommandLineRunner{
     @Override
     public void run(String... params) throws Exception {
 
-      /*  Role role_user = new Role(RoleName.ROLE_USER);
+     /*  Role role_user = new Role(RoleName.ROLE_USER);
         Role role_admin =new Role(RoleName.ROLE_ADMIN);
         roleRepository.save(role_user);
         roleRepository.save(role_admin);*/

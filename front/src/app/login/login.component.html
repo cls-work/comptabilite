@@ -1,41 +1,67 @@
-<body>
+<app-loader *ngIf="loading"></app-loader>
+
+<!------ Include the above in your HEAD tag ---------->
 
 
 
-
-
+<div class="form-gap"></div>
 <div class="container">
-  <section id="content">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <h1>Login Form</h1>
-      <div>
+  <div class="row">
+    <div class="col-lg-4 offset-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-center">
+            <h3><i class="fa fa-sign-in fa-4x"></i></h3>
+            <h2 class="text-center">{{'AUTHENTICATION'|translate|titlecase}}</h2>
+            <div class="card-body">
 
-        <input type="text" placeholder="Username" formControlName="usernameOrEmail"  id="username" [ngClass]="{ 'is-invalid': submitted && f.usernameOrEmail.errors }" />
-        <div *ngIf="submitted && f.usernameOrEmail.errors" >
-          <div *ngIf="f.usernameOrEmail.errors.required">Username is required</div>
+              <form id="register-form" role="form" autocomplete="off" class="form"  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+                    <input type="text" placeholder="{{'USERNAME'|translate}}" formControlName="usernameOrEmail"  class="form-control" id="username" [ngClass]="{ 'is-invalid':loginForm.get('usernameOrEmail').touched && loginForm.get('usernameOrEmail').invalid }"/>
+                    <div *ngIf="submitted && f.usernameOrEmail.errors" >
+                      <div *ngIf="f.usernameOrEmail.errors.required">Username is required</div>
+                    </div>
+                  </div>
+                </div>
+           <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-text"><i class="fa fa-key"></i></div>
+                    <input type="password"  placeholder="{{'PASSWORD'|translate}}" formControlName="password" class="form-control" id="password"  [ngClass]="{ 'is-invalid':loginForm.get('password').touched && loginForm.get('password').invalid }" />
+
+                    <div *ngIf="submitted && f.password.errors" >
+                      <div *ngIf="f.password.errors.required">Password is required</div>
+
+
+                    </div>
+                  </div>
+                </div>
+
+                <input type="submit" value="{{'LOG_IN'|translate}}" [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block"/>
+                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                <a routerLink="/reset-password">{{'FORGOT_PASSWORD'|translate}}</a>
+
+
+              </form>
+
+              <span>
+                <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.usernameOrEmail.valid " ></i>
+                <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.usernameOrEmail.invalid"></i>
+                Username should be minimum 4 character long
+                 <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.password.valid " ></i>
+                <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.password.invalid"></i>
+                Password should be minimum 6 character long
+
+              </span>
+
+
+
+            </div>
+          </div>
         </div>
-
       </div>
-      <div>
-
-        <input type="password"  placeholder="Password" formControlName="password" id="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" >
-          <div *ngIf="f.password.errors.required">Password is required</div>
-
-        </div>
-      </div>
-      <div>
-        <input type="submit" value="Log in" [disabled]="!loginForm.valid" />
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-        <a routerLink="/reset-password">Reset Password</a>
-
-        <a href="#">Register</a>
-      </div>
-    </form><!-- form -->
-    <div class="button">
-
-    </div><!-- button -->
-  </section><!-- content -->
-</div><!-- container -->
-</body>
-
+    </div>
+  </div>
+</div>

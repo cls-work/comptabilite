@@ -1,12 +1,12 @@
-<!-- Editable table -->
+<app-loader *ngIf="loading"></app-loader><!-- Editable table -->
 <div class="card" >
   <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{'ADD_PRODUCTS'|translate|titlecase}}</h3>
 
 
   <ul class="list-group">
-    <li class="list-group-item">  <h3>{{'BILL_ID'|translate}} : </h3>  <h5>{{bill.billId}}</h5> </li>
-    <li class="list-group-item">  <h3>{{'PROVIDER'|translate}} : </h3> <h5>{{bill.provider}}</h5></li>
-    <li class="list-group-item">  <h3>{{'DATE'|translate}} : </h3> <h5>{{bill.date}}</h5></li>
+    <li class="list-group-item">  <h3>{{'BILL_ID'|translate|titlecase}} : </h3>  <h5>{{bill.billId}}</h5> </li>
+    <li class="list-group-item">  <h3>{{'PROVIDER'|translate|titlecase}} : </h3> <h5>{{bill.provider}}</h5></li>
+    <li class="list-group-item">  <h3>{{'DATE'|translate|titlecase}} : </h3> <h5>{{bill.date}}</h5></li>
   </ul>
 
 

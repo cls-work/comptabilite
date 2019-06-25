@@ -15,24 +15,19 @@ export class BillDetailsComponent implements OnInit {
 
   products: ProductModel[];
   bill: BillModel;
+  loading: boolean;
+  nbGet: number;
+  productDeleted: boolean;
 
   constructor(private billService: BillService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.nbGet = 0;
 
     this.getBill();
 
     this.getAllProducts();
-  }
-
-  getAllProducts() {
-    this.billService.getProductsByBillId(this.route.snapshot.params.id)
-      .subscribe(products => {
-        // @ts-ignore
-        this.products = products;
-        console.log(this.products);
-      });
   }
 
 
@@ -43,22 +38,50 @@ export class BillDetailsComponent implements OnInit {
 
   }
 
+  getAllProducts() {
+    this.loading = true;
+    this.nbGet++;
+    this.billService.getProductsByBillId(this.route.snapshot.params.id)
+      .subscribe(products => {
+        // @ts-ignore
+        this.products = products;
+        console.log(this.products);
+        this.nbGet--;
+        if (this.nbGet === 0) {
+          this.loading = false;
+        }
+      });
+  }
+
   getBill() {
+    this.loading = true;
+    this.nbGet++;
     this.billService.getBillByID(this.route.snapshot.params.id)
       .subscribe(bill => {
         // @ts-ignore
         this.bill = bill;
         console.log(this.bill);
+        this.nbGet--;
+        if (this.nbGet === 0) {
+          this.loading = false;
+        }
 
       });
   }
   deleteProduct(productId: string) {
-    this.billService.deleteProduct(productId)
-      .subscribe(d => {
-        console.log(d);
-        //this.productChange.emit(true);
-        this.productChange();
-      });
+    if (confirm('delete this products?')) {
+      this.loading = true;
+      this.billService.deleteProduct(productId)
+        .subscribe(d => {
+          console.log(d);
+          this.productDeleted = true;
+          // this.productChange.emit(true);
+          this.productChange();
+          setTimeout(() => {
+            this.productDeleted = false;
+          }, 3000);
+        });
+    }
 
   }
 }

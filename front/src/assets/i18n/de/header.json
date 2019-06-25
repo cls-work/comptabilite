@@ -1,5 +1,10 @@
 {
-  "LOGOUT": "Abmelden",
-  "USERS": "Users",
-  "BILLS": "Rechnungen"
+  "LOGOUT": "Se déconnecter",
+  "USERS": "Utilisateurs",
+  "BILLS": "Factures",
+  "HISTORY": "Historique",
+  "LANGUAGE": "Langue"
+
+
+
 }

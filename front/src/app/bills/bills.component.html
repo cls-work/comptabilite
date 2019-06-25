@@ -1,8 +1,11 @@
-
+<app-loader *ngIf="loading"></app-loader>
 <div>
-  <div class="">
 
-</div>
+  <span class="table-add float-left mb-3 mr-2">
+        <a class="text-success" *ngIf="billDeleted">
+      {{'BILL_DELETED_SUCCESS'|translate}}
+        </a>
+      </span>
 
   <table class="table table-bordered table-responsive-md table-striped text-center">
 
@@ -44,7 +47,7 @@
                         <p>{{bill.provider}}</p>
                       </td>
                       <td>
-                        <p>{{bill.date}}</p>
+                        <p>{{bill.date|date: 'dd/MM/yyyy'}}</p>
                       </td>
                       <td>
                         <p>{{bill.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</p>

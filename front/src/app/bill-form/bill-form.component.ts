@@ -18,6 +18,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   billForm: FormGroup;
   isCheckPayment = false;
   bill: BillModel;
+  loading: boolean;
 
   private token: string = JSON.parse(localStorage.getItem('currentUser')).accessToken;
 
@@ -29,8 +30,10 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.loading = true;
 
     const id = this.route.snapshot.params.id;
+
 
     this.billForm = this.formBuilder.group({
       documentIds: [],
@@ -59,12 +62,18 @@ export class BillFormComponent implements OnInit, AfterViewInit {
             checkPayment: [this.bill.checkPayment === true ? '1' : '0', Validators.required],
             checkReference: [this.bill.checkReference],
           });
+          this.loading = false;
         });
+    } else {
+      this.loading = false;
     }
+
   }
 
 
+
   editBill() {
+    this.loading = true;
 
     const billId = this.route.snapshot.params.id;
 
@@ -75,22 +84,25 @@ export class BillFormComponent implements OnInit, AfterViewInit {
     }
     this.billService.editBill(billId, Object.assign({billId}, this.billForm.value))
       .subscribe(d => {
+        this.loading = false;
         this.router.navigate(['/bills']);
       });
 
   }
 
   addBill() {
+    this.loading = true;
     this.billForm.value.checkPayment = parseInt(this.billForm.value.checkPayment, 10);
     if (this.billForm.value.checkPayment === 0) {
       this.billForm.value.checkRefeerence = '';
     }
     // @ts-ignore
     this.billService.postBill(this.billForm.value)
-      .subscribe(d =>
+      .subscribe(d => {
+        this.loading = false;
         // @ts-ignore
-        this.router.navigate(['/add-products', d.billId])
-      );
+        this.router.navigate(['/add-products', d.billId]);
+      });
   }
 
   editCheckPayment() {
