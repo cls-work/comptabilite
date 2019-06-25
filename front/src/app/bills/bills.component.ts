@@ -15,6 +15,7 @@ export class BillsComponent implements OnInit {
   orderByOrder: string;
   orderByColumn: string;
   config: any;
+  loading: boolean;
   constructor(private billService: BillService) {
     this.initializeConfig(0, 0, 0);
   }
@@ -71,7 +72,9 @@ export class BillsComponent implements OnInit {
   // ------------------------
   // calling service methods (CRUD)
   deleteBill(id: string) {
+
     if (confirm('Supprimer cette facture')) {
+      this.loading=true;
       this.billService.deleteBill(id)
         .subscribe(d => {
           console.log(d);
@@ -82,6 +85,7 @@ export class BillsComponent implements OnInit {
 
 
   private getAllBills() {
+    this.loading=true;
     this.billService.getAllBills()
       .subscribe(bills => {
         // @ts-ignore
@@ -89,6 +93,7 @@ export class BillsComponent implements OnInit {
         console.log(bills);
         this.searchToken = null;
         this.initializeConfig(5, 1, this.bills.length);
+        this.loading=false;
       });
   }
 

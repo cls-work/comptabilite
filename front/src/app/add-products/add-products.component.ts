@@ -19,6 +19,7 @@ export class AddProductsComponent implements OnInit {
   totalTTC: number;
   totalTVA: number;
   totalHT: number;
+  loading: boolean;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -27,7 +28,7 @@ export class AddProductsComponent implements OnInit {
               private route: ActivatedRoute) {}
 
   ngOnInit() {
-
+    this.loading=true
     this.billService.getBillByID(this.route.snapshot.params.id)
       .subscribe(bill => {
         console.log('add-product component')
@@ -35,6 +36,7 @@ export class AddProductsComponent implements OnInit {
         this.bill = bill;
         this.calculateTotals();
         console.log(bill);
+        this.loading=false;
       });
 
     this.productsForm = this.formBuilder.group(

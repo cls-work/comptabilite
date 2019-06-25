@@ -1,4 +1,4 @@
-
+<app-loader *ngIf="loading"></app-loader>
 
 <!------ Include the above in your HEAD tag ---------->
 
@@ -41,8 +41,6 @@
                 <input type="submit" value="Log in" [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block"/>
                 <div *ngIf="error" class="alert alert-danger">{{error}}</div>
                 <a routerLink="/reset-password">Reset Password </a>
-
-                <a href="#">Register</a>
 
 
               </form>
