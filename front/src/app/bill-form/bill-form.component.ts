@@ -18,6 +18,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   billForm: FormGroup;
   isCheckPayment = false;
   bill: BillModel;
+
   private token: string = JSON.parse(localStorage.getItem('currentUser')).accessToken;
 
 
@@ -29,11 +30,10 @@ export class BillFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-
     const id = this.route.snapshot.params.id;
 
-
     this.billForm = this.formBuilder.group({
+      documentIds: [],
       provider: ['', Validators.required],
       date: ['', Validators.required],
       taxStamp: ['', Validators.required],
@@ -102,7 +102,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       theme: "explorer-fas",
       uploadUrl: BASE_URL + "uploadMultipleFiles",
       ajaxSettings: {headers: {'Authorization': 'Bearer ' + this.token}},
-
+      uploadAsync: false,
       overwriteInitial: false,
       previewFileIcon: '<i class="fas fa-file"></i>',
       initialPreviewAsData: true, // defaults markup
@@ -151,5 +151,18 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       }
     });
 
+
+    const baseContext = this;
+    $('#test').on('filebatchuploadsuccess', function (event, data) {
+
+      baseContext.billForm.patchValue({
+          documentIds: data.response.map(elt => elt.id)
+        }
+      );
+      console.log(data.response.map(elt => elt.id));
+      console.log(baseContext.billForm)
+
+      // data.response.forEach(elt => baseContext.formBuilde).push(elt.id));
+    });
   }
 }

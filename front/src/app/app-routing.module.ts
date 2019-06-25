@@ -27,6 +27,7 @@ const routes: Routes = [
   {
     path: 'bill-form',
     component: BillFormComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'bill-form/:id',
