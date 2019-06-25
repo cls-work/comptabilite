@@ -53,12 +53,14 @@ export class BillDetailsComponent implements OnInit {
       });
   }
   deleteProduct(productId: string) {
-    this.billService.deleteProduct(productId)
-      .subscribe(d => {
-        console.log(d);
-        //this.productChange.emit(true);
-        this.productChange();
-      });
+    if (confirm('delete this products?')) {
+      this.billService.deleteProduct(productId)
+        .subscribe(d => {
+          console.log(d);
+          // this.productChange.emit(true);
+          this.productChange();
+        });
+    }
 
   }
 }

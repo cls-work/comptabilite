@@ -26,10 +26,12 @@ export class UsersDetailsComponent implements OnInit {
 
 
   deleteUser(id: string) {
-    this.userService.deleteUser(id)
-      .subscribe(() => {
-        this.getAllUsers();
-      });
+    if(confirm('Delete this user')) {
+      this.userService.deleteUser(id)
+        .subscribe(() => {
+          this.getAllUsers();
+        });
+    }
   }
 
 }
