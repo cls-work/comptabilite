@@ -12,6 +12,7 @@ import com.accountingapi.service.HistoricalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/users")
 public class UserController {
 
@@ -37,23 +39,26 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("")
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+       @PreAuthorize("hasRole('ROLE_ADMIN')")
+     @GetMapping("/{id}")
     public User getUserById(@PathVariable(value = "id") Long id){
         return userRepository.getById(id);
     }
 
+        @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{userId}")
     @Transactional
     public void deleteUserById (@PathVariable("userId") Long userId){
         userRepository.deleteById(userId);
     }
 
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{userId}")
     public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody SignUpRequest signUpRequest){
 
@@ -66,11 +71,11 @@ public class UserController {
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         oldUser.setRoles(Collections.singleton(userRole));
-
         return userRepository.save(oldUser);
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/roles")
 
     public List<Role> getAllRoles(){
