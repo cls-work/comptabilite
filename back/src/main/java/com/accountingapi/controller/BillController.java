@@ -1,7 +1,7 @@
 package com.accountingapi.controller;
 
 
-import com.accountingapi.dto.BillDocumentDto;
+import com.accountingapi.dto.BillRequestDto;
 import com.accountingapi.model.Bill;
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.repository.FileStorageRepository;
@@ -75,25 +75,22 @@ public class BillController {
         add a new Bill
     */
 
-    /*@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PostMapping("")
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody Bill bill){
 
+
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PostMapping("")
+    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto){
+
+        List<Long> documentsIds = billRequestDto.getDocumentIds();
+        Bill bill=billRequestDto.toBill();
+        List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+        bill.setFileStorageProperties(documents);
+        documents.forEach(elt->elt.setBill(bill));
         Bill newBill=billService.addBill(bill);
         historicalService.addHistorical(currentUser, "added a new Bill",bill);
         return newBill;
-    }*/
-
-    @PostMapping("")
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillDocumentDto billDocumentDto){
-        List<Long> documentsIds = billDocumentDto.getDocumentIds();
-        List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
-        billDocumentDto.getBill().setFileStorageProperties(documents);
-        documents.forEach(elt->elt.setBill(billDocumentDto.getBill()));
-        Bill newBill=billService.addBill(billDocumentDto.getBill());
-        historicalService.addHistorical(currentUser, "added a new Bill",billDocumentDto.getBill());
-        return newBill;
     }
+
 
     /*
         update a bill
