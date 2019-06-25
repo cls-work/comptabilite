@@ -17,6 +17,7 @@ export class BillDetailsComponent implements OnInit {
   bill: BillModel;
   loading: boolean;
   nbGet: number;
+  productDeleted: boolean;
 
   constructor(private billService: BillService,
               private route: ActivatedRoute) { }
@@ -73,8 +74,12 @@ export class BillDetailsComponent implements OnInit {
       this.billService.deleteProduct(productId)
         .subscribe(d => {
           console.log(d);
+          this.productDeleted = true;
           // this.productChange.emit(true);
           this.productChange();
+          setTimeout(() => {
+            this.productDeleted = false;
+          }, 3000);
         });
     }
 

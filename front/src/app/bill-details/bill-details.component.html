@@ -17,8 +17,9 @@
 
     <div class="card-body">
       <div id="table" class="table-editable">
-      <span class="table-add float-right mb-3 mr-2">
-        <a class="text-success" >
+      <span class="table-add float-left mb-3 mr-2">
+        <a class="text-success" *ngIf="productDeleted">
+          {{'PRODUCT_DELETED_SUCCESS'|translate}}
         </a>
       </span>
 

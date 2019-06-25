@@ -10,6 +10,7 @@ import {UserService} from '../_services/user.service';
 export class UsersDetailsComponent implements OnInit {
   users: UserModel[];
   loading: boolean;
+  userDeleted: boolean;
 
   constructor(private userService: UserService) { }
 
@@ -33,7 +34,11 @@ export class UsersDetailsComponent implements OnInit {
     if (confirm('Delete this user')) {
       this.userService.deleteUser(id)
         .subscribe(() => {
+          this.userDeleted = true;
           this.getAllUsers();
+          setTimeout(() => {
+            this.userDeleted = false;
+          }, 3000);
         });
     }
   }

@@ -49,6 +49,8 @@
   "FORGOT_PASSWORD": "Mot de passe oublié ?",
   "LOG_IN": "Se connecter"
 ,
+  "BILL_DELETED_SUCCESS": "Facture effacée"
+,
   "RESET_PASSWORD": "Vous pouvez réinitialiser votre mot de passe ici.",
   "EMAIL":"Email"
 ,

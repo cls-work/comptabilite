@@ -1,5 +1,11 @@
 <app-loader *ngIf="loading"></app-loader>
 
+<span class="table-add float-left mb-3 mr-2">
+        <a class="text-success" *ngIf="userDeleted">
+          {{'USER_DELETED_SUCCESS'|translate}}
+        </a>
+      </span>
+
 <table class="table table-bordered table-responsive-md table-striped text-center">
 
 
