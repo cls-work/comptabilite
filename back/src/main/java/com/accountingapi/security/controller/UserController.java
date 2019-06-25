@@ -65,9 +65,14 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{userId}")
-    public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody SignUpRequest signUpRequest){
+    public ResponseEntity<?> editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody SignUpRequest signUpRequest){
 
         User oldUser = userRepository.getOne(userId);
+        if(oldUser==null){
+            return new ResponseEntity(new ApiResponse(false, "User not found !"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
         oldUser.setUsername(signUpRequest.getUsername());
         oldUser.setName(signUpRequest.getName());
         oldUser.setEmail(signUpRequest.getEmail());
@@ -77,7 +82,11 @@ public class UserController {
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(userRole);
         oldUser.setRoles(userRoles);
-        return userRepository.save(oldUser);
+
+        userRepository.save(oldUser);
+
+        return new ResponseEntity(new ApiResponse(true, "lang successfully saved. "),
+                HttpStatus.ACCEPTED);
     }
 
 
@@ -93,6 +102,10 @@ public class UserController {
     public ResponseEntity<?> editLang(@PathVariable Long userId,@Valid @RequestBody LangEditDto langEditDto){
 
         User oldUser = userRepository.getOne(userId);
+        if(oldUser==null){
+            return new ResponseEntity(new ApiResponse(false, "User not found !"),
+                    HttpStatus.BAD_REQUEST);
+        }
         oldUser.setLang(langEditDto.getLang());
 
         return new ResponseEntity(new ApiResponse(true, "lang successfully saved. "),
@@ -101,7 +114,7 @@ public class UserController {
     }
 
 
-   /* @GetMapping("/user/me")
+  /* @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
         UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());

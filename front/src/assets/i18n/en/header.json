@@ -1,7 +1,9 @@
 {
-  "LOGOUT": "logout",
-  "USERS": "users",
-  "BILLS": "bills"
+  "LOGOUT": "Logout",
+  "USERS": "Users",
+  "BILLS": "Bills",
+  "HISTORY": "History",
+  "LANGUAGE": "Language"
 
 
 

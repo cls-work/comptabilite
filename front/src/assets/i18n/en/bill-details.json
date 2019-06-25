@@ -1,3 +1,10 @@
 {
-  "PRODUCT_ID": "Reference"
+  "BILL_DETAILS": "Bill details",
+  "PRODUCT_ID": "Product id",
+  "QUANTITY": "Quantity",
+  "UNIT_PRICE": "Unit price",
+  "DISCOUNT": "Discount",
+  "UNIT_PRICE_AFTER_DISCOUNT": "Unit price after discount ",
+
+  "ADD_PRODUCTS": "Add product"
 }

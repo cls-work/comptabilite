@@ -1,6 +1,7 @@
 package com.accountingapi.controller;
 
-import com.accountingapi.dto.UploadFileResponseDto;
+import com.accountingapi.model.FileStorageProperties;
+import com.accountingapi.repository.FileStorageRepository;
 import com.accountingapi.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,12 @@ public class FileStorageController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    private FileStorageRepository fileStorageRepository;
+
 
     @PostMapping("/uploadFile")
-    public UploadFileResponseDto uploadFile(@RequestParam("file") MultipartFile file) {
+    public FileStorageProperties uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -37,13 +41,15 @@ public class FileStorageController {
                 .path(fileName)
                 .toUriString();
 
-
-        return new UploadFileResponseDto(fileName, fileDownloadUri,
+        FileStorageProperties fileStorageProperties = new FileStorageProperties(fileName,
                 file.getContentType(), file.getSize());
+        fileStorageRepository.save(fileStorageProperties);
+
+        return fileStorageProperties;
     }
 
     @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponseDto> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+    public List<FileStorageProperties> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
