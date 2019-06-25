@@ -2,13 +2,14 @@ package com.accountingapi.dto;
 
 import com.accountingapi.model.Bill;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillDocumentDto {
 
     private Bill bill ;
 
-    private List<Long> documentIds;
+    private List<Long> documentIds=new ArrayList<>();
 
     public Bill getBill() {
         return bill;
