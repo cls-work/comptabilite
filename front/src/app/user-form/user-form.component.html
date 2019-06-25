@@ -1,3 +1,4 @@
+<app-loader *ngIf="loading"></app-loader>
 <ng-container *ngIf="userForm">
 
   <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
@@ -22,7 +23,7 @@
                   <label class="label" >{{'USER_TYPE'|translate}}</label>
                   <div class="p-t-10">
                     <label class="radio-container m-r-45" *ngFor="let role of roles" for="role{{role.id}}">{{role.name|translate|titlecase}}
-                      <input type="radio" formControlName="role" name="role" value="{{role.id}}" id="role{{role.id}}">
+                      <input type="radio" formControlName="roleId" name="roleId" value="{{role.id}}" id="role{{role.id}}">
                       <span class="checkmark"></span>
                     </label>
                   </div>
