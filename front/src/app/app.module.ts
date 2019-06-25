@@ -29,8 +29,9 @@ import {BillComponent} from './bill/bill.component';
 import {TranslateService} from './_services/translate.service';
 import {TranslatePipe} from './_pipes/translate.pipe';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
-import {DataTablesModule} from "angular-datatables";
-import {HistoricalService} from "./_services/historical.service";
+import {DataTablesModule} from 'angular-datatables';
+import {HistoricalService} from './_services/historical.service';
+import { LoaderComponent } from './loader/loader.component';
 
 
 /*export function setupHeaderTranslateFactory(service: TranslateService) {
@@ -40,7 +41,7 @@ export function setupBillsTranslateFactory(service: TranslateService) {
   return () => service.componentLang('fr', 'bills');
 }*/
 export function setupTranslateFactory(service: TranslateService) {
-  return () => service.use('fr');
+  return () => service.use('en');
 }
 
 @NgModule({
@@ -62,7 +63,8 @@ export function setupTranslateFactory(service: TranslateService) {
     ResetPasswordComponent,
     BillComponent,
     TranslatePipe,
-    HistoricalsListComponent
+    HistoricalsListComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

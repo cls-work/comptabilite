@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserModel} from '../_models/user.model';
-import {BASE_URL, FORGOT_PASSWORD, NEW_PASSWORD, ROLES, USERS, VERIFY} from '../_globals/vars';
+import {AUTH, BASE_URL, FORGOT_PASSWORD, LANG, NEW_PASSWORD, ROLES, SIGN_UP, USERS, VERIFY} from '../_globals/vars';
 
 
 
@@ -42,6 +42,16 @@ export class UserService {
 
   getAllRoles() {
     return this.http.get<any[]>(BASE_URL + USERS + ROLES);
+  }
+
+
+  addUser(user) {
+    console.log(user);
+    return this.http.post(BASE_URL + AUTH + SIGN_UP, user);
+  }
+
+  editUser(value: any, id: string) {
+    return this.http.put(BASE_URL + USERS + id, value);
   }
 
 

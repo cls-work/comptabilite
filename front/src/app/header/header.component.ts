@@ -32,6 +32,12 @@ export class HeaderComponent implements OnInit {
 
   changeLang(lang: string) {
     this.translateService.use(lang);
+    if (this.currentUser) {
+      this.authenticationService.setLang(lang, this.currentUser.id)
+        .subscribe(data => {
+          console.log(data);
+        });
+    }
 
   }
 
@@ -44,7 +50,7 @@ export class HeaderComponent implements OnInit {
     $event.preventDefault();
   }
 
-  get adminRole(){
+  get adminRole() {
     return ROLE_ADMIN;
   }
 }

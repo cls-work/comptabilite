@@ -1,12 +1,15 @@
 {
-  "BILL_ID": "Rechnungsreferenz",
-  "PAYMENT_METHOD": "Zahlungsart",
-  "TAX_STAMP": "Steuerstempel",
-  "CHECK_REFERENCE": "Schecks Referenz ",
-  "CASH": "Bargeld",
-  "CHECK": "Schecks",
-  "PROVIDER":"Versorger",
-  "DATE": "Datum",
-  "ADD_BILL": "Rechnung hinzufügen",
-  "EDIT_BILL": "Rechnung bearbeiten"
+  "BILL_ID": "Réference Facture",
+  "PAYMENT_METHOD": "Méthode de paiement",
+  "TAX_STAMP": "Timbre Fiscal",
+  "CHECK_REFERENCE": "Réference Chèque",
+  "CASH": "Espèce",
+  "CHECK": "Chèque",
+  "PROVIDER":"Fournisseur",
+  "DATE": "Date",
+  "ADD_BILL": "Ajouter une facture",
+  "EDIT_BILL": "Modifier une facture",
+  "KEYWORD": "Mots Clés",
+  "NEXT": "Suivant",
+  "PREVIOUS": "Précedent"
 }

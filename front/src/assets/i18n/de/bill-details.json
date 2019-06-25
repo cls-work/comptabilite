@@ -1,12 +1,10 @@
 {
-  "BILL_DETAILS": "Rechnungsdetails",
-  "PRODUCT_ID": "Bezeichnung",
-  "QUANTITY": "Menge",
-  "UNIT_PRICE": "Stückpreis",
-  "DISCOUNT": "Rabatt",
-  "UNIT_PRICE_AFTER_DISCOUNT": "Stückpreis nach Abzug",
-  "AMOUNT_HT": "Betrag steuerfrei",
-  "AMOUNT_TTC": "Betrag incl.Mwst",
-  "AMOUNT_TVA": "MwSt",
-  "ADD_PRODUCTS": "Produkte hinzufügen"
+  "BILL_DETAILS": "Détails de la facture",
+  "PRODUCT_ID": "Désignation",
+  "QUANTITY": "Qté",
+  "UNIT_PRICE": "Prix Unitaire",
+  "DISCOUNT": "Remise",
+  "UNIT_PRICE_AFTER_DISCOUNT": "Prix unitaire après remise",
+
+  "ADD_PRODUCTS": "Ajouter des produits"
 }

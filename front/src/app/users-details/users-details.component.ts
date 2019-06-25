@@ -9,6 +9,7 @@ import {UserService} from '../_services/user.service';
 })
 export class UsersDetailsComponent implements OnInit {
   users: UserModel[];
+  loading: boolean;
 
   constructor(private userService: UserService) { }
 
@@ -17,16 +18,19 @@ export class UsersDetailsComponent implements OnInit {
   }
 
   getAllUsers() {
+    this.loading = true;
     this.userService.getAllUsers()
       .subscribe(users => {
         this.users = users;
         console.log(users);
+        this.loading = false;
       });
   }
 
 
   deleteUser(id: string) {
-    if(confirm('Delete this user')) {
+    this.loading = true;
+    if (confirm('Delete this user')) {
       this.userService.deleteUser(id)
         .subscribe(() => {
           this.getAllUsers();

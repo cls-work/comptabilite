@@ -5,4 +5,5 @@ export class UserModel {
   email: string;
   role: string;
   accessToken?: string;
+  lang: string;
 }

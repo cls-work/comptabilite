@@ -15,6 +15,7 @@ export class UserFormComponent implements OnInit {
   userForm: FormGroup;
   user: UserModel;
   roles: any[];
+  loading: boolean;
   constructor(private authenticationService: AuthenticationService,
               private userService: UserService,
               private route: ActivatedRoute,
@@ -30,12 +31,14 @@ export class UserFormComponent implements OnInit {
 
     const id = this.route.snapshot.params.id;
     if (id) {
+      this.loading=true;
       this.userService.getUserById(id)
         .subscribe(user => {
           this.user = user;
           console.log(user);
           // @ts-ignore
           this.userForm = this.initUserForm(this.user.name, this.user.username, this.user.email, this.user.roles[0].id.toString());
+          this.loading=false
         });
     }
 
@@ -52,24 +55,30 @@ export class UserFormComponent implements OnInit {
       password: ['', Validators.required],
       repeatPassword: ['', name !== '' ? Validators.required : null],
       name: [name , Validators.required],
-      role: [role, Validators.required]
+      roleId: [role, Validators.required]
     });
   }
 
   addUser() {
-    this.userForm.value.role = parseInt(this.userForm.value.role, 10);
-    this.authenticationService.addUser(this.userForm.value);
-      /*.subscribe(d => {
+    this.loading=true;
+    this.userForm.value.roleId = parseInt(this.userForm.value.roleId, 10);
+    this.userService.addUser(this.userForm.value)
+      .subscribe(d => {
         console.log(d);
-      });*/
+        this.loading=false;
+        this.router.navigate(['/users']);
+      });
   }
 
   editUser() {
-    this.userForm.value.role = parseInt(this.userForm.value.role, 10);
-    this.authenticationService.addUser(this.userForm.value);
-      /*.subscribe(d => {
+    this.loading=true
+    this.userForm.value.roleId = parseInt(this.userForm.value.roleId, 10);
+    this.userService.editUser(this.userForm.value, this.user.id)
+      .subscribe(d => {
         console.log(d);
-      });*/
+        this.loading=false
+        this.router.navigate(['/users']);
+      });
   }
 
   checkEqualPasswords() {

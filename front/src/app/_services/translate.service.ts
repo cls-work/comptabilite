@@ -8,11 +8,6 @@ export class TranslateService {
 
   data: any = {};
 
-  /*components = [
-    'header',
-    'bills',
-    'bill-form'
-  ];*/
 
   constructor(private http: HttpClient) {
   }
@@ -26,8 +21,11 @@ export class TranslateService {
   }*/
 
   use(lang: string): Promise<{}> {
+    if (lang) {
+      localStorage.setItem('lang', lang);
+    }
     return new Promise<{}>((resolve) => {
-          const langPath = `assets/i18n/${lang || 'fr'}.json`;
+          const langPath = `assets/i18n/${lang || localStorage.getItem('lang') || 'en'}.json`;
           console.log(langPath);
 
           this.http.get<{}>(langPath).subscribe(
