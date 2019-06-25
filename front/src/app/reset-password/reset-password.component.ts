@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../_services/user.service';
 import {map} from 'rxjs/operators';
+import {passValidator} from "./customValidator";
 
 @Component({
   selector: 'app-reset-password',
@@ -41,8 +42,8 @@ export class ResetPasswordComponent implements OnInit {
     console.log('!token');
     this.resetPasswordForm = this.formBuilder.group({
 
-        password: ['', Validators.required],
-        confirmPassword: ['', Validators.required]
+        password: ['', Validators.required, ],
+        confirmPassword: ['', passValidator]
       });
   }
 
