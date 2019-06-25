@@ -44,7 +44,7 @@
                         <p>{{bill.provider}}</p>
                       </td>
                       <td>
-                        <p>{{bill.date}}</p>
+                        <p>{{bill.date|date: 'dd/MM/yyyy'}}</p>
                       </td>
                       <td>
                         <p>{{bill.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</p>

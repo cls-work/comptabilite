@@ -2,7 +2,7 @@
 
     <div class="col">{{bill.billId}}</div>
     <div class="col">{{bill.provider}}</div>
-    <div class="col">{{bill.date}}</div>
+    <div class="col">{{bill.date|date: 'dd/MM/yyyy'}}</div>
     <div class="col">{{bill.totalHT|number:'.3'}} TND</div>
     <div class="col">{{bill.totalTVA|number:'.3'}} TND</div>
     <div class="col">{{bill.taxStamp|number:'.3'}} TND</div>

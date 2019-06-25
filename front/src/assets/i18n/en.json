@@ -1,12 +1,57 @@
 {
-  "PRODUCT_ID": "Reference"
+  "BILL_DETAILS": "Bill details",
+  "PRODUCT_ID": "Product id",
+  "QUANTITY": "Quantity",
+  "UNIT_PRICE": "Unit price",
+  "DISCOUNT": "Discount",
+  "UNIT_PRICE_AFTER_DISCOUNT": "Unit price after discount ",
+
+  "ADD_PRODUCTS": "Add product"
 ,
-  "BILL_ID": "Bill reference"
+  "BILL_ID": "Bill id ",
+  "PAYMENT_METHOD": "Payment method",
+  "TAX_STAMP": "Tax stamp",
+  "CHECK_REFERENCE": "Check refrence",
+  "CASH": "Cash",
+  "CHECK": "Check",
+  "PROVIDER":"Provider",
+  "DATE": "Date",
+  "ADD_BILL": "Add Bill",
+  "EDIT_BILL": "Edit Bill",
+  "KEYWORD": "Keyword",
+  "NEXT": "Next",
+  "PREVIOUS": "Previous"
 ,
-  "LOGOUT": "logout",
-  "USERS": "users",
-  "BILLS": "bills"
+  "ABORT": "Abort",
+  "BACK": "Back",
+  "EDIT": "Edit",
+  "DETAILS": "Details",
+  "DELETE": "Delete",
+  "AMOUNT": "Amount",
+  "HT": "HT",
+  "TTC": "TTC",
+  "TVA": "TVA",
+  "TOTAL": "Total",
+  "CURRENCY": "TND"
+,
+  "LOGOUT": "Logout",
+  "USERS": "Users",
+  "BILLS": "Bills",
+  "HISTORY": "History",
+  "LANGUAGE": "Language"
 
 
 
+,
+  "ROLE_ADMIN":"administrator",
+  "ROLE_USER":"User",
+  "ADD_USER": "Add user",
+  "EDIT_USER": "Edit user",
+  "USER_TYPE": "User type",
+  "SAME_PASSWORD_ERROR": "Passwords must be identical",
+  "PASSWORD": "Password",
+  "REPEAT": "Repeat",
+  "NAME":"Name",
+  "USERNAME":"Username",
+  "EMAIL":"Email"
 }
