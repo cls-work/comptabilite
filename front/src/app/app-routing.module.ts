@@ -61,7 +61,8 @@ const routes: Routes = [
 
 
 
-  {
+
+{
     path: 'add-products/:id',
     component: AddProductsComponent,
     canActivate: [AuthGuard]

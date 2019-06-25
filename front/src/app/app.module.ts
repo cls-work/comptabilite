@@ -58,7 +58,8 @@ export function setupTranslateFactory(service: TranslateService) {
     ResetPasswordComponent,
     TranslatePipe,
     HistoricalsListComponent,
-    LoaderComponent
+    LoaderComponent,
+    
   ],
   imports: [
     BrowserModule,
