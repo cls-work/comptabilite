@@ -20,7 +20,7 @@
                 <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-text"><i class="fa fa-envelope"></i></div>
-                    <input type="text" placeholder="{{'USERNAME'|translate}}" formControlName="usernameOrEmail"  class="form-control" id="username" [ngClass]="{ 'is-invalid': submitted && f.usernameOrEmail.errors }" />
+                    <input type="text" placeholder="{{'USERNAME'|translate}}" formControlName="usernameOrEmail"  class="form-control" id="username" [ngClass]="{ 'is-invalid':loginForm.get('usernameOrEmail').touched && loginForm.get('usernameOrEmail').invalid }"/>
                     <div *ngIf="submitted && f.usernameOrEmail.errors" >
                       <div *ngIf="f.usernameOrEmail.errors.required">Username is required</div>
                     </div>
@@ -45,7 +45,7 @@
               </form>
 
               <span>
-                <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.usernameOrEmail.valid" ></i>
+                <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.usernameOrEmail.valid " ></i>
                 <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.usernameOrEmail.invalid"></i>
                 Username should be minimum 4 character long
 
