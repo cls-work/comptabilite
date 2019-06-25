@@ -51,7 +51,7 @@ public class Bill {
     @OneToMany(targetEntity=Historical.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
 
-    @JsonIgnore
+
     @OneToMany(targetEntity=FileStorageProperties.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileStorageProperties> fileStorageProperties= new ArrayList<>();
 
