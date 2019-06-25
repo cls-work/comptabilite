@@ -15,7 +15,6 @@ import {BillService} from './_services/bill.service';
 import {UserService} from './_services/user.service';
 import {AuthenticationService} from './_services/authentication.service';
 import {AddProductsComponent} from './add-products/add-products.component';
-import {ProductDetailsComponent} from './product-details/product-details.component';
 import {BillFormComponent} from './bill-form/bill-form.component';
 import {DisableControlDirective} from './_directives/disable-controle.directive';
 import {FilterPipe} from './_pipes/filter.pipe';
@@ -23,9 +22,7 @@ import {OrderByPipe} from './_pipes/order-by.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {HeaderComponent} from './header/header.component';
 import {UsersDetailsComponent} from './users-details/users-details.component';
-import {UserDetailsComponent} from './user-details/user-details.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
-import {BillComponent} from './bill/bill.component';
 import {TranslateService} from './_services/translate.service';
 import {TranslatePipe} from './_pipes/translate.pipe';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
@@ -52,16 +49,13 @@ export function setupTranslateFactory(service: TranslateService) {
     UserFormComponent,
     LoginComponent,
     AddProductsComponent,
-    ProductDetailsComponent,
     BillFormComponent,
     DisableControlDirective,
     FilterPipe,
     OrderByPipe,
     HeaderComponent,
     UsersDetailsComponent,
-    UserDetailsComponent,
     ResetPasswordComponent,
-    BillComponent,
     TranslatePipe,
     HistoricalsListComponent,
     LoaderComponent
