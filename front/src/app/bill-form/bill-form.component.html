@@ -1,85 +1,107 @@
 <ng-container *ngIf="billForm">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+        <div class="wrapper wrapper--w680">
+          <div class="card card-4">
+            <div class="card-body">
+              <h2 class="title" *ngIf="!bill">{{'ADD_BILL'|translate}}</h2>
+              <h2 class="title" *ngIf="bill">{{'EDIT_BILL'|translate}}</h2>
+              <form [formGroup]="billForm">
+                <div class="row row-space">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <label class="label" for="provider">{{'PROVIDER'|translate}}</label>
 
-<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
-  <div class="wrapper wrapper--w680">
-    <div class="card card-4">
-      <div class="card-body">
-        <h2 class="title" *ngIf="!bill">{{'ADD_BILL'|translate}}</h2>
-        <h2 class="title" *ngIf="bill">{{'EDIT_BILL'|translate}}</h2>
-        <form [formGroup]="billForm">
-          <div class="row row-space">
-            <div class="col-md-5">
-              <div class="input-group">
-                <label class="label" for="provider">{{'PROVIDER'|translate}}</label>
+                      <input class="input--style-4" type="text"
+                             [class.alert-danger]="billForm.controls.provider.invalid&&(billForm.controls.provider.dirty||billForm.controls.provider.touched)"
+                             formControlName="provider" id="provider"/>
+                    </div>
+                  </div>
 
-                <input class="input--style-4" type="text"
-                       [class.alert-danger]="billForm.controls.provider.invalid&&(billForm.controls.provider.dirty||billForm.controls.provider.touched)"
-                       formControlName="provider" id="provider" />
-              </div>
-            </div>
+                  <div class="col-6">
+                    <div class="input-group">
+                      <label class="label">{{'PAYMENT_METHOD'|translate}}</label>
+                      <div class="p-t-10">
+                        <label class="radio-container m-r-45" for="paymentMethod1">{{'CASH'|translate}}
+                          <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1">
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-container" for="paymentMethod2">{{'CHECK'|translate}}
+                          <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2">
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
 
-            <div class="col-6">
-              <div class="input-group">
-                <label class="label">{{'PAYMENT_METHOD'|translate}}</label>
-                <div class="p-t-10">
-                  <label class="radio-container m-r-45" for="paymentMethod1">{{'CASH'|translate}}
-                    <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1">
-                    <span class="checkmark"></span>
-                  </label>
-                  <label class="radio-container" for="paymentMethod2">{{'CHECK'|translate}}
-                    <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2">
-                    <span class="checkmark"></span>
-                  </label>
                 </div>
-              </div>
-            </div>
+                <div class="row row-space">
 
-          </div>
-          <div class="row row-space">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
+                      <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"
+                             [class.alert-danger]="billForm.controls.taxStamp.invalid&&(billForm.controls.taxStamp.dirty||billForm.controls.taxStamp.touched)"/>
+                    </div>
+                  </div>
 
-            <div class="col-md-5">
-              <div class="input-group">
-                <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
-                <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"
-                       [class.alert-danger]="billForm.controls.taxStamp.invalid&&(billForm.controls.taxStamp.dirty||billForm.controls.taxStamp.touched)"/>
-              </div>
-            </div>
-
-            <div class="col-6">
-              <div class="input-group">
-                <label class="label" for="checkReference">{{'CHECK_REFERENCE'|translate}}</label>
-                <input class="input--style-4" type="text" formControlName="checkReference"
-                       id="checkReference" [disableControl]="editCheckPayment()" >
-              </div>
-            </div>
-          </div>
-          <div class="row row-space">
-            <div class="col-md-5">
-              <div class="input-group">
-                <div class="input-group-icon">
-                  <label class="label" for="date">{{'DATE'|translate}}</label>
-                  <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date"
-                         [class.alert-danger]="billForm.controls.date.invalid&&(billForm.controls.date.dirty||billForm.controls.date.touched)">
+                  <div class="col-6">
+                    <div class="input-group">
+                      <label class="label" for="checkReference">{{'CHECK_REFERENCE'|translate}}</label>
+                      <input class="input--style-4" type="text" formControlName="checkReference"
+                             id="checkReference" [disableControl]="editCheckPayment()">
+                    </div>
+                  </div>
                 </div>
-              </div>
+                <div class="row row-space">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <div class="input-group-icon">
+                        <label class="label" for="date">{{'DATE'|translate}}</label>
+                        <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date"
+                               [class.alert-danger]="billForm.controls.date.invalid&&(billForm.controls.date.dirty||billForm.controls.date.touched)">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="p-t-15" *ngIf="!bill">
+                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addBill()"
+                          [disabled]="!billForm.valid">{{'ADD_BILL'|translate}}</button>
+                </div>
+                <div class="p-t-15" *ngIf="bill">
+                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editBill()"
+                          [disabled]="!billForm.valid">{{'EDIT_BILL'|translate}}</button>
+                </div>
+                <div class="p-t-15">
+                  <button class="btn btn--radius-2 btn--blue"
+                          routerLink="/bills">{{'ABORT'|translate|titlecase}}</button>
+                </div>
+
+
+              </form>
             </div>
-
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+        <div class="wrapper wrapper--w680">
+          <div class="card card-4">
+            <div class="card-body">
 
-          <div class="p-t-15" *ngIf="!bill">
-            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addBill()" [disabled]="!billForm.valid">{{'ADD_BILL'|translate}}</button>
+                <input id="test"  multiple="true" name="files[]" type="file">
+            </div>
           </div>
-          <div class="p-t-15" *ngIf="bill">
-            <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editBill()" [disabled]="!billForm.valid">{{'EDIT_BILL'|translate}}</button>
-          </div>
-          <div class="p-t-15">
-            <button class="btn btn--radius-2 btn--blue" routerLink="/bills">{{'ABORT'|translate|titlecase}}</button>
-          </div>
-
-
-        </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </ng-container>
+
+<div id="newdiv">
+  Click on this to see a dialogue box.
+</div>
