@@ -27,6 +27,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
+    private String lang;
+
     @NotBlank
     @Size(max = 40)
     private String name;
@@ -122,5 +125,13 @@ public class User {
 
     public void setHistoricals(List<Historical> historicals) {
         this.historicals = historicals;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

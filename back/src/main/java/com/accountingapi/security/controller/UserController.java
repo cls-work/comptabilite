@@ -2,9 +2,11 @@ package com.accountingapi.security.controller;
 
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.security.dto.LangEditDto;
 import com.accountingapi.security.exception.AppException;
 import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
+import com.accountingapi.security.payload.ApiResponse;
 import com.accountingapi.security.payload.SignUpRequest;
 import com.accountingapi.security.repository.RoleRepository;
 import com.accountingapi.security.repository.UserRepository;
@@ -12,14 +14,17 @@ import com.accountingapi.service.HistoricalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -62,26 +67,38 @@ public class UserController {
     @PutMapping("/{userId}")
     public User editUser(@CurrentUser UserPrincipal currentUser, @PathVariable Long userId, @Valid @RequestBody SignUpRequest signUpRequest){
 
-        User oldUser = userRepository.getById(userId);
+        User oldUser = userRepository.getOne(userId);
         oldUser.setUsername(signUpRequest.getUsername());
         oldUser.setName(signUpRequest.getName());
         oldUser.setEmail(signUpRequest.getEmail());
         oldUser.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         Role userRole = roleRepository.findById(Long.parseLong(signUpRequest.getRoleId()))
                 .orElseThrow(() -> new AppException("User Role not set."));
-
-        oldUser.setRoles(Collections.singleton(userRole));
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(userRole);
+        oldUser.setRoles(userRoles);
         return userRepository.save(oldUser);
     }
 
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/roles")
-
     public List<Role> getAllRoles(){
         return roleRepository.findAll();
     }
 
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/lang/{userId}")
+    public ResponseEntity<?> editLang(@PathVariable Long userId,@Valid @RequestBody LangEditDto langEditDto){
+
+        User oldUser = userRepository.getOne(userId);
+        oldUser.setLang(langEditDto.getLang());
+
+        new ResponseEntity(new ApiResponse(true, "lang successfully saved. "),
+                HttpStatus.ACCEPTED);
+        
+    }
 
 
    /* @GetMapping("/user/me")
