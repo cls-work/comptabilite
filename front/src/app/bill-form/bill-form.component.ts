@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BillService} from '../_services/bill.service';
 import {BillModel} from '../_models/bill.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BASE_URL} from "../_globals/vars";
+import {BASE_URL} from '../_globals/vars';
 
 declare let $: any;
 
@@ -72,7 +72,6 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   }
 
 
-
   editBill() {
     this.loading = true;
 
@@ -111,12 +110,23 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+
+    this.initFileUploader();
+
+  }
+
+
+  initFileUploader() {
     $('#test').fileinput({
-      theme: "explorer-fas",
-      uploadUrl: BASE_URL + "uploadMultipleFiles",
+      theme: 'explorer-fas',
+      uploadUrl: BASE_URL + 'uploadMultipleFiles',
       ajaxSettings: {headers: {'Authorization': 'Bearer ' + this.token}},
       uploadAsync: false,
       overwriteInitial: false,
+      showCaption: false,
+      showRemove: true,
+      showUpload: false,
+      showCancel: false,
       previewFileIcon: '<i class="fas fa-file"></i>',
       initialPreviewAsData: true, // defaults markup
       preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
@@ -137,45 +147,86 @@ export class BillFormComponent implements OnInit, AfterViewInit {
         'png': '<i class="fas fa-file-image text-primary"></i>'
       },
       previewFileExtSettings: { // configure the logic for determining icon file extensions
-        'doc': function (ext) {
+        'doc': function(ext) {
           return ext.match(/(doc|docx)$/i);
         },
-        'xls': function (ext) {
+        'xls': function(ext) {
           return ext.match(/(xls|xlsx)$/i);
         },
-        'ppt': function (ext) {
+        'ppt': function(ext) {
           return ext.match(/(ppt|pptx)$/i);
         },
-        'zip': function (ext) {
+        'zip': function(ext) {
           return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
         },
-        'htm': function (ext) {
+        'htm': function(ext) {
           return ext.match(/(htm|html)$/i);
         },
-        'txt': function (ext) {
+        'txt': function(ext) {
           return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
         },
-        'mov': function (ext) {
+        'mov': function(ext) {
           return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
         },
-        'mp3': function (ext) {
+        'mp3': function(ext) {
           return ext.match(/(mp3|wav)$/i);
         }
       }
     });
 
-
     const baseContext = this;
-    $('#test').on('filebatchuploadsuccess', function (event, data) {
+    $('#test').on('filebatchuploadsuccess', function(event, data) {
 
       baseContext.billForm.patchValue({
           documentIds: data.response.map(elt => elt.id)
         }
       );
-      console.log(data.response.map(elt => elt.id));
-      console.log(baseContext.billForm)
+      //console.log(data.response.map(elt => elt.id));
+      // console.log(baseContext.billForm);
+
+      if (!baseContext.bill) {
+        baseContext.addBill();
+      } else {
+        baseContext.editBill();
+      }
 
       // data.response.forEach(elt => baseContext.formBuilde).push(elt.id));
     });
   }
+
+
+  uploadFiles() {
+    $('#test').fileinput('upload').fileinput('disable');
+  }
+
+  onAddBillClick() {
+    var filesCount = $('#test').fileinput('getFilesCount');
+    console.log(filesCount);
+
+    if (filesCount > 0) {
+      this.uploadFiles();
+      // bill will be sended automatically when files are uploaded
+
+    }
+    if (filesCount == 0 && !this.bill) {
+      this.addBill();
+    }
+
+  }
+
+
+  onEditBillClick() {
+    var filesCount = $('#test').fileinput('getFilesCount');
+    console.log(filesCount);
+
+
+    if (filesCount > 0) {
+      this.uploadFiles();
+      // bill will be sended automatically when files are uploaded
+    }
+    if (filesCount == 0 && !this.bill) {
+      this.editBill();
+    }
+  }
+
 }
