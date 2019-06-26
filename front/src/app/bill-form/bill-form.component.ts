@@ -66,6 +66,9 @@ export class BillFormComponent implements OnInit, AfterViewInit {
             // @ts-ignore
             checkPayment: [this.bill.checkPayment === true ? '1' : '0', Validators.required],
             checkReference: [this.bill.checkReference],
+          }, () => {
+            this.error = true;
+            this.loading = false;
           });
           this.loading = false;
         });
@@ -90,10 +93,13 @@ export class BillFormComponent implements OnInit, AfterViewInit {
     this.billService.editBill(billId, Object.assign({billId}, this.billForm.value))
       .subscribe(() => {
         this.loading = false;
-        this.router.navigate(['/bills','edited']);
+        this.router.navigate(['/bills', 'edited']);
+      }, () => {
+        this.loading = false;
+        this.error = true;
       });
-
   }
+
 
   addBill() {
     this.submitted = true;
@@ -107,7 +113,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       .subscribe(d => {
         this.loading = false;
         // @ts-ignore
-        this.router.navigate(['/add-products', d.billId,'new']);
+        this.router.navigate(['/add-products', d.billId, 'new']);
       }, () => {
         this.loading = false;
         this.error = true;
@@ -136,7 +142,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       showRemove: true,
       showUpload: false,
       showCancel: false,
-      language: "fr",
+      language: 'fr',
       previewFileIcon: '<i class="fas fa-file"></i>',
       initialPreviewAsData: true, // defaults markup
       preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
@@ -157,28 +163,28 @@ export class BillFormComponent implements OnInit, AfterViewInit {
         png: '<i class="fas fa-file-image text-primary"></i>'
       },
       previewFileExtSettings: { // configure the logic for determining icon file extensions
-        'doc': function (ext) {
+        doc(ext) {
           return ext.match(/(doc|docx)$/i);
         },
-        'xls': function (ext) {
+        xls(ext) {
           return ext.match(/(xls|xlsx)$/i);
         },
-        'ppt': function (ext) {
+        ppt(ext) {
           return ext.match(/(ppt|pptx)$/i);
         },
-        'zip': function (ext) {
+        zip(ext) {
           return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
         },
-        'htm': function (ext) {
+        htm(ext) {
           return ext.match(/(htm|html)$/i);
         },
-        'txt': function (ext) {
+        txt(ext) {
           return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
         },
-        'mov': function (ext) {
+        mov(ext) {
           return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
         },
-        'mp3': function (ext) {
+        mp3(ext) {
           return ext.match(/(mp3|wav)$/i);
         }
       }
@@ -192,7 +198,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
           documentIds: data.response.map(elt => elt.id)
         }
       );
-      //console.log(data.response.map(elt => elt.id));
+      // console.log(data.response.map(elt => elt.id));
       // console.log(baseContext.billForm);
 
       if (!baseContext.bill) {
@@ -211,7 +217,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   }
 
   onAddBillClick() {
-    var filesCount = $('#test').fileinput('getFilesCount');
+    let filesCount = $('#test').fileinput('getFilesCount');
     console.log(filesCount);
 
     if (filesCount > 0) {
@@ -219,7 +225,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       // bill will be sended automatically when files are uploaded
 
     }
-    if (filesCount == 0 && !this.bill) {
+    if (filesCount == 0 && this.bill) {
       this.addBill();
     }
 
@@ -227,7 +233,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
 
 
   onEditBillClick() {
-    var filesCount = $('#test').fileinput('getFilesCount');
+    let filesCount = $('#test').fileinput('getFilesCount');
     console.log(filesCount);
 
 
@@ -235,7 +241,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       this.uploadFiles();
       // bill will be sended automatically when files are uploaded
     }
-    if (filesCount == 0 && !this.bill) {
+    if (filesCount == 0 && this.bill) {
       this.editBill();
     }
   }
