@@ -78,7 +78,6 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   }
 
 
-
   editBill() {
     this.loading = true;
 
@@ -214,14 +213,21 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   }
 
   onAddBillClick() {
+    console.log("test1");
     let filesCount = $('#test').fileinput('getFilesCount');
 
+    console.log("test2");
     if (filesCount > 0) {
+
       this.uploadFiles();
+      console.log('files>0.log');
       // bill will be sended automatically when files are uploaded
 
     }
-    if (filesCount == 0 && this.bill) {
+
+    console.log("test3");
+    if (filesCount == 0 && !this.bill) {
+      console.log('add bill');
       this.addBill();
     }
 
