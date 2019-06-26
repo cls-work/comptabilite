@@ -78,7 +78,7 @@ export class ResetPasswordComponent implements OnInit {
         // @ts-ignore
         this.validToken = ( data.success);
       }, error => {
-        console.log(error);
+        this.router.navigate(['/reset-password'])
       });
 
   }
