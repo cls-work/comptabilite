@@ -53,6 +53,7 @@ public class Bill {
 
 
     @OneToMany(targetEntity=FileStorageProperties.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column( nullable = true)
     private List<FileStorageProperties> fileStorageProperties= new ArrayList<>();
 
 
