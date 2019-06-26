@@ -2,12 +2,14 @@ package com.accountingapi.controller;
 
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.repository.FileStorageRepository;
+import com.accountingapi.security.payload.ApiResponse;
 import com.accountingapi.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,8 +82,20 @@ public class FileStorageController {
                 .body(resource);
     }
 
-    @GetMapping("/files/{billId}")
+    @GetMapping("/getAllFiles/{billId}")
     public List<FileStorageProperties> getAllFilesByBillId(@PathVariable  String billId){
         return fileStorageService.findAllFilesByBillId(billId);
+    }
+
+    @DeleteMapping("/deleteFiles/{fileId}")
+    public ResponseEntity<?> deleteFileById(@PathVariable Long fileId){
+        FileStorageProperties fileStorageProperties= fileStorageRepository.getOne(fileId);
+        if(fileStorageProperties!=null) {
+            fileStorageRepository.delete(fileStorageProperties);
+            return new ResponseEntity(new ApiResponse(true, "File deleted successfully "),
+                    HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity(new ApiResponse(false, "File does not exist"),
+                HttpStatus.BAD_REQUEST);
     }
 }
