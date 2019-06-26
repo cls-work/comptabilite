@@ -1,6 +1,8 @@
 <app-loader *ngIf="loading"></app-loader><!-- Editable table -->
-<span class="alert-success" *ngIf="new">{{'BILL_ADDED_SUCCESS'|translate}}</span>
-<div class="card" *ngIf="true">
+<div class="alert alert-warning" role="alert" *ngIf="new">
+  {{'BILL_ADDED_SUCCESS'|translate}}
+</div>
+  <div class="card" *ngIf="true">
   <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{'ADD_PRODUCTS'|translate|titlecase}}</h3>
 
 
