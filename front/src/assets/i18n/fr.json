@@ -50,7 +50,16 @@
   "LOG_IN": "Se connecter"
 ,
   "BILL_DELETED_SUCCESS": "Facture effacée",
-  "PRODUCT_DELETED_SUCCESS": "Facture effacée"
+  "BILL_ADDED_SUCCESS": "Facture ajoutée",
+  "PRODUCT_DELETED_SUCCESS": "Facture effacée",
+
+
+
+
+
+  "ERROR_BILL_FORM": "Erreur d'ajout de facture",
+  "ERROR_ADD_PRODUCTS": "Erreur d'ajout des produits",
+  "ERROR_LOADING_BILL_DETAILS": "Erreur lors du chargement des données"
 ,
   "RESET_PASSWORD": "Vous pouvez réinitialiser votre mot de passe ici.",
   "EMAIL":"Email"

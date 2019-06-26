@@ -19,8 +19,11 @@ export class AddProductsComponent implements OnInit {
   totalTTC: number;
   totalTVA: number;
   totalHT: number;
-  loading: boolean;
 
+  loading: boolean;
+  new: boolean;
+  submitted: boolean;
+  error: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private billService: BillService,
@@ -28,15 +31,20 @@ export class AddProductsComponent implements OnInit {
               private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.loading=true
+    // this.loading = true;
     this.billService.getBillByID(this.route.snapshot.params.id)
       .subscribe(bill => {
-        console.log('add-product component')
+        console.log('add-product component');
         // @ts-ignore
         this.bill = bill;
         this.calculateTotals();
         console.log(bill);
-        this.loading=false;
+        this.loading = false;
+      }, () => {
+        this.error = true;
+        this.loading = false;
+        console.log(('error'));
+        console.log('loading',this.loading)
       });
 
     this.productsForm = this.formBuilder.group(
@@ -48,6 +56,8 @@ export class AddProductsComponent implements OnInit {
       });
 
     this.taxType = 0;
+
+    this.new = this.route.snapshot.params.success === 'new';
 
   }
 
@@ -80,6 +90,25 @@ export class AddProductsComponent implements OnInit {
     this.calculateTotals();
   }
 
+  pushProducts() {
+    this.submitted = true;
+    this.loading = true;
+    const billId = this.route.snapshot.params.id;
+    this.billService.postProducts(billId, this.productsForm.value.products)
+      .subscribe(d => {
+        console.log(d);
+        this.router.navigate(['/bill-detail', billId]);
+        this.loading = false;
+      }, () => {
+        this.error = true;
+        this.loading = false;
+    });
+  }
+
+
+
+
+
   calculateTotals() {
 
     this.totalHT = this.bill.totalHT;
@@ -95,15 +124,6 @@ export class AddProductsComponent implements OnInit {
     this.totalTTC += this.bill.taxStamp;
 
 
-  }
-
-  pushProducts() {
-    const billId = this.route.snapshot.params.id;
-    this.billService.postProducts(billId, this.productsForm.value.products)
-      .subscribe(d => {
-        console.log(d);
-        this.router.navigate(['/bill-detail', billId]);
-      });
   }
 
   editTax(taxType: number) {

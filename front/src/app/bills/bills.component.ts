@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BillModel} from '../_models/bill.model';
 import {BillService} from '../_services/bill.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-bills',
@@ -15,15 +16,24 @@ export class BillsComponent implements OnInit {
   orderByOrder: string;
   orderByColumn: string;
   config: any;
-  loading: boolean;
   billDeleted: boolean;
   perPage: number;
-  constructor(private billService: BillService) {
+
+
+  loading: boolean;
+  error: boolean;
+  billEdited: boolean;
+
+  constructor(private billService: BillService,
+              private route: ActivatedRoute) {
     this.initializeConfig(0, 0, 0);
     this.perPage = 10;
   }
 
   ngOnInit() {
+    if (this.route.snapshot.params.edited === 'edited') {
+      this.billEdited = true;
+    }
     this.getAllBills();
     this.orderBy('date', 'desc');
   }
@@ -101,6 +111,9 @@ export class BillsComponent implements OnInit {
         this.searchToken = null;
         this.initializeConfig(this.perPage, 1, this.bills.length);
         this.loading = false;
+      }, () => {
+        this.loading = false;
+        this.error = true;
       });
   }
 

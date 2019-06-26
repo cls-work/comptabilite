@@ -1,4 +1,15 @@
 {
   "BILL_DELETED_SUCCESS": "Facture effacée",
-  "PRODUCT_DELETED_SUCCESS": "Facture effacée"
+  "BILL_EDITED_SUCCESS": "Facture modifée",
+  "BILL_ADDED_SUCCESS": "Facture ajoutée",
+  "PRODUCT_DELETED_SUCCESS": "Facture effacée",
+
+
+
+
+
+  "ERROR_BILL_FORM": "Erreur d'ajout de facture",
+  "ERROR_ADD_PRODUCTS": "Erreur d'ajout des produits",
+  "ERROR_LOADING_BILL_DETAILS": "Erreur lors du chargement des données",
+  "ERROR_LOADING_BILL": "Erreur lors du chargement des données"
 }

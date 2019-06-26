@@ -1,4 +1,8 @@
 <app-loader *ngIf="loading"></app-loader>
+
+<span class="table-add float-left mb-3 mr-2">
+  <a class="text-danger" *ngIf="error&&!submitted">{{'ERROR_LOADING_BILL_DETAILS'|translate}}</a>
+</span>
 <div *ngIf="bill">
 
   <!-- Editable table -->
@@ -7,7 +11,7 @@
 
 
     <ul class="list-group">
-      <li class="list-group-item">  <h3>{{'BILL_ID'|translate|titlecase }} : </h3>  <h5>{{bill.billId}}</h5> </li>
+      <li class="list-group-item">  <h3>{{'BILL_ID'|translate|titlecase }} : </h3> <h5>{{bill.billId}}</h5> </li>
       <li class="list-group-item">  <h3>{{'PROVIDER'|translate|titlecase}} : </h3> <h5>{{bill.provider}}</h5></li>
       <li class="list-group-item">  <h3>{{'DATE'|translate|titlecase}} : </h3> <h5>{{bill.date|date: 'dd/MM/yyyy'}}</h5></li>
     </ul>
