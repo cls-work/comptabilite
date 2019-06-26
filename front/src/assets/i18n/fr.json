@@ -50,16 +50,24 @@
   "LOG_IN": "Se connecter"
 ,
   "BILL_DELETED_SUCCESS": "Facture effacée",
+  "BILL_EDITED_SUCCESS": "Facture modifée",
   "BILL_ADDED_SUCCESS": "Facture ajoutée",
-  "PRODUCT_DELETED_SUCCESS": "Facture effacée",
+  "PRODUCT_DELETED_SUCCESS": "Produit effacé",
+  "USER_DELETED_SUCCESS": "Utilisateur effacé",
+  "USER_ADDED_SUCCESS": "Utilisateur ajouté",
+  "USER_EDITED_SUCCESS": "Utilisateur modifé",
 
 
 
 
 
-  "ERROR_BILL_FORM": "Erreur d'ajout de facture",
+  "ERROR_BILL_FORM": "Erreur formulaire facture",
+  "ERROR_USER_FORM": "Erreur formulaire utilisateur",
   "ERROR_ADD_PRODUCTS": "Erreur d'ajout des produits",
-  "ERROR_LOADING_BILL_DETAILS": "Erreur lors du chargement des données"
+  "ERROR_LOADING_BILL_DETAILS": "Erreur lors du chargement des données des factures",
+  "ERROR_LOADING_BILL": "Erreur lors du chargement des données de la facture",
+  "ERROR_LOADING_USERS": "Erreur lors du chargement des utilisateurs",
+  "ERROR_LOADING_USER": "Erreur lors du chargement des données de l'utilisateur"
 ,
   "RESET_PASSWORD": "Vous pouvez réinitialiser votre mot de passe ici.",
   "EMAIL":"Email"
