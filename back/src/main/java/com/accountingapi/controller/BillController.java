@@ -98,11 +98,27 @@ public class BillController {
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{billId}")
-    public Bill editBill(@CurrentUser UserPrincipal currentUser,@PathVariable String billId,@Valid @RequestBody Bill bill){
+    public Bill editBill(@CurrentUser UserPrincipal currentUser,@PathVariable String billId,@Valid @RequestBody BillRequestDto billRequestDto){
 
+        Bill bill= billRequestDto.toBill();
         bill.setBillId(billId);
-        historicalService.addHistorical(currentUser, "updated a Bill",bill);
-        return billService.updateBill(bill);
+
+        if (billRequestDto.getDocumentIds().isEmpty()){
+            Bill newBill=billService.updateBill(bill);
+            historicalService.addHistorical(currentUser, "updated a Bill",bill);
+            return newBill;
+        }
+        else {
+            List<Long> documentsIds = billRequestDto.getDocumentIds();
+            List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+            bill.setFileStorageProperties(documents);
+            documents.forEach(elt->elt.setBill(bill));
+            Bill newBill=billService.updateBill(bill);
+            historicalService.addHistorical(currentUser, "updated a Bill",bill);
+            return newBill;
+        }
+
+
     }
 
 
