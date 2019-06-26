@@ -40,7 +40,7 @@
       </td>
 
 
-      <td><button class="btn btn-outline-secondary" type="button" [routerLink]="['/user-form',user.id]">{{'EDIT'|translate|titlecase}}</button></td>
+      <td><button class="btn btn-outline-secondary" type="button" [routerLink]="['/user-form/',user.id]">{{'EDIT'|translate|titlecase}}</button></td>
       <td (click)="deleteUser(user.id)"><button class="btn btn-outline-danger" type="button">{{'DELETE'|translate|titlecase}}</button></td>
 
     </tr>
