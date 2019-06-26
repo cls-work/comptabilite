@@ -5,6 +5,8 @@ import {TranslateService} from '../_services/translate.service';
   name: 'translate',
   pure: false,
 })
+
+// translate data according to lang files
 export class TranslatePipe implements PipeTransform {
   constructor(private translateService: TranslateService) {}
 

@@ -4,6 +4,8 @@ import {AuthenticationService} from '../_services/authentication.service';
 
 
 @Injectable({ providedIn: 'root' })
+
+// check if a user is logged in
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,

@@ -7,6 +7,8 @@ import {ROLE_ADMIN} from '../_globals/vars';
 @Injectable({
   providedIn: 'root'
 })
+
+// check if user is admin
 export class AdminGuard implements CanActivate {
   constructor(
     private router: Router,
@@ -16,11 +18,11 @@ export class AdminGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser.role === ROLE_ADMIN) {
-      // logged in so return true
+      // is admin so return true
       return true;
     }
 
-    // not logged in so redirect to login page with the return url
+    // not admin so redirect to bills
     this.router.navigate(['/bills']);
     return false;
   }

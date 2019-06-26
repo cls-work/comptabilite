@@ -5,6 +5,8 @@ import {AuthenticationService} from '../_services/authentication.service';
 
 
 @Injectable()
+
+// add authorisation token to user requests
 export class JwtInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService) { }
 

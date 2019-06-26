@@ -34,9 +34,9 @@
               <th class="text-center">{{'QUANTITY'|translate|titlecase}}</th>
               <th class="text-center" >{{'UNIT_PRICE'|translate|titlecase}} {{(taxType===0?'HT':'TTC')|translate}}</th>
               <th class="text-center">{{'DISCOUNT'|translate|titlecase}}</th>
+              <th class="text-center"> {{'TVA'|translate|titlecase}} </th>
               <th class="text-center">{{'UNIT_PRICE_AFTER_DISCOUNT'|translate|titlecase}} {{(taxType===0?'HT':'TTC')|translate}}</th>
               <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'HT'|translate}}</th>
-              <th class="text-center"> {{'TVA'|translate|titlecase}} </th>
               <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TVA'|translate}}</th>
               <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TTC'|translate}}</th>
               <th> <i class="fa fa-plus"  (click)="addProduct()"></i></th>
@@ -52,18 +52,18 @@
                        class="form-control col" placeholder="Désignation" aria-describedby="basic-addon2">
               </td>
               <td>
-                <input type="number" required formControlName="quantity"
+                <input type="number" required formControlName="quantity" min="0"
                        [class.alert-danger]="products.controls[i].controls.quantity.invalid&&(products.controls[i].controls.quantity.dirty||products.controls[i].controls.quantity.touched)"
                        class="form-control col" id="quantity" placeholder="Qté" (change)="calculatePrices(i)">
               </td>
               <td>
-                <input type="number" required formControlName="unitPrice"
+                <input type="number" required formControlName="unitPrice" min="0"
                        [class.alert-danger]="products.controls[i].controls.unitPrice.invalid&&(products.controls[i].controls.unitPrice.dirty||products.controls[i].controls.unitPrice.touched)"
                        class="form-control col" placeholder="Prix Unitaire" id="unitPrice" (change)="calculatePrices(i)">
               </td>
               <td>
                 <div class="input-group col ">
-                  <input type="number" required formControlName="discount"
+                  <input type="number" required formControlName="discount" min="0"
                          [class.alert-danger]="products.controls[i].controls.discount.invalid&&(products.controls[i].controls.discount.dirty||products.controls[i].controls.discount.touched)"
                          class="form-control col" id="discount" placeholder="Réduction" (change)="calculatePrices(i)">
                   <span class="input-group-text" >%</span></div>
@@ -71,7 +71,7 @@
 
               <td>
                 <div class="input-group col ">
-                  <input type="number" required formControlName="tva"
+                  <input type="number" required formControlName="tva" min="0"
                          [class.alert-danger]="products.controls[i].controls.tva.invalid&&(products.controls[i].controls.tva.dirty||products.controls[i].controls.tva.touched)"
                          class="form-control col" id="tva" (change)="calculatePrices(i)" placeholder="TVA">
 

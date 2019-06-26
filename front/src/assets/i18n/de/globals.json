@@ -1,13 +1,13 @@
 {
-  "ABORT": "Annuler",
-  "BACK": "Retour",
-  "EDIT": "Modifier",
-  "DETAILS": "Détails",
-  "DELETE": "Supprimer",
-  "AMOUNT": "Montant",
-  "HT": "HT",
-  "TTC": "TTC",
-  "TVA": "TVA",
-  "TOTAL": "Total",
+  "ABORT": "Abbrechen",
+  "BACK": "Zurück",
+  "EDIT": "Bearbeiten",
+  "DETAILS": "Details",
+  "DELETE": "Löschen",
+  "AMOUNT": "Gesamtpreis",
+  "HT": "Zwischensumme",
+  "TTC": "Incl.MwSt",
+  "TVA": "MwSt",
+  "TOTAL": "Gesamtbetrag",
   "CURRENCY": "TND"
 }

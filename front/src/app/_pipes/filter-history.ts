@@ -4,6 +4,8 @@ import {HistoryModel} from '../_models/history.model';
 @Pipe({
   name: 'filterHistory'
 })
+
+// filter bill array depending on id, billId, user name, message and date
 export class FilterHistoryPipe implements PipeTransform {
   transform(items: HistoryModel[], searchText: string): HistoryModel[] {
     if (!items) { return []; }

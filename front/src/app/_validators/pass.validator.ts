@@ -1,4 +1,6 @@
 import {AbstractControl} from '@angular/forms';
+
+// verify if two passwords are equals
 export function passValidator(control: AbstractControl) {
 
 if (control && (control.value != null || control.value !== undefined)) {

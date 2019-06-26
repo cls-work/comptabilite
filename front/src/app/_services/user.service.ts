@@ -23,14 +23,17 @@ export class UserService {
     return this.http.get<UserModel>(BASE_URL + USERS + idUser);
   }
 
+  // get reset password token from back
   getToken(email: string) {
     return this.http.post(BASE_URL + FORGOT_PASSWORD, {email});
   }
 
+  // verify if reset token is still valid
   verifyToken(token: string) {
     return this.http.post(BASE_URL + FORGOT_PASSWORD + VERIFY, {token});
   }
 
+  // push new passwords to back
   resetPassword(password, token) {
     return this.http.post(BASE_URL + FORGOT_PASSWORD + NEW_PASSWORD, {password, token});
   }
@@ -43,7 +46,6 @@ export class UserService {
     return this.http.get<any[]>(BASE_URL + USERS + ROLES);
   }
 
-
   addUser(user) {
     return this.http.post(BASE_URL + AUTH + SIGN_UP, user);
   }
@@ -51,6 +53,4 @@ export class UserService {
   editUser(value: any, id: string) {
     return this.http.put(BASE_URL + USERS + id, value);
   }
-
-
 }

@@ -3,6 +3,8 @@ import {BillModel} from '../_models/bill.model';
 @Pipe({
   name: 'filterBills'
 })
+
+// filter bill array depending on billId, provider, checkReference and date
 export class FilterBillsPipe implements PipeTransform {
   transform(items: BillModel[], searchText: string): BillModel[] {
     if (!items) { return []; }
