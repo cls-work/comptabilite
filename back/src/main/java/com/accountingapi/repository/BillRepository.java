@@ -1,16 +1,17 @@
 package com.accountingapi.repository;
 
 import com.accountingapi.model.Bill;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
 @Repository
-public interface BillRepository extends CrudRepository<Bill,String> {
+public interface BillRepository extends JpaRepository<Bill,String> {
 
-    public List<Bill> findAll();
+     List<Bill> findAll();
 
-    public Bill findByBillId(String id);
+     Bill findByBillId(String id);
+
 }

@@ -20,7 +20,7 @@ public class HistoricalService {
     @Autowired
     private UserRepository userRepository;
 
-    public void addHistorical(UserPrincipal currentUser, String message, Bill bill){
+    public void addHistoricalForBill(UserPrincipal currentUser, String message, Bill bill){
         Long userId=currentUser.getId();
         User user=userRepository.getById(userId);
         Historical historical= new Historical();

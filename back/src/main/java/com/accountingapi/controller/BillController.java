@@ -66,7 +66,7 @@ public class BillController {
 
         Bill bill = billService.getBillById(id);
         bill.setDeleted(true);
-        historicalService.addHistorical(currentUser, "deleted a Bill", bill);
+        historicalService.addHistoricalForBill(currentUser, "deleted a Bill", bill);
         billService.updateBill(bill);
         return bill.getDeleted();
     }
@@ -88,9 +88,10 @@ public class BillController {
             List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
             documents.forEach(elt -> elt.setBill(bill));
+
         }
         Bill newBill = billService.addBill(bill);
-        historicalService.addHistorical(currentUser, "added a new Bill", bill);
+        historicalService.addHistoricalForBill(currentUser, "added a new Bill", bill);
         return newBill;
 
 
@@ -118,7 +119,7 @@ public class BillController {
         }
 
         Bill newBill = billService.updateBill(bill);
-        historicalService.addHistorical(currentUser, "updated a Bill", bill);
+        historicalService.addHistoricalForBill(currentUser, "updated a Bill", bill);
         return newBill;
 
     }

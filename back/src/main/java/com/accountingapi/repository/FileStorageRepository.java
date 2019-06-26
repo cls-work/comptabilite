@@ -8,4 +8,5 @@ import java.util.List;
 public interface FileStorageRepository extends JpaRepository<FileStorageProperties, Long> {
 
     List<FileStorageProperties> findAllByBill_BillId(String BillId);
+
 }
