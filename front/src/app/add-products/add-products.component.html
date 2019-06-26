@@ -1,5 +1,6 @@
 <app-loader *ngIf="loading"></app-loader><!-- Editable table -->
-<div class="card" >
+<span class="alert-success" *ngIf="new">{{'BILL_ADDED_SUCCESS'|translate}}</span>
+<div class="card" *ngIf="true">
   <h3 class="card-header text-center font-weight-bold text-uppercase py-4">{{'ADD_PRODUCTS'|translate|titlecase}}</h3>
 
 
@@ -137,5 +138,9 @@
     </div>
 
   </div>
+
+  <span class="table-add float-left mb-3 mr-2">
+    <a class="text-danger" *ngIf="error&&!submitted">{{'ERROR_ADD_PRODUCTS'|translate}}</a>
+  </span>
 </div>
 <!-- Editable table -->

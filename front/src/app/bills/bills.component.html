@@ -5,6 +5,12 @@
         <a class="text-success" *ngIf="billDeleted">
       {{'BILL_DELETED_SUCCESS'|translate}}
         </a>
+        <a class="text-success" *ngIf="billEdited">
+      {{'BILL_EDITED_SUCCESS'|translate}}
+        </a>
+        <a class="text-danger" *ngIf="error">
+      {{'ERROR_LOADING_BILL'|translate}}
+        </a>
       </span>
 
   <table class="table table-bordered table-responsive-md table-striped text-center">

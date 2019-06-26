@@ -40,7 +40,7 @@ public class BillController {
      */
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("")
-    public List<Bill> displayAllBills(){
+    public List<Bill> displayAllBills() {
         return billService.findAll();
     }
 
@@ -51,7 +51,7 @@ public class BillController {
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
-    public Bill getBillById(@PathVariable("id") String id){
+    public Bill getBillById(@PathVariable("id") String id) {
         return billService.getBillById(id);
     }
 
@@ -62,13 +62,12 @@ public class BillController {
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public Boolean deleteBill( @CurrentUser UserPrincipal currentUser,@PathVariable String id) {
+    public Boolean deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
 
         Bill bill = billService.getBillById(id);
         bill.setDeleted(true);
-        historicalService.addHistorical(currentUser, "deleted a Bill",bill);
+        historicalService.addHistorical(currentUser, "deleted a Bill", bill);
         billService.updateBill(bill);
-        Bill bill=billRequestDto.toBill();
         return bill.getDeleted();
     }
 
@@ -77,21 +76,21 @@ public class BillController {
     */
 
 
-
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("")
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto){
+    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto) {
+        Bill bill = billRequestDto.toBill();
 
 
-        if (billRequestDto.getDocumentIds()!=null){
+        if (billRequestDto.getDocumentIds() != null) {
 
             List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
-            documents.forEach(elt->elt.setBill(bill));
+            documents.forEach(elt -> elt.setBill(bill));
         }
-        Bill newBill=billService.addBill(bill);
-        historicalService.addHistorical(currentUser, "added a new Bill",bill);
+        Bill newBill = billService.addBill(bill);
+        historicalService.addHistorical(currentUser, "added a new Bill", bill);
         return newBill;
 
 
@@ -104,22 +103,22 @@ public class BillController {
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{billId}")
-    public Bill editBill(@CurrentUser UserPrincipal currentUser,@PathVariable String billId,@Valid @RequestBody BillRequestDto billRequestDto){
+    public Bill editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String billId, @Valid @RequestBody BillRequestDto billRequestDto) {
 
-        Bill bill= billRequestDto.toBill();
+        Bill bill = billRequestDto.toBill();
         bill.setBillId(billId);
 
-        if (billRequestDto.getDocumentIds()!=null){
+        if (billRequestDto.getDocumentIds() != null) {
 
             List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
-            documents.forEach(elt->elt.setBill(bill));
+            documents.forEach(elt -> elt.setBill(bill));
 
         }
 
-        Bill newBill=billService.updateBill(bill);
-        historicalService.addHistorical(currentUser, "updated a Bill",bill);
+        Bill newBill = billService.updateBill(bill);
+        historicalService.addHistorical(currentUser, "updated a Bill", bill);
         return newBill;
 
     }

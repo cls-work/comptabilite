@@ -1,5 +1,9 @@
 <app-loader *ngIf="loading"></app-loader>
 <ng-container *ngIf="billForm">
+
+  <span class="table-add float-left mb-3 mr-2">
+    <a class="alert-danger" *ngIf="submitted&&error">{{'ERROR_BILL_FORM'|translate}}</a>
+  </span>
   <div class="row">
     <div class="col-sm-6">
       <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
