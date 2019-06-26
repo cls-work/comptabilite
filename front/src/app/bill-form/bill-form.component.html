@@ -14,9 +14,9 @@
                     <div class="input-group">
                       <label class="label" for="provider">{{'PROVIDER'|translate}}</label>
 
-                      <input class="input--style-4" type="text"
-                             [class.alert-danger]="billForm.controls.provider.invalid&&(billForm.controls.provider.dirty||billForm.controls.provider.touched)"
-                             formControlName="provider" id="provider"/>
+                      <input class="input--style-4" type="text" formControlName="provider" id="provider"/>
+                      <i class="fa fa-check-circle" style="color:green;" *ngIf="billForm.controls.provider.valid " ></i>
+                      <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="billForm.controls.provider.invalid"></i>
                     </div>
                   </div>
 
@@ -26,13 +26,20 @@
                       <div class="p-t-10">
                         <label class="radio-container m-r-45" for="paymentMethod1">{{'CASH'|translate}}
                           <input type="radio" formControlName="checkPayment" value="0" id="paymentMethod1">
+
+
                           <span class="checkmark"></span>
                         </label>
                         <label class="radio-container" for="paymentMethod2">{{'CHECK'|translate}}
                           <input type="radio" formControlName="checkPayment" value="1" id="paymentMethod2">
                           <span class="checkmark"></span>
                         </label>
+                        <br>
+                        <i class="fa fa-check-circle" style="color:green;" *ngIf="billForm.controls.checkPayment.valid " ></i>
+                        <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="billForm.controls.checkPayment.invalid"></i>
+
                       </div>
+
                     </div>
                   </div>
 
@@ -42,16 +49,21 @@
                   <div class="col-md-5">
                     <div class="input-group">
                       <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
-                      <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"
-                             [class.alert-danger]="billForm.controls.taxStamp.invalid&&(billForm.controls.taxStamp.dirty||billForm.controls.taxStamp.touched)"/>
+                      <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"/>
+                      <i class="fa fa-check-circle" style="color:green;" *ngIf="billForm.controls.taxStamp.valid " ></i>
+                      <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="billForm.controls.taxStamp.invalid"></i>
+
                     </div>
                   </div>
+                  <br>
+                  <br>
 
                   <div class="col-6">
                     <div class="input-group">
                       <label class="label" for="checkReference">{{'CHECK_REFERENCE'|translate}}</label>
                       <input class="input--style-4" type="text" formControlName="checkReference"
                              id="checkReference" [disableControl]="editCheckPayment()">
+
                     </div>
                   </div>
                 </div>
@@ -60,8 +72,10 @@
                     <div class="input-group">
                       <div class="input-group-icon">
                         <label class="label" for="date">{{'DATE'|translate}}</label>
-                        <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date"
-                               [class.alert-danger]="billForm.controls.date.invalid&&(billForm.controls.date.dirty||billForm.controls.date.touched)">
+                        <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
+                        <i class="fa fa-check-circle" style="color:green;" *ngIf="billForm.controls.date.valid " ></i>
+                        <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="billForm.controls.date.invalid"></i>
+
                       </div>
                     </div>
                   </div>
@@ -95,6 +109,7 @@
             <div class="card-body">
 
                 <input id="test"  multiple="true" name="files" type="file">
+            
             </div>
           </div>
         </div>
