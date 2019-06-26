@@ -17,7 +17,7 @@ import {AuthenticationService} from './_services/authentication.service';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {BillFormComponent} from './bill-form/bill-form.component';
 import {DisableControlDirective} from './_directives/disable-controle.directive';
-import {FilterPipe} from './_pipes/filter.pipe';
+import {FilterBillsPipe} from './_pipes/filter-bills.pipe';
 import {OrderByPipe} from './_pipes/order-by.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {HeaderComponent} from './header/header.component';
@@ -29,6 +29,7 @@ import {HistoricalsListComponent} from './historicals-list/historicals-list.comp
 import {DataTablesModule} from 'angular-datatables';
 import {HistoricalService} from './_services/historical.service';
 import { LoaderComponent } from './loader/loader.component';
+import {FilterHistoryPipe} from './_pipes/filter-history';
 
 
 /*export function setupHeaderTranslateFactory(service: TranslateService) {
@@ -51,7 +52,6 @@ export function setupTranslateFactory(service: TranslateService) {
     AddProductsComponent,
     BillFormComponent,
     DisableControlDirective,
-    FilterPipe,
     OrderByPipe,
     HeaderComponent,
     UsersDetailsComponent,
@@ -59,6 +59,8 @@ export function setupTranslateFactory(service: TranslateService) {
     TranslatePipe,
     HistoricalsListComponent,
     LoaderComponent,
+    FilterBillsPipe,
+    FilterHistoryPipe
 
   ],
   imports: [

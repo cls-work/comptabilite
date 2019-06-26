@@ -33,3 +33,28 @@ a {
 
   border-top: 5px solid black;
 }
+
+.pagination-right{
+  position: absolute;
+  right: 1%;
+}
+
+th {
+  position: relative;
+  .arrow {
+    position: absolute;
+    bottom: 48%;
+    right: 5%;
+    cursor: pointer;
+    &.up{
+      transform: translateY(-85%);
+    }
+    &.down{
+      transform: translateY(85%);
+    }
+    &.hide{
+      display: none;
+    }
+  }
+}
+

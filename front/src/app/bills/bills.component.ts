@@ -17,8 +17,10 @@ export class BillsComponent implements OnInit {
   config: any;
   loading: boolean;
   billDeleted: boolean;
+  perPage: number;
   constructor(private billService: BillService) {
     this.initializeConfig(0, 0, 0);
+    this.perPage = 10;
   }
 
   ngOnInit() {
@@ -97,7 +99,7 @@ export class BillsComponent implements OnInit {
         this.bills = bills;
         console.log(bills);
         this.searchToken = null;
-        this.initializeConfig(5, 1, this.bills.length);
+        this.initializeConfig(this.perPage, 1, this.bills.length);
         this.loading = false;
       });
   }

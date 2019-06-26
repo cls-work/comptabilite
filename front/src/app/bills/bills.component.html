@@ -29,14 +29,21 @@
       <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
       <th class="text-center">{{'PAYMENT_METHOD'|translate|titlecase}}</th>
       <th class="text-center">{{'CHECK_REFERENCE'|translate|titlecase}}</th>
-      <th colspan="2"><input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
-
+      <th colspan="2">
+        <input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
+      </th>
+      <th>
+        <select name="" id="" [(ngModel)]="perPage" (click)="initializeConfig(perPage,1,billsLengthAfterSearch())">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
       </th>
       <th><i class="fa fa-plus pointer"  routerLink="/bill-form"> </i></th>
 
     </tr>
 
-    <ng-container *ngIf="(bills|filter:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
+    <ng-container *ngIf="(bills|filterBills:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
              <tr *ngFor="let bill of filteredBills">
 
 

@@ -1,6 +1,10 @@
+import {BillModel} from './bill.model';
+import {UserModel} from './user.model';
+
 export class HistoryModel {
-  idBill: string;
+  id: number;
+  bill: BillModel;
   message: string;
-  commentaire?: string;
-  idUser: string;
+  date: string;
+  user: UserModel;
 }
