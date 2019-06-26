@@ -1,9 +1,14 @@
 package com.accountingapi.controller;
 
+import com.accountingapi.model.Bill;
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.repository.FileStorageRepository;
+import com.accountingapi.security.JWT.CurrentUser;
+import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.payload.ApiResponse;
+import com.accountingapi.service.BillService;
 import com.accountingapi.service.FileStorageService;
+import com.accountingapi.service.HistoricalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +37,12 @@ public class FileStorageController {
 
     @Autowired
     private FileStorageRepository fileStorageRepository;
+
+    @Autowired
+    private BillService billService;
+
+    @Autowired
+    private HistoricalService historicalService;
 
 
     @PostMapping("/uploadFile")
@@ -88,10 +99,14 @@ public class FileStorageController {
     }
 
     @DeleteMapping("/deleteFile/{fileId}")
-    public ResponseEntity<?> deleteFileById(@PathVariable Long fileId){
+    public ResponseEntity<?> deleteFileById(@CurrentUser UserPrincipal currentUser,@PathVariable Long fileId){
         FileStorageProperties fileStorageProperties= fileStorageRepository.getOne(fileId);
         if(fileStorageProperties!=null) {
             fileStorageRepository.delete(fileStorageProperties);
+            Bill bill = billService.getBillById(fileStorageProperties.getBill().getBillId());
+            String [] fileName=fileStorageProperties.getUploadDir().split("\\.");
+            String mesage = "deleted file '"+fileName[0]+"' from bill which id is "+bill.getBillId();
+            historicalService.addHistoricalForBill(currentUser,mesage,bill);
             return new ResponseEntity(new ApiResponse(true, "File deleted successfully "),
                     HttpStatus.ACCEPTED);
         }

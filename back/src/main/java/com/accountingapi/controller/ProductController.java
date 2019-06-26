@@ -1,8 +1,12 @@
 package com.accountingapi.controller;
 
 
+import com.accountingapi.model.Bill;
 import com.accountingapi.model.Product;
+import com.accountingapi.security.JWT.CurrentUser;
+import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.service.BillService;
+import com.accountingapi.service.HistoricalService;
 import com.accountingapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +27,9 @@ public class ProductController {
     @Autowired
     BillService billService;
 
+    @Autowired
+    HistoricalService historicalService;
+
 
     /*
         Get product by its id
@@ -39,7 +46,15 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping("/{billId}")
-    public void addProduct (@PathVariable("billId") String billId,@Valid  @RequestBody List<Product> products) {
+    public void addProduct (@CurrentUser UserPrincipal currentUser,@PathVariable("billId") String billId, @Valid  @RequestBody List<Product> products) {
+        Bill bill = billService.getBillById(billId);
+        var lambdaContext = new Object() {
+            String message;
+        };
+        products.forEach(elt->{
+            lambdaContext.message ="added a product = '"+elt.getDesignation()+"' in billId= "+bill.getBillId();
+            historicalService.addHistoricalForBill(currentUser, lambdaContext.message, bill);
+        });
         productService.addProduct(billId,products);
     }
 

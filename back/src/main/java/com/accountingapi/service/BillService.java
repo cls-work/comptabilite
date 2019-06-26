@@ -54,4 +54,5 @@ public class BillService {
     public void deleteBill(Bill bill){
         bill.setDeleted(true);
     }
+
 }

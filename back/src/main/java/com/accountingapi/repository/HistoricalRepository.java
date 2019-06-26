@@ -15,4 +15,6 @@ public interface HistoricalRepository extends CrudRepository<Historical,Long> {
     Historical getById(Long id);
     List<Historical> findAllByUser(User user);
     List<Historical> findAllByBill(Bill bill);
+
+
 }
