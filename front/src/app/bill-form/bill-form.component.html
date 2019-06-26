@@ -83,11 +83,11 @@
                 </div>
 
                 <div class="p-t-15" *ngIf="!bill">
-                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addBill()"
+                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddBillClick()"
                           [disabled]="!billForm.valid">{{'ADD_BILL'|translate}}</button>
                 </div>
                 <div class="p-t-15" *ngIf="bill">
-                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editBill()"
+                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onEditBillClick()"
                           [disabled]="!billForm.valid">{{'EDIT_BILL'|translate}}</button>
                 </div>
                 <div class="p-t-15">
@@ -108,8 +108,7 @@
           <div class="card card-4">
             <div class="card-body">
 
-                <input id="test"  multiple="true" name="files" type="file">
-
+              <input id="test" multiple="true" name="files" type="file">
             </div>
           </div>
         </div>

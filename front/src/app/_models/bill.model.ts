@@ -10,4 +10,6 @@ export class BillModel {
   taxStamp: number;
   checkReference?: string;
   checkPayment: number; // 1 if payment method is check, 0 otherwise
+
+  documentIds: string[] = [];
 }
