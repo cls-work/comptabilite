@@ -13,7 +13,7 @@
           <div class="card card-4">
             <div class="card-body">
               <h2 class="title" *ngIf="!bill">{{'ADD_BILL'|translate}}</h2>
-              <h2 class="title" *ngIf="bill">{{'EDIT_BILL'|translate}}</h2>
+              <h1 class="title" *ngIf="bill">{{'EDIT_BILL'|translate}} <i 	class="fas fa-cog"></i></h1>
               <form [formGroup]="billForm">
                 <div class="row row-space">
                   <div class="col-md-5">
