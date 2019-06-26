@@ -3,6 +3,7 @@
 
   <span class="table-add float-left mb-3 mr-2">
     <a class="alert-danger" *ngIf="submitted&&error">{{'ERROR_BILL_FORM'|translate}}</a>
+    <a class="alert-danger" *ngIf="!submitted&&error">{{'ERROR_LOADING_BILL'|translate}}</a>
   </span>
   <div class="row">
     <div class="col-sm-6">

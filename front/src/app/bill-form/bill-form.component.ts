@@ -66,6 +66,9 @@ export class BillFormComponent implements OnInit, AfterViewInit {
             // @ts-ignore
             checkPayment: [this.bill.checkPayment === true ? '1' : '0', Validators.required],
             checkReference: [this.bill.checkReference],
+          },()=>{
+            this.error=true;
+            this.loading=false;
           });
           this.loading = false;
         });
@@ -90,7 +93,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
     this.billService.editBill(billId, Object.assign({billId}, this.billForm.value))
       .subscribe(() => {
         this.loading = false;
-        this.router.navigate(['/bills','edited']);
+        this.router.navigate(['/bills', 'edited']);
       });
 
   }
@@ -219,7 +222,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       // bill will be sended automatically when files are uploaded
 
     }
-    if (filesCount == 0 && !this.bill) {
+    if (filesCount == 0 && this.bill) {
       this.addBill();
     }
 
@@ -235,7 +238,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       this.uploadFiles();
       // bill will be sended automatically when files are uploaded
     }
-    if (filesCount == 0 && !this.bill) {
+    if (filesCount == 0 && this.bill) {
       this.editBill();
     }
   }

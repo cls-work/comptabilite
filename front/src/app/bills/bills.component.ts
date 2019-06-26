@@ -32,6 +32,7 @@ export class BillsComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.params.edited === 'edited') {
+      console.log('edited');
       this.billEdited = true;
     }
     this.getAllBills();
