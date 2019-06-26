@@ -79,4 +79,9 @@ public class FileStorageController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
+    @GetMapping("/files/{billId}")
+    public List<FileStorageProperties> getAllFilesByBillId(@PathVariable  String billId){
+        return fileStorageService.findAllFilesByBillId(billId);
+    }
 }

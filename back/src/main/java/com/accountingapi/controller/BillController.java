@@ -109,7 +109,7 @@ public class BillController {
         Bill bill= billRequestDto.toBill();
         bill.setBillId(billId);
 
-        if (billRequestDto.getDocumentIds().isEmpty()==false){
+        if (billRequestDto.getDocumentIds()!=null){
 
             List<Long> documentsIds = billRequestDto.getDocumentIds();
             List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);

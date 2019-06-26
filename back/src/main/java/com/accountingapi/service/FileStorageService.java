@@ -3,6 +3,7 @@ package com.accountingapi.service;
 import com.accountingapi.exception.FileStorageException;
 import com.accountingapi.exception.MyFileNotFoundException;
 import com.accountingapi.model.FileStorageProperties;
+import com.accountingapi.repository.FileStorageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -16,11 +17,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 @Service
 public class FileStorageService {
 
     private final Path fileStorageLocation;
+    @Autowired
+    FileStorageRepository fileStorageRepository;
 
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
@@ -66,5 +70,9 @@ public class FileStorageService {
         } catch (MalformedURLException ex) {
             throw new MyFileNotFoundException("File not found " + fileName, ex);
         }
+    }
+
+    public List<FileStorageProperties> findAllFilesByBillId(String billId){
+        return fileStorageRepository.findAllByBill_BillId(billId);
     }
 }

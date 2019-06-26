@@ -59,7 +59,7 @@ export function setupTranslateFactory(service: TranslateService) {
     TranslatePipe,
     HistoricalsListComponent,
     LoaderComponent,
-    
+
   ],
   imports: [
     BrowserModule,
