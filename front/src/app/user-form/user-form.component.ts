@@ -61,7 +61,7 @@ export class UserFormComponent implements OnInit {
       )],
       password: ['' , Validators.compose(
         [Validators.minLength(6), Validators.required])],
-      repeatPassword: ['repeatPassword',  Validators.compose(
+      repeatPassword: ['',  Validators.compose(
         [Validators.minLength(6), Validators.required, passValidator])],
       name: [name , Validators.compose(
         [Validators.minLength(5), Validators.required])],
