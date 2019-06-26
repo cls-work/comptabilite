@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {BillModel} from '../_models/bill.model';
 import {ProductModel} from '../_models/product.model';
 import {HttpClient} from '@angular/common/http';
-import {BASE_URL, BILLS, PRODUCTS} from '../_globals/vars';
+import {BASE_URL, BILLS, DELETEFILE, PRODUCTS} from '../_globals/vars';
 
 @Injectable({
   providedIn: 'root'
@@ -123,5 +123,9 @@ export class BillService {
 
   deleteProduct(productId: string) {
     return this.http.delete(BASE_URL + PRODUCTS + productId);
+  }
+
+  deleteFile(fileID : string){
+    return this.http.delete(BASE_URL + DELETEFILE + fileID) ;
   }
 }
