@@ -81,14 +81,20 @@ public class BillController {
     @PostMapping("")
     public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto){
 
-        List<Long> documentsIds = billRequestDto.getDocumentIds();
         Bill bill=billRequestDto.toBill();
-        List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
-        bill.setFileStorageProperties(documents);
-        documents.forEach(elt->elt.setBill(bill));
+
+        if (!billRequestDto.getDocumentIds().isEmpty()){
+
+            List<Long> documentsIds = billRequestDto.getDocumentIds();
+            List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+            bill.setFileStorageProperties(documents);
+            documents.forEach(elt->elt.setBill(bill));
+        }
         Bill newBill=billService.addBill(bill);
         historicalService.addHistorical(currentUser, "added a new Bill",bill);
         return newBill;
+
+
     }
 
 
@@ -103,21 +109,18 @@ public class BillController {
         Bill bill= billRequestDto.toBill();
         bill.setBillId(billId);
 
-        if (billRequestDto.getDocumentIds().isEmpty()){
-            Bill newBill=billService.updateBill(bill);
-            historicalService.addHistorical(currentUser, "updated a Bill",bill);
-            return newBill;
-        }
-        else {
+        if (billRequestDto.getDocumentIds().isEmpty()==false){
+
             List<Long> documentsIds = billRequestDto.getDocumentIds();
             List<FileStorageProperties> documents= (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
             documents.forEach(elt->elt.setBill(bill));
-            Bill newBill=billService.updateBill(bill);
-            historicalService.addHistorical(currentUser, "updated a Bill",bill);
-            return newBill;
+
         }
 
+        Bill newBill=billService.updateBill(bill);
+        historicalService.addHistorical(currentUser, "updated a Bill",bill);
+        return newBill;
 
     }
 
