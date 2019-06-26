@@ -74,4 +74,11 @@
   "USER_TYPE": "Type utilisateur",
   "SAME_PASSWORD_ERROR": "Les mots de passes doivent être identiques",
   "REPEAT": "Répeter",
-  "NAME":"Nom"}
+  "NAME":"Nom",
+  "USERNAME_MIN": "Username should be minimum 5 character long",
+  "NAME_MIN": "Name should be minimum 5 character long",
+  "PASSWORD_MIN": "Password should be minimum 6 character long ",
+  "USERNAME_REQ": "Username is required",
+  "PASSWORD_REQ": "Password is required"
+
+}

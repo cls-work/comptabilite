@@ -81,6 +81,7 @@ public class BillController {
     public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto) {
         Bill bill = billRequestDto.toBill();
 
+        Bill bill=billRequestDto.toBill();
 
         if (billRequestDto.getDocumentIds() != null) {
 

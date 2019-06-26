@@ -22,7 +22,7 @@
                     <div class="input-group-text"><i class="fa fa-envelope"></i></div>
                     <input type="text" placeholder="{{'USERNAME'|translate}}" formControlName="usernameOrEmail"  class="form-control" id="username" [ngClass]="{ 'is-invalid':loginForm.get('usernameOrEmail').touched && loginForm.get('usernameOrEmail').invalid }"/>
                     <div *ngIf="submitted && f.usernameOrEmail.errors" >
-                      <div *ngIf="f.usernameOrEmail.errors.required">Username is required</div>
+                      <div *ngIf="f.usernameOrEmail.errors.required">{{'USERNAME_REQ' | translate}}</div>
                     </div>
                   </div>
                 </div>
@@ -32,7 +32,7 @@
                     <input type="password"  placeholder="{{'PASSWORD'|translate}}" formControlName="password" class="form-control" id="password"  [ngClass]="{ 'is-invalid':loginForm.get('password').touched && loginForm.get('password').invalid }" />
 
                     <div *ngIf="submitted && f.password.errors" >
-                      <div *ngIf="f.password.errors.required">Password is required</div>
+                      <div *ngIf="f.password.errors.required">{{'PASSWORD_REQ' | translate}}</div>
 
 
                     </div>
@@ -49,10 +49,10 @@
               <span>
                 <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.usernameOrEmail.valid " ></i>
                 <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.usernameOrEmail.invalid"></i>
-                Username should be minimum 5 character long
+                {{'USERNAME_MIN' | translate}}
                  <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.password.valid " ></i>
                 <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.password.invalid"></i>
-                Password should be minimum 6 character long
+                {{'PASSWORD_MIN' | translate}}
 
               </span>
 
