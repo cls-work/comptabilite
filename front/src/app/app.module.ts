@@ -28,8 +28,9 @@ import {TranslatePipe} from './_pipes/translate.pipe';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
 import {DataTablesModule} from 'angular-datatables';
 import {HistoricalService} from './_services/historical.service';
-import { LoaderComponent } from './loader/loader.component';
+import {LoaderComponent} from './loader/loader.component';
 import {FilterHistoryPipe} from './_pipes/filter-history';
+import {DisplayFileComponent} from './display-file/display-file.component';
 
 
 /*export function setupHeaderTranslateFactory(service: TranslateService) {
@@ -60,7 +61,8 @@ export function setupTranslateFactory(service: TranslateService) {
     HistoricalsListComponent,
     LoaderComponent,
     FilterBillsPipe,
-    FilterHistoryPipe
+    FilterHistoryPipe,
+    DisplayFileComponent,
 
   ],
   imports: [

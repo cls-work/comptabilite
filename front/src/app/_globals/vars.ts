@@ -15,4 +15,4 @@ export const LANG = 'lang/';
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';
 export const ERROR_BILL_FORM = 'ERROR_BILL_FORM';
-
+export const DELETEFILE = 'deleteFile/' ;

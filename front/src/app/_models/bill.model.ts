@@ -9,7 +9,7 @@ export class BillModel {
   totalTTC: number;
   taxStamp: number;
   checkReference?: string;
-  checkPayment: number; // 1 if payment method is check, 0 otherwise
-
-  documentIds: string[] = [];
+  checkPayment: number;
+  fileStorageProperties: any[];
+  // 1 if payment method is check, 0 otherwise
 }
