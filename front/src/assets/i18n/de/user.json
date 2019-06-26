@@ -1,13 +1,13 @@
 {
-  "ROLE_ADMIN":"Administrateur",
-  "ROLE_USER":"Utilisateur",
-  "ADD_USER": "Ajouter un utilisateur",
-  "EDIT_USER": "Modifier un utilisateur",
-  "USER_TYPE": "Type utilisateur",
-  "SAME_PASSWORD_ERROR": "Les mots de passes doivent être identiques",
-  "PASSWORD": "Mot de passe",
-  "REPEAT": "Répeter",
-  "NAME":"Nom",
-  "USERNAME":"Nom d'utilisateur",
+  "ROLE_ADMIN":"Administrator",
+  "ROLE_USER":"Benutzer",
+  "ADD_USER": "Benutzer Hinzufügen",
+  "EDIT_USER": "Benutzer Bearbeiten",
+  "USER_TYPE": "Benutzertyp",
+  "SAME_PASSWORD_ERROR": "Passwörter müssen identisch sein",
+  "PASSWORD": "Passwort",
+  "REPEAT": "Wiederholen",
+  "NAME":"Name",
+  "USERNAME":"Benutzername",
   "EMAIL":"Email"
 }
