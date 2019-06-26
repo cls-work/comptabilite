@@ -21,6 +21,7 @@
     "@angular/router": "~8.0.0",
     "angular-datatables": "^8.0.0",
     "bootstrap": "^4.3.1",
+    "bootstrap-fileinput": "^5.0.3",
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
     "flag-icon-css": "^3.3.0",

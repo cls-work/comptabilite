@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {UserModel} from '../_models/user.model';
@@ -71,7 +71,12 @@ export class AuthenticationService {
   }
 
   setLang(lang: string, id: string) {
-    return this.http.post(BASE_URL + USERS + LANG + id, {lang});
+    // console.log('currentUser', 'authServ.seLang', JSON.parse(localStorage.getItem('currentUser')).accessToken);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('currentUser')).accessToken }`
+    });
+    // console.log('setlang', headers)
+    return this.http.post(BASE_URL + USERS + LANG + id, {lang}, {headers});
   }
 
 }

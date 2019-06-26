@@ -97,7 +97,7 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/lang/{userId}")
     public ResponseEntity<?> editLang(@PathVariable Long userId,@Valid @RequestBody LangEditDto langEditDto){
 
