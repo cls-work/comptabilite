@@ -1,5 +1,14 @@
 <app-loader *ngIf="loading"></app-loader>
+<span class="table-add float-left mb-3 mr-2">
+        <a class="text-danger" *ngIf="error&&!submitted">
+          {{'ERROR_LOADING_USER'|translate}}
+        </a>
+        <a class="text-danger" *ngIf="error&&submitted">
+          {{'ERROR_FORM_USER'|translate}}
+        </a>
+</span>
 <ng-container *ngIf="userForm">
+
 
   <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
     <div class="wrapper wrapper--w680">

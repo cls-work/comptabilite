@@ -4,7 +4,16 @@
         <a class="text-success" *ngIf="userDeleted">
           {{'USER_DELETED_SUCCESS'|translate}}
         </a>
-      </span>
+        <a class="text-success" *ngIf="userAdded">
+          {{'USER_ADDED_SUCCESS'|translate}}
+        </a>
+        <a class="text-success" *ngIf="userEdited">
+          {{'USER_EDITED_SUCCESS'|translate}}
+        </a>
+        <a class="text-danger" *ngIf="error">
+          {{'ERROR_LOADING_USERS'|translate}}
+        </a>
+</span>
 
 <table class="table table-bordered table-responsive-md table-striped text-center">
 

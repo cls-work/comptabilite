@@ -47,6 +47,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, AdminGuard]
   },
   {
+    path: 'users/:success',
+    component: UsersDetailsComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
     path: 'user-form',
     component: UserFormComponent,
     canActivate: [AuthGuard, AdminGuard]

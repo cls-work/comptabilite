@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserModel} from '../_models/user.model';
 import {UserService} from '../_services/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-users-details',
@@ -9,10 +10,15 @@ import {UserService} from '../_services/user.service';
 })
 export class UsersDetailsComponent implements OnInit {
   users: UserModel[];
+
   loading: boolean;
   userDeleted: boolean;
+  userEdited: boolean;
+  userAdded: boolean;
+  error: boolean;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private route:ActivatedRoute) { }
 
   ngOnInit() {
     this.getAllUsers();
@@ -25,7 +31,16 @@ export class UsersDetailsComponent implements OnInit {
         this.users = users;
         console.log(users);
         this.loading = false;
+      },()=>{
+        this.error=true;
+        this.loading=false
       });
+    if(this.route.snapshot.params.success==='added'){
+      this.userAdded=true
+    }
+    if(this.route.snapshot.params.success==='edited'){
+      this.userEdited=true
+    }
   }
 
 

@@ -4,7 +4,7 @@ import {AuthenticationService} from '../_services/authentication.service';
 import {UserModel} from '../_models/user.model';
 import {UserService} from '../_services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {passValidator} from "../reset-password/customValidator";
+import {passValidator} from '../reset-password/customValidator';
 
 @Component({
   selector: 'app-add-user',
@@ -16,7 +16,11 @@ export class UserFormComponent implements OnInit {
   userForm: FormGroup;
   user: UserModel;
   roles: any[];
+
   loading: boolean;
+  error: boolean;
+  submitted: boolean;
+
   constructor(private authenticationService: AuthenticationService,
               private userService: UserService,
               private route: ActivatedRoute,
@@ -32,14 +36,15 @@ export class UserFormComponent implements OnInit {
 
     const id = this.route.snapshot.params.id;
     if (id) {
-      this.loading=true;
+      this.loading = true;
       this.userService.getUserById(id)
         .subscribe(user => {
           this.user = user;
           console.log(user);
           // @ts-ignore
           this.userForm = this.initUserForm(this.user.name, this.user.username, this.user.email, this.user.roles[0].id.toString());
-          this.loading=false
+          this.loading = false;
+          this.error = true;
         });
     }
 
@@ -67,24 +72,32 @@ export class UserFormComponent implements OnInit {
   }
 
   addUser() {
-    this.loading=true;
+    this.loading = true;
+    this.submitted = true;
     this.userForm.value.roleId = parseInt(this.userForm.value.roleId, 10);
     this.userService.addUser(this.userForm.value)
       .subscribe(d => {
         console.log(d);
-        this.loading=false;
-        this.router.navigate(['/users']);
+        this.loading = false;
+        this.router.navigate(['/users/', 'added']);
+      }, () => {
+        this.loading = false;
+        this.error = true;
       });
   }
 
   editUser() {
-    this.loading=true
+    this.loading = true;
+    this.submitted = true;
     this.userForm.value.roleId = parseInt(this.userForm.value.roleId, 10);
     this.userService.editUser(this.userForm.value, this.user.id)
       .subscribe(d => {
         console.log(d);
-        this.loading=false
-        this.router.navigate(['/users']);
+        this.loading = false;
+        this.router.navigate(['/users/', 'edited']);
+      }, () => {
+        this.loading = false;
+        this.error = true;
       });
   }
 
