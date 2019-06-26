@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {BillModel} from '../_models/bill.model';
 @Pipe({
-  name: 'filter'
+  name: 'filterBills'
 })
-export class FilterPipe implements PipeTransform {
+export class FilterBillsPipe implements PipeTransform {
   transform(items: BillModel[], searchText: string): BillModel[] {
     if (!items) { return []; }
     if (!searchText) { return items; }
