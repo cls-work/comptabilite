@@ -87,7 +87,7 @@ public class FileStorageController {
         return fileStorageService.findAllFilesByBillId(billId);
     }
 
-    @DeleteMapping("/deleteFiles/{fileId}")
+    @DeleteMapping("/deleteFile/{fileId}")
     public ResponseEntity<?> deleteFileById(@PathVariable Long fileId){
         FileStorageProperties fileStorageProperties= fileStorageRepository.getOne(fileId);
         if(fileStorageProperties!=null) {
