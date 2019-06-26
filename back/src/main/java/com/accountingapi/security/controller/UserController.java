@@ -108,6 +108,7 @@ public class UserController {
         }
         oldUser.setLang(langEditDto.getLang());
 
+        userRepository.save(oldUser);
         return new ResponseEntity(new ApiResponse(true, "lang successfully saved. "),
                 HttpStatus.ACCEPTED);
 
