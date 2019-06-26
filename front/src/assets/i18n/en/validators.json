@@ -1,0 +1,8 @@
+{
+  "USERNAME_MIN": "Le nom d'utilisateur doit avoir au minimum 5 caractère",
+  "NAME_MIN": "Le nom doit avoir au minimum 5 caractère",
+  "PASSWORD_MIN": "Le mot de passe doit avoir au minimum 6 caractère",
+  "USERNAME_REQ": "Nom d'utilisateur requis",
+  "PASSWORD_REQ": "Mot de passe requis"
+
+}
