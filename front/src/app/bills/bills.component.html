@@ -1,17 +1,26 @@
 <app-loader *ngIf="loading"></app-loader>
 <div>
 
-  <span class="table-add float-left mb-3 mr-2">
-        <a class="text-success" *ngIf="billDeleted">
+  <div class="alert alert-dark" role="alert" *ngIf="billDeleted" >
+    <a class="text-success" >
       {{'BILL_DELETED_SUCCESS'|translate}}
-        </a>
-        <a class="text-success" *ngIf="billEdited">
+    </a>
+  </div>
+
+  <div class="alert alert-dark" role="alert" *ngIf="billEdited" >
+    <a class="text-success" >
       {{'BILL_EDITED_SUCCESS'|translate}}
-        </a>
-        <a class="text-danger" *ngIf="error">
+    </a>
+  </div>
+
+  <div class="alert alert-dark" role="alert" *ngIf="error" >
+    <a class="text-success" >
       {{'ERROR_LOADING_BILL'|translate}}
-        </a>
-      </span>
+    </a>
+  </div>
+
+
+
 
   <table class="table table-bordered table-responsive-md table-striped text-center">
 

@@ -32,7 +32,6 @@ export class UserService {
   }
 
   resetPassword(password, token) {
-    console.log({password, token});
     return this.http.post(BASE_URL + FORGOT_PASSWORD + NEW_PASSWORD, {password, token});
   }
 
@@ -46,7 +45,6 @@ export class UserService {
 
 
   addUser(user) {
-    console.log(user);
     return this.http.post(BASE_URL + AUTH + SIGN_UP, user);
   }
 

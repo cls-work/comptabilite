@@ -4,7 +4,7 @@ import {AuthenticationService} from '../_services/authentication.service';
 import {UserModel} from '../_models/user.model';
 import {UserService} from '../_services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {passValidator} from '../reset-password/customValidator';
+import {passValidator} from '../_validators/pass.validator';
 
 @Component({
   selector: 'app-add-user',
@@ -40,11 +40,13 @@ export class UserFormComponent implements OnInit {
       this.userService.getUserById(id)
         .subscribe(user => {
           this.user = user;
-          console.log(user);
+
           // @ts-ignore
           this.userForm = this.initUserForm(this.user.name, this.user.username, this.user.email, this.user.roles[0].id.toString());
           this.loading = false;
+        }, () => {
           this.error = true;
+          this.loading = false;
         });
     }
 
@@ -77,7 +79,7 @@ export class UserFormComponent implements OnInit {
     this.userForm.value.roleId = parseInt(this.userForm.value.roleId, 10);
     this.userService.addUser(this.userForm.value)
       .subscribe(d => {
-        console.log(d);
+
         this.loading = false;
         this.router.navigate(['/users/', 'added']);
       }, () => {
@@ -92,7 +94,7 @@ export class UserFormComponent implements OnInit {
     this.userForm.value.roleId = parseInt(this.userForm.value.roleId, 10);
     this.userService.editUser(this.userForm.value, this.user.id)
       .subscribe(d => {
-        console.log(d);
+
         this.loading = false;
         this.router.navigate(['/users/', 'edited']);
       }, () => {
@@ -109,7 +111,7 @@ export class UserFormComponent implements OnInit {
     this.userService.getAllRoles()
       .subscribe(roles => {
         this.roles = roles;
-        console.log(roles);
+
       });
   }
 

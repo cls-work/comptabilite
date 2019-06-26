@@ -22,7 +22,7 @@ export class DisplayFileComponent implements OnInit {
 
           this.billService.deleteFile(file.id)
             .subscribe(data => {
-              console.log(data);
+
               this.billFiles.splice(index, 1);
               this.fileDeleted = true;
               setTimeout(() => {

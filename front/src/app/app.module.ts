@@ -33,12 +33,6 @@ import {FilterHistoryPipe} from './_pipes/filter-history';
 import {DisplayFileComponent} from './display-file/display-file.component';
 
 
-/*export function setupHeaderTranslateFactory(service: TranslateService) {
-  return () => service.componentLang('fr', 'header');
-}
-export function setupBillsTranslateFactory(service: TranslateService) {
-  return () => service.componentLang('fr', 'bills');
-}*/
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
 }

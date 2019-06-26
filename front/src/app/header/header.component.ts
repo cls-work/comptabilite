@@ -26,16 +26,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.translateService.data);
-    console.log(this.currentUser);
   }
 
   changeLang(lang: string) {
     this.translateService.use(lang);
     if (this.currentUser) {
       this.authenticationService.setLang(lang, this.currentUser.id)
-        .subscribe(data => {
-          console.log(data);
+        .subscribe(() => {
         });
     }
 

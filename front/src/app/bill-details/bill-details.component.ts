@@ -49,7 +49,6 @@ export class BillDetailsComponent implements OnInit {
       .subscribe(products => {
         // @ts-ignore
         this.products = products;
-        console.log(this.products);
         this.nbGet--;
         if (this.nbGet === 0) {
           this.loading = false;
@@ -68,7 +67,7 @@ export class BillDetailsComponent implements OnInit {
       .subscribe(bill => {
         // @ts-ignore
         this.bill = bill;
-        console.log(this.bill);
+
         this.nbGet--;
         if (this.nbGet === 0) {
           this.loading = false;
@@ -81,9 +80,9 @@ export class BillDetailsComponent implements OnInit {
       this.loading = true;
       this.billService.deleteProduct(productId)
         .subscribe(d => {
-          console.log(d);
+
           this.productDeleted = true;
-          // this.productChange.emit(true);
+
           this.productChange();
           setTimeout(() => {
             this.productDeleted = false;

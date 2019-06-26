@@ -18,7 +18,7 @@ export class UsersDetailsComponent implements OnInit {
   error: boolean;
 
   constructor(private userService: UserService,
-              private route:ActivatedRoute) { }
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getAllUsers();
@@ -29,17 +29,17 @@ export class UsersDetailsComponent implements OnInit {
     this.userService.getAllUsers()
       .subscribe(users => {
         this.users = users;
-        console.log(users);
+
         this.loading = false;
-      },()=>{
-        this.error=true;
-        this.loading=false
+      }, () => {
+        this.error = true;
+        this.loading = false;
       });
-    if(this.route.snapshot.params.success==='added'){
-      this.userAdded=true
+    if (this.route.snapshot.params.success === 'added') {
+      this.userAdded = true;
     }
-    if(this.route.snapshot.params.success==='edited'){
-      this.userEdited=true
+    if (this.route.snapshot.params.success === 'edited') {
+      this.userEdited = true;
     }
   }
 
@@ -54,6 +54,9 @@ export class UsersDetailsComponent implements OnInit {
           setTimeout(() => {
             this.userDeleted = false;
           }, 3000);
+        }, () => {
+          this.loading = false;
+          this.error = true;
         });
     }
   }

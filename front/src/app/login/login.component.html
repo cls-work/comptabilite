@@ -11,7 +11,7 @@
       <div class="card">
         <div class="card-body">
           <div class="text-center">
-            <h3><i class="fa fa-sign-in fa-4x"></i></h3>
+            <h1><i class="fa fa-key" ></i></h1>
             <h2 class="text-center">{{'AUTHENTICATION'|translate|titlecase}}</h2>
             <div class="card-body">
 
@@ -49,7 +49,7 @@
               <span>
                 <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.usernameOrEmail.valid " ></i>
                 <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.usernameOrEmail.invalid"></i>
-                {{'USERNAME_MIN' | translate}}
+                {{'USERNAME_MIN' | translate}}<br>
                  <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.password.valid " ></i>
                 <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.password.invalid"></i>
                 {{'PASSWORD_MIN' | translate}}

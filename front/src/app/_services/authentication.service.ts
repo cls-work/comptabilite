@@ -26,11 +26,10 @@ export class AuthenticationService {
   }
 
   login(usernameOrEmail: string, password: string) {
-    // console.log(BASE_URL + AUTH + SIGN_IN);
+
     return this.http.post<any>(BASE_URL + AUTH + SIGN_IN, { usernameOrEmail, password })
       .pipe(map(data => {
         const user: UserModel = new UserModel();
-        console.log(data);
         // login successful if there's a jwt token in the response
         if (data && data.accessToken && data.user) {
           user.id = data.user.id;
@@ -41,22 +40,17 @@ export class AuthenticationService {
           user.role = data.user.roles[0].name;
           user.lang = data.user.lang;
           localStorage.setItem('currentUser', JSON.stringify(user));
-          console.log(JSON.parse(localStorage.getItem('currentUser')));
+
           if (user.lang) {
             this.translateService.use(user.lang);
-            console.log('lang not null');
           } else {
             user.lang = localStorage.getItem('lang');
             this.setLang(localStorage.getItem('lang'), user.id)
-              .subscribe(data => {
-                console.log(data);
+              .subscribe(() => {
               });
-            console.log('lang null');
           }
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-          // console.log(localStorage.getItem('currentUser'));
 
-          // console.log(user)
           this.currentUserSubject.next(user);
         }
 
@@ -71,11 +65,9 @@ export class AuthenticationService {
   }
 
   setLang(lang: string, id: string) {
-    // console.log('currentUser', 'authServ.seLang', JSON.parse(localStorage.getItem('currentUser')).accessToken);
     const headers = new HttpHeaders({
       Authorization: `Bearer ${JSON.parse(localStorage.getItem('currentUser')).accessToken }`
     });
-    // console.log('setlang', headers)
     return this.http.post(BASE_URL + USERS + LANG + id, {lang}, {headers});
   }
 

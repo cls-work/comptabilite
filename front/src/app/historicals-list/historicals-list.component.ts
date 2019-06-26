@@ -33,7 +33,7 @@ export class HistoricalsListComponent implements OnInit {
     this.historicalsService.getAllHistoricals()
       .subscribe((data: any) => {
           this.historicals = data;
-          console.log(data);
+
           this.searchToken = null;
           this.initializeConfig(this.perPage, 1, this.historicals.length);
           this.loading = false;
