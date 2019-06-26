@@ -54,7 +54,6 @@ export class BillFormComponent implements OnInit, AfterViewInit {
         .subscribe(bill => {
           // @ts-ignore
           this.bill = bill;
-          console.log(this.bill);
 
           // @ts-ignore
           this.billForm = this.formBuilder.group({
@@ -198,8 +197,6 @@ export class BillFormComponent implements OnInit, AfterViewInit {
           documentIds: data.response.map(elt => elt.id)
         }
       );
-      // console.log(data.response.map(elt => elt.id));
-      // console.log(baseContext.billForm);
 
       if (!baseContext.bill) {
         baseContext.addBill();
@@ -218,7 +215,6 @@ export class BillFormComponent implements OnInit, AfterViewInit {
 
   onAddBillClick() {
     let filesCount = $('#test').fileinput('getFilesCount');
-    console.log(filesCount);
 
     if (filesCount > 0) {
       this.uploadFiles();
@@ -234,7 +230,6 @@ export class BillFormComponent implements OnInit, AfterViewInit {
 
   onEditBillClick() {
     let filesCount = $('#test').fileinput('getFilesCount');
-    console.log(filesCount);
 
 
     if (filesCount > 0) {

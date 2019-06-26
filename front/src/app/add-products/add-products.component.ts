@@ -34,17 +34,16 @@ export class AddProductsComponent implements OnInit {
     // this.loading = true;
     this.billService.getBillByID(this.route.snapshot.params.id)
       .subscribe(bill => {
-        console.log('add-product component');
+
         // @ts-ignore
         this.bill = bill;
         this.calculateTotals();
-        console.log(bill);
+
         this.loading = false;
       }, () => {
         this.error = true;
         this.loading = false;
-        console.log(('error'));
-        console.log('loading',this.loading)
+
       });
 
     this.productsForm = this.formBuilder.group(
@@ -96,7 +95,6 @@ export class AddProductsComponent implements OnInit {
     const billId = this.route.snapshot.params.id;
     this.billService.postProducts(billId, this.productsForm.value.products)
       .subscribe(d => {
-        console.log(d);
         this.router.navigate(['/bill-detail', billId]);
         this.loading = false;
       }, () => {
@@ -135,7 +133,6 @@ export class AddProductsComponent implements OnInit {
     this.calculateHT(i);
     this.calculateTVA(i);
     this.calculateTotals();
-    console.log(this.products.value[i]);
   }
 
   calculateDiscount(i) {

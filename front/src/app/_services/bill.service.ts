@@ -93,13 +93,11 @@ export class BillService {
   }
 
   getProductsByBillId(billId) {
-    console.log(billId);
     return this.http.get(BASE_URL + PRODUCTS + billId);
 
   }
 
   getBillByID(billId: any) {
-    console.log(billId)
     return this.http.get(BASE_URL + BILLS + billId);
   }
 
@@ -112,12 +110,10 @@ export class BillService {
   }
 
   editBill(billId: any, value: any) {
-    console.log(value);
     return this.http.put(BASE_URL + BILLS + billId, value);
   }
 
   postProducts(billId: any, value) {
-    console.log(value);
     return this.http.post(BASE_URL + PRODUCTS + billId, value);
   }
 

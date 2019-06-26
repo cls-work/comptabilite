@@ -32,7 +32,6 @@ export class BillsComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.params.edited === 'edited') {
-      console.log('edited');
       this.billEdited = true;
     }
     this.getAllBills();
@@ -91,7 +90,6 @@ export class BillsComponent implements OnInit {
       this.loading = true;
       this.billService.deleteBill(id)
         .subscribe(d => {
-          console.log(d);
           this.billDeleted = true;
           this.getAllBills();
           setTimeout(() => {
@@ -108,7 +106,7 @@ export class BillsComponent implements OnInit {
       .subscribe(bills => {
         // @ts-ignore
         this.bills = bills;
-        console.log(bills);
+
         this.searchToken = null;
         this.initializeConfig(this.perPage, 1, this.bills.length);
         this.loading = false;

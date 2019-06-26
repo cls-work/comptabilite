@@ -29,7 +29,7 @@ export class UsersDetailsComponent implements OnInit {
     this.userService.getAllUsers()
       .subscribe(users => {
         this.users = users;
-        console.log(users);
+
         this.loading = false;
       }, () => {
         this.error = true;
