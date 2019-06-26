@@ -16,6 +16,9 @@
                   <input class="input--style-4" type="text"
                          [class.alert-danger]="userForm.controls.name.invalid&&(userForm.controls.name.dirty||userForm.controls.name.touched)"
                          formControlName="name" id="name" />
+                  <i class="fa fa-check-circle" style="color:green" *ngIf="userForm.controls.name.valid" ></i>
+                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.name.invalid"> </i>
+                  <small> Name should be minimum 5 character long </small>
                 </div>
               </div>
               <div class="col-6">
@@ -39,14 +42,22 @@
                   <label class="label" for="username">{{'USERNAME'|translate}}</label>
                   <input class="input--style-4"  type="text" formControlName="username" id="username"
                          [class.alert-danger]="userForm.controls.username.invalid&&(userForm.controls.username.dirty||userForm.controls.username.touched)"/>
+                  <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.username.valid" ></i>
+                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.username.invalid" > </i>
+                  <small> Username should be minimum 5 character long </small>
                 </div>
               </div>
 
               <div class="col-6">
                 <div class="input-group">
                   <label class="label" for="email">{{'EMAIL'|translate}}</label>
-                  <input class="input--style-4" type="text" formControlName="email" id="email"
-                         [class.alert-danger]="userForm.controls.email.invalid&&(userForm.controls.email.dirty||userForm.controls.email.touched)">
+                  <input class="input--style-4" type="text" formControlName="email" id="email"  >
+
+                  <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.email.valid" ></i>
+                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.email.invalid" > </i>
+
+
+
                 </div>
               </div>
             </div>
@@ -56,16 +67,21 @@
               <div class="col-md-5">
                 <div class="input-group">
                   <label for="password" class="label">{{'PASSWORD'|translate}}</label>
-                  <input type="password" formControlName="password" id="password" class="input--style-4"
-                         [class.alert-danger]="userForm.controls.password.invalid&&(userForm.controls.password.dirty||userForm.controls.password.touched)">
+                  <input type="password" formControlName="password" id="password" class="input--style-4">
+
+                       <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.password.valid"></i>
+                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.password.invalid"> </i>
+                  <small> Password should be minimum 6 character long </small>
                 </div>
               </div>
               <div class="col-6">
                 <div *ngIf="user" class="input-group">
                   <label for="repeatPassword" class="label">Répeter Mot de passe</label>
-                  <input type="password" formControlName="repeatPassword" id="repeatPassword" class="input--style-4"
-                         [class.alert-danger]="(userForm.controls.repeatPassword.invalid||!checkEqualPasswords())&&(userForm.controls.repeatPassword.dirty||userForm.controls.repeatPassword.touched)">
-                  <small *ngIf="!checkEqualPasswords()&&(userForm.controls.repeatPassword.dirty||userForm.controls.repeatPassword.touched)">Les mots de passes doivent être identiques</small>
+                  <input type="password" formControlName="repeatPassword" id="repeatPassword" class="input--style-4">
+
+                  <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.repeatPassword.valid" ></i>
+                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.repeatPassword.invalid" > </i>
+
                 </div>
               </div>
 
@@ -83,6 +99,8 @@
 
 
           </form>
+
+
         </div>
       </div>
     </div>

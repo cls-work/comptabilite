@@ -4,6 +4,7 @@ import {AuthenticationService} from '../_services/authentication.service';
 import {UserModel} from '../_models/user.model';
 import {UserService} from '../_services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {passValidator} from "../reset-password/customValidator";
 
 @Component({
   selector: 'app-add-user',
@@ -47,14 +48,20 @@ export class UserFormComponent implements OnInit {
 
   initUserForm(name: string, username: string, email: string, role: string) {
     return this.fb.group({
-      username: [username , Validators.required],
+      username: [username , Validators.compose(
+        [Validators.minLength(5), Validators.required])],
       email: [email , Validators.compose([
         Validators.required,
         Validators.email]
       )],
-      password: ['', Validators.required],
-      repeatPassword: ['', name !== '' ? Validators.required : null],
-      name: [name , Validators.required],
+      password: ['' , Validators.compose(
+        [Validators.minLength(6), Validators.required])],
+      repeatPassword: ['repeatPassword',  Validators.compose(
+        [Validators.minLength(6), Validators.required, passValidator])],
+      name: [name , Validators.compose(
+        [Validators.minLength(5), Validators.required])],
+
+
       roleId: [role, Validators.required]
     });
   }

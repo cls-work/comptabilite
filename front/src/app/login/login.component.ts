@@ -25,8 +25,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      usernameOrEmail: ['username',Validators.minLength(4), ],
-      password: ['password', Validators.minLength(6),]
+      usernameOrEmail: ['username' , Validators.compose(
+        [Validators.minLength(5), Validators.required])],
+      password: ['password' , Validators.compose(
+        [Validators.minLength(6), Validators.required])],
     });
 
     // reset login status
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+
 
     // this.loading = true;
     this.authenticationService.login(this.f.usernameOrEmail.value, this.f.password.value)
