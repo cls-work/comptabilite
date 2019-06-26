@@ -4,7 +4,7 @@ import {AuthenticationService} from '../_services/authentication.service';
 import {UserModel} from '../_models/user.model';
 import {UserService} from '../_services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {passValidator} from '../reset-password/customValidator';
+import {passValidator} from '../_validators/pass.validator';
 
 @Component({
   selector: 'app-add-user',
@@ -44,7 +44,9 @@ export class UserFormComponent implements OnInit {
           // @ts-ignore
           this.userForm = this.initUserForm(this.user.name, this.user.username, this.user.email, this.user.roles[0].id.toString());
           this.loading = false;
+        },()=>{
           this.error = true;
+          this.loading=false;
         });
     }
 
