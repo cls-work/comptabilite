@@ -64,7 +64,8 @@
               "node_modules/bootstrap-fileinput/js/plugins/purify.min.js",
               "node_modules/bootstrap-fileinput/js/plugins/sortable.min.js",
               "node_modules/bootstrap-fileinput/js/fileinput.min.js",
-              "node_modules/bootstrap-fileinput/themes/explorer-fas/theme.min.js"
+              "node_modules/bootstrap-fileinput/themes/explorer-fas/theme.min.js",
+              "node_modules/bootstrap-fileinput/js/locales/fr.js"
             ]
           },
           "configurations": {

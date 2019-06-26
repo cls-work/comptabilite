@@ -55,6 +55,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
 
           // @ts-ignore
           this.billForm = this.formBuilder.group({
+            documentIds: [],
             provider: [this.bill.provider, Validators.required],
             date: [this.bill.date, Validators.required],
             taxStamp: [this.bill.taxStamp, Validators.required],
@@ -127,6 +128,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       showRemove: true,
       showUpload: false,
       showCancel: false,
+      language: "fr",
       previewFileIcon: '<i class="fas fa-file"></i>',
       initialPreviewAsData: true, // defaults markup
       preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
