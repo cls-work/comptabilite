@@ -12,6 +12,7 @@ export class TranslateService {
   constructor(private http: HttpClient) {
   }
 
+  // set app language
   use(lang: string): Promise<{}> {
     if (lang) {
       localStorage.setItem('lang', lang);

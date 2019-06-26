@@ -11,8 +11,8 @@ export const NEW_PASSWORD = 'new-password/';
 export const HISTORICALS = 'historicals';
 export const ROLES = 'roles/';
 export const LANG = 'lang/';
+export const DELETEFILE = 'deleteFile/' ;
 
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';
 export const ERROR_BILL_FORM = 'ERROR_BILL_FORM';
-export const DELETEFILE = 'deleteFile/' ;

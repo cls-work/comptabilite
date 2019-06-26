@@ -64,6 +64,7 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
+  // set language in DB
   setLang(lang: string, id: string) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${JSON.parse(localStorage.getItem('currentUser')).accessToken }`

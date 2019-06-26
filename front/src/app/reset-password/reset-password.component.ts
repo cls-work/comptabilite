@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../_services/user.service';
-import {map} from 'rxjs/operators';
-import {passValidator} from "../_validators/pass.validator";
+import {passValidator} from '../_validators/pass.validator';
 
 @Component({
   selector: 'app-reset-password',
@@ -41,7 +40,6 @@ export class ResetPasswordComponent implements OnInit {
       });
 
     this.resetPasswordForm = this.formBuilder.group({
-
         password: ['', Validators.required, ],
         confirmPassword: ['', passValidator]
       });

@@ -6,6 +6,7 @@ import {AuthenticationService} from '../_services/authentication.service';
 @Injectable({
   providedIn: 'root'
 })
+// check if a user is logged in
 export class GuestGuard implements CanActivate {
   constructor(
     private router: Router,
@@ -15,11 +16,11 @@ export class GuestGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
     if (!currentUser) {
-      // logged in so return true
+      // not logged in so return true
       return true;
     }
 
-    // not logged in so redirect to login page with the return url
+    // logged in so redirect to bills
     this.router.navigate(['/bills']);
     return false;
   }
