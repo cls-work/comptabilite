@@ -68,6 +68,7 @@ public class BillController {
         bill.setDeleted(true);
         historicalService.addHistorical(currentUser, "deleted a Bill",bill);
         billService.updateBill(bill);
+        Bill bill=billRequestDto.toBill();
         return bill.getDeleted();
     }
 
@@ -81,7 +82,6 @@ public class BillController {
     @PostMapping("")
     public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto){
 
-        Bill bill=billRequestDto.toBill();
 
         if (billRequestDto.getDocumentIds()!=null){
 
