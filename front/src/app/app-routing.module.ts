@@ -20,6 +20,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'bills/:edited',
+    component: BillsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'bill-detail/:id',
     component: BillDetailsComponent,
     canActivate: [AuthGuard]
@@ -62,8 +67,13 @@ const routes: Routes = [
 
 
 
-{
+  {
     path: 'add-products/:id',
+    component: AddProductsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-products/:id/:success',
     component: AddProductsComponent,
     canActivate: [AuthGuard]
   },

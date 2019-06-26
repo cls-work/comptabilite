@@ -50,7 +50,16 @@
   "LOG_IN": "Se connecter"
 ,
   "BILL_DELETED_SUCCESS": "Facture effacée",
-  "PRODUCT_DELETED_SUCCESS": "Facture effacée"
+  "BILL_ADDED_SUCCESS": "Facture ajoutée",
+  "PRODUCT_DELETED_SUCCESS": "Facture effacée",
+
+
+
+
+
+  "ERROR_BILL_FORM": "Erreur d'ajout de facture",
+  "ERROR_ADD_PRODUCTS": "Erreur d'ajout des produits",
+  "ERROR_LOADING_BILL_DETAILS": "Erreur lors du chargement des données"
 ,
   "RESET_PASSWORD": "Vous pouvez réinitialiser votre mot de passe ici.",
   "EMAIL":"Email"
@@ -65,4 +74,11 @@
   "USER_TYPE": "Type utilisateur",
   "SAME_PASSWORD_ERROR": "Les mots de passes doivent être identiques",
   "REPEAT": "Répeter",
-  "NAME":"Nom"}
+  "NAME":"Nom",
+  "USERNAME_MIN": "Username should be minimum 5 character long",
+  "NAME_MIN": "Name should be minimum 5 character long",
+  "PASSWORD_MIN": "Password should be minimum 6 character long ",
+  "USERNAME_REQ": "Username is required",
+  "PASSWORD_REQ": "Password is required"
+
+}

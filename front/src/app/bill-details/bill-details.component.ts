@@ -15,9 +15,13 @@ export class BillDetailsComponent implements OnInit {
 
   products: ProductModel[];
   bill: BillModel;
+  productDeleted: boolean;
+
+
   loading: boolean;
   nbGet: number;
-  productDeleted: boolean;
+  error: boolean;
+  submitted: boolean;
 
   constructor(private billService: BillService,
               private route: ActivatedRoute) { }
@@ -50,7 +54,11 @@ export class BillDetailsComponent implements OnInit {
         if (this.nbGet === 0) {
           this.loading = false;
         }
-      });
+      }, () => {
+        this.loading = false;
+        this.error=true;
+
+    });
   }
 
   getBill() {
