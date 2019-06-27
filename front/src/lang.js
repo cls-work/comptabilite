@@ -22,8 +22,7 @@ for(let file of files){
     for(let i=0;i<langFiles.length;i++){
       const langFile=langFiles[i];
       console.log('-------------------');
-      console.log(i)
-      it(','));*/
+      console.log(i);
 
       const data =fs.readFileSync(newPath+'/'+langFile, 'utf8')
         .slice(0,fs.readFileSync(newPath+'/'+langFile, 'utf8').lastIndexOf('}'))
