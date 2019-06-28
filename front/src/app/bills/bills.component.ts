@@ -23,8 +23,7 @@ export class BillsComponent implements OnInit {
   loading: boolean;
   error: boolean;
   billEdited: boolean;
-  private selectedRow: number;
-  private selectedBill: BillModel;
+  selectedBill: BillModel;
 
   constructor(private billService: BillService,
               private route: ActivatedRoute) {

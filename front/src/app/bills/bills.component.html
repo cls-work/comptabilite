@@ -53,14 +53,14 @@
           <option value="20">20</option>
         </select>
       </th>
-      <th><i class="fa fa-plus pointer" routerLink="/bill-form"> </i></th>
+      <th><i class="btn btn-light fa fa-plus pointer" routerLink="/bill-form"> </i></th>
 
     </tr>
     </thead>
     <ng-container
       *ngIf="(bills|filterBills:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
       <tr *ngFor="let bill of filteredBills;let i = index" (click)="onSelectRow(bill)"
-          [ngClass]="{'table-active':selectedRow==i}">
+          [ngClass]="{'table-active':selectedBill==bill}">
 
 
         <td>
