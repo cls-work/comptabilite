@@ -28,6 +28,7 @@
 
 
   <table class="table table-bordered table-responsive-md table-striped text-center">
+    <thead class="thead-dark">
 
 
     <tr>
@@ -39,23 +40,26 @@
         <span class="arrow-up arrow up" (click)="orderBy('date','asc');disableArrow(1,'arrow-up')"></span>
         <span class="arrow-down arrow down hide" (click)="orderBy('date','desc');disableArrow(1,'arrow-down')"></span>
       </th>
-      <th class="text-center" >Facture ID
+      <th class="text-center">Facture ID
         <span class="arrow-up arrow up" (click)="orderBy('bill.billId','asc');disableArrow(2,'arrow-up')"></span>
-        <span class="arrow-down arrow down " (click)="orderBy('bill.billId','desc');disableArrow(2,'arrow-down')"></span>
+        <span class="arrow-down arrow down "
+              (click)="orderBy('bill.billId','desc');disableArrow(2,'arrow-down')"></span>
       </th>
-      <th class="text-center" >User name
+      <th class="text-center">User name
         <span class="arrow-up arrow up" (click)="orderBy('user.name','asc');disableArrow(3,'arrow-up')"></span>
         <span class="arrow-down arrow down" (click)="orderBy('user.name','desc');disableArrow(3,'arrow-down')"></span>
       </th>
-      <th class="text-center" >message
+      <th class="text-center">message
         <span class="arrow-up arrow up" (click)="orderBy('message','asc');disableArrow(4,'arrow-up')"></span>
         <span class="arrow-down arrow down" (click)="orderBy('message','desc');disableArrow(4,'arrow-down')"></span>
       </th>
       <th colspan="2">
-        <input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken" (input)="initializeConfig(perPage,1,historyLengthAfterSearch())"/>
+        <input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken"
+               (input)="initializeConfig(perPage,1,historyLengthAfterSearch())"/>
       </th>
       <th>
-        <select name="" id="perPage" [(ngModel)]="perPage" (click)="initializeConfig(perPage,1,historyLengthAfterSearch())">
+        <select name="" id="perPage" [(ngModel)]="perPage"
+                (click)="initializeConfig(perPage,1,historyLengthAfterSearch())">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
@@ -63,8 +67,10 @@
       </th>
 
     </tr>
+    </thead>
 
-    <ng-container *ngIf="(historicals|filterHistory:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredHistory">
+    <ng-container
+      *ngIf="(historicals|filterHistory:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredHistory">
       <tr *ngFor="let item of filteredHistory">
 
 
@@ -77,10 +83,6 @@
 
       </tr>
     </ng-container>
-
-
-
-
 
 
   </table>

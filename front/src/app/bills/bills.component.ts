@@ -23,6 +23,8 @@ export class BillsComponent implements OnInit {
   loading: boolean;
   error: boolean;
   billEdited: boolean;
+  private selectedRow: number;
+  private selectedBill: BillModel;
 
   constructor(private billService: BillService,
               private route: ActivatedRoute) {
@@ -39,7 +41,6 @@ export class BillsComponent implements OnInit {
   }
 
 
-
   // edit orderBy vars
   orderBy(column: string, order: string) {
     this.orderByOrder = order;
@@ -49,15 +50,13 @@ export class BillsComponent implements OnInit {
 
   // calculate bills[] after searching for an element
   billsLengthAfterSearch(): number {
-    return this.bills.filter( it => {
+    return this.bills.filter(it => {
       return it.billId.toLowerCase().includes(this.searchToken)
         || it.provider.toLowerCase().includes(this.searchToken)
         || it.checkReference.toString().toLowerCase().includes(this.searchToken)
         || it.date.toLowerCase().includes(this.searchToken);
     }).length;
   }
-
-
 
 
   // both functions for pagination
@@ -68,18 +67,10 @@ export class BillsComponent implements OnInit {
       totalItems: total
     };
   }
+
   pageChanged(event) {
     this.config.currentPage = event;
   }
-
-
-
-
-
-
-
-
-
 
 
   // ------------------------
@@ -90,6 +81,7 @@ export class BillsComponent implements OnInit {
       this.loading = true;
       this.billService.deleteBill(id)
         .subscribe(d => {
+          console.log(d);
           this.billDeleted = true;
           this.getAllBills();
           setTimeout(() => {
@@ -124,5 +116,11 @@ export class BillsComponent implements OnInit {
       item.classList.remove('hide');
     }
     arrow.classList.add('hide');
+  }
+
+  onSelectRow(bill:BillModel) {
+    this.selectedBill = bill;
+
+
   }
 }
