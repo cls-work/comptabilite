@@ -13,7 +13,7 @@
   <tr *ngFor="let item  of historicals">
     <td>{{item.id}}</td>
     <td>{{item.date}}</td>
-    <td>{{item.bill.billId}}</td>
+    <td>{{item.bill?.billId}}</td>
     <td>{{item.user.name}}</td>
     <td>{{item.message}}</td>
   </tr>
