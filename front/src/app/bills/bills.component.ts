@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BillModel} from '../_models/bill.model';
 import {BillService} from '../_services/bill.service';
 import {ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs';
+import {HistoryModel} from '../_models/history.model';
 
 @Component({
   selector: 'app-bills',
@@ -19,16 +21,18 @@ export class BillsComponent implements OnInit {
   billDeleted: boolean;
   perPage: number;
 
+  dtTrigger: Subject<HistoryModel[]> = new Subject();
 
   loading: boolean;
   error: boolean;
   billEdited: boolean;
   selectedBill: BillModel;
+  dtOptions: any = {};
 
   constructor(private billService: BillService,
               private route: ActivatedRoute) {
-    this.initializeConfig(0, 0, 0);
-    this.perPage = 10;
+    // this.initializeConfig(0, 0, 0);
+    //  this.perPage = 10;
   }
 
   ngOnInit() {
@@ -36,16 +40,47 @@ export class BillsComponent implements OnInit {
       this.billEdited = true;
     }
     this.getAllBills();
-    this.orderBy('date', 'desc');
+
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      colReorder: {},
+      dom: 'Bfrtip',
+      select: true,
+
+      buttons: [
+        'colvis',
+        {
+          extend: 'copyHtml5',
+          exportOptions: {
+            columns: [0, ':visible']
+          }
+        },
+        {
+          extend: 'excelHtml5',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+
+      ]
+    };
+    // this.orderBy('date', 'desc');
   }
 
 
   // edit orderBy vars
-  orderBy(column: string, order: string) {
+  /*orderBy(column: string, order: string) {
     this.orderByOrder = order;
     this.orderByColumn = column;
   }
-
+*/
 
   // calculate bills[] after searching for an element
   billsLengthAfterSearch(): number {
@@ -59,17 +94,17 @@ export class BillsComponent implements OnInit {
 
 
   // both functions for pagination
-  initializeConfig(perPage: number, current: number, total: number) {
-    this.config = {
-      itemsPerPage: perPage,
-      currentPage: current,
-      totalItems: total
-    };
-  }
+  /* initializeConfig(perPage: number, current: number, total: number) {
+     this.config = {
+       itemsPerPage: perPage,
+       currentPage: current,
+       totalItems: total
+     };
+   }
 
-  pageChanged(event) {
-    this.config.currentPage = event;
-  }
+   pageChanged(event) {
+     this.config.currentPage = event;
+   }*/
 
 
   // ------------------------
@@ -97,9 +132,9 @@ export class BillsComponent implements OnInit {
       .subscribe(bills => {
         // @ts-ignore
         this.bills = bills;
-
+        this.dtTrigger.next();
         this.searchToken = null;
-        this.initializeConfig(this.perPage, 1, this.bills.length);
+        // this.initializeConfig(this.perPage, 1, this.bills.length);
         this.loading = false;
       }, () => {
         this.loading = false;
@@ -107,17 +142,17 @@ export class BillsComponent implements OnInit {
       });
   }
 
-  disableArrow(index: number, arrowType: string) {
-    const arrows = document.getElementsByClassName('arrow');
-    const arrow = document.getElementsByClassName(arrowType)[index];
-    // @ts-ignore
-    for (const item of arrows) {
-      item.classList.remove('hide');
-    }
-    arrow.classList.add('hide');
-  }
+  /* disableArrow(index: number, arrowType: string) {
+     const arrows = document.getElementsByClassName('arrow');
+     const arrow = document.getElementsByClassName(arrowType)[index];
+     // @ts-ignore
+     for (const item of arrows) {
+       item.classList.remove('hide');
+     }
+     arrow.classList.add('hide');
+   }*/
 
-  onSelectRow(bill:BillModel) {
+  onSelectRow(bill: BillModel) {
     this.selectedBill = bill;
 
 

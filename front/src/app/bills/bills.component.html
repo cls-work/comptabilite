@@ -20,117 +20,59 @@
   </div>
 
 
-  <table class="table table-bordered table-responsive-md text-center" id="myTable">
-
-    <thead class="thead-dark">
-    <tr>
-      <th class="text-center">{{'BILL_ID'|translate|titlecase}}
-        <span class="arrow-up arrow up" (click)="orderBy('billId','asc');disableArrow(0,'arrow-up')"></span>
-        <span class="arrow-down arrow down" (click)="orderBy('billId','desc');disableArrow(0,'arrow-down')"></span>
-      </th>
-      <th class="text-center">{{'PROVIDER'|translate|titlecase}}
-        <span class="arrow-up arrow up" (click)="orderBy('provider','asc');disableArrow(1,'arrow-up')"></span>
-        <span class="arrow-down arrow down" (click)="orderBy('provider','desc');disableArrow(1,'arrow-down')"></span>
-      </th>
-      <th class="text-center">{{'DATE'|translate|titlecase}}
-        <span class="arrow-up arrow up" (click)="orderBy('date','asc');disableArrow(2,'arrow-up')"></span>
-        <span class="arrow-down arrow down hide" (click)="orderBy('date','desc');disableArrow(2,'arrow-down')"></span>
-      </th>
-      <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
-      <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
-      <th class="text-center">{{'TAX_STAMP'|translate|titlecase}}</th>
-      <th class="text-center">{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
-      <th class="text-center">{{'PAYMENT_METHOD'|translate|titlecase}}</th>
-      <th class="text-center">{{'CHECK_REFERENCE'|translate|titlecase}}</th>
-      <th colspan="2">
-        <input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken"
-               (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
-      </th>
-      <th>
-        <select name="" id="" [(ngModel)]="perPage" (click)="initializeConfig(perPage,1,billsLengthAfterSearch())">
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-      </th>
-      <th><i class="btn btn-light fa fa-plus pointer" routerLink="/bill-form"> </i></th>
-
-    </tr>
-    </thead>
-    <ng-container
-      *ngIf="(bills|filterBills:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
-      <tr *ngFor="let bill of filteredBills;let i = index" (click)="onSelectRow(bill)"
-          [ngClass]="{'table-active':selectedBill==bill}">
-
-
-        <td>
-          <p>{{bill.billId}}</p>
-        </td>
-        <td>
-          <p>{{bill.provider}}</p>
-        </td>
-        <td>
-          <p>{{bill.date|date: 'dd/MM/yyyy'}}</p>
-        </td>
-        <td>
-          <p>{{bill.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</p>
-
-        </td>
-
-        <td>
-          <p>{{bill.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</p>
-        </td>
-
-        <td>
-          {{bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}
-        </td>
-        <td>
-
-          <p>{{bill.totalTTC + bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</p>
-
-        </td>
-        <td>
-          {{(bill.checkPayment ? 'CHECK' : 'CASH')|translate}}
-        </td>
-        <td>
-          {{bill.checkPayment ? bill.checkReference : ''}}
-        </td>
-
-        <td>
-          <button class="btn btn-outline-info" type="button"
-                  [routerLink]="['/bill-detail',bill.billId]">{{'DETAILS'|translate|titlecase}}</button>
-        </td>
-        <td>
-          <button class="btn btn-outline-secondary" type="button"
-                  [routerLink]="['/bill-form',bill.billId]">{{'EDIT'|translate|titlecase}}</button>
-        </td>
-        <td (click)="deleteBill(bill.billId)">
-          <button class="btn btn-outline-danger" type="button">{{'DELETE'|translate|titlecase}}</button>
-        </td>
-
-      </tr>
-    </ng-container>
-
-
-  </table>
-
-  <ul class="pagination pagination-right">
-    <pagination-controls (pageChange)="pageChanged($event)"
-                         [nextLabel]="'NEXT'|translate"
-                         [previousLabel]="'PREVIOUS'|translate"></pagination-controls>
-  </ul>
-
-
 </div>
 
 
-<div >
+<table class="table  table-bordered row-border table-hover" style="width:100%" datatable [dtTrigger]="dtTrigger"
+       [dtOptions]="dtOptions">
+  <thead class="thead-dark">
+  <tr>
+    <th>{{'BILL_ID'|translate|titlecase}}</th>
+    <th>{{'PROVIDER'|translate|titlecase}}</th>
+    <th>{{'DATE'|translate|titlecase}}</th>
+    <th>{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
+    <th>{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
+    <th>{{'TAX_STAMP'|translate|titlecase}}</th>
+    <th>{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
+
+    <th>{{'PAYMENT_METHOD'|translate|titlecase}}</th>
+    <th>{{'CHECK_REFERENCE'|translate|titlecase}}</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let bill of bills;let i = index;">
+    <td>{{bill.billId}}</td>
+    <td>{{bill.provider}}</td>
+    <td>{{bill.date|date: 'dd/MM/yyyy'}}</td>
+    <td>{{bill.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td>{{bill.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td>{{bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td>{{bill.totalTTC + bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td>{{(bill.checkPayment ? 'CHECK' : 'CASH')|translate}}</td>
+    <td>{{bill.checkPayment ? bill.checkReference : ''}}</td>
+    <td>
+      <button class="btn btn-outline-danger" type="button">{{'DELETE'|translate|titlecase}}</button>
+
+      <button class="btn btn-outline-info" type="button"
+              [routerLink]="['/bill-detail',bill.billId]">{{'DETAILS'|translate|titlecase}}</button>
+      <button class="btn btn-outline-secondary" type="button"
+              [routerLink]="['/bill-form',bill.billId]">{{'EDIT'|translate|titlecase}}</button>
+    </td>
+  </tr>
+
+
+  </tbody>
+</table>
 
 
 
 
 
-</div>
+
+
+
+
 
 <br><br>
 <div class="card" *ngIf="selectedBill">
