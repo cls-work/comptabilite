@@ -109,15 +109,16 @@ export class BillsComponent implements OnInit {
 
   // ------------------------
   // calling service methods (CRUD)
-  deleteBill(id: string) {
-
+  deleteBill(index: number) {
+    console.log(this.bills[index]);
     if (confirm('Supprimer cette facture')) {
-      this.loading = true;
-      this.billService.deleteBill(id)
+      // this.loading = true;
+      this.billService.deleteBill(this.bills[index].billId)
         .subscribe(d => {
           console.log(d);
           this.billDeleted = true;
-          this.getAllBills();
+          //this.getAllBills();
+          this.bills.splice(index, 1);
           setTimeout(() => {
             this.billDeleted = false;
           }, 3000);

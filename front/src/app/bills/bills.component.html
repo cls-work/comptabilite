@@ -53,26 +53,22 @@
     <td>{{(bill.checkPayment ? 'CHECK' : 'CASH')|translate}}</td>
     <td>{{bill.checkPayment ? bill.checkReference : ''}}</td>
     <td>
-      <button class="btn btn-outline-danger" type="button">{{'DELETE'|translate|titlecase}}</button>
 
       <button class="btn btn-outline-info" type="button"
               [routerLink]="['/bill-detail',bill.billId]">{{'DETAILS'|translate|titlecase}}</button>
+
       <button class="btn btn-outline-secondary" type="button"
               [routerLink]="['/bill-form',bill.billId]">{{'EDIT'|translate|titlecase}}</button>
+      <button class="btn btn-outline-danger" type="button"
+              (click)="deleteBill(i)">{{'DELETE'|translate|titlecase}}</button>
+
+
     </td>
   </tr>
 
 
   </tbody>
 </table>
-
-
-
-
-
-
-
-
 
 
 <br><br>
