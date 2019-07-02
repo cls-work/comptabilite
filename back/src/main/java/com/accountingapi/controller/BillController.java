@@ -25,6 +25,7 @@ public class BillController {
 
     @Autowired
     BillService billService;
+
     @Autowired
     HistoricalService historicalService;
 
@@ -87,7 +88,7 @@ public class BillController {
             List<Long> documentsIds = billRequestDto.getDocumentIds();
             List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
-            documents.forEach(elt -> elt.setBill(bill));
+           // documents.forEach(elt -> elt.setBill(bill));
 
         }
         Bill newBill = billService.addBill(bill);
@@ -114,7 +115,7 @@ public class BillController {
             List<Long> documentsIds = billRequestDto.getDocumentIds();
             List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
-            documents.forEach(elt -> elt.setBill(bill));
+            //documents.forEach(elt -> elt.setBill(bill));
 
         }
 

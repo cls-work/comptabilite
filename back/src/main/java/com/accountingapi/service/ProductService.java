@@ -28,7 +28,6 @@ public class ProductService {
             bill.setTotalTVA(bill.getTotalTVA()+product.getAmountTVA());
             bill.setTotalTTC(bill.getTotalTTC()+product.getAmountTTC());
             billService.updateBill(bill);
-            product.setBill(bill);
             productRepository.save(product);
         }
 
@@ -46,23 +45,7 @@ public class ProductService {
     }
 
 
-    //Find product by bill id
-    public List<Product> getProductsByBillId(String billId){
-        Bill bill = new Bill();
-        bill=billService.getBillById(billId);
 
-        return productRepository.findProductsByBill(bill);
-    }
 
-    //Delete product by its id
-    public void deleteProductById(String productId) {
-        Product product = getProductById(productId);
-        Bill bill = billService.getBillById(product.getBill().getBillId());
-        bill.setTotalHT(bill.getTotalHT()-product.getAmountHT());
-        bill.setTotalTVA(bill.getTotalTVA()-product.getAmountTVA());
-        bill.setTotalTTC(bill.getTotalTTC()-product.getAmountTTC());
-        billService.updateBill(bill);
-        productRepository.deleteByProductId(productId);
-    }
 
 }

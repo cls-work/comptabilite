@@ -37,7 +37,7 @@ public class ProductController {
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/{billId}")
     public List<Product> getProductsByBillId(@PathVariable("billId") String billId){
-        return productService.getProductsByBillId(billId);
+        return billService.getProductsByBillId(billId);
     }
 
     /*
@@ -67,7 +67,7 @@ public class ProductController {
     @DeleteMapping("/{productId}")
     @Transactional
     public void deleteProductById (@PathVariable("productId") String productId){
-         productService.deleteProductById(productId);
+         billService.deleteProductById(productId);
     }
 
     /*

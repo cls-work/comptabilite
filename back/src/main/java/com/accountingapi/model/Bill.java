@@ -44,7 +44,7 @@ public class Bill {
     private Boolean isDeleted=false;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "bill")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Product> products;
 
     @JsonIgnore
@@ -52,7 +52,7 @@ public class Bill {
     private List<Historical> historicals = new ArrayList<>();
 
 
-    @OneToMany(targetEntity=FileStorageProperties.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity=FileStorageProperties.class,cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileStorageProperties> fileStorageProperties= new ArrayList<>();
 
 

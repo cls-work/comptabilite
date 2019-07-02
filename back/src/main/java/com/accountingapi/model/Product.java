@@ -38,9 +38,7 @@ public class Product {
     @Column(nullable = false)
     private Double amountTTC;
 
-    @ManyToOne
-    @JoinColumn(name = "billId")
-    private Bill bill= new Bill();
+
 
     //************Constructor*****************
 
@@ -59,7 +57,6 @@ public class Product {
         this.amountHT = amountHT;
         this.amountTVA = amountTVA;
         this.amountTTC = amountTTC;
-        this.bill = bill;
     }
 
 
@@ -146,12 +143,5 @@ public class Product {
         this.amountTTC = amountTTC;
     }
 
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
 }
 
