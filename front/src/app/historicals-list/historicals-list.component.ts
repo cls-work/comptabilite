@@ -23,25 +23,41 @@ export class HistoricalsListComponent implements OnInit {
 
 
   constructor(private historicalsService: HistoricalService) {
-    this.initializeConfig(0, 0, 0);
-    this.perPage = 5;
+  /*  this.initializeConfig(0, 0, 0);
+    this.perPage = 5;*/
   }
 
   ngOnInit() {
     this.getHistoricals();
-    this.orderBy('date', 'desc');
+   // this.orderBy('date', 'desc');
 
     this.dtOptions = {
       pagingType: 'full_numbers',
       colReorder: {},
       dom: 'Bfrtip',
+      select: true,
 
       buttons: [
         'colvis',
-        'copy',
-        'print',
-        'excel',
-        'pdf'
+        {
+          extend: 'copyHtml5',
+          exportOptions: {
+            columns: [ 0, ':visible' ]
+          }
+        },
+        {
+          extend: 'excelHtml5',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        {
+          extend: 'pdfHtml5',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+
       ]
     };
   }
@@ -53,8 +69,8 @@ export class HistoricalsListComponent implements OnInit {
           this.historicals = data;
 
           this.searchToken = null;
-          this.initializeConfig(this.perPage, 1, this.historicals.length);
-          this.loading = false;
+         // this.initializeConfig(this.perPage, 1, this.historicals.length);
+        //  this.loading = false;
           this.dtTrigger.next();
 
         }
@@ -67,14 +83,14 @@ export class HistoricalsListComponent implements OnInit {
   }
 
   // edit orderBy vars
-  orderBy(column: string, order: string) {
+ /* orderBy(column: string, order: string) {
     this.orderByOrder = order;
     this.orderByColumn = column;
-  }
+  }*/
 
 
   // calculate bills[] after searching for an element
-  historyLengthAfterSearch(): number {
+ /* historyLengthAfterSearch(): number {
     return this.historicals.filter(it => {
       return it.id.toString().toLowerCase().includes(this.searchToken)
         || it.bill.billId.toLowerCase().includes(this.searchToken)
@@ -102,6 +118,8 @@ export class HistoricalsListComponent implements OnInit {
       item.classList.remove('hide');
     }
     arrow.classList.add('hide');
-  }
+
+
+  }*/
 
 }
