@@ -91,7 +91,7 @@ public class BillController {
 
         }
         Bill newBill = billService.addBill(bill);
-        historicalService.addHistoricalForBill(currentUser, "added a new Bill", bill);
+        historicalService.addHistoricalForBill(currentUser, "added a new BillId= "+bill.getBillId(), bill);
         return newBill;
 
 
