@@ -17,56 +17,56 @@ const routes: Routes = [
   {
     path: 'bills',
     component: BillsComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'bills/:edited',
     component: BillsComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'bill-detail/:id',
     component: BillDetailsComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'bill-form',
     component: BillFormComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'bill-form/:id',
     component: BillFormComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
 
 
   {
     path: 'users',
     component: UsersDetailsComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'users/:success',
     component: UsersDetailsComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-form',
     component: UserFormComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
   {
     path: 'user-form/:id',
     component: UserFormComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
 
 
   {
     path: 'historicals',
     component: HistoricalsListComponent,
-    canActivate: [AuthGuard, AdminGuard]
+    //canActivate: [AuthGuard, AdminGuard]
   },
 
 
@@ -75,12 +75,12 @@ const routes: Routes = [
   {
     path: 'add-products/:id',
     component: AddProductsComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
   {
     path: 'add-products/:id/:success',
     component: AddProductsComponent,
-    canActivate: [AuthGuard]
+    //canActivate: [AuthGuard]
   },
 
 
@@ -88,17 +88,17 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate:[GuestGuard]
+    //canActivate:[GuestGuard]
   },
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
-    canActivate:[GuestGuard]
+    //canActivate:[GuestGuard]
   },
   {
     path: 'reset-password/:token',
     component: ResetPasswordComponent,
-    canActivate:[GuestGuard]
+    //canActivate:[GuestGuard]
   },
 
 

@@ -1,6 +1,8 @@
 package com.accountingapi.security.model;
 
+import com.accountingapi.model.Bill;
 import com.accountingapi.model.Historical;
+import com.accountingapi.model.Quotation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -58,6 +60,12 @@ public class User {
     @JsonIgnore
     @OneToMany(targetEntity= Historical.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
+
+    @OneToMany(mappedBy="user")
+    private List<Bill> bills;
+
+    @OneToMany(mappedBy="user")
+    private List<Quotation> quotations;
 
 
     public User() {
