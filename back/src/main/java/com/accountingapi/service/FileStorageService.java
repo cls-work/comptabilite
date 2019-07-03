@@ -17,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
 
 @Service
 public class FileStorageService {
@@ -73,7 +72,7 @@ public class FileStorageService {
     }
 
 
-    public List<FileStorageProperties> findAllFilesByBillId(String billId){
+    /*public List<FileStorageProperties> findAllFilesByBillId(String billId){
         return fileStorageRepository.findAllByBill_BillId(billId);
-    }
+    }*/
 }

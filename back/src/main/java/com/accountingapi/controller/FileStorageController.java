@@ -1,6 +1,5 @@
 package com.accountingapi.controller;
 
-import com.accountingapi.model.Bill;
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.repository.FileStorageRepository;
 import com.accountingapi.security.JWT.CurrentUser;
@@ -95,18 +94,16 @@ public class FileStorageController {
 
     @GetMapping("/getAllFiles/{billId}")
     public List<FileStorageProperties> getAllFilesByBillId(@PathVariable  String billId){
-        return fileStorageService.findAllFilesByBillId(billId);
+        return billService.findFilesByBillId(billId);
     }
 
-    @DeleteMapping("/deleteFile/{fileId}")
-    public ResponseEntity<?> deleteFileById(@CurrentUser UserPrincipal currentUser,@PathVariable Long fileId){
+   @DeleteMapping("/deleteFile/{fileId}")
+    public ResponseEntity<?> deleteFileById(@CurrentUser UserPrincipal currentUser, @PathVariable Long fileId){
         FileStorageProperties fileStorageProperties= fileStorageRepository.getOne(fileId);
         if(fileStorageProperties!=null) {
             fileStorageRepository.delete(fileStorageProperties);
-            Bill bill = billService.getBillById(fileStorageProperties.getBill().getBillId());
-            String [] fileName=fileStorageProperties.getUploadDir().split("\\.");
-            String mesage = "deleted file '"+fileName[0]+"' from bill which id is "+bill.getBillId();
-            historicalService.addHistoricalForBill(currentUser,mesage,bill);
+            /*String [] fileName=fileStorageProperties.getUploadDir().split("\\.");
+            String mesage = "deleted file '"+fileName[0];*/
             return new ResponseEntity(new ApiResponse(true, "File deleted successfully "),
                     HttpStatus.ACCEPTED);
         }
