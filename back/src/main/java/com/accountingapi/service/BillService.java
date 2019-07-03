@@ -35,7 +35,7 @@ public class BillService {
 
     //Bill save into database
     public Bill addBill(Bill bill){
-        bill.setBillId(LogicService.getAlphaNumericString(5));
+        bill.setId(LogicService.getAlphaNumericString(5));
         return(billRepository.save(bill));
 
     }
