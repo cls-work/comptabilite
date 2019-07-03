@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {BillsComponent} from './bills/bills.component';
 import {BillDetailsComponent} from './bill-details/bill-details.component';
 import {AddProductsComponent} from './add-products/add-products.component';
@@ -12,6 +12,8 @@ import {AuthGuard} from './_guards/auth.guard';
 import {AdminGuard} from './_guards/admin.guard';
 import {GuestGuard} from './_guards/guest.guard';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
+import {AddQuotationComponent} from './add-quotation/add-quotation.component';
+import {ListQuotationComponent} from './list-quotation/list-quotation.component';
 
 const routes: Routes = [
   {
@@ -60,6 +62,12 @@ const routes: Routes = [
     path: 'user-form/:id',
     component: UserFormComponent,
     canActivate: [AuthGuard, AdminGuard]
+  }, {
+    path: 'quotations/add',
+    component: AddQuotationComponent
+  }, {
+    path: 'quotations/list',
+    component: ListQuotationComponent
   },
 
 
@@ -68,8 +76,6 @@ const routes: Routes = [
     component: HistoricalsListComponent,
     canActivate: [AuthGuard, AdminGuard]
   },
-
-
 
 
   {
@@ -84,21 +90,20 @@ const routes: Routes = [
   },
 
 
-
   {
     path: 'login',
     component: LoginComponent,
-    canActivate:[GuestGuard]
+    canActivate: [GuestGuard]
   },
   {
     path: 'reset-password',
     component: ResetPasswordComponent,
-    canActivate:[GuestGuard]
+    canActivate: [GuestGuard]
   },
   {
     path: 'reset-password/:token',
     component: ResetPasswordComponent,
-    canActivate:[GuestGuard]
+    canActivate: [GuestGuard]
   },
 
 
@@ -112,4 +117,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
