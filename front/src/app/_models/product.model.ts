@@ -1,13 +1,8 @@
+import {CategoryModel} from './category.model';
+
 export class ProductModel {
-  productId: string;
+  id: string;
+  refrence: string;
   designation: string;
-  quantity: number;
-  unitPrice: number;
-  discount: number;
-  tva: number;
-  unitPriceAfterDiscount: number;
-  amountHT: number;
-  amountTVA: number;
-  amountTTC: number;
-  idBill: string;
+  category: CategoryModel;
 }
