@@ -4,6 +4,7 @@ import com.accountingapi.security.model.User;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ public class Quotation {
     private Long id;
 
     @Column(nullable = false)
-    private Date creattionDate;
+    private Date creationDate;
 
     @Column(nullable = false)
     private Double totalHT= Double.valueOf(0);
@@ -29,12 +30,9 @@ public class Quotation {
     @Column(nullable = false)
     private Double taxStamp;
 
-    @Column(nullable = false)
-    private Boolean isConfirmed=false;
+    @Column
+    private Boolean isConfirmed=null;
 
-
-    @Column(nullable = false)
-    private Boolean isChecked=false;
 
     @OneToOne(mappedBy = "quotation")
     private Bill bill;
@@ -54,7 +52,129 @@ public class Quotation {
     @OneToMany(mappedBy="user")
     private List<Purchase> purchases;
 
+    @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Double getTotalHT() {
+        return totalHT;
+    }
+
+    public void setTotalHT(Double totalHT) {
+        this.totalHT = totalHT;
+    }
+
+    public Double getTotalTTC() {
+        return totalTTC;
+    }
+
+    public void setTotalTTC(Double totalTTC) {
+        this.totalTTC = totalTTC;
+    }
+
+    public Double getTotalTVA() {
+        return totalTVA;
+    }
+
+    public void setTotalTVA(Double totalTVA) {
+        this.totalTVA = totalTVA;
+    }
+
+    public Double getTaxStamp() {
+        return taxStamp;
+    }
+
+    public void setTaxStamp(Double taxStamp) {
+        this.taxStamp = taxStamp;
+    }
+
+    public Boolean getConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        isConfirmed = confirmed;
+    }
 
 
+    public Bill getBill() {
+        return bill;
+    }
 
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public User getAcceptedBy() {
+        return acceptedBy;
+    }
+
+    public void setAcceptedBy(User acceptedBy) {
+        this.acceptedBy = acceptedBy;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
+    public List<FileStorageProperties> getFileStorageProperties() {
+        return fileStorageProperties;
+    }
+
+    public void setFileStorageProperties(List<FileStorageProperties> fileStorageProperties) {
+        this.fileStorageProperties = fileStorageProperties;
+    }
+
+    @Override
+    public String toString() {
+        return "Quotation{" +
+                "id=" + id +
+                ", creattionDate=" + creationDate +
+                ", totalHT=" + totalHT +
+                ", totalTTC=" + totalTTC +
+                ", totalTVA=" + totalTVA +
+                ", taxStamp=" + taxStamp +
+                ", isConfirmed=" + isConfirmed +
+                ", bill=" + bill +
+                ", createdBy=" + createdBy +
+                ", acceptedBy=" + acceptedBy +
+                ", provider=" + provider +
+                ", purchases=" + purchases +
+                '}';
+    }
 }

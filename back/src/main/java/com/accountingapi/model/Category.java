@@ -31,4 +31,21 @@ public class Category {
     public void setLabel(String label) {
         this.label = label;
     }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", products=" + products +
+                '}';
+    }
 }

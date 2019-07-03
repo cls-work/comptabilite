@@ -2,6 +2,7 @@ package com.accountingapi.service;
 
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.model.Product;
+import com.accountingapi.model.Purchase;
 import com.accountingapi.model.Quotation;
 import com.accountingapi.repository.BillRepository;
 import com.accountingapi.repository.ProductRepository;
@@ -16,7 +17,7 @@ import java.util.List;
 @Service
 public class QuotationService {
     @Autowired
-    ProductService productService;
+    PurchaseService purchaseService;
 
     @Autowired
     private BillRepository billRepository;
@@ -56,9 +57,9 @@ public class QuotationService {
     }
 
 
-    //Delete product by its id
-    public void deleteProductById(String productId) {
-        Product product = productService.getProductById(productId);
+    //Delete purchase by its id
+    public void deletePurchaseById(String purchaseId) {
+        Purchase purchase = purchaseService.getProductById(purchaseId);
         List<Product> products=new ArrayList<>();
         products.add(product);
         List<Quotation> quotations=quotationRepository.findByProducts(products);
