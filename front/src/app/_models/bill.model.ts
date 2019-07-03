@@ -1,14 +1,14 @@
 import {FileModel} from './file.model';
+import {QuotationModel} from './quotation.model';
+import {HistoryModel} from './history.model';
 
 export class BillModel {
-  billId: string;
-  provider: string;
-  date: string;
-  totalHT: number;
-  totalTVA: number;
-  totalTTC: number;
-  taxStamp: number;
-  checkReference?: string;
-  checkPayment: number; // 1 if payment method is check, 0 otherwise
+  id: string;
+  creationDate: string;
+  checkReference: string;
+  checkPayment: boolean;
+  quotation: QuotationModel;
+  historicals: HistoryModel;
   fileStorageProperties: FileModel[];
+
 }
