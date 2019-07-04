@@ -36,61 +36,61 @@ export class BillsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.route.snapshot.params.edited === 'edited') {
-      this.billEdited = true;
-    }
-    this.getAllBills();
+    /* if (this.route.snapshot.params.edited === 'edited') {
+       this.billEdited = true;
+     }
+     this.getAllBills();
 
 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      colReorder: {},
-      dom: 'Bfrtip',
-      select: true,
+     this.dtOptions = {
+       pagingType: 'full_numbers',
+       colReorder: {},
+       dom: 'Bfrtip',
+       select: true,
 
-      buttons: [
-        'colvis',
-        {
-          extend: 'copyHtml5',
-          exportOptions: {
-            columns: [0, ':visible']
-          }
-        },
-        {
-          extend: 'excelHtml5',
-          exportOptions: {
-            columns: ':visible'
-          }
-        },
-        {
-          extend: 'pdfHtml5',
-          exportOptions: {
-            columns: ':visible'
-          }
-        },
+       buttons: [
+         'colvis',
+         {
+           extend: 'copyHtml5',
+           exportOptions: {
+             columns: [0, ':visible']
+           }
+         },
+         {
+           extend: 'excelHtml5',
+           exportOptions: {
+             columns: ':visible'
+           }
+         },
+         {
+           extend: 'pdfHtml5',
+           exportOptions: {
+             columns: ':visible'
+           }
+         },
 
-      ]
-    };
-    // this.orderBy('date', 'desc');
-  }
+       ]
+     };
+     // this.orderBy('date', 'desc');
+   }
 
 
-  // edit orderBy vars
-  /*orderBy(column: string, order: string) {
-    this.orderByOrder = order;
-    this.orderByColumn = column;
-  }
-*/
+   // edit orderBy vars
+   /*orderBy(column: string, order: string) {
+     this.orderByOrder = order;
+     this.orderByColumn = column;
+   }
+ */
 
   // calculate bills[] after searching for an element
-  billsLengthAfterSearch(): number {
-    return this.bills.filter(it => {
-      return it.billId.toLowerCase().includes(this.searchToken)
-        || it.provider.toLowerCase().includes(this.searchToken)
-        || it.checkReference.toString().toLowerCase().includes(this.searchToken)
-        || it.date.toLowerCase().includes(this.searchToken);
-    }).length;
-  }
+    /* billsLengthAfterSearch(): number {
+       return this.bills.filter(it => {
+         return it.billId.toLowerCase().includes(this.searchToken)
+           || it.provider.toLowerCase().includes(this.searchToken)
+           || it.checkReference.toString().toLowerCase().includes(this.searchToken)
+           || it.date.toLowerCase().includes(this.searchToken);
+       }).length;
+     }*/
 
 
   // both functions for pagination
@@ -109,53 +109,53 @@ export class BillsComponent implements OnInit {
 
   // ------------------------
   // calling service methods (CRUD)
-  deleteBill(index: number) {
-    console.log(this.bills[index]);
-    if (confirm('Supprimer cette facture')) {
-      // this.loading = true;
-      this.billService.deleteBill(this.bills[index].billId)
-        .subscribe(d => {
-          console.log(d);
-          this.billDeleted = true;
-          //this.getAllBills();
-          this.bills.splice(index, 1);
-          setTimeout(() => {
-            this.billDeleted = false;
-          }, 3000);
-        });
-    }
-  }
-
-
-  private getAllBills() {
-    this.loading = true;
-    this.billService.getAllBills()
-      .subscribe(bills => {
-        // @ts-ignore
-        this.bills = bills;
-        this.dtTrigger.next();
-        this.searchToken = null;
-        // this.initializeConfig(this.perPage, 1, this.bills.length);
-        this.loading = false;
-      }, () => {
-        this.loading = false;
-        this.error = true;
-      });
-  }
-
-  /* disableArrow(index: number, arrowType: string) {
-     const arrows = document.getElementsByClassName('arrow');
-     const arrow = document.getElementsByClassName(arrowType)[index];
-     // @ts-ignore
-     for (const item of arrows) {
-       item.classList.remove('hide');
+    /* deleteBill(index: number) {
+       console.log(this.bills[index]);
+       if (confirm('Supprimer cette facture')) {
+         // this.loading = true;
+         this.billService.deleteBill(this.bills[index].billId)
+           .subscribe(d => {
+             console.log(d);
+             this.billDeleted = true;
+             //this.getAllBills();
+             this.bills.splice(index, 1);
+             setTimeout(() => {
+               this.billDeleted = false;
+             }, 3000);
+           });
+       }
      }
-     arrow.classList.add('hide');
-   }*/
-
-  onSelectRow(bill: BillModel) {
-    this.selectedBill = bill;
 
 
+     private getAllBills() {
+       this.loading = true;
+       this.billService.getAllBills()
+         .subscribe(bills => {
+           // @ts-ignore
+           this.bills = bills;
+           this.dtTrigger.next();
+           this.searchToken = null;
+           // this.initializeConfig(this.perPage, 1, this.bills.length);
+           this.loading = false;
+         }, () => {
+           this.loading = false;
+           this.error = true;
+         });
+     }
+
+     /* disableArrow(index: number, arrowType: string) {
+        const arrows = document.getElementsByClassName('arrow');
+        const arrow = document.getElementsByClassName(arrowType)[index];
+        // @ts-ignore
+        for (const item of arrows) {
+          item.classList.remove('hide');
+        }
+        arrow.classList.add('hide');
+      }
+
+     onSelectRow(bill: BillModel) {
+       this.selectedBill = bill;
+
+   */
   }
 }

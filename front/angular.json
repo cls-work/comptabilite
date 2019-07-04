@@ -47,11 +47,10 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/font-awesome/css/font-awesome.css",
+              "src/assets/fontawesome-pro-5.8.2-web/css/all.css",
               "src/styles.scss",
               "node_modules/bootstrap-fileinput/css/fileinput.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/flag-icon-css/css/flag-icon.css",
               "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
               "node_modules/bootstrap-fileinput/themes/explorer-fas/theme.min.css",
@@ -60,6 +59,8 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/fontawesome-pro-5.8.2-web/js/all.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.js",
               "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",

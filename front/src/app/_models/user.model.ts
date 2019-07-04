@@ -7,3 +7,4 @@ export class UserModel {
   accessToken?: string;
   lang: string;
 }
+

@@ -1,0 +1,49 @@
+<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table  table-bordered row-border table-hover text-center"
+       datatable
+       style="width:100%">
+  <thead class="thead-dark">
+  <tr>
+    <th>{{'QUOTATION_ID'|translate|titlecase}}</th>
+    <th>{{'PROVIDER'|translate|titlecase}}</th>
+    <th>{{'DATE'|translate|titlecase}}</th>
+    <th>{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
+    <th>{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
+    <th>{{'TAX_STAMP'|translate|titlecase}}</th>
+    <th>{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
+    <th>{{'STATUS'|translate|titlecase}} </th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let quotation of quotations;let i = index;">
+    <td>{{quotation.id}}</td>
+    <td>{{quotation.provider?.name}}</td>
+    <td>{{quotation?.creattionDate}}</td>
+    <td>{{quotation.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td>{{quotation.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td>{{quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td>{{quotation.totalTTC + quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
+    <td class="text-center text-white">
+      <span *ngIf="quotation.isConfirmed === undefined" class="badge badge-pill badge-secondary"><i
+        class="fas fa-redo-alt"></i> Pending</span>
+      <span *ngIf="quotation.isConfirmed === false " class="badge badge-pill badge-warning"><i
+        class="fas fa-exclamation-circle"></i> Rejected</span>
+      <span *ngIf="quotation.isConfirmed === true" class="badge badge-pill badge-success"><i class="fas fa-check"></i> Confirmed</span>
+
+
+    </td>
+    <td>
+      <div class="btn-group">
+        <button class="btn btn-info btn-circle btn-lg" type="button"><i class="fa fa-eye"></i></button>
+        <button class="btn btn-warning btn-circle btn-lg" type="button"><i class="fa fa-pencil"></i></button>
+        <button *ngIf="quotation.isConfirmed!==true" class="btn btn-danger btn-circle btn-lg" type="button"><i
+          class="fa fa-times"></i></button>
+        <button *ngIf="quotation.isConfirmed && !quotation.bill" class="btn btn-success btn-circle btn-lg"
+                type="button"><i class="fa fa-plus"></i></button>
+      </div>
+    </td>
+  </tr>
+
+
+  </tbody>
+</table>

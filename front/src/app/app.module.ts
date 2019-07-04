@@ -28,7 +28,6 @@ import {DataTablesModule} from 'angular-datatables';
 import {HistoricalService} from './_services/historical.service';
 import {LoaderComponent} from './loader/loader.component';
 import {DisplayFileComponent} from './display-file/display-file.component';
-import {AddQuotationComponent} from './add-quotation/add-quotation.component';
 import {ListQuotationComponent} from './list-quotation/list-quotation.component';
 
 
@@ -53,7 +52,6 @@ export function setupTranslateFactory(service: TranslateService) {
     HistoricalsListComponent,
     LoaderComponent,
     DisplayFileComponent,
-    AddQuotationComponent,
     ListQuotationComponent,
 
   ],
