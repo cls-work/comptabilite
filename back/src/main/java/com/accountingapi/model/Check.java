@@ -1,4 +1,4 @@
-+package com.accountingapi.model;
+package com.accountingapi.model;
 
 import com.accountingapi.model.Bill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,10 +24,7 @@ public class Check {
     private Long bankAccount;
     @Column (name="stat", unique = false, nullable = false)
     private String stat;
-    @OneToOne
-    @JsonIgnore
-    @JoinColumn(name="Bill_id", nullable=true)
-    private Bill bill;
+
 
 
     public Long getId() {
@@ -86,13 +83,7 @@ public class Check {
         this.stat = stat;
     }
 
-    public Bill getBill() {
-        return bill;
-    }
 
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
 
     @Override
     public String toString() {

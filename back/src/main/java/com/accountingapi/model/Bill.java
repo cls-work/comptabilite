@@ -32,6 +32,12 @@ public class Bill {
     @JoinColumn(name = "quotation_id", referencedColumnName = "id")
     private Quotation quotation;
 
+    @OneToOne
+    @JoinColumn(name = "check_id", referencedColumnName = "id")
+    private Check check;
+
+
+
 
     @JsonIgnore
     @OneToMany(targetEntity = Historical.class, mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
