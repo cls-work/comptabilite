@@ -1,4 +1,4 @@
-package com.accountingapi.controller;
+/*package com.accountingapi.controller;
 
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.repository.FileStorageRepository;
@@ -97,17 +97,7 @@ public class FileStorageController {
         return billService.findFilesByBillId(billId);
     }
 
-   @DeleteMapping("/deleteFile/{fileId}")
-    public ResponseEntity<?> deleteFileById(@CurrentUser UserPrincipal currentUser, @PathVariable Long fileId){
-        FileStorageProperties fileStorageProperties= fileStorageRepository.getOne(fileId);
-        if(fileStorageProperties!=null) {
-            fileStorageRepository.delete(fileStorageProperties);
-            /*String [] fileName=fileStorageProperties.getUploadDir().split("\\.");
-            String mesage = "deleted file '"+fileName[0];*/
-            return new ResponseEntity(new ApiResponse(true, "File deleted successfully "),
-                    HttpStatus.ACCEPTED);
-        }
-        return new ResponseEntity(new ApiResponse(false, "File does not exist"),
-                HttpStatus.BAD_REQUEST);
-    }
-}
+
+
+
+*/

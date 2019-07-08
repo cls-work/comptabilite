@@ -1,5 +1,7 @@
 package com.accountingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Provider {
 
     private String adresse;
 
+    @JsonIgnore
     @OneToMany(mappedBy="provider")
     private List<Quotation> quotations;
 

@@ -1,3 +1,4 @@
+
 package com.accountingapi.security.controller;
 
 import com.accountingapi.security.JWT.CurrentUser;
@@ -50,13 +51,13 @@ public class UserController {
         return userRepository.findAll();
     }
 
-       @PreAuthorize("hasRole('ROLE_ADMIN')")
-     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable(value = "id") Long id){
         return userRepository.getById(id);
     }
 
-        @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{userId}")
     @Transactional
     public void deleteUserById (@PathVariable("userId") Long userId){

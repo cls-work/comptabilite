@@ -1,4 +1,6 @@
+/*
 package com.accountingapi.controller;
+
 
 
 import com.accountingapi.dto.BillRequestDto;
@@ -36,9 +38,7 @@ public class BillController {
     FileStorageRepository fileStorageRepository;
 
 
-    /*
-        Displaying all bills
-     */
+
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("")
     public List<Bill> displayAllBills() {
@@ -46,20 +46,12 @@ public class BillController {
     }
 
 
-    /*
-        Get Bill by its id
-     */
-
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public Bill getBillById(@PathVariable("id") String id) {
         return billService.getBillById(id);
     }
 
-
-    /*
-        Delete bill by its id
-     */
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
@@ -72,9 +64,7 @@ public class BillController {
         return bill.getDeleted();
     }
 
-    /*
-        add a new Bill
-    */
+
 
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
@@ -92,23 +82,21 @@ public class BillController {
 
         }
         Bill newBill = billService.addBill(bill);
-        historicalService.addHistoricalForBill(currentUser, "added a new BillId= "+bill.getBillId(), bill);
+        historicalService.addHistoricalForBill(currentUser, "added a new BillId= "+bill.getId(), bill);
         return newBill;
 
 
     }
 
 
-    /*
-        update a bill
-     */
+
 
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping("/{billId}")
     public Bill editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String billId, @Valid @RequestBody BillRequestDto billRequestDto) {
 
         Bill bill = billRequestDto.toBill();
-        bill.setBillId(billId);
+        bill.setId(billId);
 
         if (billRequestDto.getDocumentIds() != null) {
 
@@ -127,3 +115,4 @@ public class BillController {
 
 
 }
+*/

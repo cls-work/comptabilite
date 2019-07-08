@@ -1,4 +1,4 @@
-package com.accountingapi.controller;
+/*package com.accountingapi.controller;
 
 
 import com.accountingapi.model.Bill;
@@ -54,3 +54,4 @@ public class HistoricalController {
         return historicalService.findAllByBill(bill);
     }
 }
+*/
