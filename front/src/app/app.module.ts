@@ -32,6 +32,9 @@ import {LoaderComponent} from './loader/loader.component';
 import {FilterHistoryPipe} from './_pipes/filter-history';
 import {DisplayFileComponent} from './display-file/display-file.component';
 
+import { ChecksComponent } from './checks/checks.component';
+import {CheckService} from './_services/check.service';
+
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -57,6 +60,8 @@ export function setupTranslateFactory(service: TranslateService) {
     FilterBillsPipe,
     FilterHistoryPipe,
     DisplayFileComponent,
+    ChecksComponent,
+
 
   ],
   imports: [
@@ -75,13 +80,14 @@ export function setupTranslateFactory(service: TranslateService) {
     BillService,
     UserService,
     AuthenticationService,
+    CheckService,
     HistoricalService,
     TranslateService, {
       provide: APP_INITIALIZER,
       useFactory: setupTranslateFactory,
       deps: [TranslateService],
       multi: true
-    }/*
+    },/*
     {
       provide: APP_INITIALIZER,
       useFactory: setupBillsTranslateFactory,

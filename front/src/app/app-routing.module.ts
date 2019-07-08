@@ -12,6 +12,7 @@ import {AuthGuard} from './_guards/auth.guard';
 import {AdminGuard} from './_guards/admin.guard';
 import {GuestGuard} from './_guards/guest.guard';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
+import {ChecksComponent} from "./checks/checks.component";
 
 const routes: Routes = [
   {
@@ -100,12 +101,17 @@ const routes: Routes = [
     component: ResetPasswordComponent,
     //canActivate:[GuestGuard]
   },
-
+  {
+    path: 'checks',
+    component: ChecksComponent,
+    //canActivate: [AuthGuard]
+  },
 
   {
     path: '**',
     redirectTo: 'bills',
   },
+
 ];
 
 @NgModule({

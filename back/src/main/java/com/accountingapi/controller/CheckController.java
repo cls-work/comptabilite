@@ -33,14 +33,14 @@ public class CheckController {
     @PreAuthorize("")
     @GetMapping("/{id}")
     public Check getCheckById(@PathVariable("id") String id) {
-        return checkService.getBillById(id);
+        return checkService.getCheckById(id);
     }
 
     public Check addCheck(@CurrentUser UserPrincipal currentUser, @Valid Check check) {
 
 
-        checkService.updateCheck(check);
-
+       Check newCheck = checkService.updateCheck(check);
+        return (newCheck);
 
 
 
