@@ -1,10 +1,14 @@
 package com.accountingapi.model;
 
 
+import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
 
+@JsonAutoDetect
 public class Product {
 
 
@@ -12,15 +16,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="refrence",unique=true,nullable = false)
-    private String refrence;
+    @Column(name = "reference", unique = true, nullable = false)
+    private String reference;
 
     @Column(nullable = false)
     private String designation;
 
 
-    @ManyToOne
-    @JoinColumn(name="category_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Long getId() {
@@ -31,12 +35,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getRefrence() {
-        return refrence;
+    public String getReference() {
+        return reference;
     }
 
-    public void setRefrence(String refrence) {
-        this.refrence = refrence;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getDesignation() {
@@ -59,7 +63,8 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
-                ", refrence='" + refrence + '\'' +
+                ", reference='" + reference + '\'' +
+                ", reference='" + reference + '\'' +
                 ", designation='" + designation + '\'' +
                 ", category=" + category +
                 '}';

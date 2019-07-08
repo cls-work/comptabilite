@@ -1,25 +1,79 @@
 package com.accountingapi.controller;
 
+import com.accountingapi.model.Purchase;
 import com.accountingapi.model.Quotation;
-import com.accountingapi.service.QuotationService;
+import com.accountingapi.security.JWT.CurrentUser;
+import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.security.model.Role;
+import com.accountingapi.security.model.RoleName;
+import com.accountingapi.security.model.User;
+import com.accountingapi.security.payload.ApiResponse;
+import com.accountingapi.security.repository.RoleRepository;
+import com.accountingapi.security.service.impl.UserServiceImpl;
+import com.accountingapi.service.impl.EmailServiceImpl;
+import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/quotations")
+
 public class QuotationController {
     @Autowired
-    private QuotationService quotationService;
+    QuotationServiceImpl quotationService;
 
-    @GetMapping("")
-    public List<Quotation> displayAllQuotations() {
-        return quotationService.findAll();
+    @Autowired
+    UserServiceImpl userService;
+
+    @Autowired
+    EmailServiceImpl emailService;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @GetMapping
+    public List<Quotation> findAllQuotations() {
+        return quotationService.findAllQuotations();
     }
-    @GetMapping("/{id}")
-    public Quotation getQuotationById(@PathVariable("id") Long id) {
-        return quotationService.getQuotationById(id);
+
+    @PostMapping
+    public ResponseEntity<?> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Quotation quotation) throws IOException, MessagingException {
+        User quotationCreator = userService.findUserById((long) 1);
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findById((long) 1).get());
+        System.out.println("+===================" + roles);
+        User admin = userService.findAllByRoles(roles).get(0);
+        System.out.println("++++++++++++++++++++++" + admin.getName());
+        emailService.createQuotationMail(quotationCreator, admin);
+        quotationService.addQuotation(quotation);
+        return new ResponseEntity(new ApiResponse(true, "Quotation saved and mail sent successfully ! "),
+                HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/{quotationId}")
+    public Quotation getQuotationById(@PathVariable("quotationId") Long quotationId) {
+
+        return quotationService.getQuotationById(quotationId);
+    }
+
+
+    @DeleteMapping("/{quotationId}")
+    public void deleteQuotationById(@PathVariable("quotationId") Long quotationId) {
+        Quotation quotation = quotationService.getQuotationById(quotationId);
+        if (quotation.getConfirmed() == null)
+            quotationService.deleteQuotationById(quotationId);
+        else System.out.println("Unauthorized");
+    }
+
+
 }

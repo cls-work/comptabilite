@@ -1,5 +1,6 @@
 package com.accountingapi.model;
 
+import com.accountingapi.security.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -46,6 +47,10 @@ public class Bill {
 
     @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
     public String getId() {
@@ -112,6 +117,14 @@ public class Bill {
         this.fileStorageProperties = fileStorageProperties;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Bill{" +
@@ -123,6 +136,7 @@ public class Bill {
                 ", quotation=" + quotation +
                 ", historicals=" + historicals +
                 ", fileStorageProperties=" + fileStorageProperties +
+                ", user=" + user +
                 '}';
     }
 }

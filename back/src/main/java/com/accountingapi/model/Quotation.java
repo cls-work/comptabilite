@@ -1,6 +1,7 @@
 package com.accountingapi.model;
 
 import com.accountingapi.security.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -37,19 +38,20 @@ public class Quotation {
     @OneToOne(mappedBy = "quotation")
     private Bill bill;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="createdBy", nullable=false)
     private User createdBy;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="acceptedBy", nullable=false)
     private User acceptedBy;
 
-    @ManyToOne
-    @JoinColumn(name="provider_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @OneToMany(mappedBy="user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "quotation")
     private List<Purchase> purchases;
 
     @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)

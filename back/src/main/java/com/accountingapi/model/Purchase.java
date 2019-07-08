@@ -33,11 +33,11 @@ public class Purchase {
     @Column(nullable = false)
     private Double amountTTC;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="quotation_id", nullable=false)
     private Quotation quotation;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="product_id", nullable=false)
     private Product product;
 

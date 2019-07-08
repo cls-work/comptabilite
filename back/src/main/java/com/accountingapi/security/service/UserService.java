@@ -1,16 +1,20 @@
 package com.accountingapi.security.service;
 
+import com.accountingapi.security.model.Role;
+import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
+import java.util.List;
+import java.util.Set;
 
-    @Autowired
-    private UserRepository userRepository;
+public interface UserService {
 
-    public void updatePassword(String password, Long userId) {
-        userRepository.updatePassword(password, userId);
-    }
+
+    void updatePassword(String password, Long userId);
+
+    User findUserById(Long userId);
+
+    List<User> findAllByRoles(Set<Role> roles);
 }

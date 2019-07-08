@@ -1,5 +1,10 @@
 package com.accountingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +17,7 @@ public class Category {
     @Column(nullable = false)
     private String label;
 
+    @JsonIgnore
     @OneToMany(mappedBy="category")
     private List<Product> products;
 

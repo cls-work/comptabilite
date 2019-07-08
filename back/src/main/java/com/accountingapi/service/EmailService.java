@@ -1,48 +1,24 @@
 package com.accountingapi.service;
 
+import com.accountingapi.security.model.PasswordResetToken;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.payload.Mail;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.util.Map;
 
-@Service
-public class EmailService {
+public interface EmailService {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    void sendEmailWithAttachment(Mail mail, String mailContent) throws MessagingException, IOException;
 
-    public void sendEmailWithAttachment(Mail mail) throws MessagingException, IOException {
+    void createResetMail(User user) throws IOException, MessagingException;
 
-        MimeMessage msg = javaMailSender.createMimeMessage();
+    void createQuotationMail(User quotationCreator, User admin) throws IOException, MessagingException;
 
+    void configureMail(Map<String, Object> model, String mailType);
 
-        // true = multipart message
-        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+    String getResetMailUrl(String appUrl, Map<String, Object> model);
 
-        helper.setTo(mail.getTo());
-        User user = (User) mail.getModel().get("user");
-        helper.setSubject("Hi Mr/Mrs "+user.getName());
-
-        // default = text/plain
-        //helper.setText("Check attachment for image!");
-
-        // true = text/html
-        String message ="\nPlease click on this link to enter your new password . Your current token is\n";
-        helper.setText(message+"<br/><a href=\""+mail.getModel().get("resetUrl").toString()+"\">Click here</a>",true);
-
-        // hard coded a file path
-        //FileSystemResource file = new FileSystemResource(new File("path/android.png"));
-
-        //Add FILE !!
-        //helper.addAttachment("1.png", new ClassPathResource("1.png"));
-
-        javaMailSender.send(msg);
-
-    }
+    String getQuotationMailUrl(String appUrl);
 }

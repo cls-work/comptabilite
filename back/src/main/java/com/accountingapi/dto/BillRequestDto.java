@@ -38,12 +38,7 @@ public class BillRequestDto {
 
     public Bill toBill(){
         Bill bill = new Bill();
-        bill.setProvider(this.provider);
-        bill.setDate(this.date);
-        bill.setTotalHT(this.totalHT);
-        bill.setTotalTTC(this.totalTTC);
-        bill.setTotalTVA(this.totalTVA);
-        bill.setTaxStamp(this.taxStamp);
+
         bill.setCheckReference(this.checkReference);
         bill.setCheckPayment(this.checkPayment);
         bill.setDeleted(this.isDeleted);
