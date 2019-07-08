@@ -1,5 +1,7 @@
 package com.accountingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -33,8 +35,9 @@ public class Purchase {
     @Column(nullable = false)
     private Double amountTTC;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="quotation_id", nullable=false)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quotation_id")
     private Quotation quotation;
 
     @ManyToOne(cascade = CascadeType.MERGE)

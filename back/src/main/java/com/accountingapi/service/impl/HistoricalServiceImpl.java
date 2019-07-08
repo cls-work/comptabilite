@@ -6,9 +6,11 @@ import com.accountingapi.repository.HistoricalRepository;
 import com.accountingapi.security.model.User;
 import com.accountingapi.service.HistoricalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class HistoricalServiceImpl implements HistoricalService {
 
     @Autowired

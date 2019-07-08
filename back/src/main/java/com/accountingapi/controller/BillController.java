@@ -1,4 +1,4 @@
-/*
+
 package com.accountingapi.controller;
 
 
@@ -6,14 +6,14 @@ package com.accountingapi.controller;
 import com.accountingapi.dto.BillRequestDto;
 import com.accountingapi.model.Bill;
 import com.accountingapi.model.FileStorageProperties;
-import com.accountingapi.repository.FileStorageRepository;
+import com.accountingapi.repository.FileStoragePropertiesRepository;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
-import com.accountingapi.service.BillService;
-import com.accountingapi.service.HistoricalService;
+import com.accountingapi.service.impl.BillServiceImpl;
+import com.accountingapi.service.impl.FileStorageServiceImpl;
+import com.accountingapi.service.impl.HistoricalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,49 +26,45 @@ import java.util.List;
 public class BillController {
 
     @Autowired
-    BillService billService;
+    BillServiceImpl billService;
 
     @Autowired
-    HistoricalService historicalService;
+    HistoricalServiceImpl historicalService;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    FileStorageRepository fileStorageRepository;
+    FileStorageServiceImpl fileStorageService;
 
 
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @GetMapping("")
+    @GetMapping
     public List<Bill> displayAllBills() {
-        return billService.findAll();
+        return billService.findAllBills();
     }
 
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+
     @GetMapping("/{id}")
     public Bill getBillById(@PathVariable("id") String id) {
         return billService.getBillById(id);
     }
 
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+
     @DeleteMapping("/{id}")
-    public Boolean deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+    public void deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
 
         Bill bill = billService.getBillById(id);
         bill.setDeleted(true);
-        historicalService.addHistoricalForBill(currentUser, "deleted a Bill", bill);
+        /*historicalService.addHistoricalForBill(currentUser, "deleted a Bill", bill);
         billService.updateBill(bill);
         return bill.getDeleted();
+        */
     }
 
 
-
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PostMapping("")
+    @PostMapping
     public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto) {
         Bill bill = billRequestDto.toBill();
 
@@ -76,22 +72,18 @@ public class BillController {
         if (billRequestDto.getDocumentIds() != null) {
 
             List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageService.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
-           // documents.forEach(elt -> elt.setBill(bill));
 
         }
         Bill newBill = billService.addBill(bill);
-        historicalService.addHistoricalForBill(currentUser, "added a new BillId= "+bill.getId(), bill);
+        // historicalService.addHistoricalForBill(currentUser, "added a new BillId= "+bill.getId(), bill);
         return newBill;
 
 
     }
 
-
-
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+/*
     @PutMapping("/{billId}")
     public Bill editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String billId, @Valid @RequestBody BillRequestDto billRequestDto) {
 
@@ -101,18 +93,18 @@ public class BillController {
         if (billRequestDto.getDocumentIds() != null) {
 
             List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
+            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageService.findAllById(documentsIds);
             bill.setFileStorageProperties(documents);
             //documents.forEach(elt -> elt.setBill(bill));
 
         }
 
-        Bill newBill = billService.updateBill(bill);
-        historicalService.addHistoricalForBill(currentUser, "updated a Bill", bill);
+        Bill newBill = billService.a(bill);
+        //historicalService.addHistoricalForBill(currentUser, "updated a Bill", bill);
         return newBill;
 
     }
+    */
 
 
 }
-*/

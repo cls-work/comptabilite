@@ -5,7 +5,6 @@ import com.accountingapi.model.Quotation;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.model.Role;
-import com.accountingapi.security.model.RoleName;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.payload.ApiResponse;
 import com.accountingapi.security.repository.RoleRepository;
@@ -47,17 +46,15 @@ public class QuotationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Quotation quotation) throws IOException, MessagingException {
+    public ResponseEntity<Quotation> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Quotation quotation) throws IOException, MessagingException {
         User quotationCreator = userService.findUserById((long) 1);
         Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.findById((long) 1).get());
-        System.out.println("+===================" + roles);
-        User admin = userService.findAllByRoles(roles).get(0);
-        System.out.println("++++++++++++++++++++++" + admin.getName());
-        emailService.createQuotationMail(quotationCreator, admin);
+        User admin = (User) userService.findAllByRoles(roles).get(0);
+        //EmailService.createQuotationMail(currentUser,admin);
+        //emailService.createQuotationMail(quotationCreator,admin);
         quotationService.addQuotation(quotation);
-        return new ResponseEntity(new ApiResponse(true, "Quotation saved and mail sent successfully ! "),
-                HttpStatus.ACCEPTED);
+        return new ResponseEntity<Quotation>(quotation, HttpStatus.OK);
     }
 
     @GetMapping("/{quotationId}")

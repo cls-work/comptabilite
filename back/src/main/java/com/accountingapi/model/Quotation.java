@@ -13,7 +13,8 @@ import java.util.List;
 public class Quotation {
 
     @Id
-    @Column(name = "id",unique=true,nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(nullable = false)
@@ -38,22 +39,25 @@ public class Quotation {
     @OneToOne(mappedBy = "quotation")
     private Bill bill;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="createdBy", nullable=false)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "createdBy")
     private User createdBy;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="acceptedBy", nullable=false)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "acceptedBy", nullable = true)
     private User acceptedBy;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "quotation")
+
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL)
     private List<Purchase> purchases;
 
+    @JsonIgnore
     @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
 
@@ -161,6 +165,7 @@ public class Quotation {
     public void setFileStorageProperties(List<FileStorageProperties> fileStorageProperties) {
         this.fileStorageProperties = fileStorageProperties;
     }
+
 
     @Override
     public String toString() {

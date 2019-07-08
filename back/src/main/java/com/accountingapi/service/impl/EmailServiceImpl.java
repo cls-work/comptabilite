@@ -5,6 +5,7 @@ import com.accountingapi.security.model.User;
 import com.accountingapi.security.payload.Mail;
 import com.accountingapi.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class EmailServiceImpl implements EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 
         helper.setTo(mail.getTo());
-        User user = (User) mail.getModel().get("admin");
+        User user = (User) mail.getModel().get("user");
         helper.setSubject("Hi Mr/Mrs " + user.getName());
 
         // default = text/plain
@@ -51,7 +52,7 @@ public class EmailServiceImpl implements EmailService {
         //FileSystemResource file = new FileSystemResource(new File("path/android.png"));
 
         //Add FILE !!
-        //helper.addAttachment("1.png", new ClassPathResource("1.png"));
+        helper.addAttachment("1.png", new ClassPathResource("1.png"));
 
         javaMailSender.send(msg);
 
@@ -89,7 +90,7 @@ public class EmailServiceImpl implements EmailService {
         Mail mail = new Mail();
         mail.setTo(admin.getEmail());
         Map<String, Object> model = new HashMap<>();
-        model.put("admin", admin);
+        model.put("user", admin);
 
         configureMail(model, "quotation");
 

@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
@@ -71,6 +72,10 @@ public class FileStorageServiceImpl implements FileStorageService {
         } catch (MalformedURLException ex) {
             throw new MyFileNotFoundException("File not found " + fileName, ex);
         }
+    }
+
+    public List<FileStorageProperties> findAllById(List<Long> ids) {
+        return fileStoragePropertiesRepository.findAllById(ids);
     }
 
 
