@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {BillsComponent} from './bills/bills.component';
 import {BillDetailsComponent} from './bill-details/bill-details.component';
 import {AddProductsComponent} from './add-products/add-products.component';
@@ -13,6 +13,7 @@ import {AdminGuard} from './_guards/admin.guard';
 import {GuestGuard} from './_guards/guest.guard';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
 import {ListQuotationComponent} from './list-quotation/list-quotation.component';
+import {DetailQuotationComponent} from './detail-quotation/detail-quotation.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,10 @@ const routes: Routes = [
   }, {
     path: 'quotations/list',
     component: ListQuotationComponent
+  },
+  {
+    path: 'quotations/detail/:quotationId',
+    component: DetailQuotationComponent
   },
 
 

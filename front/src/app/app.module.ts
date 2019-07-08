@@ -29,6 +29,10 @@ import {HistoricalService} from './_services/historical.service';
 import {LoaderComponent} from './loader/loader.component';
 import {DisplayFileComponent} from './display-file/display-file.component';
 import {ListQuotationComponent} from './list-quotation/list-quotation.component';
+import {DetailQuotationComponent} from './detail-quotation/detail-quotation.component';
+import {NgxPrintModule} from 'ngx-print';
+import {SumPipe, SumTva} from './_pipes/sum.pipe';
+import {ToWordsPipe} from './_pipes/toWords.pipe';
 
 
 export function setupTranslateFactory(service: TranslateService) {
@@ -49,10 +53,14 @@ export function setupTranslateFactory(service: TranslateService) {
     UsersDetailsComponent,
     ResetPasswordComponent,
     TranslatePipe,
+    SumPipe,
     HistoricalsListComponent,
     LoaderComponent,
     DisplayFileComponent,
     ListQuotationComponent,
+    DetailQuotationComponent,
+    SumTva,
+    ToWordsPipe
 
   ],
   imports: [
@@ -62,7 +70,8 @@ export function setupTranslateFactory(service: TranslateService) {
     AppRoutingModule,
     FormsModule,
     NgxPaginationModule,
-    DataTablesModule
+    DataTablesModule,
+    NgxPrintModule
 
   ],
   providers: [

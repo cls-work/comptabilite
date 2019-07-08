@@ -1,8 +1,6 @@
-import {ProductModel} from './product.model';
-
 export class CategoryModel {
-  id: string;
+  id: number;
   label: string;
-  products: ProductModel[];
+//  products: ProductModel[];
 
 }

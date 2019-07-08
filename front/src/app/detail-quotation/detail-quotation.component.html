@@ -1,0 +1,175 @@
+<button (click)="printt()" class="btn btn-primary">print</button>
+<div #content class="container">
+  <div class="card">
+
+    <div class="card-body" style="padding: 40px 40px;">
+      <div class="row mb-4">
+
+
+        <div class="col-sm-6">
+          <div>
+            <strong>CL06408</strong>
+          </div>
+          <div>CONSULTING @LOGICIELS &SYSTEMES</div>
+          <br>
+          <div>Matricule Fiscal: B24378211</div>
+          <div>Tél: +216 26 478 146</div>
+        </div>
+
+
+        <div class="col-sm-6">
+          <h6 class="mb-3">Fournisseur</h6>
+          <div>
+            <strong>N: #{{quotation.provider.id}} </strong>
+          </div>
+          <div>{{quotation.provider.name}}</div>
+          <div>{{quotation.provider.adresse}}</div>
+
+        </div>
+      </div>
+      <br><br>
+      <div class="row" style="padding-left:20%;">
+        <h1>DEVIS</h1>
+      </div>
+
+      <div class="row">
+        <div class="table-responsive-sm" style="padding: 20px 50px;">
+          <table class="table table-bordered text-center">
+            <thead>
+            <tr>
+              <th scope="col">NUMERO</th>
+              <th scope="col">DATE</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td style="padding: 10px 60px;"><strong>#{{quotation.id}}</strong>
+              </td>
+              <td style="padding: 10px 60px;"><strong>{{quotation.creattionDate}}</strong></td>
+            </tr>
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-responsive-sm">
+
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th scope="col">Référence</th>
+            <th scope="col">Désignation</th>
+            <th scope="col">Qté</th>
+            <th scope="col">Prix u. av. remise</th>
+            <th scope="col">Remise en %</th>
+            <th scope="col">Prix u. ap. remise</th>
+            <th scope="col">Montant HT</th>
+            <th scope="col">TVA en %</th>
+            <th scope="col">Montant TTC</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let purchase of quotation.purchases; let i = index;">
+            <td>#{{purchase.product.refrence}}</td>
+            <td>{{purchase.product.designation}}</td>
+            <td class="right">{{purchase.quantity}}</td>
+            <td class="right">{{purchase.unitPrice}}</td>
+            <td class="right">{{purchase.discount}}</td>
+            <td class="right">{{purchase.unitPriceAfterDiscount}}</td>
+            <td class="right">{{purchase.amountHT}}</td>
+            <td>{{purchase.amountTVA}}</td>
+            <td class="right">{{purchase.amountTTC}}</td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-sm-5">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th scope="col">BASE</th>
+              <th scope="col">TAUX en %</th>
+              <th scope="col">MONTANT</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tvaItem of groupedByTVA">
+              <td>{{tvaItem|sum:'amountTVA'|number:'.3'}}</td>
+              <td>{{tvaItem[0].TVA}}</td>
+              <td>{{tvaItem|sum_tva:'amountTVA'|number:'.3'}}</td>
+            </tr>
+
+
+            <tr>
+              <th COLSPAN="2" class="text-center">TOTAL</th>
+              <td>{{quotation.totalTVA}}</td>
+            </tr>
+
+
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class="col-lg-4 col-sm-5 ml-auto">
+          <table class="table table-clear">
+            <tbody>
+
+            <tr>
+              <td class="left">
+                <strong>TOTAL HT</strong>
+              </td>
+              <td class="right">{{quotation.totalTVA}}</td>
+            </tr>
+            <tr>
+              <td class="left">
+                <strong>TOTAL TVA</strong>
+              </td>
+              <td class="right">{{quotation.totalTVA}}</td>
+            </tr>
+            <tr>
+            <tr>
+              <td class="left">
+                <strong>TIMBRE</strong>
+              </td>
+              <td class="right">{{quotation.taxStamp}}</td>
+            </tr>
+            <tr>
+              <td class="left">
+                <strong>TOTAL TTC</strong>
+              </td>
+              <td class="right">
+                <strong>{{quotation.totalTTC|number:'3.3'}} </strong>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+      <br><br>
+      <div style="padding-left:5%;">
+        <div class="row">
+          <h6>
+            Arrêtée le présent Devis à la somme de :
+          </h6>
+        </div>
+        <div class="row">
+          <h6>
+            {{quotation.totalTTC | toWords}} Dinars
+          </h6>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+

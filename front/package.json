@@ -32,11 +32,14 @@
     "font-awesome": "^4.7.0",
     "install": "^0.12.2",
     "jquery": "^3.4.1",
+    "jspdf": "^1.5.3",
     "jszip": "^3.2.1",
     "jwt-decode": "^2.2.0",
     "ngx-pagination": "^4.0.0",
+    "ngx-print": "^1.2.0-beta.2",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
+    "written-number": "^0.9.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

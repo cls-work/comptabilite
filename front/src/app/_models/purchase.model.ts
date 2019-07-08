@@ -1,8 +1,7 @@
-import {QuotationModel} from './quotation.model';
 import {ProductModel} from './product.model';
 
 export class PurchaseModel {
-  id: string;
+  //id: number;
   quantity: number;
   unitPrice: number;
   discount: number;
@@ -11,6 +10,6 @@ export class PurchaseModel {
   amountHT: number;
   amountTVA: number;
   amountTTC: number;
-  quotation: QuotationModel;
+  //quotation: QuotationModel;
   product: ProductModel;
 }
