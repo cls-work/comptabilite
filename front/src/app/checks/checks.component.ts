@@ -12,12 +12,22 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./checks.component.scss']
 })
 export class ChecksComponent implements OnInit {
+  coll = [
+    { reference : '69', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
+
+    }   ,
+    { reference : '69', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
+
+    }
+
+  ];
+
   checks: CheckModel[];
 
   checkForm: FormGroup;
   loading: boolean;
   error: boolean;
-
+  private collection: CheckModel [] = [];
 
   constructor(private formBuilder: FormBuilder,
               private checkService: CheckService,
@@ -66,9 +76,13 @@ export class ChecksComponent implements OnInit {
       });
   }
 
-  onAddCheckButton() {
+  onAddCheckButton(item: CheckModel) {
+    this.checkService.onAddCheckButton(item);
 
-    this.loading = true;
+
+
+
+/*    this.loading = true;
 
     // @ts-ignore
     this.checkService.postCheck(this.checkForm.value)
@@ -82,7 +96,7 @@ export class ChecksComponent implements OnInit {
       });
   }
 
-
+*/
 
   /*  if (id) {
 
@@ -148,4 +162,4 @@ export class ChecksComponent implements OnInit {
       }*/
 
 
-}
+}}

@@ -85,7 +85,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary"  (click)="onAddCheckButton()">Save changes</button>
+                <button type="button" class="btn btn-primary"  (click)="onAddCheckButton(item)">Save changes</button>
               </div>
             </div>
           </div>
@@ -107,16 +107,18 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let check of checks;let i = index;">
-            <td>{{check.checkId}}</td>
-            <td>{{check.reference}}</td>
-            <td>{{check.amount}}</td>
-            <td>{{check.profilOf}}</td>
-            <td>{{check.transactionDate |date: 'dd/MM/yyyy'}}</td>
-            <td>{{check.stat}}</td>
-          <td>      <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal" >EDIT</button> </td>
+          <tr *ngFor ="let item of coll"><
+          <td>{{ item.reference}}</td>
+          <td> {{item.amount}}</td>
+            <td> {{item.transactionDate}}</td>
+            <td>{{item.profilOf}}</td>
+        <td> {{ item.stat}}</td>
 
 
+
+            <td>      <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal" >EDIT</button> </td>
+
+          </tr>
           </tbody>
 
         </table>

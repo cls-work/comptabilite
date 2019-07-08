@@ -1,12 +1,15 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {BASE_URL, BILLS, CHECKS} from "../_globals/vars";
+import {CheckModel} from "../_models/check.model";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CheckService {
+  private collection: CheckModel[] = [];
+
   constructor(private http: HttpClient) {
   }
   getAllChecks() {
@@ -25,4 +28,7 @@ export class CheckService {
     return this.http.post(BASE_URL + BILLS, check);
   }
 
+  onAddCheckButton(item: CheckModel) {
+this.collection.push(item);
+  }
 }
