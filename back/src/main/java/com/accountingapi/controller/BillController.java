@@ -10,7 +10,7 @@ import com.accountingapi.repository.FileStorageRepository;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
-import com.accountingapi.service.BillService;
+import com.accountingapi.service.impl.BillService;
 import com.accountingapi.service.HistoricalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -3,14 +3,9 @@ package com.accountingapi.controller;
 import com.accountingapi.model.Product;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.service.BillService;
-import com.accountingapi.service.HistoricalService;
-import com.accountingapi.service.ProductService;
-import com.accountingapi.service.impl.BillServiceImpl;
 import com.accountingapi.service.impl.ProductServiceImpl;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;

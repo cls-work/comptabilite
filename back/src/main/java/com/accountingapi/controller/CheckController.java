@@ -4,7 +4,7 @@ package com.accountingapi.controller;
 import com.accountingapi.model.Check;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.service.BillService;
+import com.accountingapi.service.impl.BillService;
         import com.accountingapi.service.CheckService;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.security.access.prepost.PreAuthorize;

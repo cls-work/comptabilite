@@ -10,30 +10,13 @@ import java.util.List;
 
 @Service
 
-public class CheckService {
-    @Autowired
-     CheckRepository checkRepository;
+public interface CheckService {
 
+    public List<Check> findAll();
 
-    public List<Check> findAll()
-    {
-        return checkRepository.findAll();
+    public Check getCheckById(String id);
 
-    }
-
-    public Check getCheckById(String id) {
-
-            return checkRepository.findByCheckId(id);
-        }
-
-
-    public void updateCheck(Check check) {
-
-        checkRepository.save(check);
-    }
-public void deleteCheck (Check check)
-{
-    checkRepository.delete(check);
-}
+    public void updateCheck(Check check) ;
+public void deleteCheck (Check check);
 }
 
