@@ -17,4 +17,8 @@ public interface PurchaseService {
     Purchase findPurchaseById(Long purchaseId);
 
     List<Purchase> findAllPurchasesByQuotation(Long quotationId);
+
+    boolean existsById(Long purchaseId);
+
+    List<Purchase> findAllPurchases();
 }

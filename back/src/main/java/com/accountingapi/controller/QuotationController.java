@@ -6,10 +6,10 @@ import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
-import com.accountingapi.security.payload.ApiResponse;
 import com.accountingapi.security.repository.RoleRepository;
 import com.accountingapi.security.service.impl.UserServiceImpl;
 import com.accountingapi.service.impl.EmailServiceImpl;
+import com.accountingapi.service.impl.PurchaseServiceImpl;
 import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,11 +40,20 @@ public class QuotationController {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    PurchaseServiceImpl purchaseService;
+
+    // -------------------Retrieve All Providers---------------------------------------------
     @GetMapping
-    public List<Quotation> findAllQuotations() {
-        return quotationService.findAllQuotations();
+    public ResponseEntity<List<Quotation>> findAllQuotations() {
+        List<Quotation> quotations = quotationService.findAllQuotations();
+        if (quotations.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(quotations, HttpStatus.OK);
     }
 
+    // -------------------Create a Quotation and sending an email to Admin---------------------------------------------
     @PostMapping
     public ResponseEntity<Quotation> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Quotation quotation) throws IOException, MessagingException {
         User quotationCreator = userService.findUserById((long) 1);
@@ -53,23 +62,39 @@ public class QuotationController {
         User admin = (User) userService.findAllByRoles(roles).get(0);
         //EmailService.createQuotationMail(currentUser,admin);
         //emailService.createQuotationMail(quotationCreator,admin);
+        System.out.println("************************");
+        List<Purchase> purchases = quotation.getPurchases();
+        for (Purchase purchase : purchases) purchase.setQuotation(quotation);
         quotationService.addQuotation(quotation);
-        return new ResponseEntity<Quotation>(quotation, HttpStatus.OK);
+        return new ResponseEntity<Quotation>(quotation, HttpStatus.CREATED);
     }
+
+    // -------------------Retrieve One Quotation By ID---------------------------------------------
 
     @GetMapping("/{quotationId}")
-    public Quotation getQuotationById(@PathVariable("quotationId") Long quotationId) {
-
-        return quotationService.getQuotationById(quotationId);
+    public ResponseEntity<Quotation> findQuotationById(@PathVariable("quotationId") Long quotationId) {
+        if (quotationService.existsById(quotationId))
+            return new ResponseEntity<Quotation>(quotationService.findQuotationById(quotationId), HttpStatus.OK);
+        else return new ResponseEntity("Quotation not found", HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Delete a Quotation---------------------------------------------
 
     @DeleteMapping("/{quotationId}")
-    public void deleteQuotationById(@PathVariable("quotationId") Long quotationId) {
-        Quotation quotation = quotationService.getQuotationById(quotationId);
-        if (quotation.getConfirmed() == null)
-            quotationService.deleteQuotationById(quotationId);
-        else System.out.println("Unauthorized");
+    public ResponseEntity<?> deleteQuotationById(@PathVariable("quotationId") Long quotationId) {
+        if (quotationService.existsById(quotationId)) {
+            Quotation quotation = quotationService.findQuotationById(quotationId);
+            if (quotation.getConfirmed() != null) {
+                List<Purchase> purchases = quotation.getPurchases();
+                //for(Purchase purchase:purchases) purchaseService.deletePurchaseById(purchase.getId());
+                quotationService.deleteQuotationById(quotationId);
+                System.out.println("Quotation deleted");
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            }
+            return new ResponseEntity<>("Quotation not yet confirmed", HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity("Quotation with id" + quotationId + " not found", HttpStatus.NOT_FOUND);
     }
 
 

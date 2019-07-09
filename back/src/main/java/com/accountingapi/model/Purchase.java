@@ -37,7 +37,7 @@ public class Purchase {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quotation_id")
+    @JoinColumn(name = "quotation_id", updatable = false, insertable = true, nullable = false)
     private Quotation quotation;
 
     @ManyToOne(cascade = CascadeType.MERGE)

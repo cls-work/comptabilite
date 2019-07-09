@@ -2,12 +2,12 @@ package com.accountingapi.model;
 
 import com.accountingapi.security.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 public class Quotation {
@@ -18,6 +18,7 @@ public class Quotation {
     private Long id;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private Date creationDate;
 
     @Column(nullable = false)
@@ -54,7 +55,7 @@ public class Quotation {
     private Provider provider;
 
 
-    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Purchase> purchases;
 
     @JsonIgnore

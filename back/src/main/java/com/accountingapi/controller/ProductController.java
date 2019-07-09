@@ -3,14 +3,10 @@ package com.accountingapi.controller;
 import com.accountingapi.model.Product;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.service.BillService;
-import com.accountingapi.service.HistoricalService;
-import com.accountingapi.service.ProductService;
-import com.accountingapi.service.impl.BillServiceImpl;
 import com.accountingapi.service.impl.ProductServiceImpl;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -27,34 +23,54 @@ public class ProductController {
     @Autowired
     ProductServiceImpl productService;
 
-
+    // -------------------Retrieve All Products---------------------------------------------
     @GetMapping
-    public List<Product> findAllProducts() {
-        return productService.findAllProducts();
+    public ResponseEntity<List<Product>> findAllProducts() {
+        List<Product> products = productService.findAllProducts();
+        if (products.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    // -------------------Retrieve One Product By ID---------------------------------------------
     @GetMapping("/{productId}")
-    public Product getProductById(@PathVariable("productId") Long productId) {
-        return productService.getProductById(productId);
+    public ResponseEntity<Product> findProductById(@PathVariable("productId") Long productId) {
+        if (productService.existsById(productId))
+            return new ResponseEntity<Product>(productService.findProductById(productId), HttpStatus.OK);
+        else return new ResponseEntity("Product not found", HttpStatus.NOT_FOUND);
     }
 
-
+    // -------------------Create a Product---------------------------------------------
     @PostMapping()
-    public void addProduct(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Product product) {
+    public ResponseEntity<?> addProduct(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Product product) {
+        if (productService.existsByReference(product.getReference()))
+            return new ResponseEntity("Product with same reference already exists", HttpStatus.CONFLICT);
         productService.addProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
-
+    // -------------------Delete a Product---------------------------------------------
     @DeleteMapping("/{productId}")
     @Transactional
-    public void deleteProductById(@PathVariable("productId") Long productId) {
-        productService.deleteProductById(productId);
+    public ResponseEntity<?> deleteProductById(@PathVariable("productId") Long productId) {
+        if (productService.existsById(productId)) {
+            productService.deleteProductById(productId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity("Product with id" + productId + " not found", HttpStatus.NOT_FOUND);
+
     }
 
-
-    @PutMapping("/{productId}")
-    public Product updateProduct(@Valid @RequestBody Product product) {
-        return productService.updateProduct(product);
+    // -------------------Update a Product---------------------------------------------
+    @PutMapping
+    public ResponseEntity<?> updateProduct(@Valid @RequestBody Product product) {
+        if (productService.existsById(product.getId())) {
+            productService.updateProduct(product);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        return new ResponseEntity("Product with id" + product.getId() + " not found",
+                HttpStatus.NOT_FOUND);
     }
 
 

@@ -1,8 +1,12 @@
 package com.accountingapi.controller;
 
 import com.accountingapi.model.Purchase;
+import com.accountingapi.model.Quotation;
 import com.accountingapi.service.impl.PurchaseServiceImpl;
+import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,29 +20,70 @@ public class PurchaseController {
     @Autowired
     PurchaseServiceImpl purchaseService;
 
+    @Autowired
+    QuotationServiceImpl quotationService;
+
+    // -------------------Retrieve All Purchases By QUOTATION ID---------------------------------------------
     @GetMapping("/quotation/{quotationId}")
-    public List<Purchase> findAllPurchasesByQuotation(@PathVariable("quotationId") Long quotationId) {
-        return purchaseService.findAllPurchasesByQuotation(quotationId);
+    public ResponseEntity<List<Purchase>> findAllPurchasesByQuotation(@PathVariable("quotationId") Long quotationId) {
+        if (quotationService.existsById(quotationId)) {
+            List<Purchase> purchases = purchaseService.findAllPurchasesByQuotation(quotationId);
+            if (purchases.isEmpty()) {
+                System.out.println("*****No Puchases for this quotation");
+                return new ResponseEntity("No Purchases for this quotation", HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(purchases, HttpStatus.OK);
+            }
+        } else {
+            System.out.println("*****No Quotation with this ID");
+            return new ResponseEntity("Quotation with id " + quotationId + " not found", HttpStatus.NOT_FOUND);
+        }
     }
 
+    // -------------------Retrieve All Purchases---------------------------------------------
+    @GetMapping
+    public ResponseEntity<List<Purchase>> findAllPurchases() {
+        List<Purchase> purchases = purchaseService.findAllPurchases();
+        if (purchases.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(purchases, HttpStatus.OK);
+    }
+
+    // -------------------Delete a Purchase---------------------------------------------
     @DeleteMapping("/{purchaseId}")
-    public void deletePurchaseFromQuotation(@PathVariable("purchaseId") Long purchaseId) {
-        purchaseService.deletePurchaseById(purchaseId);
+    public ResponseEntity<?> deletePurchaseFromQuotation(@PathVariable("purchaseId") Long purchaseId) {
+        if (purchaseService.existsById(purchaseId)) {
+            purchaseService.deletePurchaseById(purchaseId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity("Purchase with id" + purchaseId + " not found", HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Create a Purchase---------------------------------------------
     @PostMapping
-    public Purchase addPurchase(@Valid @RequestBody Purchase purchase) {
-        return purchaseService.addPurchase(purchase);
+    public ResponseEntity<?> addPurchase(@Valid @RequestBody Purchase purchase) {
+        purchaseService.addPurchase(purchase);
+        return new ResponseEntity<>(purchase, HttpStatus.CREATED);
     }
 
+    // -------------------Update a Product---------------------------------------------
     @PutMapping
-    public Purchase updatePurchase(@Valid @RequestBody Purchase purchase) {
-        return purchaseService.updatePurchase(purchase);
+    public ResponseEntity<?> updatePurchase(@Valid @RequestBody Purchase purchase) {
+        if (purchaseService.existsById(purchase.getId())) {
+            purchaseService.updatePurchase(purchase);
+            return new ResponseEntity<>(purchase, HttpStatus.OK);
+        }
+        return new ResponseEntity("Purchase with id" + purchase.getId() + " not found",
+                HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Retrieve One Purchase By ID---------------------------------------------
     @GetMapping("/{purchaseId}")
-    public Purchase findPurchaseById(@PathVariable("purchaseId") Long purchaseId) {
-        return purchaseService.findPurchaseById(purchaseId);
+    public ResponseEntity<Purchase> findPurchaseById(@PathVariable("purchaseId") Long purchaseId) {
+        if (purchaseService.existsById(purchaseId))
+            return new ResponseEntity<Purchase>(purchaseService.findPurchaseById(purchaseId), HttpStatus.OK);
+        else return new ResponseEntity("Purchase not found", HttpStatus.NOT_FOUND);
     }
 
 

@@ -53,17 +53,19 @@ public class QuotationServiceImpl implements QuotationService {
 
 
     @Override
-    public Quotation getQuotationById(Long quotationId) {
+    public Quotation findQuotationById(Long quotationId) {
         return quotationRepository.findById(quotationId).get();
     }
 
 
     //Delete non confirmed quotation by its id
     public void deleteQuotationById(Long quotationId) {
-        Quotation quotation = quotationRepository.findById(quotationId).get();
-        if (quotation.getConfirmed() == null) {
-            quotationRepository.delete(quotation);
-        }
+        quotationRepository.delete(this.findQuotationById(quotationId));
+    }
+
+    @Override
+    public boolean existsById(Long quotationId) {
+        return quotationRepository.existsById(quotationId);
     }
 
     //update quotation
