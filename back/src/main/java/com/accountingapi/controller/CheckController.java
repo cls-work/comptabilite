@@ -42,10 +42,16 @@ public class CheckController {
        Check newCheck = checkService.updateCheck(check);
         return (newCheck);
 
-
-
     }
 
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PutMapping("/{billId}")
+    public Check editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String checkId, @Valid Check check) {
 
 
+
+            Check newCheck = checkService.updateCheck(check);
+            return newCheck;
+
+    }
 }

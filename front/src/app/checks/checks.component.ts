@@ -6,17 +6,24 @@ import {CheckService} from "../_services/check.service";
 import {CheckModel} from "../_models/check.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
+import {environment} from "../../environments/environment";
+
 @Component({
   selector: 'app-checks',
   templateUrl: './checks.component.html',
-  styleUrls: ['./checks.component.scss']
+  styleUrls: ['./checks.component.scss'],
+
 })
 export class ChecksComponent implements OnInit {
-  coll = [
+  env=environment;
+  c: number;
+
+
+  collectables = [
     { reference : '69', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
 
     }   ,
-    { reference : '69', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
+    { reference : '10', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
 
     }
 
@@ -27,7 +34,16 @@ export class ChecksComponent implements OnInit {
   checkForm: FormGroup;
   loading: boolean;
   error: boolean;
-  private collection: CheckModel [] = [];
+
+  reference1: any;
+  amount1: any;
+  transactionDate1: any;
+  profilOf1: any;
+  profilOf2: any;
+  transactionDate2: any;
+  amount2: any;
+  reference2: any;
+  referencetd: any;
 
   constructor(private formBuilder: FormBuilder,
               private checkService: CheckService,
@@ -58,7 +74,15 @@ export class ChecksComponent implements OnInit {
 
     });  }
 
-  editCheck() {
+  editCheck(i: number) {
+
+    this.reference2=this.collectables[i].reference;
+    this.amount2=this.collectables[i].amount;
+    this.transactionDate2=this.collectables[i].transactionDate;
+    this.profilOf2=this.collectables[i].profilOf;
+
+
+    /*
     this.loading = true;
 
     const checkId = this.route.snapshot.params.id;
@@ -74,10 +98,20 @@ export class ChecksComponent implements OnInit {
         this.loading = false;
         this.error = true;
       });
+*/
+
   }
 
-  onAddCheckButton(item: CheckModel) {
-    this.checkService.onAddCheckButton(item);
+  onAddCheckButton() {
+
+this.collectables.push({
+  reference: this.reference1,
+  amount:this.amount1,
+  transactionDate: this.transactionDate1,
+  profilOf: this.profilOf1
+
+
+});
 
 
 
@@ -162,4 +196,10 @@ export class ChecksComponent implements OnInit {
       }*/
 
 
-}}
+}
+
+  onEditCheckButton() {
+
+
+  }
+}

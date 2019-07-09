@@ -1,4 +1,4 @@
-/*package com.accountingapi.controller;
+package com.accountingapi.controller;
 
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.repository.FileStorageRepository;
