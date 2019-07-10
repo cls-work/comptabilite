@@ -78,7 +78,8 @@
               "node_modules/bootstrap-fileinput/themes/explorer-fas/theme.min.js",
               "node_modules/bootstrap-fileinput/js/locales/fr.js",
               "node_modules/jspdf/dist/jspdf.min.js",
-              "node_modules/written-number/lib/index.js"
+              "node_modules/written-number/lib/index.js",
+              "node_modules/html2canvas/dist/html2canvas.min.js"
             ]
           },
           "configurations": {

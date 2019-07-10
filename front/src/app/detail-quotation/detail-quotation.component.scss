@@ -11,7 +11,7 @@
 }
 
 .table > tbody > tr > .thick-line {
-  border-top: 2px solid;
+  border-top: 2px solid #000000;
 }
 
 th, td {
@@ -21,4 +21,9 @@ th, td {
 
 .right {
   text-align: right;
+}
+
+
+.table-bordered th, td {
+  border: 2px solid #000000;
 }

@@ -18,7 +18,7 @@
   <tr *ngFor="let quotation of quotations;let i = index;">
     <td>{{quotation.id}}</td>
     <td>{{quotation.provider?.name}}</td>
-    <td>{{quotation?.creattionDate}}</td>
+    <td>{{quotation?.creationDate}}</td>
     <td>{{quotation.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</td>
     <td>{{quotation.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</td>
     <td>{{quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
@@ -34,7 +34,8 @@
     </td>
     <td>
       <div class="btn-group">
-        <button class="btn btn-info btn-circle btn-lg" routerLink="/quotations/detail/5" type="button"><i
+        <button [routerLink]="'/quotations/detail/'+quotation.id" class="btn btn-info btn-circle btn-lg" type="button">
+          <i
           class="fa fa-eye"></i></button>
         <button class="btn btn-warning btn-circle btn-lg" type="button"><i class="fa fa-pencil"></i></button>
         <button *ngIf="quotation.isConfirmed!==true" class="btn btn-danger btn-circle btn-lg" type="button"><i

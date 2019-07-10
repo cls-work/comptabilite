@@ -1,11 +1,15 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import {ProductModel} from '../_models/product.model';
 import {CategoryModel} from '../_models/category.model';
 import {PurchaseModel} from '../_models/purchase.model';
 import {ProviderModel} from '../_models/provider.model';
 import {QuotationModel} from '../_models/quotation.model';
+import {QuotationService} from '../_services/quotation.service';
+import {ActivatedRoute} from '@angular/router';
 
+declare let $: any;
 
 @Component({
   selector: 'app-detail-quotation',
@@ -73,22 +77,11 @@ export class DetailQuotationComponent implements OnInit {
   ];
   provider: ProviderModel = {adresse: 'CHARGUIA adresse x21a321313', id: '1', name: 'fournisseur xyz'};
   groupedByTVA: any[];
-  quotation: QuotationModel = {
-
-    creattionDate: '10/01/2019',
-    id: '1',
-    isChecked: false,
-    isConfirmed: false,
-    provider: this.provider,
-    purchases: this.purchase_list,
-    taxStamp: 0.600,
-    totalHT: 5100,
-    totalTTC: 54040654.851,
-    totalTVA: 300.2
-  };
+  quotation: QuotationModel;
   private totalInWords: string;
 
-  constructor() {
+  constructor(private quotationService: QuotationService,
+              private route: ActivatedRoute) {
 
   }
 
@@ -106,7 +99,7 @@ export class DetailQuotationComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    this.getQuotationById(this.route.snapshot.params['quotationId']);
     /* from(this.quotation.purchases).pipe(
        groupBy(purchase => purchase.amountTVA),
        // return each item in group as array
@@ -118,25 +111,56 @@ export class DetailQuotationComponent implements OnInit {
     this.groupedByTVA = this.groupByM(this.quotation.purchases, item => item.amountTVA);
     console.log(this.groupedByTVA);
 
+
   }
 
+  print() {
+    /* var element = document.getElementById('container');
+     const opt = {
+       margin: 0,
+       filename: 'filename',
+       image: {type: 'jpeg', quality: 1},
+       html2canvas: {
+         scale: 3,
+         letterRendering: true,
+         useCORS: true
+       },
+       jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait', pagesplit: true}
+     };
+     const worker = html2pdf().from(element).set(opt).save()
+       .then(done => {
+         console.log(worker);
+       });*/
 
-  public printt() {
-    let doc = new jsPDF();
 
-    let content = this.content.nativeElement;
-    doc.fromHTML(content.innerHTML, 0, 0, {
-      'width': 1108,
+    html2canvas(document.querySelector('#canvas'), {}).then(canvas => {
+
+
+      var w = document.getElementById('canvas').offsetWidth;
+      var h = document.getElementById('canvas').offsetHeight;
+      console.log(' w ' + w + ' h ' + h);
+      var dataURL = canvas.toDataURL('image/png', 1);
+      var pdf = new jsPDF('p', 'mm');
+
+      let factor = w / 210;
+
+
+      pdf.addImage(dataURL, 'PNG', 0, 0, 210, h / factor); //addImage(image, format, x-coordinate, y-coordinate, width, height)
+      pdf.save('CanvasJS Charts.pdf');
     });
-
-    doc.save('my.pdf');
-
   }
 
-  calculateTotals() {
 
+  getQuotationById(id: string) {
+    this.quotationService.findQuotationById(id).subscribe(
+      (data: any) => {
+        this.quotation = data;
+        console.log(this.quotation);
+      }, (error) => {
 
+      }
+    );
   }
-
 
 }
+
