@@ -11,7 +11,7 @@ export class QuotationService {
   }
 
 
-  addQuotation(quotation) {
+  postQuotation(quotation) {
     return this.http.post(BASE_URL + QUOTATIONS, quotation);
   }
 

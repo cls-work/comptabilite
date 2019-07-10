@@ -34,6 +34,12 @@ import {NgxPrintModule} from 'ngx-print';
 import {SumPipe, SumTva} from './_pipes/sum.pipe';
 import {ToWordsPipe} from './_pipes/toWords.pipe';
 
+import {QuotationService} from './_services/quotation.service';
+import { QuotationFormComponent } from './quotation-form/quotation-form.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {ProviderService} from './_services/provider.service';
+import { ProviderFormComponent } from './provider-form/provider-form.component';
+import { PurchaseFormComponent } from './purchase-form/purchase-form.component';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -60,7 +66,10 @@ export function setupTranslateFactory(service: TranslateService) {
     ListQuotationComponent,
     DetailQuotationComponent,
     SumTva,
-    ToWordsPipe
+    ToWordsPipe,
+    QuotationFormComponent,
+    ProviderFormComponent,
+    PurchaseFormComponent,
 
   ],
   imports: [
@@ -71,12 +80,15 @@ export function setupTranslateFactory(service: TranslateService) {
     FormsModule,
     NgxPaginationModule,
     DataTablesModule,
+    NgSelectModule,
+    DataTablesModule,
     NgxPrintModule
 
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    ProviderService,
     BillService,
     UserService,
     AuthenticationService,
@@ -86,7 +98,7 @@ export function setupTranslateFactory(service: TranslateService) {
       useFactory: setupTranslateFactory,
       deps: [TranslateService],
       multi: true
-    }/*
+    },/*
     {
       provide: APP_INITIALIZER,
       useFactory: setupBillsTranslateFactory,
@@ -105,7 +117,7 @@ export function setupTranslateFactory(service: TranslateService) {
       deps: [ TranslateService ],
       multi: true
     }*/
-
+    QuotationService
   ],
   bootstrap: [AppComponent]
 })

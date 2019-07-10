@@ -14,8 +14,14 @@ import {GuestGuard} from './_guards/guest.guard';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
 import {ListQuotationComponent} from './list-quotation/list-quotation.component';
 import {DetailQuotationComponent} from './detail-quotation/detail-quotation.component';
+import {QuotationFormComponent} from './quotation-form/quotation-form.component';
 
 const routes: Routes = [
+  {
+    path: 'add-quotation',
+    component: QuotationFormComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
   {
     path: 'bills',
     component: BillsComponent,
