@@ -2,6 +2,7 @@ package com.accountingapi.controller;
 
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.repository.FileStorageRepository;
+import com.accountingapi.service.BillService;
 import com.accountingapi.service.impl.BillService;
 import com.accountingapi.service.FileStorageService;
 import com.accountingapi.service.HistoricalService;

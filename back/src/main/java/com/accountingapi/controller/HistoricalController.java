@@ -5,6 +5,7 @@ import com.accountingapi.model.Bill;
 import com.accountingapi.model.Historical;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.UserRepository;
+import com.accountingapi.service.BillService;
 import com.accountingapi.service.impl.BillService;
 import com.accountingapi.service.HistoricalService;
 import org.springframework.beans.factory.annotation.Autowired;
