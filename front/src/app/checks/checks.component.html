@@ -97,26 +97,26 @@
 
           <thead>
           <tr>
-            <th>Id</th>
-            <th data-priority="1">Reference</th>
-            <th data-priority="2">Amount</th>
-            <th data-priority="3">Profil of</th>
-            <th data-priority="4">Transaction Date</th>
-            <th data-priority="4">Stat</th>
-            <th data-priority ="5">Operation</th>
+          <th>Id</th>
+          <th data-priority="1">Reference</th>
+          <th data-priority="2">Amount</th>
+          <th data-priority="3">Profil of</th>
+          <th data-priority="4">Transaction Date</th>
+          <th data-priority="4">Stat</th>
+          <th data-priority ="5">Operation</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor ="let item of collectables ; let i = index"><
-          <td >{{ item.reference}}</td>
+          <td>{{ item.reference}}</td>
           <td> {{item.amount}}</td>
-            <td> {{item.transactionDate}}</td>
-            <td>{{item.profilOf}}</td>
-        <td> {{ item.stat}}</td>
+          <td> {{item.transactionDate}}</td>
+          <td>{{item.profilOf}}</td>
+          <td> {{ item.stat}}</td>
 
 
 
-            <td>      <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal2" (click)="editCheck(i)">EDIT</button> </td>
+            <td>      <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal2" (click)="editCheck()">EDIT</button> </td>
 
           </tr>
           </tbody>

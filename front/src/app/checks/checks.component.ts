@@ -17,7 +17,7 @@ import {environment} from "../../environments/environment";
 export class ChecksComponent implements OnInit {
   env=environment;
   c: number;
-
+  searchToken: string;
 
   collectables = [
     { reference : '69', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
@@ -74,15 +74,33 @@ export class ChecksComponent implements OnInit {
 
     });  }
 
-  editCheck(i: number) {
+  private getAllChecks() {
+    this.loading = true;
+    this.checkService.getAllChecks()
+      .subscribe(checks => {
+        // @ts-ignore
+        this.checks = checks;
+   
+        this.searchToken = null;
+        // this.initializeConfig(this.perPage, 1, this.bills.length);
+        this.loading = false;
+      }, () => {
+        this.loading = false;
+        this.error = true;
+      });
+  }
 
-    this.reference2=this.collectables[i].reference;
+
+  editCheck() {
+
+  /*  this.reference2=this.collectables[i].reference;
     this.amount2=this.collectables[i].amount;
     this.transactionDate2=this.collectables[i].transactionDate;
     this.profilOf2=this.collectables[i].profilOf;
+*/
 
 
-    /*
+
     this.loading = true;
 
     const checkId = this.route.snapshot.params.id;
@@ -98,12 +116,12 @@ export class ChecksComponent implements OnInit {
         this.loading = false;
         this.error = true;
       });
-*/
+
 
   }
 
   onAddCheckButton() {
-
+/*
 this.collectables.push({
   reference: this.reference1,
   amount:this.amount1,
@@ -112,11 +130,11 @@ this.collectables.push({
 
 
 });
+*/
 
 
 
-
-/*    this.loading = true;
+   this.loading = true;
 
     // @ts-ignore
     this.checkService.postCheck(this.checkForm.value)
@@ -130,7 +148,7 @@ this.collectables.push({
       });
   }
 
-*/
+
 
   /*  if (id) {
 
@@ -196,10 +214,11 @@ this.collectables.push({
       }*/
 
 
-}
-
   onEditCheckButton() {
 
+      this.editBill();
+    }
 
   }
 }
+
