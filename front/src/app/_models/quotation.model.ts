@@ -2,6 +2,7 @@ import {BillModel} from './bill.model';
 import {UserModel} from './user.model';
 import {ProviderModel} from './provider.model';
 import {PurchaseModel} from './purchase.model';
+import {FileModel} from './file.model';
 
 export class QuotationModel {
 
@@ -13,7 +14,7 @@ export class QuotationModel {
   taxStamp: number;
   isConfirmed: boolean;
   isChecked: boolean;
-  bill: BillModel;
+  fileStorageProperties: FileModel[];
 
   createdBy: UserModel;
   acceptedBy: UserModel;

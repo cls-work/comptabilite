@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule, Provider} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -28,9 +28,14 @@ import {DataTablesModule} from 'angular-datatables';
 import {HistoricalService} from './_services/historical.service';
 import {LoaderComponent} from './loader/loader.component';
 import {DisplayFileComponent} from './display-file/display-file.component';
-import {AddQuotationComponent} from './add-quotation/add-quotation.component';
-import {ListQuotationComponent} from './list-quotation/list-quotation.component';
 
+import {QuotationService} from './_services/quotation.service';
+import { QuotationFormComponent } from './quotation-form/quotation-form.component';
+import { QuotationAddPurchasesComponent } from './quotation-add-purchases/quotation-add-purchases.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {ProviderService} from './_services/provider.service';
+import { ProviderFormComponent } from './provider-form/provider-form.component';
+import { PurchaseFormComponent } from './purchase-form/purchase-form.component';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -53,8 +58,10 @@ export function setupTranslateFactory(service: TranslateService) {
     HistoricalsListComponent,
     LoaderComponent,
     DisplayFileComponent,
-    AddQuotationComponent,
-    ListQuotationComponent,
+    QuotationFormComponent,
+    QuotationAddPurchasesComponent,
+    ProviderFormComponent,
+    PurchaseFormComponent,
 
   ],
   imports: [
@@ -64,12 +71,13 @@ export function setupTranslateFactory(service: TranslateService) {
     AppRoutingModule,
     FormsModule,
     NgxPaginationModule,
-    DataTablesModule
-
+    DataTablesModule,
+    NgSelectModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    ProviderService,
     BillService,
     UserService,
     AuthenticationService,
@@ -79,7 +87,7 @@ export function setupTranslateFactory(service: TranslateService) {
       useFactory: setupTranslateFactory,
       deps: [TranslateService],
       multi: true
-    }/*
+    },/*
     {
       provide: APP_INITIALIZER,
       useFactory: setupBillsTranslateFactory,
@@ -98,7 +106,7 @@ export function setupTranslateFactory(service: TranslateService) {
       deps: [ TranslateService ],
       multi: true
     }*/
-
+    QuotationService
   ],
   bootstrap: [AppComponent]
 })

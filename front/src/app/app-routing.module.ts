@@ -17,6 +17,11 @@ import {ListQuotationComponent} from './list-quotation/list-quotation.component'
 
 const routes: Routes = [
   {
+    path: 'add-quotation',
+    component: QuotationFormComponent,
+    canActivate: [AuthGuard, AdminGuard]
+  },
+  {
     path: 'bills',
     component: BillsComponent,
     canActivate: [AuthGuard]
@@ -62,12 +67,6 @@ const routes: Routes = [
     path: 'user-form/:id',
     component: UserFormComponent,
     canActivate: [AuthGuard, AdminGuard]
-  }, {
-    path: 'quotations/add',
-    component: AddQuotationComponent
-  }, {
-    path: 'quotations/list',
-    component: ListQuotationComponent
   },
 
 
@@ -76,6 +75,8 @@ const routes: Routes = [
     component: HistoricalsListComponent,
     canActivate: [AuthGuard, AdminGuard]
   },
+
+
 
 
   {

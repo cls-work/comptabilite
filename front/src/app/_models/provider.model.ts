@@ -4,5 +4,5 @@ export class ProviderModel {
   id: string;
   name: string;
   adresse: string;
-  quotations: QuotationModel[];
+  //quotations: QuotationModel[];
 }

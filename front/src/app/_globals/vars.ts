@@ -1,5 +1,6 @@
 export const BASE_URL = 'http://localhost:8080/';
 export const BILLS = 'bills/';
+export const QUOTATION = 'quotations/';
 export const PRODUCTS = 'products/';
 export const AUTH = 'api/auth/';
 export const SIGN_IN = 'signin/';
@@ -12,6 +13,8 @@ export const HISTORICALS = 'historicals';
 export const ROLES = 'roles/';
 export const LANG = 'lang/';
 export const DELETEFILE = 'deleteFile/' ;
+export const PROVIDERS = 'providers/' ;
+export const CATEGORY = 'categories/' ;
 
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';

@@ -1,0 +1,219 @@
+
+
+
+
+<div class="card">
+  <div class="card-body">
+
+    <label class="radio-inline"><input type="radio"  name="optradio" (click)="editTax(1)" > TTC</label>
+    <label class="radio-inline"><input type="radio" checked name="optradio" (click)="editTax(0)">HT</label>
+
+    <div id="table" class="table-editable">
+
+
+
+
+      <div [formGroup]="orderForm">
+        <div formArrayName="purchases">
+          <table class="table table-bordered  table-striped text-center table-responsive-md">
+
+            <tr>
+              <th class="text-center">{{'PRODUCT_ID'|translate|titlecase}}</th>
+              <th class="text-center">{{'QUANTITY'|translate|titlecase}}</th>
+              <th
+                class="text-center">{{'UNIT_PRICE'|translate|titlecase}} {{(taxType === 0 ? 'HT' : 'TTC')|translate}}</th>
+              <th class="text-center">{{'DISCOUNT'|translate|titlecase}}</th>
+              <th class="text-center"> {{'TVA'|translate|titlecase}} </th>
+              <th
+                class="text-center">{{'UNIT_PRICE_AFTER_DISCOUNT'|translate|titlecase}} {{(taxType === 0 ? 'HT' : 'TTC')|translate}}</th>
+              <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'HT'|translate}}</th>
+              <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TVA'|translate}}</th>
+              <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TTC'|translate}}</th>
+              <th><i class="fa fa-plus" (click)="addItem()"></i></th>
+
+            </tr>
+
+            <tr
+              *ngFor="let item of orderForm.get('purchases').controls; let i = index;" [formGroupName]="i">
+
+
+              <td>
+
+                <ng-select  class="input-" formControlName="product"
+                           labelForId="provider">
+
+                  <ng-option *ngFor="let product of products" [value]="product"
+                             [disabled]="product.disabled">{{product.designation}} {{product.reference}} {{product.category.label}}</ng-option>
+
+
+                  <ng-template ng-footer-tmp>
+                    <a class="btn" data-toggle="modal" data-target="#ProductLogin">
+                      <h5>Add new product</h5>
+                    </a>
+
+                  </ng-template>
+                </ng-select>
+
+
+
+
+              </td>
+
+              <td><input type="number" formControlName="quantity"  class="form-control"  (change)="calculatePrices(i)">
+                <i class="fa fa-check-circle" style="color:green;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.quantity.valid "></i>
+                <i class="fa fa-times-circle" style="color:firebrick;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.quantity.invalid"></i></td>
+
+              <td><input type="number" formControlName="unitPrice" placeholder="Item price"  class="form-control" (change)="calculatePrices(i)">
+                <i class="fa fa-check-circle" style="color:green;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.unitPrice.valid "></i>
+                <i class="fa fa-times-circle" style="color:firebrick;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.unitPrice.invalid"></i></td>
+
+              <td><input type="number" formControlName="discount" placeholder="Item price" class="form-control" (change)="calculatePrices(i)">
+                <i class="fa fa-check-circle" style="color:green;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.discount.valid "></i>
+                <i class="fa fa-times-circle" style="color:firebrick;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.discount.invalid"></i></td>
+
+              <td><input type="number" formControlName="tva" placeholder="Item price" class="form-control" (change)="calculatePrices(i)">
+                <i class="fa fa-check-circle" style="color:green;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.tva.valid "></i>
+                <i class="fa fa-times-circle" style="color:firebrick;"
+                   *ngIf="orderForm.get('purchases').controls[i].controls.tva.invalid"></i></td>
+
+              <td><input type="number" formControlName="unitPriceAfterDiscount" placeholder="Item price" disabled class="form-control"
+                         [value]="calculateDiscount(i)"></td>
+              <td><input type="number" formControlName="amountHT" placeholder="Item price" disabled class="form-control"
+                         [value]="calculateHT(i)"></td>
+              <td><input type="number" formControlName="amountTVA" placeholder="Item price" disabled class="form-control"
+                         [value]="calculateTVA(i)"></td>
+              <td><input type="number" formControlName="amountTTC" placeholder="Item price" disabled class="form-control"
+                         [value]="calculateTTC(i)"></td>
+              <td>
+                <input (click)="removePurchase(i)" class="form-control col" type="button"
+                       value="{{'DELETE'|translate|titlecase}}">
+              </td>
+
+
+            </tr>
+
+            <tr>
+              <td colspan="6"></td>
+
+
+              <td>
+                <p>{{'TOTAL'|translate|titlecase}} {{'HT'|translate}} : {{totalHT|number:'1.3'}}</p>
+
+              </td>
+              <td>
+                <p>{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}} : {{totalTVA|number:'1.3'}}</p>
+              </td>
+
+              <td>
+                <p>{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}} : {{totalTTC|number:'1.3'}}</p>
+              </td>
+              <td>
+              </td>
+              <td>
+              </td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ProductLogin" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add new product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <div  class="alert alert-dark" role="alert" *ngIf="submittedProduct&&errorProduct">
+          {{'ERROR'|translate}}
+        </div>
+        <div  class="alert alert-dark" role="alert" *ngIf="submittedProduct&&!errorProduct">
+          {{'NEW_PROVIDER_ADDED'|translate}}
+        </div>
+        <ng-container *ngIf="productForm">
+          <form [formGroup]="productForm">
+            <div class="row row-space">
+              <div class="col-md-5">
+
+                <div class="input-group">
+                  <label class="label" for="name">{{'Designation'|translate}}</label>
+                  <input class="form-control" type="text" formControlName="reference" id="name" />
+                  <i class="fa fa-check-circle" style="color:green;"
+                     *ngIf="productForm.controls.reference.valid "></i>
+                  <i class="fa fa-times-circle" style="color:firebrick;"
+                     *ngIf="productForm.controls.reference.invalid"></i>
+
+                </div>
+              </div>
+
+              <div class="col-7">
+
+                <div class="input-group">
+                  <label class="label" for="adresse">{{'Reference'|translate}}</label>
+                  <input class="form-control" type="text" formControlName="designation" id="adresse"/>
+                  <i class="fa fa-check-circle" style="color:green;"
+                     *ngIf="productForm.controls.designation.valid "></i>
+                  <i class="fa fa-times-circle" style="color:firebrick;"
+                     *ngIf="productForm.controls.designation.invalid"></i>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row row-space">
+              <div class="col-md-5">
+
+                  <label class="label" for="category">{{'Categorie'|translate}}</label>
+
+
+                  <ng-select [(ngModel)]="selectedCategorie" class="input-" formControlName="category"
+                             labelForId="category">
+
+                    <ng-option *ngFor="let categorie of categories" [value]="categorie">{{categorie.label}}</ng-option>
+
+                  </ng-select>
+
+                  <i class="fa fa-check-circle" style="color:green;"
+                     *ngIf="productForm.controls.category.valid "></i>
+                  <i class="fa fa-times-circle" style="color:firebrick;"
+                     *ngIf="productForm.controls.category.invalid"></i>
+
+
+              </div>
+            </div>
+
+          </form>
+        </ng-container>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn " type="submit" (click)="addProduct()"
+                [disabled]="!productForm.valid">{{'SUBMIT'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
