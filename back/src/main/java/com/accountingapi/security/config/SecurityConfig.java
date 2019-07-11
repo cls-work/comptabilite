@@ -28,6 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     CustomUserDetailsService customUserDetailsService;
 
@@ -92,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
                 .permitAll()
-                .antMatchers("/products/**", "/quotations/**", "/purchases/**", "/providers/**", "/users/**", "/categories/**", "/uploadMultipleFiles", "/uploadFile", "/downloadFile/**")
+                .antMatchers("/products/**", "/quotations/**", "/purchases/**", "/providers/**", "/users/**", "/categories/**", "/uploadMultipleFiles", "/uploadFile", "/downloadFile/**", "/checks/**")
                 .permitAll()
                 .antMatchers(AUTH_WHITELIST)
                 .permitAll()

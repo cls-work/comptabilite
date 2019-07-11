@@ -59,8 +59,6 @@ public class User {
     @OneToMany(targetEntity= Historical.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
 
-    @OneToMany(mappedBy="user")
-    private List<Bill> bills;
 
     @JsonIgnore
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.MERGE)
@@ -146,13 +144,6 @@ public class User {
         this.historicals = historicals;
     }
 
-    public List<Bill> getBills() {
-        return bills;
-    }
-
-    public void setBills(List<Bill> bills) {
-        this.bills = bills;
-    }
 
     public List<Quotation> getQuotationsCreated() {
         return quotationsCreated;

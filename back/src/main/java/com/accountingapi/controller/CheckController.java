@@ -1,18 +1,20 @@
-/*
+
 package com.accountingapi.controller;
 
 
 import com.accountingapi.model.Check;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.service.impl.BillService;
         import com.accountingapi.service.CheckService;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.security.access.prepost.PreAuthorize;
-        import org.springframework.web.bind.annotation.*;
+import com.accountingapi.service.impl.CheckServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-        import javax.validation.Valid;
-        import java.util.List;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -20,40 +22,38 @@ import com.accountingapi.service.impl.BillService;
 public class CheckController {
 
     @Autowired
-    CheckService checkService;
+    CheckServiceImpl checkService;
 
-    @Autowired
-    BillService billService;
 
-    @PreAuthorize("")
-    @GetMapping("")
+    @GetMapping
     public List<Check> displayAllChecks() {
-        return checkService.findAll();
+        return checkService.findAllChecks();
     }
 
-    @PreAuthorize("")
     @GetMapping("/{id}")
-    public Check getCheckById(@PathVariable("id") String id) {
-        return checkService.getCheckById(id);
+    public ResponseEntity<Check> findCheckById(@PathVariable("id") Long id) {
+        if (checkService.existsById(id))
+            return new ResponseEntity<Check>(checkService.findCheckById(id), HttpStatus.OK);
+        else return new ResponseEntity("Check not found", HttpStatus.NOT_FOUND);
     }
 
-    public Check addCheck(@CurrentUser UserPrincipal currentUser, @Valid Check check) {
-
-
-       Check newCheck = checkService.updateCheck(check);
-        return (newCheck);
+    @PostMapping
+    public ResponseEntity<Check> addCheck(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Check check) {
+        checkService.addCheck(check);
+        return new ResponseEntity<Check>(check, HttpStatus.CREATED);
 
     }
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping("/{billId}")
-    public Check editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String checkId, @Valid Check check) {
+    @PutMapping
+    public ResponseEntity<?> editCheck(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Check check) {
 
-
-
-            Check newCheck = checkService.updateCheck(check);
-            return newCheck;
+        if (checkService.existsById(check.getId())) {
+            checkService.updateCheck(check);
+            return new ResponseEntity<>(check, HttpStatus.OK);
+        }
+        return new ResponseEntity("Check with id" + check.getId() + " not found",
+                HttpStatus.NOT_FOUND);
 
     }
 }
-*/
+
