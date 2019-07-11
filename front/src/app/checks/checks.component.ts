@@ -19,15 +19,7 @@ export class ChecksComponent implements OnInit {
   c: number;
   searchToken: string;
 
-  collectables = [
-    { reference : '69', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
 
-    }   ,
-    { reference : '10', amount: '20', transactionDate: '20', profilOf: 'hello', stat: 'done'
-
-    }
-
-  ];
 
   checks: CheckModel[];
 
@@ -65,14 +57,17 @@ export class ChecksComponent implements OnInit {
     const id = this.route.snapshot.params.id;
     this.checkForm = this.formBuilder.group({
 
+
       reference: ['', Validators.required],
       amount: ['', Validators.required],
       transactionDate: ['', Validators.required],
-      profilOf: ['', Validators.required],
+      profilOf: ['', Validators.required]
       // @ts-ignore
 
 
-    });  }
+    });
+    this.getAllChecks();
+  }
 
   private getAllChecks() {
     this.loading = true;
@@ -80,7 +75,7 @@ export class ChecksComponent implements OnInit {
       .subscribe(checks => {
         // @ts-ignore
         this.checks = checks;
-   
+
         this.searchToken = null;
         // this.initializeConfig(this.perPage, 1, this.bills.length);
         this.loading = false;
@@ -99,15 +94,10 @@ export class ChecksComponent implements OnInit {
     this.profilOf2=this.collectables[i].profilOf;
 */
 
-
-
     this.loading = true;
 
     const checkId = this.route.snapshot.params.id;
-
-
-
-
+console.log(checkId);
     this.checkService.editCheck(checkId, Object.assign({checkId}, this.checkForm.value))
       .subscribe(() => {
         this.loading = false;
@@ -131,17 +121,13 @@ this.collectables.push({
 
 });
 */
-
-
-
    this.loading = true;
-
     // @ts-ignore
     this.checkService.postCheck(this.checkForm.value)
       .subscribe(d => {
         this.loading = false;
         // @ts-ignore
-        this.router.navigate(['/checks', d.billId, 'new']); // to change
+        this.router.navigate(['/checks', d.checkId, 'new']); // to change
       }, () => {
         this.loading = false;
         this.error = true;

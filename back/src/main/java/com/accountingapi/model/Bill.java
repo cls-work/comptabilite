@@ -32,7 +32,7 @@ public class Bill {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "check_id", referencedColumnName = "id")
-    private Check check;
+    private CheckPayment check;
 
 
     public String getId() {
@@ -68,11 +68,11 @@ public class Bill {
         this.quotation = quotation;
     }
 
-    public Check getCheck() {
+    public CheckPayment getCheck() {
         return check;
     }
 
-    public void setCheck(Check check) {
+    public void setCheck(CheckPayment check) {
         this.check = check;
     }
 

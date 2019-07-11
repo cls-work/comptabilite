@@ -1,3 +1,4 @@
+<app-loader *ngIf="loading"></app-loader>
 <h2>Check List</h2>
 
 <div class="container">
@@ -20,7 +21,10 @@
                 </button>
               </div>
               <div class="modal-body">
+
                 <form [formGroup]="checkForm">
+
+
                   <div class="row row-space">
                     <div class="col-md-5">
                       <div class="input-group">
@@ -79,7 +83,6 @@
                   </div>
 
 
-
                 </form>
 
               </div>
@@ -102,21 +105,17 @@
           <th data-priority="2">Amount</th>
           <th data-priority="3">Profil of</th>
           <th data-priority="4">Transaction Date</th>
-          <th data-priority="4">Stat</th>
+
           <th data-priority ="5">Operation</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor ="let item of collectables ; let i = index"><
+          <tr *ngFor ="let item of checks ; let i = index"><
           <td>{{ item.reference}}</td>
           <td> {{item.amount}}</td>
-          <td> {{item.transactionDate}}</td>
-          <td>{{item.profilOf}}</td>
-          <td> {{ item.stat}}</td>
-
-
-
-            <td>      <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal2" (click)="editCheck()">EDIT</button> </td>
+          <td> {{item.profilOf}}</td>
+          <td>{{item.transactionDate}}</td>
+          <td>      <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal2" (click)="editCheck()">EDIT</button> </td>
 
           </tr>
           </tbody>
@@ -215,7 +214,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary"  (click)="onEditCheckButton()">Save changes</button>
+                        <button type="button" class="btn btn-primary"  (click)="onEditCheckButton()">Save the changes</button>
                       </div>
                     </div>
                   </div>

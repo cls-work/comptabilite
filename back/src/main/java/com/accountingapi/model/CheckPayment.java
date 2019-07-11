@@ -1,16 +1,14 @@
 package com.accountingapi.model;
 
-import com.accountingapi.model.Bill;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Check {
+public class CheckPayment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO )
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Column (name="refrence", unique = true, nullable = false)
@@ -28,8 +26,6 @@ public class Check {
     @Column(name ="bankAccount",unique = false,nullable = true)
     private Long bankAccount;
 
-    @Column(name = "state", unique = false, nullable = false)
-    private String state;
 
     @OneToOne(mappedBy = "check")
     private Bill bill;
@@ -84,13 +80,6 @@ public class Check {
         this.bankAccount = bankAccount;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
 
     @Override
     public String toString() {
@@ -101,7 +90,7 @@ public class Check {
                 ", profilOf='" + profilOf + '\'' +
                 ", transactionDate=" + transactionDate +
                 ", bankAccount=" + bankAccount +
-                ", state='" + state + '\'' +
+
                 '}';
     }
 }

@@ -34,6 +34,7 @@ import {DisplayFileComponent} from './display-file/display-file.component';
 
 import { ChecksComponent } from './checks/checks.component';
 import {CheckService} from './_services/check.service';
+import { CheckFormComponent } from './check-form/check-form.component';
 
 
 export function setupTranslateFactory(service: TranslateService) {
@@ -61,6 +62,7 @@ export function setupTranslateFactory(service: TranslateService) {
     FilterHistoryPipe,
     DisplayFileComponent,
     ChecksComponent,
+    CheckFormComponent,
 
 
   ],

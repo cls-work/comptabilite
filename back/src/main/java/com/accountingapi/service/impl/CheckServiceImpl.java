@@ -1,7 +1,7 @@
 
 package com.accountingapi.service.impl;
 
-import com.accountingapi.model.Check;
+import com.accountingapi.model.CheckPayment;
 import com.accountingapi.repository.CheckRepository;
 import com.accountingapi.service.CheckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +17,27 @@ public class CheckServiceImpl implements CheckService {
 
 
     @Override
-    public void addCheck(Check check) {
+    public void addCheck(CheckPayment check) {
         checkRepository.save(check);
     }
 
     @Override
-    public List<Check> findAllChecks() {
+    public List<CheckPayment> findAllChecks() {
         return checkRepository.findAll();
     }
 
     @Override
-    public Check findCheckById(Long id) {
+    public CheckPayment findCheckById(Long id) {
         return checkRepository.findById(id).get();
     }
 
-    public void updateCheck(Check check) {
+    public void updateCheck(CheckPayment check) {
 
         checkRepository.save(check);
     }
 
     @Override
-    public void deleteCheck(Check check) {
+    public void deleteCheck(CheckPayment check) {
         checkRepository.delete(check);
 
     }

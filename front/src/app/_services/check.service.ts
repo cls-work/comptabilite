@@ -8,7 +8,7 @@ import {CheckModel} from "../_models/check.model";
 })
 
 export class CheckService {
-  private collection: CheckModel[] = [];
+
 
   constructor(private http: HttpClient) {
   }
@@ -25,10 +25,8 @@ export class CheckService {
     return this.http.put(BASE_URL + CHECKS + checkId, value);
   }
   postCheck(check) {
-    return this.http.post(BASE_URL + BILLS, check);
+    return this.http.post(BASE_URL + CHECKS, check);
   }
 
-  onAddCheckButton(item: CheckModel) {
-this.collection.push(item);
   }
-}
+
