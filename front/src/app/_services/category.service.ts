@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import {CategoryModel} from '../_models/category.model';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {BASE_URL, CATEGORY} from '../_globals/vars';
 

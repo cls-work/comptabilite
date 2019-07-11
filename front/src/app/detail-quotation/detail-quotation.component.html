@@ -99,7 +99,7 @@
             <tbody>
             <tr *ngFor="let tvaItem of groupedByTVA">
               <td>{{tvaItem|sum:'amountTVA'|number:'.3'}}</td>
-              <td>{{tvaItem[0].TVA}}</td>
+              <td>{{tvaItem[0].tva}}</td>
               <td>{{tvaItem|sum_tva:'amountTVA'|number:'.3'}}</td>
             </tr>
 

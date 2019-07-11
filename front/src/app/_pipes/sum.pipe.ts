@@ -15,6 +15,6 @@ export class SumPipe implements PipeTransform {
 
 export class SumTva implements PipeTransform {
   transform(items: any[], attr: string): any {
-    return items.reduce((a, b) => a + b[attr] * b['TVA'] / 100, 0);
+    return items.reduce((a, b) => a + b[attr] * b['tva'] / 100, 0);
   }
 }

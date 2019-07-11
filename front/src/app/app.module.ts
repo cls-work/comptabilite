@@ -35,11 +35,11 @@ import {SumPipe, SumTva} from './_pipes/sum.pipe';
 import {ToWordsPipe} from './_pipes/toWords.pipe';
 
 import {QuotationService} from './_services/quotation.service';
-import { QuotationFormComponent } from './quotation-form/quotation-form.component';
+import {QuotationFormComponent} from './quotation-form/quotation-form.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ProviderService} from './_services/provider.service';
-import { ProviderFormComponent } from './provider-form/provider-form.component';
-import { PurchaseFormComponent } from './purchase-form/purchase-form.component';
+import {ProviderFormComponent} from './provider-form/provider-form.component';
+import {PurchaseFormComponent} from './purchase-form/purchase-form.component';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');

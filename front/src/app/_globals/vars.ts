@@ -14,8 +14,8 @@ export const HISTORICALS = 'historicals';
 export const ROLES = 'roles/';
 export const LANG = 'lang/';
 export const DELETEFILE = 'deleteFile/' ;
-export const PROVIDERS = 'providers/' ;
-export const CATEGORY = 'categories/' ;
+export const PROVIDERS = 'providers/';
+export const CATEGORY = 'categories/';
 
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';

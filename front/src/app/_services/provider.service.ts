@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BASE_URL, BILLS, PROVIDERS} from '../_globals/vars';
-import {Observable} from 'rxjs';
-import {ProviderModel} from '../_models/provider.model';
+import {BASE_URL, PROVIDERS} from '../_globals/vars';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +15,7 @@ export class ProviderService {
   }
 
   postProvider(provider) {
-   return this.http.post(BASE_URL+PROVIDERS,provider);
+    return this.http.post(BASE_URL + PROVIDERS, provider);
   }
 
 }

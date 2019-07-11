@@ -4,7 +4,6 @@ import {ProductModel} from '../_models/product.model';
 import {ProductService} from '../_services/product.service';
 import {CategoryModel} from '../_models/category.model';
 import {CategoryService} from '../_services/category.service';
-import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 
 @Component({
   selector: 'app-purchase-form',
@@ -74,7 +73,7 @@ export class PurchaseFormComponent implements OnInit {
     });
   }
 
-  addItem(): void {
+  addItem() {
     this.purchases = this.orderForm.get('purchases') as FormArray;
     this.purchases.push(this.createItem());
   }
@@ -87,7 +86,7 @@ export class PurchaseFormComponent implements OnInit {
 
   }
 
-  editTax(taxType): number {
+  editTax(taxType): void {
     this.taxType = taxType;
   }
 
@@ -123,7 +122,7 @@ export class PurchaseFormComponent implements OnInit {
 
     const newPrice = this.orderForm.get('purchases').value[i].unitPrice - this.orderForm.get('purchases').value[i].unitPrice * this.orderForm.get('purchases').value[i].discount / 100;
     this.orderForm.get('purchases').value[i].unitPriceAfterDiscount = parseFloat(newPrice.toFixed(3));
-    return newPrice.toFixed(3);
+    return Number(newPrice.toFixed(3));
   }
 
   calculateTTC(i): number {
@@ -161,33 +160,26 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   removePurchase(i) {
-    this.orderForm.get('purchases').removeAt(i);
+    //this.orderForm.get('purchases').removeAt(i);
     this.calculateTotals();
   }
 
   addProduct() {
     //console.log(this.productForm.value);
     this.productService.postProduct(this.productForm.value)
-        .subscribe((res) => {
-            this.productService.getAllProducts()
-              .subscribe(
-                (products: any) => {
-                  this.products = products;
-                });
-          }
-          ,
-          () => {
-            console.log('erreur');
-          }
-        );
+      .subscribe((res) => {
+          this.productService.getAllProducts()
+            .subscribe(
+              (products: any) => {
+                this.products = products;
+              });
+        }
+        ,
+        () => {
+          console.log('erreur');
+        }
+      );
   }
 
-
-  calculateAllPrices() {
-    for (let i = 0; i < this.products.value; i++) {
-      this.calculatePrices(i);
-    }
-    this.calculateTotals();
-  }
 
 }

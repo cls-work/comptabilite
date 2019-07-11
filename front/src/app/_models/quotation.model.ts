@@ -1,4 +1,3 @@
-import {BillModel} from './bill.model';
 import {UserModel} from './user.model';
 import {ProviderModel} from './provider.model';
 import {PurchaseModel} from './purchase.model';
