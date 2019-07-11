@@ -50,7 +50,7 @@ public class QuotationController {
     @Autowired
     FileStorageServiceImpl fileStorageService;
 
-    // -------------------Retrieve All Providers---------------------------------------------
+    // -------------------Retrieve All Quotations---------------------------------------------
     @GetMapping
     public ResponseEntity<List<Quotation>> findAllQuotations() {
         List<Quotation> quotations = quotationService.findAllQuotations();
@@ -116,5 +116,36 @@ public class QuotationController {
         return new ResponseEntity("Quotation with id" + quotationId + " not found", HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Confirm Quotation By ID---------------------------------------------
 
+    @PutMapping("/confirm/{quotationId}")
+    public ResponseEntity<?> confirmQuotation(@PathVariable("quotationId") Long quotationId) {
+        if (quotationService.existsById(quotationId)) {
+            Quotation quotation = quotationService.findQuotationById(quotationId);
+            if (quotation.getConfirmed() == null) {
+                quotation.setConfirmed(true);
+                System.out.println("TEST");
+                quotationService.updateQuotation(quotation);
+                return new ResponseEntity("Quotation with id " + quotationId + " Confirmed", HttpStatus.OK);
+            } else
+                return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity("Quotation with id " + quotationId + " not found", HttpStatus.NOT_FOUND);
+    }
+
+    // -------------------Reject Quotation By ID---------------------------------------------
+
+    @PutMapping("/reject/{quotationId}")
+    public ResponseEntity<?> rejectQuotation(@PathVariable("quotationId") Long quotationId) {
+        if (quotationService.existsById(quotationId)) {
+            Quotation quotation = quotationService.findQuotationById(quotationId);
+            if (quotation.getConfirmed() == null) {
+                quotation.setConfirmed(false);
+                quotationService.updateQuotation(quotation);
+                new ResponseEntity("Quotation with id " + quotationId + " Rejected", HttpStatus.OK);
+            } else
+                return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity("Quotation with id " + quotationId + " not found", HttpStatus.NOT_FOUND);
+    }
 }
