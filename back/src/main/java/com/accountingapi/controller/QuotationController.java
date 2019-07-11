@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -77,7 +78,9 @@ public class QuotationController {
         if (quotationRequestDto.getDocumentIds() != null) {
 
             List<Long> documentsIds = quotationRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageService.findAllById(documentsIds);
+            System.out.println("Test");
+            List<FileStorageProperties> documents = new ArrayList<>();
+            for (Long id : documentsIds) documents.add(fileStorageService.findById(id));
             quotation.setFileStorageProperties(documents);
 
         }
