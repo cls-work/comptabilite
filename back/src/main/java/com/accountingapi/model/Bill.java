@@ -1,3 +1,4 @@
+
 package com.accountingapi.model;
 
 import com.accountingapi.security.model.User;
@@ -34,7 +35,6 @@ public class Bill {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quotation_id", referencedColumnName = "id")
     private Quotation quotation;
-
 
 
 

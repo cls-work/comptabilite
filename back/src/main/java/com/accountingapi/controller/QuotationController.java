@@ -1,5 +1,7 @@
 package com.accountingapi.controller;
 
+import com.accountingapi.dto.QuotationRequestDto;
+import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.model.Purchase;
 import com.accountingapi.model.Quotation;
 import com.accountingapi.security.JWT.CurrentUser;
@@ -9,6 +11,7 @@ import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.RoleRepository;
 import com.accountingapi.security.service.impl.UserServiceImpl;
 import com.accountingapi.service.impl.EmailServiceImpl;
+import com.accountingapi.service.impl.FileStorageServiceImpl;
 import com.accountingapi.service.impl.PurchaseServiceImpl;
 import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,9 @@ public class QuotationController {
     @Autowired
     PurchaseServiceImpl purchaseService;
 
+    @Autowired
+    FileStorageServiceImpl fileStorageService;
+
     // -------------------Retrieve All Providers---------------------------------------------
     @GetMapping
     public ResponseEntity<List<Quotation>> findAllQuotations() {
@@ -55,16 +61,26 @@ public class QuotationController {
 
     // -------------------Create a Quotation and sending an email to Admin---------------------------------------------
     @PostMapping
-    public ResponseEntity<Quotation> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Quotation quotation) throws IOException, MessagingException {
-        User quotationCreator = userService.findUserById((long) 1);
+    public ResponseEntity<Quotation> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody QuotationRequestDto quotationRequestDto) throws IOException, MessagingException {
+        /*User quotationCreator = userService.findUserById((long) 1);
         Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.findById((long) 1).get());
         User admin = (User) userService.findAllByRoles(roles).get(0);
         //EmailService.createQuotationMail(currentUser,admin);
         //emailService.createQuotationMail(quotationCreator,admin);
+        */
         System.out.println("************************");
+        Quotation quotation = quotationRequestDto.getQuotation();
         List<Purchase> purchases = quotation.getPurchases();
         for (Purchase purchase : purchases) purchase.setQuotation(quotation);
+
+        if (quotationRequestDto.getDocumentIds() != null) {
+
+            List<Long> documentsIds = quotationRequestDto.getDocumentIds();
+            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageService.findAllById(documentsIds);
+            quotation.setFileStorageProperties(documents);
+
+        }
         quotationService.addQuotation(quotation);
         return new ResponseEntity<Quotation>(quotation, HttpStatus.CREATED);
     }

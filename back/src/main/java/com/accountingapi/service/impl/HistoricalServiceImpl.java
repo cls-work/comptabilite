@@ -1,3 +1,4 @@
+/*
 package com.accountingapi.service.impl;
 
 import com.accountingapi.model.Bill;
@@ -38,3 +39,4 @@ public class HistoricalServiceImpl implements HistoricalService {
     }
 
 }
+*/

@@ -1,8 +1,8 @@
+/*
 package com.accountingapi.service.impl;
 
 import com.accountingapi.model.Bill;
 import com.accountingapi.repository.BillRepository;
-import com.accountingapi.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,3 +40,4 @@ public class BillServiceImpl implements BillService {
     }
 
 }
+*/

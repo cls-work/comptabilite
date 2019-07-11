@@ -1,0 +1,222 @@
+<h2>Check List</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="table-responsive" data-pattern="priority-columns">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          ADD_CHECK
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Check</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="checkForm">
+                  <div class="row row-space">
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <label class="label" for="reference">REFERENCE</label>
+
+                        <input class="input--style-4" type="text" formControlName="reference" id="reference" [(ngModel)]="reference1"  />
+                        <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.reference.valid " ></i>
+                        <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.reference.invalid"></i>
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                  <div class="row row-space">
+
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <label class="label" for="amount">AMOUNT</label>
+                        <input class="input--style-4" type="number" formControlName="amount" id="amount" [(ngModel)]="amount1"/>
+                        <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.amount.valid " ></i>
+                        <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.amount.invalid"></i>
+
+                      </div>
+                    </div>
+                    <br>
+                    <br>
+
+                  </div>
+                  <div class="row row-space">
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <div class="input-group-icon">
+                          <label class="label" for="transactionDate">Transaction Date</label>
+                          <input class="input--style-4 js-datepicker" type="date" formControlName="transactionDate" id="transactionDate" [(ngModel)]="transactionDate1">
+                          <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.transactionDate.valid " ></i>
+                          <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.transactionDate.invalid"></i>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row row-space">
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <label class="label" for="amount">Profil Of</label>
+
+                        <input class="input--style-4" type="text" formControlName="profilOf" id="profilOf" [(ngModel)]="profilOf1"/>
+                        <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.profilOf.valid " ></i>
+                        <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.profilOf.invalid"></i>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+
+                </form>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"  (click)="onAddCheckButton()">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <table summary="This table shows how to create responsive tables using RWD-Table-Patterns' functionality" class="table table-bordered table-hover">
+
+          <thead>
+          <tr>
+          <th>Id</th>
+          <th data-priority="1">Reference</th>
+          <th data-priority="2">Amount</th>
+          <th data-priority="3">Profil of</th>
+          <th data-priority="4">Transaction Date</th>
+          <th data-priority="4">Stat</th>
+          <th data-priority ="5">Operation</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor ="let item of collectables ; let i = index"><
+          <td>{{ item.reference}}</td>
+          <td> {{item.amount}}</td>
+          <td> {{item.transactionDate}}</td>
+          <td>{{item.profilOf}}</td>
+          <td> {{ item.stat}}</td>
+
+
+
+            <td>      <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal2" (click)="editCheck()">EDIT</button> </td>
+
+          </tr>
+          </tbody>
+
+        </table>
+        /////
+
+
+
+        ////
+
+
+
+
+
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="table-responsive" data-pattern="priority-columns">
+                <!-- Button trigger modal -->
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel2">Add Check</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form [formGroup]="checkForm">
+                          <div class="row row-space">
+                            <div class="col-md-5">
+                              <div class="input-group">
+                                <label class="label" for="reference">REFERENCE</label>
+
+                                <input class="input--style-4" type="text" formControlName="reference" id="reference2" [(ngModel)]="reference2"  />
+                                <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.reference.valid " ></i>
+                                <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.reference.invalid"></i>
+                              </div>
+                            </div>
+
+
+
+                          </div>
+                          <div class="row row-space">
+
+                            <div class="col-md-5">
+                              <div class="input-group">
+                                <label class="label" for="amount">AMOUNT</label>
+                                <input class="input--style-4" type="number" formControlName="amount" id="amount2" [(ngModel)]="amount2"/>
+                                <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.amount.valid " ></i>
+                                <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.amount.invalid"></i>
+
+                              </div>
+                            </div>
+                            <br>
+                            <br>
+
+                          </div>
+                          <div class="row row-space">
+                            <div class="col-md-5">
+                              <div class="input-group">
+                                <div class="input-group-icon">
+                                  <label class="label" for="transactionDate">Transaction Date</label>
+                                  <input class="input--style-4 js-datepicker" type="date" formControlName="transactionDate" id="transactionDate2" [(ngModel)]="transactionDate2">
+                                  <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.transactionDate.valid " ></i>
+                                  <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.transactionDate.invalid"></i>
+
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="row row-space">
+                            <div class="col-md-5">
+                              <div class="input-group">
+                                <label class="label" for="amount">Profil Of</label>
+
+                                <input class="input--style-4" type="text" formControlName="profilOf" id="profilOf2" [(ngModel)]="profilOf2"/>
+                                <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.profilOf.valid " ></i>
+                                <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.profilOf.invalid"></i>
+
+                              </div>
+                            </div>
+
+                          </div>
+
+
+
+                        </form>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"  (click)="onEditCheckButton()">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>

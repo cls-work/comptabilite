@@ -14,4 +14,6 @@ public interface FileStorageService {
 
     List<FileStorageProperties> findAllById(List<Long> ids);
 
+    FileStorageProperties saveFile(FileStorageProperties fileStorageProperties);
+
 }

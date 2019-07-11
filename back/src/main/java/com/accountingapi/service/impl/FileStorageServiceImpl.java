@@ -78,5 +78,10 @@ public class FileStorageServiceImpl implements FileStorageService {
         return fileStoragePropertiesRepository.findAllById(ids);
     }
 
+    @Override
+    public FileStorageProperties saveFile(FileStorageProperties fileStorageProperties) {
+        return fileStoragePropertiesRepository.save(fileStorageProperties);
+    }
+
 
 }
