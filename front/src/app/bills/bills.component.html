@@ -24,8 +24,8 @@
 <button class="btn btn-outline-secondary" type="button"
         [routerLink]="['/bill-form']">{{'ADD_BILL'|translate|titlecase}}</button>
 
-<table class="table  table-bordered row-border table-hover" style="width:100%" datatable [dtTrigger]="dtTrigger"
-       [dtOptions]="dtOptions">
+<table class="table  table-bordered row-border table-hover table-responsive-md" style="width:100%" datatable [dtTrigger]="dtTrigger"
+       [dtOptions]="dtOptions" >
   <thead class="thead-dark">
   <tr>
     <th>{{'BILL_ID'|translate|titlecase}}</th>

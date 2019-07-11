@@ -58,9 +58,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
           // @ts-ignore
           this.billForm = this.formBuilder.group({
             documentIds: [],
-            provider: [this.bill.provider, Validators.required],
-            date: [this.bill.date, Validators.required],
-            taxStamp: [this.bill.taxStamp, Validators.required],
+            date: [this.bill.creationDate, Validators.required],
 
             // @ts-ignore
             checkPayment: [this.bill.checkPayment === true ? '1' : '0', Validators.required],

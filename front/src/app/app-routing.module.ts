@@ -12,8 +12,7 @@ import {AuthGuard} from './_guards/auth.guard';
 import {AdminGuard} from './_guards/admin.guard';
 import {GuestGuard} from './_guards/guest.guard';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
-import {AddQuotationComponent} from './add-quotation/add-quotation.component';
-import {ListQuotationComponent} from './list-quotation/list-quotation.component';
+import {QuotationFormComponent} from './quotation-form/quotation-form.component';
 
 const routes: Routes = [
   {

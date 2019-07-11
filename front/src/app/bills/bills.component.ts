@@ -83,14 +83,16 @@ export class BillsComponent implements OnInit {
 */
 
   // calculate bills[] after searching for an element
+  /*
   billsLengthAfterSearch(): number {
     return this.bills.filter(it => {
-      return it.billId.toLowerCase().includes(this.searchToken)
+
+      return it.id.toLowerCase().includes(this.searchToken)
         || it.provider.toLowerCase().includes(this.searchToken)
         || it.checkReference.toString().toLowerCase().includes(this.searchToken)
-        || it.date.toLowerCase().includes(this.searchToken);
+        || it.creationDate.toLowerCase().includes(this.searchToken);
     }).length;
-  }
+  }*/
 
 
   // both functions for pagination
@@ -113,7 +115,7 @@ export class BillsComponent implements OnInit {
     console.log(this.bills[index]);
     if (confirm('Supprimer cette facture')) {
       // this.loading = true;
-      this.billService.deleteBill(this.bills[index].billId)
+      this.billService.deleteBill(this.bills[index].id)
         .subscribe(d => {
           console.log(d);
           this.billDeleted = true;
