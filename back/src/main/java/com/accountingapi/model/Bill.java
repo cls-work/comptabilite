@@ -1,7 +1,9 @@
+
 package com.accountingapi.model;
 
 import com.accountingapi.security.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -17,6 +19,7 @@ public class Bill {
     private String id;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private Date creationDate;
 
     @Column(nullable = false)
@@ -33,16 +36,6 @@ public class Bill {
     @JoinColumn(name = "quotation_id", referencedColumnName = "id")
     private Quotation quotation;
 
-    @OneToOne
-    @JoinColumn(name = "check_id", referencedColumnName = "id")
-    private Check check;
-
-
-
-
-    @JsonIgnore
-    @OneToMany(targetEntity = Historical.class, mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Historical> historicals = new ArrayList<>();
 
 
     @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -101,13 +94,6 @@ public class Bill {
         this.quotation = quotation;
     }
 
-    public List<Historical> getHistoricals() {
-        return historicals;
-    }
-
-    public void setHistoricals(List<Historical> historicals) {
-        this.historicals = historicals;
-    }
 
     public List<FileStorageProperties> getFileStorageProperties() {
         return fileStorageProperties;
@@ -134,7 +120,6 @@ public class Bill {
                 ", checkPayment=" + checkPayment +
                 ", isDeleted=" + isDeleted +
                 ", quotation=" + quotation +
-                ", historicals=" + historicals +
                 ", fileStorageProperties=" + fileStorageProperties +
                 ", user=" + user +
                 '}';

@@ -1,3 +1,4 @@
+/*
 package com.accountingapi.repository;
 
 import com.accountingapi.model.Category;
@@ -17,3 +18,4 @@ public interface CheckRepository extends JpaRepository<Category,Long>{
     Check findByCheckId(String id);
 
 }
+*/

@@ -32,14 +32,14 @@ public class ProductServiceImpl implements ProductService {
 
     //Find Product by its id
     @Override
-    public Product getProductById(Long productId) {
+    public Product findProductById(Long productId) {
         return productRepository.findById(productId).get();
     }
 
     //Delete product by its id
     @Override
     public void deleteProductById(Long productId) {
-        Product product = getProductById(productId);
+        Product product = findProductById(productId);
         productRepository.delete(product);
 
     }
@@ -47,6 +47,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public boolean existsById(Long productId) {
+        return productRepository.existsById(productId);
+    }
+
+    @Override
+    public boolean existsByReference(String reference) {
+        return productRepository.existsByReference(reference);
     }
 
 }

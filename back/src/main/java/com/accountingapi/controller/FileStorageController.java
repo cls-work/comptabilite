@@ -1,9 +1,7 @@
 package com.accountingapi.controller;
 
 import com.accountingapi.model.FileStorageProperties;
-import com.accountingapi.repository.FileStorageRepository;
 import com.accountingapi.service.BillService;
-import com.accountingapi.service.impl.BillService;
 import com.accountingapi.service.FileStorageService;
 import com.accountingapi.service.HistoricalService;
 import org.slf4j.Logger;
@@ -31,15 +29,6 @@ public class FileStorageController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    @Autowired
-    private FileStorageRepository fileStorageRepository;
-
-    @Autowired
-    private BillService billService;
-
-    @Autowired
-    private HistoricalService historicalService;
-
 
     @PostMapping("/uploadFile")
     public FileStorageProperties uploadFile(@RequestParam("file") MultipartFile file) {
@@ -52,7 +41,7 @@ public class FileStorageController {
 
         FileStorageProperties fileStorageProperties = new FileStorageProperties(fileName,
                 file.getContentType(), file.getSize());
-        fileStorageRepository.save(fileStorageProperties);
+        fileStorageService.saveFile(fileStorageProperties);
 
         return fileStorageProperties;
     }
@@ -79,7 +68,7 @@ public class FileStorageController {
         }
 
         // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
+        if (contentType == null) {
             contentType = "application/octet-stream";
         }
 
@@ -88,13 +77,12 @@ public class FileStorageController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+    /*
 
     @GetMapping("/getAllFiles/{billId}")
-    public List<FileStorageProperties> getAllFilesByBillId(@PathVariable  String billId){
+    public List<FileStorageProperties> getAllFilesByBillId(@PathVariable String billId) {
         return billService.findFilesByBillId(billId);
     }
+    */
 
-
-
-
-*/
+}

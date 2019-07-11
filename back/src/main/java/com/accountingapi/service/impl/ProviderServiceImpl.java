@@ -1,6 +1,7 @@
 package com.accountingapi.service.impl;
 
 import com.accountingapi.model.Provider;
+import com.accountingapi.model.Quotation;
 import com.accountingapi.repository.ProviderRepository;
 import com.accountingapi.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public Provider getProviderById(Long id) {
+    public Provider findProviderById(Long id) {
         return providerRepository.findById(id).get();
     }
 
@@ -36,7 +37,14 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public void deleteProvider(Long providerId) {
-        Provider provider = getProviderById(providerId);
+        Provider provider = findProviderById(providerId);
         providerRepository.delete(provider);
     }
+
+    @Override
+    public boolean existsById(Long providerId) {
+        return providerRepository.existsById(providerId);
+    }
+
+
 }

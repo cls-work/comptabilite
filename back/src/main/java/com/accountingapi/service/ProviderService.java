@@ -9,9 +9,11 @@ public interface ProviderService {
 
     List<Provider> findAllProviders();
 
-    Provider getProviderById(Long id);
+    Provider findProviderById(Long id);
 
     Provider updateProvider(Provider provider);
 
     void deleteProvider(Long providerId);
+
+    boolean existsById(Long providerId);
 }

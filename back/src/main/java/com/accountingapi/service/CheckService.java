@@ -1,3 +1,4 @@
+/*
 package com.accountingapi.service;
 
 import com.accountingapi.model.Check;
@@ -19,4 +20,5 @@ public interface CheckService {
     public void updateCheck(Check check) ;
 public void deleteCheck (Check check);
 }
+*/
 

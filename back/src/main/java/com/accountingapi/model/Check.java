@@ -1,4 +1,4 @@
-package com.accountingapi.model;
+/*package com.accountingapi.model;
 
 import com.accountingapi.model.Bill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,16 +12,22 @@ public class Check {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column (name="refrence", unique = true, nullable = false)
     private String reference;
+
     @Column (name="amount", unique = false, nullable = false)
     private double amount;
+
     @Column(name="profilOf", unique = false, nullable = true)
     private String profilOf;
+
     @Column(name="transactionDate",unique = false, nullable = false)
     private Date transactionDate;
+
     @Column(name ="bankAccount",unique = false,nullable = true)
     private Long bankAccount;
+
     @Column (name="stat", unique = false, nullable = false)
     private String stat;
 
@@ -99,3 +105,4 @@ public class Check {
     }
 
 }
+*/

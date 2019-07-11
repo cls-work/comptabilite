@@ -49,8 +49,18 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public List<Purchase> findAllPurchasesByQuotation(Long quotationId) {
-        Quotation quotation = quotationService.getQuotationById(quotationId);
+        Quotation quotation = quotationService.findQuotationById(quotationId);
         return purchaseRepository.findAllByQuotation(quotation);
+    }
+
+    @Override
+    public boolean existsById(Long purchaseId) {
+        return purchaseRepository.existsById(purchaseId);
+    }
+
+    @Override
+    public List<Purchase> findAllPurchases() {
+        return purchaseRepository.findAll();
     }
 
 }

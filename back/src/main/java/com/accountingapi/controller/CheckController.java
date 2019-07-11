@@ -1,3 +1,4 @@
+/*
 package com.accountingapi.controller;
 
 
@@ -55,3 +56,4 @@ public class CheckController {
 
     }
 }
+*/

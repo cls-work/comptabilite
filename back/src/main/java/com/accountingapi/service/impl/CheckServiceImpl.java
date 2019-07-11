@@ -1,3 +1,4 @@
+/*
 package com.accountingapi.service.impl;
 
 import com.accountingapi.model.Check;
@@ -32,3 +33,4 @@ public class CheckServiceImpl {
         checkRepository.delete(check);
     }
 }
+*/

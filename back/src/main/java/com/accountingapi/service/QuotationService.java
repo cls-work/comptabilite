@@ -11,7 +11,9 @@ public interface QuotationService {
 
     List<Quotation> findAllQuotations();
 
-    Quotation getQuotationById(Long quotationId);
+    Quotation findQuotationById(Long quotationId);
 
     void deleteQuotationById(Long quotationId);
+
+    boolean existsById(Long quotationId);
 }

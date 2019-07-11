@@ -11,9 +11,13 @@ public interface ProductService {
 
     Product updateProduct(Product product);
 
-    Product getProductById(Long productId);
+    Product findProductById(Long productId);
 
     void deleteProductById(Long productId);
 
     List<Product> findAllProducts();
+
+    boolean existsById(Long productId);
+
+    boolean existsByReference(String reference);
 }

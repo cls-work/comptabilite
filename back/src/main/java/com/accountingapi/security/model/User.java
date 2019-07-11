@@ -49,7 +49,7 @@ public class User {
     private String password;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -63,11 +63,11 @@ public class User {
     private List<Bill> bills;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.MERGE)
     private List<Quotation> quotationsCreated;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "acceptedBy", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "acceptedBy", cascade = CascadeType.MERGE)
     private List<Quotation> quotationsAccepted;
 
 
