@@ -216,9 +216,9 @@ this.collectables.push({
 
   onEditCheckButton() {
 
-      this.editBill();
+      this.editCheck();
     }
 
   }
-}
+
 
