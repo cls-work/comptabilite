@@ -1,40 +1,39 @@
 package com.accountingapi.model;
 
-import com.accountingapi.model.Bill;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Check {
+public class CheckPayment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name="refrence", unique = true, nullable = false)
+    @Column(name = "ref", unique = true)
     private String reference;
 
-    @Column (name="amount", unique = false, nullable = false)
+    @Column(name = "checkAmount")
     private double amount;
 
-    @Column(name="profilOf", unique = false, nullable = true)
+    @Column(name = "valueTo")
     private String profilOf;
 
-    @Column(name="transactionDate",unique = false, nullable = false)
-    private Date transactionDate;
 
-    @Column(name ="bankAccount",unique = false,nullable = true)
+    @Column(name = "checkDate")
+    @CreationTimestamp
+    private Date checkDate;
+
+    @Column(name = "bankAccountNumber")
     private Long bankAccount;
 
-    @Column(name = "state", unique = false, nullable = false)
-    private String state;
+    @Column(name = "checkState")
+    private String checkState;
 
-    @OneToOne(mappedBy = "check")
+    @OneToOne(mappedBy = "checkPayment")
     private Bill bill;
-
-
 
     public Long getId() {
         return id;
@@ -68,13 +67,6 @@ public class Check {
         this.profilOf = profilOf;
     }
 
-    public Date getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
-    }
 
     public Long getBankAccount() {
         return bankAccount;
@@ -84,12 +76,28 @@ public class Check {
         this.bankAccount = bankAccount;
     }
 
-    public String getState() {
-        return state;
+    public Bill getBill() {
+        return bill;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
+    public Date getCheckDate() {
+        return checkDate;
+    }
+
+    public void setCheckDate(Date checkDate) {
+        this.checkDate = checkDate;
+    }
+
+    public String getCheckState() {
+        return checkState;
+    }
+
+    public void setCheckState(String checkState) {
+        this.checkState = checkState;
     }
 
     @Override
@@ -99,9 +107,10 @@ public class Check {
                 ", reference='" + reference + '\'' +
                 ", amount=" + amount +
                 ", profilOf='" + profilOf + '\'' +
-                ", transactionDate=" + transactionDate +
+                ", checkDate=" + checkDate +
                 ", bankAccount=" + bankAccount +
-                ", state='" + state + '\'' +
+                ", checkState='" + checkState + '\'' +
+                ", bill=" + bill +
                 '}';
     }
 }

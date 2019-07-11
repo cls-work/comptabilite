@@ -1,7 +1,8 @@
 
 package com.accountingapi.service;
 
-import com.accountingapi.model.Check;
+import com.accountingapi.model.CheckPayment;
+import com.accountingapi.model.CheckPayment;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,15 +10,15 @@ import java.util.List;
 
 public interface CheckService {
 
-    public void addCheck(Check check);
+    public void addCheck(CheckPayment check);
 
-    public List<Check> findAllChecks();
+    public List<CheckPayment> findAllChecks();
 
-    public Check findCheckById(Long id);
+    public CheckPayment findCheckById(Long id);
 
-    public void updateCheck(Check check) ;
+    public void updateCheck(CheckPayment check);
 
-    public void deleteCheck(Check check);
+    public void deleteCheck(CheckPayment check);
 
     public boolean existsById(Long id);
 }

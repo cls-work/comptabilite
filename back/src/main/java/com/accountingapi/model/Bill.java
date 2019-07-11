@@ -26,13 +26,13 @@ public class Bill {
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quotation_id", referencedColumnName = "id")
     private Quotation quotation;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "check_id", referencedColumnName = "id")
-    private Check check;
+    @JoinColumn(name = "checkPayment_id", referencedColumnName = "id")
+    private CheckPayment checkPayment;
 
 
     public String getId() {
@@ -68,12 +68,13 @@ public class Bill {
         this.quotation = quotation;
     }
 
-    public Check getCheck() {
-        return check;
+
+    public CheckPayment getCheckPayment() {
+        return checkPayment;
     }
 
-    public void setCheck(Check check) {
-        this.check = check;
+    public void setCheckPayment(CheckPayment checkPayment) {
+        this.checkPayment = checkPayment;
     }
 
     @Override
@@ -83,7 +84,7 @@ public class Bill {
                 ", creationDate=" + creationDate +
                 ", isDeleted=" + isDeleted +
                 ", quotation=" + quotation +
-                ", check=" + check +
+                ", checkPayment=" + checkPayment +
                 '}';
     }
 }

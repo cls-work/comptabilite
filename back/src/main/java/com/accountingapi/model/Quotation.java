@@ -37,7 +37,7 @@ public class Quotation {
     private Boolean isConfirmed=null;
 
 
-    @OneToOne(mappedBy = "quotation")
+    @OneToOne(mappedBy = "quotation", cascade = CascadeType.MERGE)
     private Bill bill;
 
     @JsonIgnore
