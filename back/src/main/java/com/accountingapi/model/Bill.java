@@ -22,12 +22,6 @@ public class Bill {
     @CreationTimestamp
     private Date creationDate;
 
-    @Column(nullable = false)
-    private Double checkReference = Double.valueOf(0);
-
-    @Column(nullable = false)
-    private Boolean checkPayment;
-
     @JsonIgnore
     @Column(nullable = false)
     private Boolean isDeleted = false;
@@ -36,14 +30,9 @@ public class Bill {
     @JoinColumn(name = "quotation_id", referencedColumnName = "id")
     private Quotation quotation;
 
-
-
-    @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "check_id", referencedColumnName = "id")
+    private Check check;
 
 
     public String getId() {
@@ -62,21 +51,6 @@ public class Bill {
         this.creationDate = creationDate;
     }
 
-    public Double getCheckReference() {
-        return checkReference;
-    }
-
-    public void setCheckReference(Double checkReference) {
-        this.checkReference = checkReference;
-    }
-
-    public Boolean getCheckPayment() {
-        return checkPayment;
-    }
-
-    public void setCheckPayment(Boolean checkPayment) {
-        this.checkPayment = checkPayment;
-    }
 
     public Boolean getDeleted() {
         return isDeleted;
@@ -94,21 +68,12 @@ public class Bill {
         this.quotation = quotation;
     }
 
-
-    public List<FileStorageProperties> getFileStorageProperties() {
-        return fileStorageProperties;
+    public Check getCheck() {
+        return check;
     }
 
-    public void setFileStorageProperties(List<FileStorageProperties> fileStorageProperties) {
-        this.fileStorageProperties = fileStorageProperties;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setCheck(Check check) {
+        this.check = check;
     }
 
     @Override
@@ -116,12 +81,9 @@ public class Bill {
         return "Bill{" +
                 "id='" + id + '\'' +
                 ", creationDate=" + creationDate +
-                ", checkReference=" + checkReference +
-                ", checkPayment=" + checkPayment +
                 ", isDeleted=" + isDeleted +
                 ", quotation=" + quotation +
-                ", fileStorageProperties=" + fileStorageProperties +
-                ", user=" + user +
+                ", check=" + check +
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-/*package com.accountingapi.model;
+package com.accountingapi.model;
 
 import com.accountingapi.model.Bill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,8 +28,11 @@ public class Check {
     @Column(name ="bankAccount",unique = false,nullable = true)
     private Long bankAccount;
 
-    @Column (name="stat", unique = false, nullable = false)
-    private String stat;
+    @Column(name = "state", unique = false, nullable = false)
+    private String state;
+
+    @OneToOne(mappedBy = "check")
+    private Bill bill;
 
 
 
@@ -81,28 +84,24 @@ public class Check {
         this.bankAccount = bankAccount;
     }
 
-    public String getStat() {
-        return stat;
+    public String getState() {
+        return state;
     }
 
-    public void setStat(String stat) {
-        this.stat = stat;
+    public void setState(String state) {
+        this.state = state;
     }
-
-
 
     @Override
     public String toString() {
         return "Check{" +
                 "id=" + id +
-                ", refrence='" + reference + '\'' +
-                ", amount='" + amount + '\'' +
-                ", profilOf=" + profilOf + '\'' +
-                ", transactionDate=" + transactionDate +'\'' +
-                ", bankAccount =" + bankAccount + '\'' +
-                ", stat=" + stat +
+                ", reference='" + reference + '\'' +
+                ", amount=" + amount +
+                ", profilOf='" + profilOf + '\'' +
+                ", transactionDate=" + transactionDate +
+                ", bankAccount=" + bankAccount +
+                ", state='" + state + '\'' +
                 '}';
     }
-
 }
-*/

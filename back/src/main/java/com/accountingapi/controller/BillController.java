@@ -1,7 +1,5 @@
 
 package com.accountingapi.controller;
-
-import com.accountingapi.dto.BillRequestDto;
 import com.accountingapi.model.Bill;
 import com.accountingapi.model.FileStorageProperties;
 import com.accountingapi.model.Historical;
@@ -10,7 +8,6 @@ import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
 import com.accountingapi.service.impl.BillServiceImpl;
 import com.accountingapi.service.impl.FileStorageServiceImpl;
-import com.accountingapi.service.impl.HistoricalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +25,6 @@ public class BillController {
     @Autowired
     BillServiceImpl billService;
 
-    @Autowired
-    HistoricalServiceImpl historicalService;
 
     @Autowired
     UserRepository userRepository;
@@ -64,7 +59,6 @@ public class BillController {
         if (billService.existsById(id)) {
             Bill bill = billService.findBillById(id);
             bill.setDeleted(true);
-            historicalService.addHistorical(new Historical());
             billService.updateBill(bill);
             return new ResponseEntity<>("Bill isDeleted setted to true and added to historical", HttpStatus.NO_CONTENT);
         }
@@ -76,48 +70,13 @@ public class BillController {
 
     // -------------------Create a Bill---------------------------------------------
     @PostMapping
-    public ResponseEntity<Bill> addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto) {
-        Bill bill = billRequestDto.toBill();
-
-
-        if (billRequestDto.getDocumentIds() != null) {
-
-            List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageService.findAllById(documentsIds);
-            bill.setFileStorageProperties(documents);
-
-        }
-        Bill newBill = billService.addBill(bill);
-        // historicalService.addHistoricalForBill(currentUser, "added a new BillId= "+bill.getId(), bill);
-        return newBill;
-
-
-    }
-
-
-    @PutMapping("/{billId}")
-    public Bill editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String billId, @Valid @RequestBody BillRequestDto billRequestDto) {
-
-        Bill bill = billRequestDto.toBill();
-        bill.setId(billId);
-
-        if (billRequestDto.getDocumentIds() != null) {
-
-            List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageService.findAllById(documentsIds);
-            bill.setFileStorageProperties(documents);
-            //documents.forEach(elt -> elt.setBill(bill));
-
-        }
-
-        Bill newBill = billService.a(bill);
-        //historicalService.addHistoricalForBill(currentUser, "updated a Bill", bill);
-        return newBill;
+    public ResponseEntity<Bill> addBill(@CurrentUser UserPrincipal currentUser, @RequestBody Bill bill) {
+        billService.addBill(bill);
+        return new ResponseEntity<Bill>(bill, HttpStatus.CREATED);
 
     }
 
 
 }
-
 
 
