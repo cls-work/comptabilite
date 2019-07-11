@@ -25,8 +25,18 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public Bill getBillById(String billId) {
+    public Bill findBillById(String billId) {
         return billRepository.findById(billId).get();
+    }
+
+    @Override
+    public boolean existsById(String billId) {
+        return billRepository.existsById(billId);
+    }
+
+    @Override
+    public Bill updateBill(Bill bill) {
+        return billRepository.save(bill);
     }
 
 }

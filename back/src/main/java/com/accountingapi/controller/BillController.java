@@ -1,12 +1,10 @@
 
 package com.accountingapi.controller;
 
-
-
 import com.accountingapi.dto.BillRequestDto;
 import com.accountingapi.model.Bill;
 import com.accountingapi.model.FileStorageProperties;
-import com.accountingapi.repository.FileStoragePropertiesRepository;
+import com.accountingapi.model.Historical;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
@@ -14,6 +12,8 @@ import com.accountingapi.service.impl.BillServiceImpl;
 import com.accountingapi.service.impl.FileStorageServiceImpl;
 import com.accountingapi.service.impl.HistoricalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,35 +37,46 @@ public class BillController {
     @Autowired
     FileStorageServiceImpl fileStorageService;
 
-
+    // -------------------Retrieve All Bills---------------------------------------------
     @GetMapping
-    public List<Bill> displayAllBills() {
-        return billService.findAllBills();
+    public ResponseEntity<List<Bill>> findAllBills() {
+        List<Bill> bills = billService.findAllBills();
+        if (bills.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
 
-
+    // -------------------Retrieve One Bill By ID---------------------------------------------
     @GetMapping("/{id}")
-    public Bill getBillById(@PathVariable("id") String id) {
-        return billService.getBillById(id);
+    public ResponseEntity<Bill> getBillById(@PathVariable("id") String id) {
+        if (billService.existsById(id))
+            return new ResponseEntity<Bill>(billService.findBillById(id), HttpStatus.OK);
+        else return new ResponseEntity("Bill not found", HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Delete a Bill---------------------------------------------
 
 
     @DeleteMapping("/{id}")
-    public void deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+    public ResponseEntity<?> deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+        if (billService.existsById(id)) {
+            Bill bill = billService.findBillById(id);
+            bill.setDeleted(true);
+            historicalService.addHistorical(new Historical());
+            billService.updateBill(bill);
+            return new ResponseEntity<>("Bill isDeleted setted to true and added to historical", HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity("Quotation with id" + id + " not found", HttpStatus.NOT_FOUND);
 
-        Bill bill = billService.getBillById(id);
-        bill.setDeleted(true);
-        /*historicalService.addHistoricalForBill(currentUser, "deleted a Bill", bill);
-        billService.updateBill(bill);
-        return bill.getDeleted();
-        */
+
     }
 
 
+    // -------------------Create a Bill---------------------------------------------
     @PostMapping
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto) {
+    public ResponseEntity<Bill> addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto) {
         Bill bill = billRequestDto.toBill();
 
 
@@ -83,7 +94,7 @@ public class BillController {
 
     }
 
-/*
+
     @PutMapping("/{billId}")
     public Bill editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String billId, @Valid @RequestBody BillRequestDto billRequestDto) {
 
@@ -104,7 +115,8 @@ public class BillController {
         return newBill;
 
     }
-    */
 
 
 }
+
+

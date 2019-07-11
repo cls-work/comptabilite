@@ -25,6 +25,14 @@ public class Historical {
     @Column(name = "date",unique=false,nullable = false)
     private String date;
 
+    //**********Constructor*************
+
+    public Historical(String message, User user, String date) {
+        this.message = message;
+        this.user = user;
+        this.date = date;
+    }
+
 
     //************Getters & Setters************
 

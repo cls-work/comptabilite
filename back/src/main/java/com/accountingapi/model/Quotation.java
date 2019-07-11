@@ -58,7 +58,6 @@ public class Quotation {
     @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Purchase> purchases;
 
-    @JsonIgnore
     @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
 

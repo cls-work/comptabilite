@@ -9,6 +9,10 @@ public interface BillService {
 
     List<Bill> findAllBills();
 
-    Bill getBillById(String billId);
+    Bill findBillById(String billId);
+
+    boolean existsById(String billId);
+
+    Bill updateBill(Bill bill);
 
 }
