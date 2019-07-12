@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, Provider} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {QuotationService} from '../_services/quotation.service';
@@ -29,14 +29,13 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
   loading: boolean;
   error: boolean;
   submitted: boolean;
-
-  private token: string = JSON.parse(localStorage.getItem('currentUser')).accessToken;
   selectedPersonId: any;
   selectedSimpleItem: any;
   items = [true, 'Two', 3];
   simpleItems: any;
   submittedProvider: boolean;
   errorProvider: boolean;
+  private token: string = JSON.parse(localStorage.getItem('currentUser')).accessToken;
 
   constructor(
     private providerService: ProviderService,

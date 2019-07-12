@@ -15,6 +15,7 @@ import {HistoricalsListComponent} from './historicals-list/historicals-list.comp
 import {ListQuotationComponent} from './list-quotation/list-quotation.component';
 import {DetailQuotationComponent} from './detail-quotation/detail-quotation.component';
 import {QuotationFormComponent} from './quotation-form/quotation-form.component';
+import {ConfirmQuotationComponent} from './confirm-quotation/confirm-quotation.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,9 @@ const routes: Routes = [
   {
     path: 'quotations/detail/:quotationId',
     component: DetailQuotationComponent
+  }, {
+    path: 'quotations/detail/:quotationId/confirm',
+    component: ConfirmQuotationComponent
   },
 
 

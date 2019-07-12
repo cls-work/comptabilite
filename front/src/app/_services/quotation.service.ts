@@ -28,5 +28,12 @@ export class QuotationService {
     return this.http.delete(BASE_URL + QUOTATIONS + quotationId);
   }
 
+  confirmQuotationById(quotationId) {
+    return this.http.get(BASE_URL + QUOTATIONS + 'confirm/' + quotationId);
+  }
+
+  rejectQuotationById(quotationId) {
+    return this.http.get(BASE_URL + QUOTATIONS + 'reject/' + quotationId);
+  }
 
 }

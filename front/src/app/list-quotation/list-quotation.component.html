@@ -24,24 +24,25 @@
     <td>{{quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
     <td>{{quotation.totalTTC + quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
     <td class="text-center text-white">
-      <span *ngIf="quotation.isConfirmed === undefined" class="badge badge-pill badge-secondary"><i
-        class="fas fa-redo-alt"></i> Pending</span>
-      <span *ngIf="quotation.isConfirmed === false " class="badge badge-pill badge-warning"><i
-        class="fas fa-exclamation-circle"></i> Rejected</span>
-      <span *ngIf="quotation.isConfirmed === true" class="badge badge-pill badge-success"><i class="fas fa-check"></i> Confirmed</span>
+
+      <span *ngIf="quotation.confirmed === null" class="badge badge-pill badge-secondary">
+        <h6><i class="fas fa-redo-alt"></i> Pending</h6></span>
+      <span *ngIf="quotation.confirmed === false " class="badge badge-pill badge-danger">
+        <h6><i class="fas fa-exclamation-circle"></i> Rejected</h6></span>
+      <span *ngIf="quotation.confirmed === true" class="badge badge-pill badge-success">
+        <h6><i class="fas fa-check"></i> Approved</h6></span>
 
 
     </td>
     <td>
-      <div class="btn-group">
+      <div class="btn-group btn-group-lg" style="width: 80%">
         <button [routerLink]="'/quotations/detail/'+quotation.id" class="btn btn-info btn-circle btn-lg" type="button">
-          <i
-          class="fa fa-eye"></i></button>
+          <h6><i class="fa fa-eye"></i></h6></button>
         <button class="btn btn-warning btn-circle btn-lg" type="button"><i class="fa fa-pencil"></i></button>
-        <button *ngIf="quotation.isConfirmed!==true" class="btn btn-danger btn-circle btn-lg" type="button"><i
-          class="fa fa-times"></i></button>
-        <button *ngIf="quotation.isConfirmed && !quotation.bill" class="btn btn-success btn-circle btn-lg"
-                type="button"><i class="fa fa-plus"></i></button>
+        <button *ngIf="quotation.confirmed!==true" class="btn btn-danger btn-circle btn-lg" type="button"><h6><i
+          class="fa fa-times"></i></h6></button>
+        <button *ngIf="quotation.confirmed" class="btn btn-success btn-circle btn-lg"
+                type="button"><h6><i class="fa fa-plus"></i></h6></button>
       </div>
     </td>
   </tr>

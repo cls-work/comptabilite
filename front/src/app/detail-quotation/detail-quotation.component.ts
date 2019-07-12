@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {QuotationModel} from '../_models/quotation.model';
@@ -19,7 +19,7 @@ export class DetailQuotationComponent implements OnInit {
 
 
   groupedByTVA: any[];
-  quotation: QuotationModel;
+  @Input() quotation: QuotationModel;
   private totalInWords: string;
 
   constructor(private quotationService: QuotationService,
@@ -42,7 +42,6 @@ export class DetailQuotationComponent implements OnInit {
   ngOnInit(): void {
 
     this.getQuotationById(this.route.snapshot.params['quotationId']);
-
 
 
   }

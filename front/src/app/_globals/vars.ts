@@ -1,6 +1,5 @@
 export const BASE_URL = 'http://localhost:8080/';
 export const BILLS = 'bills/';
-export const QUOTATION = 'quotations/';
 export const QUOTATIONS = 'quotations/';
 export const PRODUCTS = 'products/';
 export const AUTH = 'api/auth/';

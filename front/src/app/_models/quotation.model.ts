@@ -10,7 +10,7 @@ export class QuotationModel {
   totalTTC: number;
   totalTVA: number;
   taxStamp: number;
-  isConfirmed: boolean;
+  confirmed: boolean;
   isChecked: boolean;
 
   createdBy: UserModel;

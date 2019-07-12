@@ -40,6 +40,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {ProviderService} from './_services/provider.service';
 import {ProviderFormComponent} from './provider-form/provider-form.component';
 import {PurchaseFormComponent} from './purchase-form/purchase-form.component';
+import {ConfirmQuotationComponent} from './confirm-quotation/confirm-quotation.component';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -70,6 +71,7 @@ export function setupTranslateFactory(service: TranslateService) {
     QuotationFormComponent,
     ProviderFormComponent,
     PurchaseFormComponent,
+    ConfirmQuotationComponent,
 
   ],
   imports: [

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {QuotationModel} from '../_models/quotation.model';
-import {UserModel} from '../_models/user.model';
 import {Subject} from 'rxjs';
 import {ProviderModel} from '../_models/provider.model';
 import {QuotationService} from '../_services/quotation.service';
@@ -13,7 +12,6 @@ import {QuotationService} from '../_services/quotation.service';
 export class ListQuotationComponent implements OnInit {
   dtTrigger: Subject<QuotationModel[]> = new Subject();
   dtOptions: any = {};
-  user: UserModel;
 
 
   provider: ProviderModel;
@@ -27,10 +25,6 @@ export class ListQuotationComponent implements OnInit {
     this.getAllQuotations();
 
 
-    this.user = {
-      accessToken: '', email: '', id: '', lang: '', name: '', role: '', username: ''
-
-    };
     this.provider = {adresse: 'adresse', id: '1', name: 'provider 1'};
     this.dtOptions = {
       pagingType: 'full_numbers',

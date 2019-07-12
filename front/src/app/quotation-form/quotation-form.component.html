@@ -2,7 +2,7 @@
 <ng-container *ngIf="quotationForm">
 
 
-  <div class="alert alert-dark" role="alert" *ngIf="submitted&&error">
+  <div *ngIf="submitted&&error" class="alert alert-dark" role="alert">
     {{'ERROR_BILL_FORM'|translate}}
   </div>
   <div class="row">
@@ -11,8 +11,8 @@
         <div class="wrapper wrapper--w680">
           <div class="card card-4">
             <div class="card-body">
-              <h2 class="title" *ngIf="!quotation">{{'ADD_BILL'|translate}}</h2>
-              <h1 class="title" *ngIf="quotation">{{'EDIT_BILL'|translate}} <i class="fas fa-cog"></i></h1>
+              <h2 *ngIf="!quotation" class="title">{{'ADD_BILL'|translate}}</h2>
+              <h1 *ngIf="quotation" class="title">{{'EDIT_BILL'|translate}} <i class="fas fa-cog"></i></h1>
               <form [formGroup]="quotationForm">
                 <div class="row row-space">
                   <div class="col-md-5">
@@ -22,12 +22,12 @@
                     <ng-select [(ngModel)]="selectedProvider" class="input-" formControlName="provider"
                                labelForId="provider">
 
-                      <ng-option *ngFor="let provider of providers" [value]="provider"
-                                 [disabled]="provider.disabled">{{provider.name}} {{provider.adresse}}</ng-option>
+                      <ng-option *ngFor="let provider of providers" [disabled]="provider.disabled"
+                                 [value]="provider">{{provider.name}} {{provider.adresse}}</ng-option>
 
 
                       <ng-template ng-footer-tmp>
-                        <a class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                        <a class="btn" data-target="#exampleModalCenter" data-toggle="modal">
                           <h5>Add new provider</h5>
                         </a>
 
@@ -35,10 +35,10 @@
                     </ng-select>
 
 
-                    <i class="fa fa-check-circle" style="color:green;"
-                       *ngIf="quotationForm.controls.provider.valid "></i>
-                    <i class="fa fa-times-circle" style="color:firebrick;"
-                       *ngIf="quotationForm.controls.provider.invalid"></i>
+                    <i *ngIf="quotationForm.controls.provider.valid " class="fa fa-check-circle"
+                       style="color:green;"></i>
+                    <i *ngIf="quotationForm.controls.provider.invalid" class="fa fa-times-circle"
+                       style="color:firebrick;"></i>
                   </div>
 
 
@@ -49,11 +49,11 @@
                   <div class="col-md-5">
                     <div class="input-group">
                       <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
-                      <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"/>
-                      <i class="fa fa-check-circle" style="color:green;"
-                         *ngIf="quotationForm.controls.taxStamp.valid "></i>
-                      <i class="fa fa-times-circle" style="color:firebrick;"
-                         *ngIf="quotationForm.controls.taxStamp.invalid"></i>
+                      <input class="input--style-4" formControlName="taxStamp" id="taxStamp" type="number"/>
+                      <i *ngIf="quotationForm.controls.taxStamp.valid " class="fa fa-check-circle"
+                         style="color:green;"></i>
+                      <i *ngIf="quotationForm.controls.taxStamp.invalid" class="fa fa-times-circle"
+                         style="color:firebrick;"></i>
 
                     </div>
                   </div>
@@ -66,11 +66,11 @@
                     <div class="input-group">
                       <div class="input-group-icon">
                         <label class="label" for="date">{{'DATE'|translate}}</label>
-                        <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
-                        <i class="fa fa-check-circle" style="color:green;"
-                           *ngIf="quotationForm.controls.date.valid "></i>
-                        <i class="fa fa-times-circle" style="color:firebrick;"
-                           *ngIf="quotationForm.controls.date.invalid"></i>
+                        <input class="input--style-4 js-datepicker" formControlName="date" id="date" type="date">
+                        <i *ngIf="quotationForm.controls.date.valid " class="fa fa-check-circle"
+                           style="color:green;"></i>
+                        <i *ngIf="quotationForm.controls.date.invalid" class="fa fa-times-circle"
+                           style="color:firebrick;"></i>
 
                       </div>
                     </div>
@@ -78,9 +78,10 @@
 
                 </div>
 
-                <div class="p-t-15" *ngIf="!quotation">
-                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddBillClick()"
-                          [disabled]="!quotationForm.valid">{{'ADD_BILL'|translate}}</button>
+                <div *ngIf="!quotation" class="p-t-15">
+                  <button (click)="onAddBillClick()" [disabled]="!quotationForm.valid"
+                          class="btn btn--radius-2 btn--blue"
+                          type="submit">{{'ADD_BILL'|translate}}</button>
                 </div>
 
                 <div class="p-t-15">
@@ -101,7 +102,7 @@
           <div class="card card-4">
             <div class="card-body">
 
-              <input id="test" multiple="true" name="files"  type="file">
+              <input id="test" multiple="true" name="files" type="file">
             </div>
           </div>
         </div>
@@ -122,13 +123,13 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="exampleModalCenter"
+     role="dialog" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Add new provider</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
           <span aria-hidden="true">&times;</span>
           <span aria-hidden="true">&times;</span>
         </button>
@@ -136,10 +137,10 @@
 
 
       <div class="modal-body">
-        <div class="alert alert-dark" role="alert" *ngIf="submittedProvider&&errorProvider">
+        <div *ngIf="submittedProvider&&errorProvider" class="alert alert-dark" role="alert">
           {{'ERROR'|translate}}
         </div>
-        <div class="alert alert-dark" role="alert" *ngIf="submittedProvider&&!errorProvider">
+        <div *ngIf="submittedProvider&&!errorProvider" class="alert alert-dark" role="alert">
           {{'NEW_PROVIDER_ADDED'|translate}}
         </div>
         <ng-container *ngIf="providerForm">
@@ -149,11 +150,11 @@
 
                 <div class="input-group">
                   <label class="label" for="name">{{'NAME'|translate}}</label>
-                  <input class="input--style-4" type="text" formControlName="name" id="name"/>
-                  <i class="fa fa-check-circle" style="color:green;"
-                     *ngIf="providerForm.controls.name.valid "></i>
-                  <i class="fa fa-times-circle" style="color:firebrick;"
-                     *ngIf="providerForm.controls.name.invalid"></i>
+                  <input class="input--style-4" formControlName="name" id="name" type="text"/>
+                  <i *ngIf="providerForm.controls.name.valid " class="fa fa-check-circle"
+                     style="color:green;"></i>
+                  <i *ngIf="providerForm.controls.name.invalid" class="fa fa-times-circle"
+                     style="color:firebrick;"></i>
 
                 </div>
               </div>
@@ -162,11 +163,11 @@
 
                 <div class="input-group">
                   <label class="label" for="adresse">{{'ADRESSE'|translate}}</label>
-                  <input class="input--style-4" type="text" formControlName="adresse" id="adresse"/>
-                  <i class="fa fa-check-circle" style="color:green;"
-                     *ngIf="providerForm.controls.adresse.valid "></i>
-                  <i class="fa fa-times-circle" style="color:firebrick;"
-                     *ngIf="providerForm.controls.adresse.invalid"></i>
+                  <input class="input--style-4" formControlName="adresse" id="adresse" type="text"/>
+                  <i *ngIf="providerForm.controls.adresse.valid " class="fa fa-check-circle"
+                     style="color:green;"></i>
+                  <i *ngIf="providerForm.controls.adresse.invalid" class="fa fa-times-circle"
+                     style="color:firebrick;"></i>
 
                 </div>
               </div>
@@ -177,8 +178,8 @@
 
       </div>
       <div class="modal-footer">
-        <button class="btn " type="submit" (click)="addProvider()"
-                [disabled]="!providerForm.valid">{{'SUBMIT'|translate}}</button>
+        <button (click)="addProvider()" [disabled]="!providerForm.valid" class="btn "
+                type="submit">{{'SUBMIT'|translate}}</button>
       </div>
     </div>
   </div>
