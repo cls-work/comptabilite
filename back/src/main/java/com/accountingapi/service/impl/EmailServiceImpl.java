@@ -1,13 +1,22 @@
 package com.accountingapi.service.impl;
 
+import com.accountingapi.security.JWT.JwtTokenProvider;
+import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.model.PasswordResetToken;
 import com.accountingapi.security.model.User;
+import com.accountingapi.security.payload.JwtAuthenticationResponse;
 import com.accountingapi.security.payload.Mail;
+import com.accountingapi.security.service.UserService;
 import com.accountingapi.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -28,6 +37,16 @@ public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private TokenServiceImpl tokenService;
+
+    @Autowired
+    JwtTokenProvider tokenProvider;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    UserService userService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
 
     @Override
     public void sendEmailWithAttachment(Mail mail, String mailContent) throws MessagingException, IOException {
@@ -87,6 +106,17 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void createQuotationMail(User quotationCreator, User admin) throws IOException, MessagingException {
+
+        //Generate admin token
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        "sinda",
+                        "testsinda")
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = tokenProvider.generateToken(authentication);
+
+
         Mail mail = new Mail();
         mail.setTo(admin.getEmail());
         Map<String, Object> model = new HashMap<>();
@@ -97,7 +127,7 @@ public class EmailServiceImpl implements EmailService {
         mail.setModel(model);
         // true = text/html
         String message = "\nUser " + quotationCreator.getName() + " has just added a new quotation. Please check the pdf file and click on the link to confirm or reject it. \n";
-        String mailContent = message + "<br/><a href=\"" + mail.getModel().get("url").toString() + "\">Click here</a>";
+        String mailContent = message + "<br/><a href=\"" + mail.getModel().get("url").toString() + "/token=" + jwt + ">Click here</a>";
         emailService.sendEmailWithAttachment(mail, mailContent);
 
     }
