@@ -24,6 +24,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
   providerForm: FormGroup;
 
   quotationForm: FormGroup;
+  QuotationToSend :FormGroup;
   quotation: QuotationModel;
 
   loading: boolean;
@@ -65,7 +66,6 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     });
 
     this.quotationForm = this.formBuilder.group({
-      documentIds: [],
       provider: ['', Validators.required],
       date: ['', Validators.required],
       taxStamp: ['', Validators.required],
@@ -133,7 +133,8 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
      }
      // @ts-ignore*/
 
-    this.quotationService.postQuotation(this.quotationForm.value)
+
+    this.quotationService.postQuotation(this.QuotationToSend.value)
       .subscribe(reponse => {
         console.log(reponse);
         this.loading = false;
@@ -214,18 +215,26 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     const baseContext = this;
     $('#test').on('filebatchuploadsuccess', function(event, data) {
 
-      baseContext.quotationForm.patchValue({
-          documentIds: data.response.map(elt => elt.id)
+
+        baseContext.QuotationToSend = baseContext.formBuilder.group({
+          documentIds : [data.response.map((item)=> item.id)],
+          quotation : [baseContext.quotationForm.value]
         }
       );
 
-      if (!baseContext.quotation) {
+
+      // baseContext.quotationForm.setValue({fileStorageProperties : data.response}) ;
+     console.log(data);
+     console.log('hamza');
+
+     console.log(baseContext.quotationForm.value);
+
+     if (!baseContext.quotation) {
         baseContext.addQuotation();
       } else {
         // baseContext.editQuotation();
       }
 
-      // data.response.forEach(elt => baseContext.formBuilde).push(elt.id));
     });
   }
 
@@ -271,10 +280,15 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
 
   addProvider() {
     console.log(this.providerForm.value);
+
+
+
     this.providerService.postProvider(this.providerForm.value)
       .subscribe((res) => {
           console.log('provider added');
+          this.errorProvider = false;
           this.submittedProvider = true;
+          setTimeout(() => {this.submittedProvider = false; } , 3000);
           this.providerService.getAllProviders()
             .subscribe(
               (providers: any) => {
@@ -284,6 +298,8 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
         ,
         () => {
           this.errorProvider = true;
+          this.submittedProvider = true;
+          setTimeout(() => {this.submittedProvider = false; } , 3000);
           console.log('erreur');
         }
       );

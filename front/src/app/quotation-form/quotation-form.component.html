@@ -136,12 +136,13 @@
 
 
       <div class="modal-body">
-        <div class="alert alert-dark" role="alert" *ngIf="submittedProvider&&errorProvider">
+        <div  class="alert alert-dark" role="alert" *ngIf="submittedProvider&&errorProvider">
           {{'ERROR'|translate}}
         </div>
-        <div class="alert alert-dark" role="alert" *ngIf="submittedProvider&&!errorProvider">
+        <div  class="alert alert-dark" role="alert" *ngIf="submittedProvider&&!errorProvider">
           {{'NEW_PROVIDER_ADDED'|translate}}
         </div>
+
         <ng-container *ngIf="providerForm">
           <form [formGroup]="providerForm">
             <div class="row row-space">

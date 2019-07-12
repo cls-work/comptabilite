@@ -32,6 +32,7 @@ export class PurchaseFormComponent implements OnInit {
 
   ngOnInit() {
     this.taxType = 0;
+    this.submittedProduct = false;
     /*/
     this.orderForm = this.formBuilder.group({
 
@@ -68,9 +69,9 @@ export class PurchaseFormComponent implements OnInit {
       discount: ['', Validators.required],
       tva: ['19', Validators.required],
       unitPriceAfterDiscount: [''],
-      amountHT: ['',],
-      amountTVA: ['',],
-      amountTTC: ['',],
+      amountHT: ['', ],
+      amountTVA: ['', ],
+      amountTTC: ['', ],
     });
   }
 
@@ -107,7 +108,7 @@ export class PurchaseFormComponent implements OnInit {
     this.orderForm.get('totalTTC').setValue(this.totalTTC);
     this.orderForm.get('totalTVA').setValue(this.totalTVA);
 
-    //this.totalTTC += this.bill.taxStamp;
+    // this.totalTTC += this.bill.taxStamp;
 
 
   }
@@ -166,20 +167,30 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   addProduct() {
-    //console.log(this.productForm.value);
     this.productService.postProduct(this.productForm.value)
         .subscribe((res) => {
             this.productService.getAllProducts()
               .subscribe(
                 (products: any) => {
+                  console.log('first to execute');
+                  this.errorProduct = false;
+                  this.submittedProduct = true ;
                   this.products = products;
+                  setTimeout(() => {this.submittedProduct = false; } , 3000);
                 });
           }
           ,
           () => {
+            this.errorProduct = true ;
+            this.submittedProduct = true ;
             console.log('erreur');
+            setTimeout(() => {this.submittedProduct = false; } , 3000);
           }
-        );
+        ).add(() => {
+          console.log('finally');
+    });
+
+
   }
 
 
