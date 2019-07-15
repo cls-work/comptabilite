@@ -24,11 +24,17 @@ public class CheckController {
     CheckServiceImpl checkService;
 
 
+    // -------------------Retrieve All Checks---------------------------------------------
     @GetMapping
-    public List<CheckPayment> displayAllChecks() {
-        return checkService.findAllChecks();
+    public ResponseEntity<List<CheckPayment>> findAllChecks() {
+        List<CheckPayment> checks = checkService.findAllChecks();
+        if (checks.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(checks, HttpStatus.OK);
     }
 
+    // -------------------Retrieve One Check By ID---------------------------------------------
     @GetMapping("/{id}")
     public ResponseEntity<CheckPayment> findCheckById(@PathVariable("id") Long id) {
         if (checkService.existsById(id))
@@ -36,6 +42,7 @@ public class CheckController {
         else return new ResponseEntity("Check not found", HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Create a Check---------------------------------------------
     @PostMapping
     public ResponseEntity<CheckPayment> addCheck(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody CheckPayment check) {
         checkService.addCheck(check);
@@ -43,6 +50,7 @@ public class CheckController {
 
     }
 
+    // -------------------Update a Check---------------------------------------------
     @PutMapping
     public ResponseEntity<?> editCheck(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody CheckPayment check) {
 

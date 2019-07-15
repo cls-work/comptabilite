@@ -1,7 +1,6 @@
 package com.accountingapi.controller;
 
 import com.accountingapi.model.Purchase;
-import com.accountingapi.model.Quotation;
 import com.accountingapi.service.impl.PurchaseServiceImpl;
 import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +66,7 @@ public class PurchaseController {
         return new ResponseEntity<>(purchase, HttpStatus.CREATED);
     }
 
-    // -------------------Update a Product---------------------------------------------
+    // -------------------Update a Purchase---------------------------------------------
     @PutMapping
     public ResponseEntity<?> updatePurchase(@Valid @RequestBody Purchase purchase) {
         if (purchaseService.existsById(purchase.getId())) {

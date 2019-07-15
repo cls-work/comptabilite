@@ -17,6 +17,7 @@ import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -66,7 +67,9 @@ public class QuotationController {
         User quotationCreator = userService.findUserById((long) 1);
         User admin = (User) userService.findUserById((long) 2);
         //EmailService.createQuotationMail(currentUser,admin);
-        //emailService.createQuotationMail(quotationCreator, admin);
+        System.out.println("test1");
+        emailService.createQuotationMail(quotationCreator, admin);
+
         Quotation quotation = quotationRequestDto.getQuotation();
         List<Purchase> purchases = quotation.getPurchases();
         for (Purchase purchase : purchases) purchase.setQuotation(quotation);
@@ -112,7 +115,7 @@ public class QuotationController {
     }
 
     // -------------------Confirm Quotation By ID---------------------------------------------
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/confirm/{quotationId}")
     public ResponseEntity<?> confirmQuotation(@PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
@@ -129,7 +132,7 @@ public class QuotationController {
     }
 
     // -------------------Reject Quotation By ID---------------------------------------------
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/reject/{quotationId}")
     public ResponseEntity<?> rejectQuotation(@PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
