@@ -23,9 +23,6 @@ public class CheckPayment {
     @Column(name="transactionDate",unique = false, nullable = false)
     private Date transactionDate;
 
-    @Column(name ="bankAccount",unique = false,nullable = true)
-    private Long bankAccount;
-
 
     @OneToOne(mappedBy = "check")
     private Bill bill;
@@ -72,14 +69,6 @@ public class CheckPayment {
         this.transactionDate = transactionDate;
     }
 
-    public Long getBankAccount() {
-        return bankAccount;
-    }
-
-    public void setBankAccount(Long bankAccount) {
-        this.bankAccount = bankAccount;
-    }
-
 
     @Override
     public String toString() {
@@ -89,8 +78,6 @@ public class CheckPayment {
                 ", amount=" + amount +
                 ", profilOf='" + profilOf + '\'' +
                 ", transactionDate=" + transactionDate +
-                ", bankAccount=" + bankAccount +
-
-                '}';
+     '}';
     }
 }

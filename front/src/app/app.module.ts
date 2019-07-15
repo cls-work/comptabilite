@@ -36,7 +36,6 @@ import { ChecksComponent } from './checks/checks.component';
 import {CheckService} from './_services/check.service';
 import { CheckFormComponent } from './check-form/check-form.component';
 
-
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
 }
@@ -63,7 +62,6 @@ export function setupTranslateFactory(service: TranslateService) {
     DisplayFileComponent,
     ChecksComponent,
     CheckFormComponent,
-
 
   ],
   imports: [

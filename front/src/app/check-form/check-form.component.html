@@ -1,0 +1,100 @@
+<app-loader *ngIf="loading"></app-loader>
+<ng-container *ngIf="checkForm">
+
+
+
+  <div class="alert alert-dark" role="alert">
+    {{'ERROR_BILL_FORM'|translate}}
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+        <div class="wrapper wrapper--w680">
+          <div class="card card-4">
+            <div class="card-body">
+              <h2 class="title" *ngIf="!check">Add Check</h2>
+              <h1 class="title" *ngIf="check">Check  <i class="fas fa-cog"></i></h1>
+              <form [formGroup]="checkForm">
+                <div class="row row-space">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <label class="label" for="reference">Reference</label>
+
+                      <input class="input--style-4" type="text" formControlName="reference" id="reference"/>
+                      <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.reference.valid " ></i>
+                      <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.reference.invalid"></i>
+                    </div>
+                  </div>
+
+
+
+                </div>
+                <div class="row row-space">
+
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <label class="label" for="amount">Amount</label>
+                      <input class="input--style-4" type="number" formControlName="amount" id="amount"/>
+                      <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.amount.valid " ></i>
+                      <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.amount.invalid"></i>
+
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+
+                  <div class="col-6">
+                    <div class="input-group">
+                      <label class="label" for="transactionDate">Transaction Date</label>
+                      <input class="input--style-4" type="date" formControlName="transactionDate"
+                             id="transactionDate" >
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-space">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <div class="input-group-icon">
+                        <label class="label" for="profilOf">Profil Of</label>
+                        <input class="input--style-4 js-datepicker" type="text" formControlName="profilOf" id="profilOf">
+                        <i class="fa fa-check-circle" style="color:green;" *ngIf="checkForm.controls.profilOf.valid " ></i>
+                        <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="checkForm.controls.profilOf.invalid"></i>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="p-t-15" *ngIf="!check">
+                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddCheckClick()"
+                          [disabled]="!checkForm.valid">{{'ADD_Check'|translate}}</button>
+                </div>
+                <div class="p-t-15" *ngIf="check">
+                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onEditCheckClick()"
+                          [disabled]="!checkForm.valid ">{{'EDIT_CHECK'|translate}}</button>
+                </div>
+                <div class="p-t-15">
+                  <button class="btn btn--radius-2 btn--blue"
+                          routerLink="/bills">{{'ABORT'|translate|titlecase}}</button>
+                </div>
+
+                <div class="p-t-15">
+                  <button class="btn btn--radius-2 btn--blue"
+                          routerLink="/bills">Abort</button>
+                </div>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div id="newdiv">
+  Click on this to see a dialogue box.
+</div>
