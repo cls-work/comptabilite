@@ -23,77 +23,77 @@
               <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'HT'|translate}}</th>
               <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TVA'|translate}}</th>
               <th class="text-center">{{'AMOUNT'|translate|titlecase}} {{'TTC'|translate}}</th>
-              <th><a (click)="addItem()" class="btn"><i class="fa fa-plus"></i></a></th>
+              <th><i (click)="addItem()" class="fa fa-plus"></i></th>
 
             </tr>
 
             <tr
-                    *ngFor="let item of orderForm.get('purchases').controls; let i = index;" [formGroupName]="i">
+              *ngFor="let item of orderForm.get('purchases').controls; let i = index;" [formGroupName]="i">
 
 
-                    <td>
+              <td>
 
-                      <ng-select class="input-" formControlName="product"
-                                 labelForId="provider">
+                <ng-select class="input-" formControlName="product"
+                           labelForId="provider">
 
-                        <ng-option *ngFor="let product of products" [disabled]="product.disabled"
-                                   [value]="product">{{product.designation}} {{product.refrence}} {{product.category.label}}</ng-option>
-
-
-                        <ng-template ng-footer-tmp>
-                          <a class="btn" data-target="#ProductLogin" data-toggle="modal">
-                            <h5>Add new product</h5>
-                          </a>
-
-                        </ng-template>
-                      </ng-select>
+                  <ng-option *ngFor="let product of products" [disabled]="product.disabled"
+                             [value]="product">{{product.designation}} {{product.reference}} {{product.category.label}}</ng-option>
 
 
-                    </td>
+                  <ng-template ng-footer-tmp>
+                    <a class="btn" data-target="#ProductLogin" data-toggle="modal">
+                      <h6>Add new product</h6>
+                    </a>
 
-                    <td><input (change)="calculatePrices(i)" class="form-control" formControlName="quantity" type="number">
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.quantity.valid " class="fa fa-check-circle"
-                         style="color:green;"></i>
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.quantity.invalid" class="fa fa-times-circle"
-                         style="color:firebrick;"></i></td>
+                  </ng-template>
+                </ng-select>
 
-                    <td><input (change)="calculatePrices(i)" class="form-control" formControlName="unitPrice"
-                               placeholder="Item price" type="number">
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.unitPrice.valid " class="fa fa-check-circle"
-                         style="color:green;"></i>
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.unitPrice.invalid" class="fa fa-times-circle"
-                         style="color:firebrick;"></i></td>
 
-                    <td><input (change)="calculatePrices(i)" class="form-control" formControlName="discount"
-                               placeholder="Item price" type="number">
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.discount.valid " class="fa fa-check-circle"
-                         style="color:green;"></i>
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.discount.invalid" class="fa fa-times-circle"
-                         style="color:firebrick;"></i></td>
+              </td>
 
-                    <td><input (change)="calculatePrices(i)" class="form-control" formControlName="tva"
-                               placeholder="Item price" type="number">
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.tva.valid " class="fa fa-check-circle"
-                         style="color:green;"></i>
-                      <i *ngIf="orderForm.get('purchases').controls[i].controls.tva.invalid" class="fa fa-times-circle"
-                         style="color:firebrick;"></i></td>
+              <td><input (change)="calculatePrices(i)" class="form-control" formControlName="quantity" type="number">
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.quantity.valid " class="fa fa-check-circle"
+                   style="color:green;"></i>
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.quantity.invalid" class="fa fa-times-circle"
+                   style="color:firebrick;"></i></td>
 
-                    <td><input [value]="calculateDiscount(i)" class="form-control" disabled
-                               formControlName="unitPriceAfterDiscount" placeholder="Item price"
-                               type="number"></td>
-                    <td><input [value]="calculateHT(i)" class="form-control" disabled formControlName="amountHT"
-                               placeholder="Item price"
-                               type="number"></td>
-                    <td><input [value]="calculateTVA(i)" class="form-control" disabled formControlName="amountTVA"
-                               placeholder="Item price"
-                               type="number"></td>
-                    <td><input [value]="calculateTTC(i)" class="form-control" disabled formControlName="amountTTC"
-                               placeholder="Item price"
-                               type="number"></td>
-                    <td>
-                      <input (click)="removePurchase(i)" class="form-control col" type="button"
-                             value="{{'DELETE'|translate|titlecase}}">
-                    </td>
+              <td><input (change)="calculatePrices(i)" class="form-control" formControlName="unitPrice"
+                         placeholder="Item price" type="number">
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.unitPrice.valid " class="fa fa-check-circle"
+                   style="color:green;"></i>
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.unitPrice.invalid" class="fa fa-times-circle"
+                   style="color:firebrick;"></i></td>
+
+              <td><input (change)="calculatePrices(i)" class="form-control" formControlName="discount"
+                         placeholder="Item price" type="number">
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.discount.valid " class="fa fa-check-circle"
+                   style="color:green;"></i>
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.discount.invalid" class="fa fa-times-circle"
+                   style="color:firebrick;"></i></td>
+
+              <td><input (change)="calculatePrices(i)" class="form-control" formControlName="tva"
+                         placeholder="Item price" type="number">
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.tva.valid " class="fa fa-check-circle"
+                   style="color:green;"></i>
+                <i *ngIf="orderForm.get('purchases').controls[i].controls.tva.invalid" class="fa fa-times-circle"
+                   style="color:firebrick;"></i></td>
+
+              <td><input [value]="calculateDiscount(i)" class="form-control" disabled
+                         formControlName="unitPriceAfterDiscount" placeholder="Item price"
+                         type="number"></td>
+              <td><input [value]="calculateHT(i)" class="form-control" disabled formControlName="amountHT"
+                         placeholder="Item price"
+                         type="number"></td>
+              <td><input [value]="calculateTVA(i)" class="form-control" disabled formControlName="amountTVA"
+                         placeholder="Item price"
+                         type="number"></td>
+              <td><input [value]="calculateTTC(i)" class="form-control" disabled formControlName="amountTTC"
+                         placeholder="Item price"
+                         type="number"></td>
+              <td>
+                <input (click)="removePurchase(i)" class="form-control col" type="button"
+                       value="{{'DELETE'|translate|titlecase}}">
+              </td>
 
 
             </tr>
@@ -147,7 +147,7 @@
           {{'ERROR'|translate}}
         </div>
         <div *ngIf="submittedProduct&&!errorProduct" class="alert alert-dark" role="alert">
-          {{'NEW_PROVIDER_ADDED'|translate}}
+          {{'NEW_PRODUCT_ADDED'|translate}}
         </div>
         <ng-container *ngIf="productForm">
           <form [formGroup]="productForm">

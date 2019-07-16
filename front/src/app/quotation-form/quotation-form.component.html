@@ -143,6 +143,7 @@
         <div *ngIf="submittedProvider&&!errorProvider" class="alert alert-dark" role="alert">
           {{'NEW_PROVIDER_ADDED'|translate}}
         </div>
+
         <ng-container *ngIf="providerForm">
           <form [formGroup]="providerForm">
             <div class="row row-space">

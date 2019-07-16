@@ -12,6 +12,8 @@ export class QuotationService {
 
 
   postQuotation(quotation) {
+    console.log('before sent quotation');
+    console.log(quotation);
     return this.http.post(BASE_URL + QUOTATIONS, quotation);
   }
 
@@ -34,6 +36,7 @@ export class QuotationService {
 
   rejectQuotationById(quotationId) {
     return this.http.get(BASE_URL + QUOTATIONS + 'reject/' + quotationId);
-  }
 
+
+  }
 }

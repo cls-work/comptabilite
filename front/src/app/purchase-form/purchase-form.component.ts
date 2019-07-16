@@ -31,6 +31,7 @@ export class PurchaseFormComponent implements OnInit {
 
   ngOnInit() {
     this.taxType = 0;
+    this.submittedProduct = false;
     /*/
     this.orderForm = this.formBuilder.group({
 
@@ -73,7 +74,7 @@ export class PurchaseFormComponent implements OnInit {
     });
   }
 
-  addItem() {
+  addItem(): void {
     this.purchases = this.orderForm.get('purchases') as FormArray;
     this.purchases.push(this.createItem());
   }
@@ -86,7 +87,7 @@ export class PurchaseFormComponent implements OnInit {
 
   }
 
-  editTax(taxType): void {
+  editTax(taxType): number {
     this.taxType = taxType;
   }
 
@@ -106,7 +107,7 @@ export class PurchaseFormComponent implements OnInit {
     this.orderForm.get('totalTTC').setValue(this.totalTTC);
     this.orderForm.get('totalTVA').setValue(this.totalTVA);
 
-    //this.totalTTC += this.bill.taxStamp;
+    // this.totalTTC += this.bill.taxStamp;
 
 
   }
@@ -122,7 +123,7 @@ export class PurchaseFormComponent implements OnInit {
 
     const newPrice = this.orderForm.get('purchases').value[i].unitPrice - this.orderForm.get('purchases').value[i].unitPrice * this.orderForm.get('purchases').value[i].discount / 100;
     this.orderForm.get('purchases').value[i].unitPriceAfterDiscount = parseFloat(newPrice.toFixed(3));
-    return Number(newPrice.toFixed(3));
+    return newPrice.toFixed(3);
   }
 
   calculateTTC(i): number {
@@ -160,26 +161,47 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   removePurchase(i) {
-    //this.orderForm.get('purchases').removeAt(i);
+    this.orderForm.get('purchases').removeAt(i);
     this.calculateTotals();
   }
 
   addProduct() {
-    //console.log(this.productForm.value);
     this.productService.postProduct(this.productForm.value)
       .subscribe((res) => {
           this.productService.getAllProducts()
             .subscribe(
               (products: any) => {
+                console.log('first to execute');
+                this.errorProduct = false;
+                this.submittedProduct = true;
                 this.products = products;
+                setTimeout(() => {
+                  this.submittedProduct = false;
+                }, 3000);
               });
         }
         ,
         () => {
+          this.errorProduct = true;
+          this.submittedProduct = true;
           console.log('erreur');
+          setTimeout(() => {
+            this.submittedProduct = false;
+          }, 3000);
         }
-      );
+      ).add(() => {
+      console.log('finally');
+    });
+
+
   }
 
+
+  calculateAllPrices() {
+    for (let i = 0; i < this.products.value; i++) {
+      this.calculatePrices(i);
+    }
+    this.calculateTotals();
+  }
 
 }
