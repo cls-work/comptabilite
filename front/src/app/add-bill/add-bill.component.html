@@ -1,6 +1,5 @@
 <div class="container">
 
-
   <div class="card">
 
     <div class="card-header">
@@ -27,43 +26,47 @@
 
 
       <div class="row" *ngIf="cheque">
-        <div class="col-7">
-          <br><br>
-          <div class="form-group row">
-            <label for="input1" class="col-sm-2 col-form-label">Bank Account</label>
-            <div class="col-sm-10">
-              <input type="number" class="form-control" id="input1" placeholder="Bank Account">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="input2" class="col-sm-2 col-form-label">Amount</label>
-            <div class="col-sm-10">
-              <input type="number" class="form-control" id="input2" placeholder="Amount">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="input3" class="col-sm-2 col-form-label">profil Of</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="input3" placeholder="profilOf">
-            </div>
-          </div>
 
-          <div class="form-group row">
-            <label for="input4" class="col-sm-2 col-form-label">Check reference</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="input4" placeholder="Check reference">
+            <div class="col-7">
+              <br><br>
+              <form [formGroup]="checkform">
+              <div class="form-group row">
+                <label for="input1" class="col-sm-2 col-form-label">Bank Account</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" id="input1" placeholder="Bank Account"
+                         formControlName="bankAccount">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input2" class="col-sm-2 col-form-label">Amount</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" id="input2" placeholder="Amount" formControlName="amount">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="input3" class="col-sm-2 col-form-label">profil Of</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input3" placeholder="profilOf" formControlName="profilOf">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="input4" class="col-sm-2 col-form-label">Check reference</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input4" placeholder="Check reference" formControlName="reference">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="input5" class="col-sm-2 col-form-label">Check state</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input5" placeholder="Check state"
+                         formControlName="checkState">
+                </div>
+              </div>
+
+              </form>
             </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="input5" class="col-sm-2 col-form-label">Check state</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="input5" placeholder="Check state">
-            </div>
-          </div>
-
-
-        </div>
 
       </div>
 
@@ -74,7 +77,7 @@
 
       <div class="form-group row">
         <div class="col-sm-10">
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary" (click)="addBill()" [disabled]="!checkform.valid&&cheque">Create</button>
         </div>
       </div>
     </div>
