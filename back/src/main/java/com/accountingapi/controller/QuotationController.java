@@ -139,7 +139,7 @@ public class QuotationController {
             if (quotation.getConfirmed() == null) {
                 quotation.setConfirmed(false);
                 quotationService.updateQuotation(quotation);
-                new ResponseEntity(HttpStatus.OK);
+                return new ResponseEntity(HttpStatus.OK);
             } else
                 return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
         }
