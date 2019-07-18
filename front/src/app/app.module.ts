@@ -36,6 +36,11 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {ProviderService} from './_services/provider.service';
 import { ProviderFormComponent } from './provider-form/provider-form.component';
 import { PurchaseFormComponent } from './purchase-form/purchase-form.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCardModule, MatTabsModule} from '@angular/material';
+import {MatFileUploadModule } from 'angular-material-fileupload';
+import { DragDropDirective } from './drag-drop.directive';
+
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -62,7 +67,7 @@ export function setupTranslateFactory(service: TranslateService) {
     QuotationAddPurchasesComponent,
     ProviderFormComponent,
     PurchaseFormComponent,
-
+    DragDropDirective
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,11 @@ export function setupTranslateFactory(service: TranslateService) {
     FormsModule,
     NgxPaginationModule,
     DataTablesModule,
-    NgSelectModule
+    NgSelectModule,
+    MatTabsModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatFileUploadModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -87,7 +96,7 @@ export function setupTranslateFactory(service: TranslateService) {
       useFactory: setupTranslateFactory,
       deps: [TranslateService],
       multi: true
-    },/*
+    }, /*
     {
       provide: APP_INITIALIZER,
       useFactory: setupBillsTranslateFactory,

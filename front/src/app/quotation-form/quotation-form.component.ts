@@ -6,6 +6,9 @@ import {QuotationModel} from '../_models/quotation.model';
 import {BASE_URL} from '../_globals/vars';
 import {ProviderModel} from '../_models/provider.model';
 import {ProviderService} from '../_services/provider.service';
+import {ProductService} from '../_services/product.service';
+import {CategoryService} from '../_services/category.service';
+import {CategoryModel} from '../_models/category.model';
 
 declare let $: any;
 
@@ -24,9 +27,15 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
   providerForm: FormGroup;
 
   quotationForm: FormGroup;
-  QuotationToSend :FormGroup;
+  QuotationToSend: FormGroup;
   quotation: QuotationModel;
 
+  productForm: FormGroup;
+
+  selectedCategorie: any;
+  categories: CategoryModel[];
+  submittedProduct: boolean;
+  errorProduct: boolean;
   loading: boolean;
   error: boolean;
   submitted: boolean;
@@ -39,20 +48,41 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
   submittedProvider: boolean;
   errorProvider: boolean;
 
+  finalForm: FormGroup;
+
   constructor(
     private providerService: ProviderService,
     private formBuilder: FormBuilder,
     private quotationService: QuotationService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private categoryService: CategoryService) {
   }
 
   ngOnInit() {
+    console.log('hamza');
     this.providerService.getAllProviders()
       .subscribe(
         (providers: any) => {
           this.providers = providers;
         });
+    this.submittedProduct = false;
+    this.productForm = this.formBuilder.group({
+      reference: ['', Validators.required],
+      designation: ['', Validators.required],
+      category: ['']
+
+      // @ts-ignore
+    });
+
+    this.categoryService.getAllCategories()
+      .subscribe(
+        (categories: CategoryModel[]) => {
+          this.categories = categories;
+        });
+
+
     // this.loading = true;
 
     //  const id = this.route.snapshot.params.id;
@@ -75,6 +105,10 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
       totalTVA: ['']
 
       // @ts-ignore
+    });
+
+    this.finalForm = this.formBuilder.group({
+      quotation: [this.quotationForm.value]
     });
 
     /*
@@ -108,6 +142,33 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     */
   }
 
+  addProduct() {
+    this.productService.postProduct(this.productForm.value)
+      .subscribe((res) => {
+
+          this.errorProduct = false;
+          this.submittedProduct = true;
+          setTimeout(() => {
+            this.submittedProduct = false;
+          }, 3000);
+
+        }
+        ,
+        () => {
+          this.errorProduct = true;
+          this.submittedProduct = true;
+          console.log('erreur');
+          setTimeout(() => {
+            this.submittedProduct = false;
+          }, 3000);
+        }
+      ).add(() => {
+      console.log('finally');
+    });
+
+
+  }
+
   createItem(): FormGroup {
     return this.formBuilder.group({
       product: ['', Validators.required],
@@ -132,6 +193,8 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
        this.quotationForm.value.checkRefeerence = '';
      }
      // @ts-ignore*/
+    console.log("here");
+    // console.log(this.finalForm.value);
 
 
     this.quotationService.postQuotation(this.QuotationToSend.value)
@@ -147,8 +210,6 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
-    this.initFileUploader();
 
   }
 
@@ -216,20 +277,20 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     $('#test').on('filebatchuploadsuccess', function(event, data) {
 
 
-        baseContext.QuotationToSend = baseContext.formBuilder.group({
-          documentIds : [data.response.map((item)=> item.id)],
-          quotation : [baseContext.quotationForm.value]
+      baseContext.QuotationToSend = baseContext.formBuilder.group({
+          documentIds: [data.response.map((item) => item.id)],
+          quotation: [baseContext.quotationForm.value]
         }
       );
 
 
       // baseContext.quotationForm.setValue({fileStorageProperties : data.response}) ;
-     console.log(data);
-     console.log('hamza');
+      console.log(data);
+      console.log('hamza');
 
-     console.log(baseContext.quotationForm.value);
+      console.log(baseContext.QuotationToSend.value);
 
-     if (!baseContext.quotation) {
+      if (!baseContext.quotation) {
         baseContext.addQuotation();
       } else {
         // baseContext.editQuotation();
@@ -256,7 +317,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
       // bill will be sended automatically when files are uploaded
 
     }
-
+    //  this.addQuotation();
     console.log('test3');
     if (filesCount == 0 && !this.quotation) {
       console.log('add bill');
@@ -282,13 +343,14 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     console.log(this.providerForm.value);
 
 
-
     this.providerService.postProvider(this.providerForm.value)
       .subscribe((res) => {
           console.log('provider added');
           this.errorProvider = false;
           this.submittedProvider = true;
-          setTimeout(() => {this.submittedProvider = false; } , 3000);
+          setTimeout(() => {
+            this.submittedProvider = false;
+          }, 3000);
           this.providerService.getAllProviders()
             .subscribe(
               (providers: any) => {
@@ -299,7 +361,9 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
         () => {
           this.errorProvider = true;
           this.submittedProvider = true;
-          setTimeout(() => {this.submittedProvider = false; } , 3000);
+          setTimeout(() => {
+            this.submittedProvider = false;
+          }, 3000);
           console.log('erreur');
         }
       );

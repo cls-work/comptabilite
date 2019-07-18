@@ -1,189 +1,417 @@
 <app-loader *ngIf="loading"></app-loader>
 <ng-container *ngIf="quotationForm">
 
-
-  <div class="alert alert-dark" role="alert" *ngIf="submitted&&error">
-    {{'ERROR_BILL_FORM'|translate}}
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
-        <div class="wrapper wrapper--w680">
-          <div class="card card-4">
-            <div class="card-body">
-              <h2 class="title" *ngIf="!quotation">{{'ADD_BILL'|translate}}</h2>
-              <h1 class="title" *ngIf="quotation">{{'EDIT_BILL'|translate}} <i class="fas fa-cog"></i></h1>
-              <form [formGroup]="quotationForm">
-                <div class="row row-space">
-                  <div class="col-md-5">
-                    <label class="label" for="provider">{{'PROVIDER Name'|translate}}</label>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+            <div class="wrapper wrapper--w680">
+              <div class="card card-4">
+                <div class="card-body">
+                  <h2 class="title" *ngIf="!quotation">{{'ADD_BILL'|translate}}</h2>
+                  <h1 class="title" *ngIf="quotation">{{'EDIT_BILL'|translate}} <i class="fas fa-cog"></i></h1>
+                  <form [formGroup]="quotationForm">
+                    <div class="row row-space">
+                      <div class="col-md-5">
+                        <label class="label" for="provider">{{'PROVIDER Name'|translate}}</label>
 
 
-                    <ng-select [(ngModel)]="selectedProvider" class="input-" formControlName="provider"
-                               labelForId="provider">
+                        <ng-select [(ngModel)]="selectedProvider" class="input-" formControlName="provider"
+                                   labelForId="provider">
 
-                      <ng-option *ngFor="let provider of providers" [value]="provider"
-                                 [disabled]="provider.disabled">{{provider.name}} {{provider.adresse}}</ng-option>
-
-
-                      <ng-template ng-footer-tmp>
-                        <a class="btn" data-toggle="modal" data-target="#exampleModalCenter">
-                          <h5>Add new provider</h5>
-                        </a>
-
-                      </ng-template>
-                    </ng-select>
+                          <ng-option *ngFor="let provider of providers" [value]="provider"
+                                     [disabled]="provider.disabled">{{provider.name}} {{provider.adresse}}</ng-option>
 
 
-                    <i class="fa fa-check-circle" style="color:green;"
-                       *ngIf="quotationForm.controls.provider.valid "></i>
-                    <i class="fa fa-times-circle" style="color:firebrick;"
-                       *ngIf="quotationForm.controls.provider.invalid"></i>
-                  </div>
+                          <ng-template ng-footer-tmp>
+                            <a class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                              <h5>Add new provider</h5>
+                            </a>
+
+                          </ng-template>
+                        </ng-select>
 
 
-                </div>
+                        <i class="fa fa-check-circle" style="color:green;"
+                           *ngIf="quotationForm.controls.provider.valid "></i>
+                        <i class="fa fa-times-circle" style="color:firebrick;"
+                           *ngIf="quotationForm.controls.provider.invalid"></i>
+                      </div>
 
-                <div class="row row-space">
-
-                  <div class="col-md-5">
-                    <div class="input-group">
-                      <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
-                      <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"/>
-                      <i class="fa fa-check-circle" style="color:green;"
-                         *ngIf="quotationForm.controls.taxStamp.valid "></i>
-                      <i class="fa fa-times-circle" style="color:firebrick;"
-                         *ngIf="quotationForm.controls.taxStamp.invalid"></i>
 
                     </div>
-                  </div>
-                  <br>
-                  <br>
 
+                    <div class="row row-space">
+
+                      <div class="col-md-5">
+                        <div class="input-group">
+                          <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
+                          <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"/>
+                          <i class="fa fa-check-circle" style="color:green;"
+                             *ngIf="quotationForm.controls.taxStamp.valid "></i>
+                          <i class="fa fa-times-circle" style="color:firebrick;"
+                             *ngIf="quotationForm.controls.taxStamp.invalid"></i>
+
+                        </div>
+                      </div>
+                      <br>
+                      <br>
+
+                    </div>
+                    <div class="row row-space">
+                      <div class="col-md-5">
+                        <div class="input-group">
+                          <div class="input-group-icon">
+                            <label class="label" for="date">{{'DATE'|translate}}</label>
+                            <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
+                            <i class="fa fa-check-circle" style="color:green;"
+                               *ngIf="quotationForm.controls.date.valid "></i>
+                            <i class="fa fa-times-circle" style="color:firebrick;"
+                               *ngIf="quotationForm.controls.date.invalid"></i>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="p-t-15" *ngIf="!quotation">
+                      <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddBillClick()"
+                              [disabled]="!quotationForm.valid">{{'ADD_BILL'|translate}}</button>
+                    </div>
+
+                    <div class="p-t-15">
+                      <button class="btn btn--radius-2 btn--blue"
+                              routerLink="/bills">{{'ABORT'|translate|titlecase}}</button>
+                    </div>
+
+
+                  </form>
                 </div>
-                <div class="row row-space">
-                  <div class="col-md-5">
-                    <div class="input-group">
-                      <div class="input-group-icon">
-                        <label class="label" for="date">{{'DATE'|translate}}</label>
-                        <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col">
+          <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+            <div class="wrapper wrapper--w680">
+              <div class="card card-4">
+                <div class="card-body">
+
+                  <input id="test" multiple="true" name="files" type="file">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <app-purchase-form [orderForm]="quotationForm"></app-purchase-form>
+      </div>
+    </div>
+  </div>
+  <!--
+    <mat-tab-group>
+      <mat-tab >
+        <ng-template mat-tab-label>
+          <h4>Etape (1/3)</h4>
+        </ng-template>
+
+        <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+          <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+              <div class="card-body">
+                <h2 class="title" *ngIf="!quotation">{{'ADD_BILL'|translate}}</h2>
+                <h1 class="title" *ngIf="quotation">{{'EDIT_BILL'|translate}} <i class="fas fa-cog"></i></h1>
+                <form [formGroup]="quotationForm">
+                  <div class="row row-space">
+                    <div class="col-md-5">
+                      <label class="label" for="provider">{{'PROVIDER Name'|translate}}</label>
+
+
+                      <ng-select [(ngModel)]="selectedProvider" class="input-" formControlName="provider"
+                                 labelForId="provider">
+
+                        <ng-option *ngFor="let provider of providers" [value]="provider"
+                                   [disabled]="provider.disabled">{{provider.name}} {{provider.adresse}}</ng-option>
+
+
+                        <ng-template ng-footer-tmp>
+                          <a class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+                            <h5>Add new provider</h5>
+                          </a>
+
+                        </ng-template>
+                      </ng-select>
+
+
+                      <i class="fa fa-check-circle" style="color:green;"
+                         *ngIf="quotationForm.controls.provider.valid "></i>
+                      <i class="fa fa-times-circle" style="color:firebrick;"
+                         *ngIf="quotationForm.controls.provider.invalid"></i>
+                    </div>
+
+
+                  </div>
+
+                  <div class="row row-space">
+
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
+                        <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"/>
                         <i class="fa fa-check-circle" style="color:green;"
-                           *ngIf="quotationForm.controls.date.valid "></i>
+                           *ngIf="quotationForm.controls.taxStamp.valid "></i>
                         <i class="fa fa-times-circle" style="color:firebrick;"
-                           *ngIf="quotationForm.controls.date.invalid"></i>
+                           *ngIf="quotationForm.controls.taxStamp.invalid"></i>
 
                       </div>
                     </div>
+                    <br>
+                    <br>
+
+                  </div>
+                  <div class="row row-space">
+                    <div class="col-md-5">
+                      <div class="input-group">
+                        <div class="input-group-icon">
+                          <label class="label" for="date">{{'DATE'|translate}}</label>
+                          <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
+                          <i class="fa fa-check-circle" style="color:green;"
+                             *ngIf="quotationForm.controls.date.valid "></i>
+                          <i class="fa fa-times-circle" style="color:firebrick;"
+                             *ngIf="quotationForm.controls.date.invalid"></i>
+
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
 
-                </div>
+                  <div class="p-t-15" *ngIf="!quotation">
+                    <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddBillClick()"
+                            [disabled]="!quotationForm.valid">{{'ADD_BILL'|translate}}</button>
+                  </div>
 
-                <div class="p-t-15" *ngIf="!quotation">
-                  <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddBillClick()"
-                          [disabled]="!quotationForm.valid">{{'ADD_BILL'|translate}}</button>
-                </div>
-
-                <div class="p-t-15">
-                  <button class="btn btn--radius-2 btn--blue"
-                          routerLink="/bills">{{'ABORT'|translate|titlecase}}</button>
-                </div>
+                  <div class="p-t-15">
+                    <button class="btn btn--radius-2 btn--blue"
+                            routerLink="/bills">{{'ABORT'|translate|titlecase}}</button>
+                  </div>
 
 
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
-        <div class="wrapper wrapper--w680">
-          <div class="card card-4">
-            <div class="card-body">
 
-              <input id="test" multiple="true" name="files"  type="file">
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>Etape (2/3)</h4>
+        </ng-template>
+
+        <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins ">
+          <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+              <div class="card-body">
+
+                <input id="test" multiple="true" name="files"  type="file">
+              </div>
             </div>
           </div>
+        </div>
+
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>Etape (3/3)</h4>
+        </ng-template>
+        <mat-card-content>
+          <app-purchase-form [orderForm]="quotationForm"></app-purchase-form>
+          <br><br><br>
+        </mat-card-content>
+
+
+      </mat-tab>
+
+
+      <mat-tab disabled>
+        <ng-template mat-tab-label>
+          <button mat-icon-button (click)="onAddBillClick()">
+            <h4>SUBMIT</h4>
+          </button>
+          <i class="fa fa-check-circle" style="color:green;"
+             *ngIf="quotationForm.valid"></i>
+          <i class="fa fa-times-circle" style="color:firebrick;"
+             *ngIf="quotationForm.invalid"></i>
+        </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+
+
+
+  </ng-container>-->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add new provider</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <div class="alert alert-dark" role="alert" *ngIf="submittedProvider&&errorProvider">
+            {{'ERROR'|translate}}
+          </div>
+          <div class="alert alert-dark" role="alert" *ngIf="submittedProvider&&!errorProvider">
+            {{'NEW_PROVIDER_ADDED'|translate}}
+          </div>
+
+          <ng-container *ngIf="providerForm">
+            <form [formGroup]="providerForm">
+              <div class="row row-space">
+                <div class="col-md-5">
+
+                  <div class="input-group">
+                    <label class="label" for="name">{{'NAME'|translate}}</label>
+                    <input class="input--style-4" type="text" formControlName="name" id="name"/>
+                    <i class="fa fa-check-circle" style="color:green;"
+                       *ngIf="providerForm.controls.name.valid "></i>
+                    <i class="fa fa-times-circle" style="color:firebrick;"
+                       *ngIf="providerForm.controls.name.invalid"></i>
+
+                  </div>
+                </div>
+
+                <div class="col-7">
+
+                  <div class="input-group">
+                    <label class="label" for="adresse">{{'ADRESSE'|translate}}</label>
+                    <input class="input--style-4" type="text" formControlName="adresse" id="adresse"/>
+                    <i class="fa fa-check-circle" style="color:green;"
+                       *ngIf="providerForm.controls.adresse.valid "></i>
+                    <i class="fa fa-times-circle" style="color:firebrick;"
+                       *ngIf="providerForm.controls.adresse.invalid"></i>
+
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-container>
+
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn " type="submit" (click)="addProvider()"
+                  [disabled]="!providerForm.valid">{{'SUBMIT'|translate}}</button>
         </div>
       </div>
     </div>
   </div>
 
 
-  <div class="row">
-    <div class="col-sm-12">
-
-
-      <app-purchase-form [orderForm]="quotationForm"></app-purchase-form>
-
-    </div>
-  </div>
-</ng-container>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add new provider</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-
-      <div class="modal-body">
-        <div  class="alert alert-dark" role="alert" *ngIf="submittedProvider&&errorProvider">
-          {{'ERROR'|translate}}
-        </div>
-        <div  class="alert alert-dark" role="alert" *ngIf="submittedProvider&&!errorProvider">
-          {{'NEW_PROVIDER_ADDED'|translate}}
+  <!-- Modal -->
+  <div class="modal fade" id="ProductLogin" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add new product</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
 
-        <ng-container *ngIf="providerForm">
-          <form [formGroup]="providerForm">
-            <div class="row row-space">
-              <div class="col-md-5">
 
-                <div class="input-group">
-                  <label class="label" for="name">{{'NAME'|translate}}</label>
-                  <input class="input--style-4" type="text" formControlName="name" id="name"/>
+        <div class="modal-body">
+          <div class="alert alert-dark" role="alert" *ngIf="submittedProduct&&errorProduct">
+            {{'ERROR'|translate}}
+          </div>
+          <div class="alert alert-dark" role="alert" *ngIf="submittedProduct&&!errorProduct">
+            {{'NEW_PRODUCT_ADDED'|translate}}
+          </div>
+          <ng-container *ngIf="productForm">
+            <form [formGroup]="productForm">
+              <div class="row row-space">
+                <div class="col-md-5">
+
+                  <div class="input-group">
+                    <label class="label" for="reference">{{'Designation'|translate}}</label>
+                    <input class="form-control" type="text" formControlName="reference" id="reference"/>
+                    <i class="fa fa-check-circle" style="color:green;"
+                       *ngIf="productForm.controls.reference.valid "></i>
+                    <i class="fa fa-times-circle" style="color:firebrick;"
+                       *ngIf="productForm.controls.reference.invalid"></i>
+
+                  </div>
+                </div>
+
+                <div class="col-7">
+
+                  <div class="input-group">
+                    <label class="label" for="designation">{{'Reference'|translate}}</label>
+                    <input class="form-control" type="text" formControlName="designation" id="designation"/>
+                    <i class="fa fa-check-circle" style="color:green;"
+                       *ngIf="productForm.controls.designation.valid "></i>
+                    <i class="fa fa-times-circle" style="color:firebrick;"
+                       *ngIf="productForm.controls.designation.invalid"></i>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-space">
+                <div class="col-md-5">
+
+                  <label class="label" for="category">{{'Categorie'|translate}}</label>
+
+
+                  <ng-select [(ngModel)]="selectedCategorie" class="input-" formControlName="category"
+                             labelForId="category">
+
+                    <ng-option *ngFor="let categorie of categories" [value]="categorie">{{categorie.label}}</ng-option>
+
+                  </ng-select>
+
                   <i class="fa fa-check-circle" style="color:green;"
-                     *ngIf="providerForm.controls.name.valid "></i>
+                     *ngIf="productForm.controls.category.valid "></i>
                   <i class="fa fa-times-circle" style="color:firebrick;"
-                     *ngIf="providerForm.controls.name.invalid"></i>
+                     *ngIf="productForm.controls.category.invalid"></i>
+
 
                 </div>
               </div>
 
-              <div class="col-7">
-
-                <div class="input-group">
-                  <label class="label" for="adresse">{{'ADRESSE'|translate}}</label>
-                  <input class="input--style-4" type="text" formControlName="adresse" id="adresse"/>
-                  <i class="fa fa-check-circle" style="color:green;"
-                     *ngIf="providerForm.controls.adresse.valid "></i>
-                  <i class="fa fa-times-circle" style="color:firebrick;"
-                     *ngIf="providerForm.controls.adresse.invalid"></i>
-
-                </div>
-              </div>
-            </div>
-          </form>
-        </ng-container>
+            </form>
+          </ng-container>
 
 
-      </div>
-      <div class="modal-footer">
-        <button class="btn " type="submit" (click)="addProvider()"
-                [disabled]="!providerForm.valid">{{'SUBMIT'|translate}}</button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn " type="submit" (click)="addProduct()"
+                  [disabled]="!productForm.valid">{{'SUBMIT'|translate}}</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+
 
 
 
