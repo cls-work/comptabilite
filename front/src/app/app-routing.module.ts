@@ -13,8 +13,14 @@ import {AdminGuard} from './_guards/admin.guard';
 import {GuestGuard} from './_guards/guest.guard';
 import {HistoricalsListComponent} from './historicals-list/historicals-list.component';
 import {QuotationFormComponent} from './quotation-form/quotation-form.component';
+import {AddBillComponent} from './add-bill/add-bill.component';
 
 const routes: Routes = [
+  {
+    path: 'add-bill/:id',
+    component: AddBillComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: 'add-quotation',
     component: QuotationFormComponent,

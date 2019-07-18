@@ -193,7 +193,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
        this.quotationForm.value.checkRefeerence = '';
      }
      // @ts-ignore*/
-    console.log("here");
+   // console.log("here");
     // console.log(this.finalForm.value);
 
 
@@ -210,7 +210,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
+      this.initFileUploader();
   }
 
   initFileUploader() {
