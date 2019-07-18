@@ -83,6 +83,7 @@
   "SAME_PASSWORD_ERROR": "Les mots de passes doivent être identiques",
   "REPEAT": "Répeter",
   "NAME":"Nom",
+  "ROLE": "Rôle",
   "USERNAME_MIN": "Le nom d'utilisateur doit avoir au minimum 5 caractère",
   "NAME_MIN": "Le nom doit avoir au minimum 5 caractère",
   "PASSWORD_MIN": "Le mot de passe doit avoir au minimum 6 caractère",

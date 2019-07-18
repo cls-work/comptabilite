@@ -3,7 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BillService} from '../_services/bill.service';
 import {BillModel} from '../_models/bill.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BASE_URL, ERROR_BILL_FORM} from '../_globals/vars';
+import {BASE_URL} from '../_globals/vars';
+import {TranslateService} from '../_services/translate.service';
 
 declare let $: any;
 
@@ -23,13 +24,16 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   error: boolean;
   submitted: boolean;
 
+  currentLang;
+
   private token: string = JSON.parse(localStorage.getItem('currentUser')).accessToken;
 
 
   constructor(private formBuilder: FormBuilder,
               private billService: BillService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {
@@ -37,6 +41,19 @@ export class BillFormComponent implements OnInit, AfterViewInit {
 
     const id = this.route.snapshot.params.id;
 
+    this.currentLang = localStorage.getItem('lang');
+
+    this.translateService.langSubject
+      .subscribe(lang => {
+        console.log(lang);
+        this.currentLang = lang;
+        //$('#test').fileinput('disable');
+        $('#test').fileinput('destroy');
+        this.initFileUploader();
+        /* $('#test').fileinput('refresh', {
+           language: lang
+         });*/
+      });
 
     this.billForm = this.formBuilder.group({
       documentIds: [],
@@ -140,7 +157,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
       showRemove: true,
       showUpload: false,
       showCancel: false,
-      language: 'fr',
+      language: this.currentLang,
       previewFileIcon: '<i class="fas fa-file"></i>',
       initialPreviewAsData: true, // defaults markup
       preferIconicPreview: true, // this will force thumbnails to display icons for following file extensions
@@ -213,10 +230,10 @@ export class BillFormComponent implements OnInit, AfterViewInit {
   }
 
   onAddBillClick() {
-    console.log("test1");
+    console.log('test1');
     let filesCount = $('#test').fileinput('getFilesCount');
 
-    console.log("test2");
+    console.log('test2');
     if (filesCount > 0) {
 
       this.uploadFiles();
@@ -225,7 +242,7 @@ export class BillFormComponent implements OnInit, AfterViewInit {
 
     }
 
-    console.log("test3");
+    console.log('test3');
     if (filesCount == 0 && !this.bill) {
       console.log('add bill');
       this.addBill();

@@ -1,9 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BillModel} from '../_models/bill.model';
 import {BillService} from '../_services/bill.service';
 import {ActivatedRoute} from '@angular/router';
 import {Subject} from 'rxjs';
 import {HistoryModel} from '../_models/history.model';
+import {TranslateService} from '../_services/translate.service';
+import {DATATABLE_LANG_DE, DATATABLE_LANG_EN, DATATABLE_LANG_FR} from '../_globals/vars';
+import {DataTableDirective} from 'angular-datatables';
 
 @Component({
   selector: 'app-bills',
@@ -11,6 +14,9 @@ import {HistoryModel} from '../_models/history.model';
   styleUrls: ['./bills.component.scss']
 })
 export class BillsComponent implements OnInit {
+
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
 
   bills: BillModel[];
   @Input() filteredBills: BillModel[];
@@ -28,9 +34,11 @@ export class BillsComponent implements OnInit {
   billEdited: boolean;
   selectedBill: BillModel;
   dtOptions: any = {};
+  currentLang;
 
   constructor(private billService: BillService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private translateService: TranslateService) {
     // this.initializeConfig(0, 0, 0);
     //  this.perPage = 10;
   }
@@ -39,15 +47,67 @@ export class BillsComponent implements OnInit {
     if (this.route.snapshot.params.edited === 'edited') {
       this.billEdited = true;
     }
+
+
+    this.changeDataTableLanguage(localStorage.getItem('lang'));
+
+    this.translateService.langSubject
+      .subscribe(lang => {
+        this.changeDataTableLanguage(lang);
+        console.log('sync');
+
+        this.rerender();
+      });
+
     this.getAllBills();
 
 
+    // this.orderBy('date', 'desc');
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+    console.log('rerender');
+  }
+
+  changeDataTableLanguage(lang) {
+
+    console.log(lang);
+    this.currentLang = lang;
+    let language;
+    if (lang === 'fr') {
+      language = DATATABLE_LANG_FR;
+      console.log('change fr');
+    } else if (lang === 'en') {
+      console.log('change en');
+      language = DATATABLE_LANG_EN;
+    } else if (lang === 'de') {
+      console.log('change de');
+      language = DATATABLE_LANG_DE;
+    }
+
+    console.log(language);
+
+    this.setDtOptions(language);
+  }
+
+  setDtOptions(lang) {
     this.dtOptions = {
       pagingType: 'full_numbers',
       colReorder: {},
       dom: 'Bfrtip',
       select: true,
 
+      /* language: {
+         url:'/assets/i18n/datatable-french.json'
+       },*/
+
+      language: lang,
       buttons: [
         'colvis',
         {
@@ -71,7 +131,8 @@ export class BillsComponent implements OnInit {
 
       ]
     };
-    // this.orderBy('date', 'desc');
+
+    console.log(this.dtOptions);
   }
 
 
