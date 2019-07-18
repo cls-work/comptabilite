@@ -123,7 +123,7 @@ export class PurchaseFormComponent implements OnInit {
 
     const newPrice = this.orderForm.get('purchases').value[i].unitPrice - this.orderForm.get('purchases').value[i].unitPrice * this.orderForm.get('purchases').value[i].discount / 100;
     this.orderForm.get('purchases').value[i].unitPriceAfterDiscount = parseFloat(newPrice.toFixed(3));
-    return newPrice.toFixed(3);
+    return parseFloat(newPrice.toFixed(3));
   }
 
   calculateTTC(i): number {

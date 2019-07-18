@@ -71,5 +71,9 @@ export class ListQuotationComponent implements OnInit {
     );
   }
 
+  onDeleteQuotation(index: number) {
+
+  }
+
 
 }
