@@ -116,15 +116,14 @@ public class QuotationController {
 
     // -------------------Confirm Quotation By ID---------------------------------------------
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/confirm/{quotationId}")
+    @GetMapping("/confirm/{quotationId}")
     public ResponseEntity<?> confirmQuotation(@PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
             Quotation quotation = quotationService.findQuotationById(quotationId);
             if (quotation.getConfirmed() == null) {
                 quotation.setConfirmed(true);
-                System.out.println("TEST");
                 quotationService.updateQuotation(quotation);
-                return new ResponseEntity("Quotation with id " + quotationId + " Confirmed", HttpStatus.OK);
+                return new ResponseEntity(HttpStatus.OK);
             } else
                 return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
         }
@@ -133,14 +132,14 @@ public class QuotationController {
 
     // -------------------Reject Quotation By ID---------------------------------------------
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/reject/{quotationId}")
+    @GetMapping("/reject/{quotationId}")
     public ResponseEntity<?> rejectQuotation(@PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
             Quotation quotation = quotationService.findQuotationById(quotationId);
             if (quotation.getConfirmed() == null) {
                 quotation.setConfirmed(false);
                 quotationService.updateQuotation(quotation);
-                new ResponseEntity("Quotation with id " + quotationId + " Rejected", HttpStatus.OK);
+                new ResponseEntity(HttpStatus.OK);
             } else
                 return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
         }
