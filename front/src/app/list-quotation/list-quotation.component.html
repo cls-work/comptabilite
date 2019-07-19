@@ -51,7 +51,7 @@
                 class="btn btn-danger btn-circle btn-lg" type="button"><h6><i
           class="fa fa-trash "></i></h6></button>
         <button *ngIf="quotation.confirmed " class="btn btn-success btn-circle btn-lg"
-                type="button"><h6><i class="fa fa-plus"></i> Bill</h6></button>
+                [routerLink]="'/add-bill/'+quotation.id" type="button"><h6><i class="fa fa-plus"></i> Bill</h6></button>
       </div>
     </td>
   </tr>

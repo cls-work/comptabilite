@@ -20,7 +20,7 @@ import {AddBillComponent} from './add-bill/add-bill.component';
 
 const routes: Routes = [
   {
-    path: 'add-bill/:id',
+    path: 'add-bill/:quotationId',
     component: AddBillComponent,
     canActivate: [AuthGuard]
   },
