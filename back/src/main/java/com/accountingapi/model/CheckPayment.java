@@ -23,7 +23,6 @@ public class CheckPayment {
 
 
     @Column(name = "checkDate")
-    @CreationTimestamp
     private Date checkDate;
 
     @Column(name = "bankAccountNumber")

@@ -9,7 +9,7 @@ public class QuotationRequestDto {
 
     private Quotation quotation;
 
-    private List<Long> documentIds = new ArrayList<>();
+    private List<Long> documentIds;
 
     public Quotation getQuotation() {
         return quotation;
