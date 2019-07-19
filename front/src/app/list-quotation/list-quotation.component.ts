@@ -73,6 +73,18 @@ export class ListQuotationComponent implements OnInit {
 
   onDeleteQuotation(index: number) {
 
+    if (confirm('Supprimer ce devis ?')) {
+
+      this.quotationService.deleteQuotationById(this.quotations[index].id).subscribe(
+        (data) => {
+          this.quotations.splice(index, 1);
+        }, () => {
+
+        }
+      );
+
+    }
+
   }
 
 

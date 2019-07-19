@@ -39,8 +39,10 @@ import {QuotationFormComponent} from './quotation-form/quotation-form.component'
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ProviderService} from './_services/provider.service';
 import {ProviderFormComponent} from './provider-form/provider-form.component';
-import {PurchaseFormComponent} from './purchase-form/purchase-form.component';
 import {ConfirmQuotationComponent} from './confirm-quotation/confirm-quotation.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AddBillComponent} from './add-bill/add-bill.component';
+import {PurchaseFormComponent} from './purchase-form/purchase-form.component';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -73,6 +75,7 @@ export function setupTranslateFactory(service: TranslateService) {
     PurchaseFormComponent,
     ConfirmQuotationComponent,
 
+    AddBillComponent
   ],
   imports: [
     BrowserModule,
@@ -83,8 +86,9 @@ export function setupTranslateFactory(service: TranslateService) {
     NgxPaginationModule,
     DataTablesModule,
     NgSelectModule,
-    DataTablesModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgSelectModule,
+    BrowserAnimationsModule,
 
   ],
   providers: [
@@ -100,7 +104,7 @@ export function setupTranslateFactory(service: TranslateService) {
       useFactory: setupTranslateFactory,
       deps: [TranslateService],
       multi: true
-    },/*
+    }, /*
     {
       provide: APP_INITIALIZER,
       useFactory: setupBillsTranslateFactory,

@@ -47,7 +47,8 @@
         <button *ngIf="quotation.confirmed===null" [routerLink]="'/quotations/detail/'+quotation.id+'/confirm'"
                 class="btn btn-outline-dark btn-circle btn-lg" type="button">
           <h6><i class="fa fa-eye"></i></h6></button>
-        <button *ngIf="quotation.confirmed===null" class="btn btn-danger btn-circle btn-lg" type="button"><h6><i
+        <button (click)="onDeleteQuotation(i)" *ngIf="quotation.confirmed===null"
+                class="btn btn-danger btn-circle btn-lg" type="button"><h6><i
           class="fa fa-trash "></i></h6></button>
         <button *ngIf="quotation.confirmed " class="btn btn-success btn-circle btn-lg"
                 type="button"><h6><i class="fa fa-plus"></i> Bill</h6></button>

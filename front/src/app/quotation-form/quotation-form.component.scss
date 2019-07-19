@@ -1050,3 +1050,16 @@ input {
   }
 }
 
+
+mat-tab-body {
+
+  z-index: 2000 !important;
+}
+
+input {
+  width: 100% !important;
+}
+
+.table td {
+  padding: 0;
+}

@@ -12,6 +12,9 @@ import {CategoryService} from '../_services/category.service';
 })
 export class PurchaseFormComponent implements OnInit {
 
+  constructor(private formBuilder: FormBuilder, private productService: ProductService, private categoryService: CategoryService) {
+  }
+
   @Input() orderForm: FormGroup;
   purchases: FormArray;
   products: ProductModel[];
@@ -26,8 +29,6 @@ export class PurchaseFormComponent implements OnInit {
   totalTVA: number;
   totalHT: number;
 
-  constructor(private formBuilder: FormBuilder, private productService: ProductService, private categoryService: CategoryService) {
-  }
 
   ngOnInit() {
     this.taxType = 0;
@@ -87,7 +88,7 @@ export class PurchaseFormComponent implements OnInit {
 
   }
 
-  editTax(taxType): number {
+  editTax(taxType): void {
     this.taxType = taxType;
   }
 
@@ -120,7 +121,6 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   calculateDiscount(i): number {
-
     const newPrice = this.orderForm.get('purchases').value[i].unitPrice - this.orderForm.get('purchases').value[i].unitPrice * this.orderForm.get('purchases').value[i].discount / 100;
     this.orderForm.get('purchases').value[i].unitPriceAfterDiscount = parseFloat(newPrice.toFixed(3));
     return parseFloat(newPrice.toFixed(3));
@@ -161,6 +161,7 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   removePurchase(i) {
+    // @ts-ignore
     this.orderForm.get('purchases').removeAt(i);
     this.calculateTotals();
   }
@@ -198,10 +199,11 @@ export class PurchaseFormComponent implements OnInit {
 
 
   calculateAllPrices() {
-    for (let i = 0; i < this.products.value; i++) {
+    for (let i = 0; i < this.products.length; i++) {
       this.calculatePrices(i);
     }
     this.calculateTotals();
   }
+
 
 }

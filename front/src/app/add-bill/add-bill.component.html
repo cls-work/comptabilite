@@ -1,0 +1,102 @@
+<div class="container">
+
+
+  <div class="card">
+
+    <div class="card-header">
+      <h4> Payment details</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-7">
+
+          <div class="form-check form-check-inline">
+            <input (click)="editcheck(0)" class="form-check-input" id="inlineRadio1" name="inlineRadioOptions"
+                   type="radio"
+                   value="option1">
+            <label class="form-check-label" for="inlineRadio1">En espéce</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input (click)="editcheck(1)" [checked]="cheque" class="form-check-input" id="inlineRadio2"
+                   name="inlineRadioOptions"
+                   type="radio" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Par cheque</label>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div *ngIf="cheque" class="row">
+        <div class="col-7">
+          <br><br>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="input1">Bank Account</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="input1" placeholder="Bank Account" type="number">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="input2">Amount</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="input2" placeholder="Amount" type="number">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="input3">profil Of</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="input3" placeholder="profilOf" type="text">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="input4">Check reference</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="input4" placeholder="Check reference" type="text">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="input5">Check state</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="input5" placeholder="Check state" type="text">
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="card-footer">
+
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button class="btn btn-primary" type="submit">Create</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <br><br>
+
+  <div class="card">
+
+    <div class="card-header">
+      <h4> Quotation details</h4>
+    </div>
+    <div class="card-body">
+
+      quotation componet
+
+
+    </div>
+
+  </div>
+
+</div>

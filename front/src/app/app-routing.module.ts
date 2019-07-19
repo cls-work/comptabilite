@@ -16,8 +16,14 @@ import {ListQuotationComponent} from './list-quotation/list-quotation.component'
 import {DetailQuotationComponent} from './detail-quotation/detail-quotation.component';
 import {QuotationFormComponent} from './quotation-form/quotation-form.component';
 import {ConfirmQuotationComponent} from './confirm-quotation/confirm-quotation.component';
+import {AddBillComponent} from './add-bill/add-bill.component';
 
 const routes: Routes = [
+  {
+    path: 'add-bill/:id',
+    component: AddBillComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: 'add-quotation',
     component: QuotationFormComponent,
