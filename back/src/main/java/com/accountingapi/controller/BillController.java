@@ -45,7 +45,7 @@ public class BillController {
 
     // -------------------Retrieve One Bill By ID---------------------------------------------
     @GetMapping("/{id}")
-    public ResponseEntity<Bill> getBillById(@PathVariable("id") String id) {
+    public ResponseEntity<Bill> getBillById(@PathVariable("id") Long id) {
         if (billService.existsById(id))
             return new ResponseEntity<Bill>(billService.findBillById(id), HttpStatus.OK);
         else return new ResponseEntity("Bill not found", HttpStatus.NOT_FOUND);
@@ -55,7 +55,7 @@ public class BillController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+    public ResponseEntity<?> deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable Long id) {
         if (billService.existsById(id)) {
             Bill bill = billService.findBillById(id);
             bill.setDeleted(true);
