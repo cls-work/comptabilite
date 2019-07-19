@@ -3,6 +3,7 @@ import {QuotationModel} from '../_models/quotation.model';
 import {Subject} from 'rxjs';
 import {ProviderModel} from '../_models/provider.model';
 import {QuotationService} from '../_services/quotation.service';
+import {TranslateService} from '../_services/translate.service';
 
 @Component({
   selector: 'app-list-quotation',
@@ -18,7 +19,8 @@ export class ListQuotationComponent implements OnInit {
   quotations: QuotationModel[];
 
 
-  constructor(private quotationService: QuotationService) {
+  constructor(private quotationService: QuotationService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit() {

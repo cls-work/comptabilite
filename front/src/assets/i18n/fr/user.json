@@ -8,6 +8,7 @@
   "PASSWORD": "Mot de passe",
   "REPEAT": "Répeter",
   "NAME":"Nom",
+  "ROLE": "Rôle",
   "USERNAME":"Nom d'utilisateur",
   "EMAIL":"Email"
 }

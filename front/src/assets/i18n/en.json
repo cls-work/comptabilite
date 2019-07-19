@@ -56,6 +56,10 @@
   "USER_DELETED_SUCCESS": "User deleted",
   "USER_ADDED_SUCCESS": "Added user",
   "USER_EDITED_SUCCESS": "User changed",
+  "BILL_CONFIRM_SUCCESS": "Invoice  confirmed",
+  "BILL_CONFIRM_ERROR": "Error Invoice confirmation",
+  "BILL_REJECT_SUCCESS": "Invoice rejected",
+  "BILL_REJECT_ERROR": "Error Invoice rejection",
 
 
 
@@ -84,6 +88,7 @@
   "SAME_PASSWORD_ERROR": "Passwords must be identical",
   "REPEAT": "Repeat",
   "NAME":"Name",
+  "ROLE": "Role",
   "USERNAME_MIN": "Username should be minimum 5 character long",
   "NAME_MIN": "Name should be minimum 5 character long",
   "PASSWORD_MIN": "Password should be minimum 6 character long ",

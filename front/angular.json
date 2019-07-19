@@ -57,7 +57,9 @@
               "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
               "node_modules/bootstrap-fileinput/themes/explorer-fas/theme.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
-              "src/assets/css/colReorder.dataTables.min.css"
+              "src/assets/css/colReorder.dataTables.min.css",
+              "node_modules/noty/lib/noty.css",
+              "node_modules/noty/lib/themes/metroui.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -82,7 +84,10 @@
               "node_modules/bootstrap-fileinput/js/locales/fr.js",
               "node_modules/jspdf/dist/jspdf.min.js",
               "node_modules/written-number/lib/index.js",
-              "node_modules/html2canvas/dist/html2canvas.min.js"
+              "node_modules/html2canvas/dist/html2canvas.min.js",
+              "node_modules/bootstrap-fileinput/js/locales/fr.js",
+              "node_modules/bootstrap-fileinput/js/locales/de.js",
+              "node_modules/noty/lib/noty.js"
             ]
           },
           "configurations": {

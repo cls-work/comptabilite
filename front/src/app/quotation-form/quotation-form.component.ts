@@ -69,9 +69,8 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     this.productForm = this.formBuilder.group({
       reference: ['', Validators.required],
       designation: ['', Validators.required],
-      category: ['']
+      category: ['', Validators.required]
 
-      // @ts-ignore
     });
 
     this.categoryService.getAllCategories()
@@ -89,8 +88,6 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     this.providerForm = this.formBuilder.group({
       name: ['', Validators.required],
       adresse: ['', Validators.required]
-
-      // @ts-ignore
     });
 
     this.quotationForm = this.formBuilder.group({
@@ -102,7 +99,6 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
       totalTTC: [''],
       totalTVA: ['']
 
-      // @ts-ignore
     });
 
     this.finalForm = this.formBuilder.group({
@@ -194,6 +190,13 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     // console.log("here");
     // console.log(this.finalForm.value);
 
+    // console.log(this.QuotationToSend.value);
+    if (!this.QuotationToSend) {
+      this.QuotationToSend = this.formBuilder.group({
+          quotation: [this.quotationForm.value]
+        }
+      );
+    }
 
     this.quotationService.postQuotation(this.QuotationToSend.value)
       .subscribe(reponse => {

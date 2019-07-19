@@ -51,6 +51,7 @@ export class PurchaseFormComponent implements OnInit {
         });
 
 
+    console.log(this.orderForm.controls.purchases);
     this.productForm = this.formBuilder.group({
       reference: ['', Validators.required],
       designation: ['', Validators.required],
@@ -76,6 +77,7 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   addItem(): void {
+    console.log('add new product');
     this.purchases = this.orderForm.get('purchases') as FormArray;
     this.purchases.push(this.createItem());
   }

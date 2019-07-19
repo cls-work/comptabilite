@@ -1,4 +1,6 @@
 <app-loader *ngIf="loading"></app-loader>
+
+
 <ng-container *ngIf="quotationForm">
 
   <div class="card">
@@ -18,7 +20,7 @@
 
 
                         <ng-select [(ngModel)]="selectedProvider" class="input-" formControlName="provider"
-                                   labelForId="provider">
+                                   id="provider" labelForId="provider">
 
                           <ng-option *ngFor="let provider of providers" [disabled]="provider.disabled"
                                      [value]="provider">{{provider.name}} {{provider.adresse}}</ng-option>
@@ -272,14 +274,13 @@
 
 
   <!-- Modal -->
-  <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="exampleModalCenter"
+  <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="add-provider"
        role="dialog" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Add new provider</h5>
           <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-            <span aria-hidden="true">&times;</span>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -301,10 +302,12 @@
                   <div class="input-group">
                     <label class="label" for="name">{{'NAME'|translate}}</label>
                     <input class="input--style-4" formControlName="name" id="name" type="text"/>
-                    <i *ngIf="providerForm.controls.name.valid " class="fa fa-check-circle"
-                       style="color:green;"></i>
-                    <i *ngIf="providerForm.controls.name.invalid" class="fa fa-times-circle"
-                       style="color:firebrick;"></i>
+                    <div *ngIf="providerForm.controls.name.valid && providerForm.controls.name.touched">
+                      <i class="fa fa-check-circle" style="color:green;"></i>
+                    </div>
+                    <div *ngIf="!providerForm.controls.name.valid && providerForm.controls.name.touched">
+                      <i class="fa fa-times-circle" style="color:firebrick;"></i>
+                    </div>
 
                   </div>
                 </div>
@@ -314,11 +317,12 @@
                   <div class="input-group">
                     <label class="label" for="adresse">{{'ADRESSE'|translate}}</label>
                     <input class="input--style-4" formControlName="adresse" id="adresse" type="text"/>
-                    <i *ngIf="providerForm.controls.adresse.valid " class="fa fa-check-circle"
-                       style="color:green;"></i>
-                    <i *ngIf="providerForm.controls.adresse.invalid" class="fa fa-times-circle"
-                       style="color:firebrick;"></i>
-
+                    <div *ngIf="providerForm.controls.adresse.valid && providerForm.controls.adresse.touched">
+                      <i class="fa fa-check-circle" style="color:green;"></i>
+                    </div>
+                    <div *ngIf="!providerForm.controls.adresse.valid && providerForm.controls.adresse.touched">
+                      <i class="fa fa-times-circle" style="color:firebrick;"></i>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -334,15 +338,15 @@
       </div>
     </div>
   </div>
+</ng-container>
 
-
-  <!-- Modal -->
+<!-- Modal --><!--
   <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="ProductLogin"
        role="dialog" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Add new product</h5>
+          <h5 class="modal-title" id="add-product">Add new product</h5>
           <button aria-label="Close" class="close" data-dismiss="modal" type="button">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -377,10 +381,12 @@
                   <div class="input-group">
                     <label class="label" for="designation">{{'Reference'|translate}}</label>
                     <input class="form-control" formControlName="designation" id="designation" type="text"/>
-                    <i *ngIf="productForm.controls.designation.valid " class="fa fa-check-circle"
-                       style="color:green;"></i>
-                    <i *ngIf="productForm.controls.designation.invalid" class="fa fa-times-circle"
-                       style="color:firebrick;"></i>
+                    <div *ngIf="productForm.controls.designation.valid && quotationForm.controls.designation.touched">
+                      <i class="fa fa-check-circle" style="color:green;"></i>
+                    </div>
+                    <div *ngIf="!productForm.controls.designation.valid && quotationForm.controls.designation.touched">
+                      <i class="fa fa-times-circle" style="color:firebrick;"></i>
+                    </div>
 
                   </div>
                 </div>
@@ -393,16 +399,18 @@
 
 
                   <ng-select [(ngModel)]="selectedCategorie" class="input-" formControlName="category"
-                             labelForId="category">
+                             labelForId="category" id="category">
 
                     <ng-option *ngFor="let categorie of categories" [value]="categorie">{{categorie.label}}</ng-option>
 
                   </ng-select>
 
-                  <i *ngIf="productForm.controls.category.valid " class="fa fa-check-circle"
-                     style="color:green;"></i>
-                  <i *ngIf="productForm.controls.category.invalid" class="fa fa-times-circle"
-                     style="color:firebrick;"></i>
+                  <div *ngIf="quotationForm.controls.category.valid && quotationForm.controls.category.touched">
+                    <i class="fa fa-check-circle" style="color:green;"></i>
+                  </div>
+                  <div *ngIf="!quotationForm.controls.category.valid && quotationForm.controls.category.touched">
+                    <i class="fa fa-times-circle" style="color:firebrick;"></i>
+                  </div>
 
 
                 </div>
@@ -419,7 +427,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
 
 

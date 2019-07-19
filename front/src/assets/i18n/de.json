@@ -83,6 +83,7 @@
   "SAME_PASSWORD_ERROR": "Passwörter müssen identisch sein",
   "REPEAT": "Wiederholen",
   "NAME":"Name",
+  "ROLE": "Rolle",
   "USERNAME_MIN": "Benutzername muss mindestens 5 Zeichen lang sein",
   "NAME_MIN": "Name muss mindestens 5 Zeichen lang sein",
   "PASSWORD_MIN": "Passwort muss mindestens 6 Zeichen lang sein ",
