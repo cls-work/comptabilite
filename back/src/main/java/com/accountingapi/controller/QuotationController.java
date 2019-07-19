@@ -17,6 +17,7 @@ import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -63,14 +64,12 @@ public class QuotationController {
     // -------------------Create a Quotation and sending an email to Admin---------------------------------------------
     @PostMapping
     public ResponseEntity<Quotation> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody QuotationRequestDto quotationRequestDto) throws IOException, MessagingException {
-        /*User quotationCreator = userService.findUserById((long) 1);
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findById((long) 1).get());
-        User admin = (User) userService.findAllByRoles(roles).get(0);
+        User quotationCreator = userService.findUserById((long) 1);
+        User admin = (User) userService.findUserById((long) 2);
         //EmailService.createQuotationMail(currentUser,admin);
-        //emailService.createQuotationMail(quotationCreator,admin);
-        */
-        System.out.println("************************");
+        System.out.println("test1");
+        emailService.createQuotationMail(quotationCreator, admin);
+
         Quotation quotation = quotationRequestDto.getQuotation();
         List<Purchase> purchases = quotation.getPurchases();
         for (Purchase purchase : purchases) purchase.setQuotation(quotation);
@@ -78,7 +77,6 @@ public class QuotationController {
         if (quotationRequestDto.getDocumentIds() != null) {
 
             List<Long> documentsIds = quotationRequestDto.getDocumentIds();
-            System.out.println("Test");
             List<FileStorageProperties> documents = new ArrayList<>();
             for (Long id : documentsIds) documents.add(fileStorageService.findById(id));
             quotation.setFileStorageProperties(documents);
@@ -117,16 +115,15 @@ public class QuotationController {
     }
 
     // -------------------Confirm Quotation By ID---------------------------------------------
-
-    @PutMapping("/confirm/{quotationId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/confirm/{quotationId}")
     public ResponseEntity<?> confirmQuotation(@PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
             Quotation quotation = quotationService.findQuotationById(quotationId);
             if (quotation.getConfirmed() == null) {
                 quotation.setConfirmed(true);
-                System.out.println("TEST");
                 quotationService.updateQuotation(quotation);
-                return new ResponseEntity("Quotation with id " + quotationId + " Confirmed", HttpStatus.OK);
+                return new ResponseEntity(HttpStatus.OK);
             } else
                 return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
         }
@@ -134,15 +131,15 @@ public class QuotationController {
     }
 
     // -------------------Reject Quotation By ID---------------------------------------------
-
-    @PutMapping("/reject/{quotationId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/reject/{quotationId}")
     public ResponseEntity<?> rejectQuotation(@PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
             Quotation quotation = quotationService.findQuotationById(quotationId);
             if (quotation.getConfirmed() == null) {
                 quotation.setConfirmed(false);
                 quotationService.updateQuotation(quotation);
-                new ResponseEntity("Quotation with id " + quotationId + " Rejected", HttpStatus.OK);
+                return new ResponseEntity(HttpStatus.OK);
             } else
                 return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
         }

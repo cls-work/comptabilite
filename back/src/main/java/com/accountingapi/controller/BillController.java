@@ -1,8 +1,6 @@
 
 package com.accountingapi.controller;
 import com.accountingapi.model.Bill;
-import com.accountingapi.model.FileStorageProperties;
-import com.accountingapi.model.Historical;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.repository.UserRepository;
@@ -11,9 +9,8 @@ import com.accountingapi.service.impl.FileStorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -60,7 +57,7 @@ public class BillController {
             Bill bill = billService.findBillById(id);
             bill.setDeleted(true);
             billService.updateBill(bill);
-            return new ResponseEntity<>("Bill isDeleted setted to true and added to historical", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Bill's attribute isDeleted setted to true", HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity("Quotation with id" + id + " not found", HttpStatus.NOT_FOUND);
 

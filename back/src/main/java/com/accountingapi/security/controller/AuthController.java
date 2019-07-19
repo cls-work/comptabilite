@@ -66,10 +66,10 @@ public class AuthController {
 
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.generateToken(authentication);
-        Long userId = jwtTokenProvider.getUserIdFromJWT(jwt);
+        String token = tokenProvider.generateToken(authentication);
+        Long userId = jwtTokenProvider.getUserIdFromJWT(token);
         User user = userRepository.getById(userId);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,user));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(token, user));
     }
 
 
