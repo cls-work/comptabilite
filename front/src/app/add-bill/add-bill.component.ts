@@ -17,7 +17,7 @@ export class AddBillComponent implements OnInit {
   billform: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder, private route: ActivatedRoute ,
+    private formBuilder: FormBuilder, private route: ActivatedRoute,
     private  billService: BillService) {
   }
 
@@ -32,7 +32,8 @@ export class AddBillComponent implements OnInit {
       bankAccount: ['', Validators.required],
       checkState: ['', Validators.required],
       profilOf: ['', Validators.required],
-      reference: ['', Validators.required]
+      reference: ['', Validators.required],
+      checkDate: ['', Validators.required]
 
       // @ts-ignore
     });
@@ -44,16 +45,23 @@ export class AddBillComponent implements OnInit {
   }
 
   addBill() {
+    if (this.cheque) {
+      this.billform = this.formBuilder.group({
+        checkPayment: [this.checkform.value],
+        quotation: [this.quotationForm.value]
+        // @ts-ignore
+      });
+    } else {
+      this.billform = this.formBuilder.group({
+        quotation: [this.quotationForm.value]
+        // @ts-ignore
+      });
+    }
 
-    this.billform = this.formBuilder.group({
-      checkPayment: [this.checkform.value],
-      quotation: [this.quotationForm.value]
-      // @ts-ignore
-    });
 
     this.billService.postBill(this.billform.value).subscribe((res) => {
-      console.log(res) ;
-    }) ;
+      console.log(res);
+    });
     console.log(this.billform.value);
   }
 }

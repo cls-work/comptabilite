@@ -164,6 +164,7 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   removePurchase(i) {
+    // @ts-ignore
     this.orderForm.get('purchases').removeAt(i);
     this.calculateTotals();
   }
