@@ -11,9 +11,9 @@ public interface BillService {
 
     List<Bill> findAllBills();
 
-    Bill findBillById(String billId);
+    Bill findBillById(Long billId);
 
-    boolean existsById(String billId);
+    boolean existsById(Long billId);
 
     Bill updateBill(Bill bill);
 

@@ -16,4 +16,5 @@ public interface QuotationService {
     void deleteQuotationById(Long quotationId);
 
     boolean existsById(Long quotationId);
+
 }

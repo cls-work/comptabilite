@@ -64,12 +64,12 @@ public class QuotationController {
     // -------------------Create a Quotation and sending an email to Admin---------------------------------------------
     @PostMapping
     public ResponseEntity<Quotation> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody QuotationRequestDto quotationRequestDto) throws IOException, MessagingException {
-        User quotationCreator = userService.findUserById((long) 1);
+        /*User quotationCreator = userService.findUserById((long) 1);
         User admin = (User) userService.findUserById((long) 2);
         //EmailService.createQuotationMail(currentUser,admin);
         System.out.println("test1");
         emailService.createQuotationMail(quotationCreator, admin);
-
+*/
         Quotation quotation = quotationRequestDto.getQuotation();
         List<Purchase> purchases = quotation.getPurchases();
         for (Purchase purchase : purchases) purchase.setQuotation(quotation);

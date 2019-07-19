@@ -38,6 +38,7 @@ public class Quotation {
 
 
     @OneToOne(mappedBy = "quotation", cascade = CascadeType.MERGE)
+    @JsonIgnore
     private Bill bill;
 
     @JsonIgnore
@@ -61,6 +62,8 @@ public class Quotation {
     @JsonIgnore
     @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
+
+    private boolean hasBill = false;
 
     public Long getId() {
         return id;
@@ -168,11 +171,19 @@ public class Quotation {
     }
 
 
+    public boolean isHasBill() {
+        return hasBill;
+    }
+
+    public void setHasBill(boolean hasBill) {
+        this.hasBill = hasBill;
+    }
+
     @Override
     public String toString() {
         return "Quotation{" +
                 "id=" + id +
-                ", creattionDate=" + creationDate +
+                ", creationDate=" + creationDate +
                 ", totalHT=" + totalHT +
                 ", totalTTC=" + totalTTC +
                 ", totalTVA=" + totalTVA +
@@ -183,6 +194,8 @@ public class Quotation {
                 ", acceptedBy=" + acceptedBy +
                 ", provider=" + provider +
                 ", purchases=" + purchases +
+                ", fileStorageProperties=" + fileStorageProperties +
+                ", hasBill=" + hasBill +
                 '}';
     }
 }

@@ -26,12 +26,12 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public Bill findBillById(String billId) {
+    public Bill findBillById(Long billId) {
         return billRepository.findById(billId).get();
     }
 
     @Override
-    public boolean existsById(String billId) {
+    public boolean existsById(Long billId) {
         return billRepository.existsById(billId);
     }
 
