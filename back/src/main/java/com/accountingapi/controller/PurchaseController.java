@@ -104,10 +104,15 @@ public class PurchaseController {
         List<Category> categories = categoryService.findAllCategories();
         for (Category category : categories) {
             List<Product> products = productService.findProductsByCategory(category);
+            PurchasesCategory purchasesCategory = new PurchasesCategory();
+            purchasesCategory.setCategory(category);
+            purchasesCategory.setPurchases(new ArrayList<>());
             for (Product product : products) {
-                PurchasesCategory purchasesCategory = new PurchasesCategory(category, purchaseService.findAllPurchasesByProduct(product));
-                purchasesCategoryList.add(purchasesCategory);
+                List<Purchase> purchases = purchaseService.findAllPurchasesByProduct(product);
+                purchasesCategory.addPurchases(purchases);
+
             }
+            purchasesCategoryList.add(purchasesCategory);
         }
         return new ResponseEntity<>(purchasesCategoryList, HttpStatus.OK);
 

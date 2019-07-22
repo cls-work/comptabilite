@@ -8,6 +8,9 @@ public class PurchasesCategory {
 
     private List<Purchase> purchases;
 
+    public PurchasesCategory() {
+    }
+
     public PurchasesCategory(Category category, List<Purchase> purchases) {
         this.category = category;
         this.purchases = purchases;
@@ -27,5 +30,9 @@ public class PurchasesCategory {
 
     public void setPurchases(List<Purchase> purchases) {
         this.purchases = purchases;
+    }
+
+    public void addPurchases(List<Purchase> purchases) {
+        for (Purchase purchase : purchases) this.purchases.add(purchase);
     }
 }
