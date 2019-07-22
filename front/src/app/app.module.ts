@@ -45,6 +45,8 @@ import {AddBillComponent} from './add-bill/add-bill.component';
 import {PurchaseFormComponent} from './purchase-form/purchase-form.component';
 import {NgxDocViewerModule} from 'ngx-doc-viewer';
 import {StatsComponent} from './stats/stats.component';
+import {NgxEchartsModule} from 'ngx-echarts';
+import {StatsService} from './_services/stats.service';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -76,9 +78,7 @@ export function setupTranslateFactory(service: TranslateService) {
     ProviderFormComponent,
     PurchaseFormComponent,
     ConfirmQuotationComponent,
-
     AddBillComponent,
-
     StatsComponent
   ],
   imports: [
@@ -90,6 +90,7 @@ export function setupTranslateFactory(service: TranslateService) {
     NgxPaginationModule,
     DataTablesModule,
     NgSelectModule,
+    NgxEchartsModule,
     NgxPrintModule,
     NgSelectModule,
     NgxDocViewerModule,
@@ -103,6 +104,7 @@ export function setupTranslateFactory(service: TranslateService) {
     BillService,
     UserService,
     AuthenticationService,
+    StatsService,
     HistoricalService,
     TranslateService, {
       provide: APP_INITIALIZER,

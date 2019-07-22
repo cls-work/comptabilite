@@ -47,7 +47,6 @@
               "src/assets"
             ],
             "styles": [
-
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "src/assets/fontawesome-pro-5.8.2-web/css/all.css",
               "src/styles.scss",
@@ -88,7 +87,9 @@
               "node_modules/html2canvas/dist/html2canvas.min.js",
               "node_modules/bootstrap-fileinput/js/locales/fr.js",
               "node_modules/bootstrap-fileinput/js/locales/de.js",
-              "node_modules/noty/lib/noty.js"
+              "node_modules/noty/lib/noty.js",
+              "node_modules/echarts/theme/dark.js",
+              "node_modules/echarts/theme/macarons.js"
             ]
           },
           "configurations": {

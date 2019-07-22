@@ -17,6 +17,7 @@ export const LANG = 'lang/';
 export const DELETEFILE = 'deleteFile/';
 export const PROVIDERS = 'providers/';
 export const CATEGORY = 'categories/';
+export const PURCHASES_BY_CATEGORIES = 'purchases/purchasesByCategory/';
 
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';
