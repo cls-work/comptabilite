@@ -34,8 +34,10 @@
         <h6><i class="fas fa-redo-alt"></i> Pending</h6></span>
       <span *ngIf="quotation.confirmed === false " class="badge badge-pill badge-danger">
         <h6><i class="fas fa-exclamation-circle"></i> Rejected</h6></span>
-      <span *ngIf="quotation.confirmed === true" class="badge badge-pill badge-success">
+      <span *ngIf="quotation.confirmed === true &&!quotation.hasBill" class="badge badge-pill badge-success">
         <h6><i class="fas fa-check"></i> Approved</h6></span>
+      <span *ngIf="quotation.hasBill" class="badge badge-pill badge-success">
+        <h6><i class="fas fa-check"></i> Bill created</h6></span>
 
 
     </td>
@@ -50,7 +52,7 @@
         <button (click)="onDeleteQuotation(i)" *ngIf="quotation.confirmed===null"
                 class="btn btn-danger btn-circle btn-lg" type="button"><h6><i
           class="fa fa-trash "></i></h6></button>
-        <button *ngIf="quotation.confirmed " class="btn btn-success btn-circle btn-lg"
+        <button *ngIf="quotation.confirmed && !quotation.hasBill " class="btn btn-success btn-circle btn-lg"
                 [routerLink]="'/add-bill/'+quotation.id" type="button"><h6><i class="fa fa-plus"></i> Bill</h6></button>
       </div>
     </td>

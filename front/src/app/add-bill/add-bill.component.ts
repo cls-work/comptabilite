@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BillService} from '../_services/bill.service';
+import * as Noty from 'noty';
+import {TranslateService} from '../_services/translate.service';
 
 @Component({
   selector: 'app-add-bill',
@@ -18,7 +20,9 @@ export class AddBillComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder, private route: ActivatedRoute,
-    private  billService: BillService) {
+    private  billService: BillService,
+    private translateService: TranslateService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -32,7 +36,8 @@ export class AddBillComponent implements OnInit {
       bankAccount: ['', Validators.required],
       checkState: ['', Validators.required],
       profilOf: ['', Validators.required],
-      reference: ['', Validators.required]
+      reference: ['', Validators.required],
+      checkDate: ['', Validators.required]
 
       // @ts-ignore
     });
@@ -44,15 +49,37 @@ export class AddBillComponent implements OnInit {
   }
 
   addBill() {
+    if (this.cheque) {
+      this.billform = this.formBuilder.group({
+        checkPayment: [this.checkform.value],
+        quotation: [this.quotationForm.value]
+        // @ts-ignore
+      });
+    } else {
+      this.billform = this.formBuilder.group({
+        quotation: [this.quotationForm.value]
+        // @ts-ignore
+      });
+    }
 
-    this.billform = this.formBuilder.group({
-      checkPayment: [this.checkform.value],
-      quotation: [this.quotationForm.value]
-      // @ts-ignore
-    });
 
     this.billService.postBill(this.billform.value).subscribe((res) => {
+      new Noty({
+        theme: 'metroui',
+        type: 'success',
+        timeout: 5000,
+        text: this.translateService.data['BILL_CREATION_SUCCESS'] || 'BILL_CREATION_SUCCESS'
+      }).show();
+      this.router.navigate(['quotations/list']);
       console.log(res);
+    }, (error) => {
+      new Noty({
+        theme: 'metroui',
+        type: 'error',
+        timeout: 5000,
+        text: this.translateService.data['BILL_CREATION_ERROR'] || 'BILL_CREATION_ERROR'
+      }).show();
+
     });
     console.log(this.billform.value);
   }

@@ -17,4 +17,5 @@ export class QuotationModel {
   acceptedBy: UserModel;
   provider: ProviderModel;
   purchases: PurchaseModel[];
+  hasBill: boolean;
 }

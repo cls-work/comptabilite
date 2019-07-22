@@ -9,6 +9,8 @@ import {ProviderService} from '../_services/provider.service';
 import {ProductService} from '../_services/product.service';
 import {CategoryService} from '../_services/category.service';
 import {CategoryModel} from '../_models/category.model';
+import * as Noty from 'noty';
+import {TranslateService} from '../_services/translate.service';
 
 declare let $: any;
 
@@ -55,10 +57,12 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
-    private categoryService: CategoryService) {
+    private categoryService: CategoryService,
+    private translateService: TranslateService) {
   }
 
   ngOnInit() {
+
     console.log('hamza');
     this.providerService.getAllProviders()
       .subscribe(
@@ -72,6 +76,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
       category: ['', Validators.required]
 
     });
+
 
     this.categoryService.getAllCategories()
       .subscribe(
@@ -134,6 +139,12 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
         }
 
     */
+  }
+
+  ngAfterViewInit() {
+
+    console.log('after view init');
+    this.initFileUploader();
   }
 
   addProduct() {
@@ -202,19 +213,30 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
       .subscribe(reponse => {
         console.log(reponse);
         this.loading = false;
+        new Noty({
+          theme: 'metroui',
+          type: 'success',
+          timeout: 5000,
+          text: this.translateService.data['PRODUCT_ADD_SUCCESS'] || 'PRODUCT_ADD_SUCCESS'
+        }).show();
+        this.router.navigate(['quotations/list']);
         // @ts-ignore
         //  this.router.navigate(['/add-purchases', d.id, 'new']);
       }, () => {
         this.loading = false;
         this.error = true;
+        new Noty({
+          theme: 'metroui',
+          type: 'error',
+          timeout: 5000,
+          text: this.translateService.data['PRODUCT_ADD_ERROR'] || 'PRODUCT_ADD_ERROR'
+        }).show();
       });
   }
 
-  ngAfterViewInit(): void {
-    this.initFileUploader();
-  }
 
   initFileUploader() {
+    console.log('inside file');
     $('#test').fileinput({
       theme: 'explorer-fas',
       uploadUrl: BASE_URL + 'uploadMultipleFiles',

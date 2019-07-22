@@ -34,10 +34,11 @@
                           </ng-template>
                         </ng-select>
 
-                        <div *ngIf="quotationForm.controls.provider.valid && quotationForm.controls.provider.touched">
+                        <div *ngIf="quotationForm.controls.provider?.valid && quotationForm.controls.provider?.touched">
                           <i class="fa fa-check-circle" style="color:green;"></i>
                         </div>
-                        <div *ngIf="!quotationForm.controls.provider.valid && quotationForm.controls.provider.touched">
+                        <div
+                          *ngIf="!quotationForm.controls.provider?.valid && quotationForm.controls.provider?.touched">
                           <i class="fa fa-times-circle" style="color:firebrick;"></i>
                         </div>
 
@@ -53,11 +54,11 @@
                           <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
                           <input class="input--style-4" formControlName="taxStamp" id="taxStamp" type="number"/>
                           <div
-                            *ngIf="quotationForm.controls.taxStamp.valid &&  quotationForm.controls.taxStamp.touched">
+                            *ngIf="quotationForm.controls.taxStamp?.valid &&  quotationForm.controls.taxStamp?.touched">
                             <i class="fa fa-check-circle" style="color:green;"></i>
                           </div>
                           <div
-                            *ngIf="!quotationForm.controls.taxStamp.valid && quotationForm.controls.taxStamp.touched ">
+                            *ngIf="!quotationForm.controls.taxStamp?.valid && quotationForm.controls.taxStamp?.touched ">
                             <i class="fa fa-times-circle" style="color:firebrick;"></i>
                           </div>
 
@@ -74,10 +75,10 @@
                           <div class="input-group-icon">
                             <label class="label" for="date">{{'DATE'|translate}}</label>
                             <input class="input--style-4 js-datepicker" formControlName="date" id="date" type="date">
-                            <div *ngIf="quotationForm.controls.date.valid && quotationForm.controls.date.touched">
+                            <div *ngIf="quotationForm.controls.date?.valid && quotationForm.controls.date?.touched">
                               <i class="fa fa-check-circle" style="color:green;"></i>
                             </div>
-                            <div *ngIf="!quotationForm.controls.date.valid && quotationForm.controls.date.touched">
+                            <div *ngIf="!quotationForm.controls.date?.valid && quotationForm.controls.date?.touched">
                               <i class="fa fa-times-circle" style="color:firebrick;"></i>
                             </div>
 
@@ -88,7 +89,7 @@
                     </div>
 
                     <div *ngIf="!quotation" class="p-t-15">
-                      <button (click)="onAddBillClick()" [disabled]="!quotationForm.valid"
+                      <button (click)="onAddBillClick()" [disabled]="!quotationForm?.valid"
                               class="btn btn--radius-2 btn--blue"
                               type="submit">{{'ADD_BILL'|translate}}</button>
                     </div>
@@ -162,7 +163,7 @@
 
 
                       <i class="fa fa-check-circle" style="color:green;"
-                         *ngIf="quotationForm.controls.provider.valid "></i>
+                         *ngIf="quotationForm.controls.provider?.valid "></i>
                       <i class="fa fa-times-circle" style="color:firebrick;"
                          *ngIf="quotationForm.controls.provider.invalid"></i>
                     </div>
@@ -177,7 +178,7 @@
                         <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
                         <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"/>
                         <i class="fa fa-check-circle" style="color:green;"
-                           *ngIf="quotationForm.controls.taxStamp.valid "></i>
+                           *ngIf="quotationForm.controls.taxStamp?.valid "></i>
                         <i class="fa fa-times-circle" style="color:firebrick;"
                            *ngIf="quotationForm.controls.taxStamp.invalid"></i>
 
@@ -194,7 +195,7 @@
                           <label class="label" for="date">{{'DATE'|translate}}</label>
                           <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
                           <i class="fa fa-check-circle" style="color:green;"
-                             *ngIf="quotationForm.controls.date.valid "></i>
+                             *ngIf="quotationForm.controls.date?.valid "></i>
                           <i class="fa fa-times-circle" style="color:firebrick;"
                              *ngIf="quotationForm.controls.date.invalid"></i>
 
@@ -206,7 +207,7 @@
 
                   <div class="p-t-15" *ngIf="!quotation">
                     <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddBillClick()"
-                            [disabled]="!quotationForm.valid">{{'ADD_BILL'|translate}}</button>
+                            [disabled]="!quotationForm?.valid">{{'ADD_BILL'|translate}}</button>
                   </div>
 
                   <div class="p-t-15">
@@ -260,7 +261,7 @@
             <h4>SUBMIT</h4>
           </button>
           <i class="fa fa-check-circle" style="color:green;"
-             *ngIf="quotationForm.valid"></i>
+             *ngIf="quotationForm?.valid"></i>
           <i class="fa fa-times-circle" style="color:firebrick;"
              *ngIf="quotationForm.invalid"></i>
         </ng-template>
@@ -302,10 +303,10 @@
                   <div class="input-group">
                     <label class="label" for="name">{{'NAME'|translate}}</label>
                     <input class="input--style-4" formControlName="name" id="name" type="text"/>
-                    <div *ngIf="providerForm.controls.name.valid && providerForm.controls.name.touched">
+                    <div *ngIf="providerForm.controls.name?.valid && providerForm.controls.name?.touched">
                       <i class="fa fa-check-circle" style="color:green;"></i>
                     </div>
-                    <div *ngIf="!providerForm.controls.name.valid && providerForm.controls.name.touched">
+                    <div *ngIf="!providerForm.controls.name?.valid && providerForm.controls.name?.touched">
                       <i class="fa fa-times-circle" style="color:firebrick;"></i>
                     </div>
 
@@ -317,10 +318,10 @@
                   <div class="input-group">
                     <label class="label" for="adresse">{{'ADRESSE'|translate}}</label>
                     <input class="input--style-4" formControlName="adresse" id="adresse" type="text"/>
-                    <div *ngIf="providerForm.controls.adresse.valid && providerForm.controls.adresse.touched">
+                    <div *ngIf="providerForm.controls.adresse?.valid && providerForm.controls.adresse?.touched">
                       <i class="fa fa-check-circle" style="color:green;"></i>
                     </div>
-                    <div *ngIf="!providerForm.controls.adresse.valid && providerForm.controls.adresse.touched">
+                    <div *ngIf="!providerForm.controls.adresse?.valid && providerForm.controls.adresse?.touched">
                       <i class="fa fa-times-circle" style="color:firebrick;"></i>
                     </div>
                   </div>
@@ -332,7 +333,7 @@
 
         </div>
         <div class="modal-footer">
-          <button (click)="addProvider()" [disabled]="!providerForm.valid" class="btn "
+          <button (click)="addProvider()" [disabled]="!providerForm?.valid" class="btn "
                   type="submit">{{'SUBMIT'|translate}}</button>
         </div>
       </div>
@@ -340,7 +341,8 @@
   </div>
 </ng-container>
 
-<!-- Modal --><!--
+
+<!-- Modal -->
   <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="ProductLogin"
        role="dialog" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -353,7 +355,7 @@
         </div>
 
 
-        <div class="modal-body">
+        <div class="modal-body bg-light">
           <div *ngIf="submittedProduct&&errorProduct" class="alert alert-dark" role="alert">
             {{'ERROR'|translate}}
           </div>
@@ -368,7 +370,7 @@
                   <div class="input-group">
                     <label class="label" for="reference">{{'Designation'|translate}}</label>
                     <input class="form-control" formControlName="reference" id="reference" type="text"/>
-                    <i *ngIf="productForm.controls.reference.valid " class="fa fa-check-circle"
+                    <i *ngIf="productForm.controls.reference?.valid " class="fa fa-check-circle"
                        style="color:green;"></i>
                     <i *ngIf="productForm.controls.reference.invalid" class="fa fa-times-circle"
                        style="color:firebrick;"></i>
@@ -381,10 +383,11 @@
                   <div class="input-group">
                     <label class="label" for="designation">{{'Reference'|translate}}</label>
                     <input class="form-control" formControlName="designation" id="designation" type="text"/>
-                    <div *ngIf="productForm.controls.designation.valid && quotationForm.controls.designation.touched">
+                    <div *ngIf="productForm.controls.designation?.valid && quotationForm.controls.designation?.touched">
                       <i class="fa fa-check-circle" style="color:green;"></i>
                     </div>
-                    <div *ngIf="!productForm.controls.designation.valid && quotationForm.controls.designation.touched">
+                    <div
+                      *ngIf="!productForm.controls.designation?.valid && quotationForm.controls.designation?.touched">
                       <i class="fa fa-times-circle" style="color:firebrick;"></i>
                     </div>
 
@@ -405,10 +408,10 @@
 
                   </ng-select>
 
-                  <div *ngIf="quotationForm.controls.category.valid && quotationForm.controls.category.touched">
+                  <div *ngIf="quotationForm.controls.category?.valid && quotationForm.controls.category?.touched">
                     <i class="fa fa-check-circle" style="color:green;"></i>
                   </div>
-                  <div *ngIf="!quotationForm.controls.category.valid && quotationForm.controls.category.touched">
+                  <div *ngIf="!quotationForm.controls.category?.valid && quotationForm.controls.category?.touched">
                     <i class="fa fa-times-circle" style="color:firebrick;"></i>
                   </div>
 
@@ -422,12 +425,12 @@
 
         </div>
         <div class="modal-footer">
-          <button (click)="addProduct()" [disabled]="!productForm.valid" class="btn "
+          <button (click)="addProduct()" [disabled]="!productForm?.valid" class="btn "
                   type="submit">{{'SUBMIT'|translate}}</button>
         </div>
       </div>
     </div>
-  </div>-->
+  </div>
 
 
 

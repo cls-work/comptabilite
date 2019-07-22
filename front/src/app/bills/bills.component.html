@@ -1,91 +1,21 @@
-<!--
-
-<app-loader *ngIf="loading"></app-loader>
-<div>
-
-  <div class="alert alert-dark" role="alert" *ngIf="billDeleted">
-    <a class="text-success">
-      {{'BILL_DELETED_SUCCESS'|translate}}
-    </a>
-  </div>
-
-  <div class="alert alert-dark" role="alert" *ngIf="billEdited">
-    <a class="text-success">
-      {{'BILL_EDITED_SUCCESS'|translate}}
-    </a>
-  </div>
-
-  <div class="alert alert-dark" role="alert" *ngIf="error">
-    <a class="text-success">
-      {{'ERROR_LOADING_BILL'|translate}}
-    </a>
-  </div>
-
-
-</div>
-<button class="btn btn-outline-secondary" type="button"
-        [routerLink]="['/bill-form']">{{'ADD_BILL'|translate|titlecase}}</button>
-
-
-<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-       class="table  table-bordered row-border table-hover table-responsive-md table-sm"
+<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table  table-bordered row-border table-hover text-center"
        datatable
        style="width:100%">
   <thead class="thead-dark">
   <tr>
     <th>{{'BILL_ID'|translate|titlecase}}</th>
-    <th>{{'PROVIDER'|translate|titlecase}}</th>
     <th>{{'DATE'|translate|titlecase}}</th>
-    <th>{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
-    <th>{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
-    <th>{{'TAX_STAMP'|translate|titlecase}}</th>
-    <th>{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
-
-    <th>{{'PAYMENT_METHOD'|translate|titlecase}}</th>
-    <th>{{'CHECK_REFERENCE'|translate|titlecase}}</th>
-    <th>Actions</th>
+    <th>{{'TOTAL'|translate|titlecase}} </th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let bill of bills;let i = index;">
-    <td>{{bill.billId}}</td>
-    <td>{{bill.provider}}</td>
-    <td>{{bill.date|date: 'dd/MM/yyyy'}}</td>
-    <td>{{bill.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td>{{bill.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td>{{bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td>{{bill.totalTTC + bill.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td>{{(bill.checkPayment ? 'CHECK' : 'CASH')|translate}}</td>
-    <td>{{bill.checkPayment ? bill.checkReference : ''}}</td>
-    <td>
+    <td>{{bill.id}}</td>
+    <td>{{bill.creationDate}}</td>
+    <td class="text-right">{{bill.quotation.totalTTC|number:'0.3'}}</td>
 
-      <button class="btn btn-outline-info" type="button"
-              [routerLink]="['/bill-detail',bill.billId]">{{'DETAILS'|translate|titlecase}}</button>
-
-      <button class="btn btn-outline-secondary" type="button"
-              [routerLink]="['/bill-form',bill.billId]">{{'EDIT'|translate|titlecase}}</button>
-      <button class="btn btn-outline-danger" type="button"
-              (click)="deleteBill(i)">{{'DELETE'|translate|titlecase}}</button>
-
-
-    </td>
   </tr>
 
 
   </tbody>
 </table>
-
-
-<br><br>
-<div class="card" *ngIf="selectedBill">
-  <div class="card-header">
-    Documents
-  </div>
-  <div class="card-body">
-    <div *ngFor="let file of selectedBill.fileStorageProperties;let i=index" class="thumbnail">
-
-      <img src="http://localhost:8080/downloadFile/{{file.uploadDir}}"/>
-    </div>
-  </div>
-</div>
--->

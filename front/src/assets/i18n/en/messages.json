@@ -10,15 +10,11 @@
   "BILL_CONFIRM_ERROR": "Error Invoice confirmation",
   "BILL_REJECT_SUCCESS": "Invoice rejected",
   "BILL_REJECT_ERROR": "Error Invoice rejection",
-
-
-
-
-
-  "ERROR_BILL_FORM":"Invoice form error",
-  "ERROR_USER_FORM":"User form error",
+  "PRODUCT_ADD_SUCCESS": "Added Product",
+  "PRODUCT_ADD_ERROR": "Error Adding Product",
+  "ERROR_BILL_FORM": "Invoice form error",
+  "ERROR_USER_FORM": "User form error",
   "ERROR_ADD_PRODUCTS": "Error adding products",
-
   "ERROR_LOADING_BILL_DETAILS": "Error invoice data",
   "ERROR_LOADING_BILL": " Error loading invoices",
   "ERROR_LOADING_USERS": "Error loading users",

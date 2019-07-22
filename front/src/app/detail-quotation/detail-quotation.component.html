@@ -20,10 +20,10 @@
         <div class="col-sm-6">
           <h6 class="mb-3">Fournisseur</h6>
           <div>
-            <strong>N: #{{quotation.provider.id}} </strong>
+            <strong>N: #{{quotation?.provider?.id}} </strong>
           </div>
-          <div>{{quotation.provider.name}}</div>
-          <div>{{quotation.provider.adresse}}</div>
+          <div>{{quotation?.provider?.name}}</div>
+          <div>{{quotation?.provider?.adresse}}</div>
 
         </div>
       </div>
@@ -70,7 +70,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let purchase of quotation.purchases; let i = index;">
+          <tr *ngFor="let purchase of quotation?.purchases; let i = index;">
             <td>#{{purchase.product.refrence}}</td>
             <td>{{purchase.product.designation}}</td>
             <td class="right">{{purchase.quantity}}</td>
