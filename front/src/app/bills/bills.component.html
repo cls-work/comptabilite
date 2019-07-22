@@ -1,21 +1,24 @@
-<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table  table-bordered row-border table-hover text-center"
-       datatable
-       style="width:100%">
-  <thead class="thead-dark">
-  <tr>
-    <th>{{'BILL_ID'|translate|titlecase}}</th>
-    <th>{{'DATE'|translate|titlecase}}</th>
-    <th>{{'TOTAL'|translate|titlecase}} </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let bill of bills;let i = index;">
-    <td>{{bill.id}}</td>
-    <td>{{bill.creationDate}}</td>
-    <td class="text-right">{{bill.quotation.totalTTC|number:'0.3'}}</td>
+<div class="animated fadeIn">
+  <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+         class="table  table-bordered row-border table-hover text-center"
+         datatable
+         style="width:100%">
+    <thead class="thead-dark">
+    <tr>
+      <th>{{'BILL_ID'|translate|titlecase}}</th>
+      <th>{{'DATE'|translate|titlecase}}</th>
+      <th>{{'TOTAL'|translate|titlecase}} </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let bill of bills;let i = index;">
+      <td>{{bill.id}}</td>
+      <td>{{bill.creationDate}}</td>
+      <td class="text-right">{{bill.quotation.totalTTC|number:'0.3'}}</td>
 
-  </tr>
+    </tr>
 
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

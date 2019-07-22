@@ -1,6 +1,5 @@
 <app-loader *ngIf="loading"></app-loader>
-
-
+<div class="animated fadeIn">
 <ng-container *ngIf="quotationForm">
 
   <div class="card">
@@ -27,7 +26,7 @@
 
 
                           <ng-template ng-footer-tmp>
-                            <a class="btn" data-target="#exampleModalCenter" data-toggle="modal">
+                            <a class="btn" data-target="#add-provider" data-toggle="modal">
                               <h5>Add new provider</h5>
                             </a>
 
@@ -163,7 +162,7 @@
 
 
                       <i class="fa fa-check-circle" style="color:green;"
-                         *ngIf="quotationForm.controls.provider?.valid "></i>
+                         *ngIf="quotationForm.controls.provider.valid "></i>
                       <i class="fa fa-times-circle" style="color:firebrick;"
                          *ngIf="quotationForm.controls.provider.invalid"></i>
                     </div>
@@ -178,7 +177,7 @@
                         <label class="label" for="taxStamp">{{'TAX_STAMP'|translate}}</label>
                         <input class="input--style-4" type="number" formControlName="taxStamp" id="taxStamp"/>
                         <i class="fa fa-check-circle" style="color:green;"
-                           *ngIf="quotationForm.controls.taxStamp?.valid "></i>
+                           *ngIf="quotationForm.controls.taxStamp.valid "></i>
                         <i class="fa fa-times-circle" style="color:firebrick;"
                            *ngIf="quotationForm.controls.taxStamp.invalid"></i>
 
@@ -195,7 +194,7 @@
                           <label class="label" for="date">{{'DATE'|translate}}</label>
                           <input class="input--style-4 js-datepicker" type="date" formControlName="date" id="date">
                           <i class="fa fa-check-circle" style="color:green;"
-                             *ngIf="quotationForm.controls.date?.valid "></i>
+                             *ngIf="quotationForm.controls.date.valid "></i>
                           <i class="fa fa-times-circle" style="color:firebrick;"
                              *ngIf="quotationForm.controls.date.invalid"></i>
 
@@ -207,7 +206,7 @@
 
                   <div class="p-t-15" *ngIf="!quotation">
                     <button class="btn btn--radius-2 btn--blue" type="submit" (click)="onAddBillClick()"
-                            [disabled]="!quotationForm?.valid">{{'ADD_BILL'|translate}}</button>
+                            [disabled]="!quotationForm.valid">{{'ADD_BILL'|translate}}</button>
                   </div>
 
                   <div class="p-t-15">
@@ -261,7 +260,7 @@
             <h4>SUBMIT</h4>
           </button>
           <i class="fa fa-check-circle" style="color:green;"
-             *ngIf="quotationForm?.valid"></i>
+             *ngIf="quotationForm.valid"></i>
           <i class="fa fa-times-circle" style="color:firebrick;"
              *ngIf="quotationForm.invalid"></i>
         </ng-template>
@@ -272,7 +271,7 @@
 
 
   </ng-container>-->
-
+</ng-container>
 
   <!-- Modal -->
   <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="add-provider"
@@ -339,100 +338,6 @@
       </div>
     </div>
   </div>
-</ng-container>
 
 
-<!-- Modal -->
-  <div aria-hidden="true" aria-labelledby="exampleModalCenterTitle" class="modal fade" id="ProductLogin"
-       role="dialog" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="add-product">Add new product</h5>
-          <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-
-        <div class="modal-body bg-light">
-          <div *ngIf="submittedProduct&&errorProduct" class="alert alert-dark" role="alert">
-            {{'ERROR'|translate}}
-          </div>
-          <div *ngIf="submittedProduct&&!errorProduct" class="alert alert-dark" role="alert">
-            {{'NEW_PRODUCT_ADDED'|translate}}
-          </div>
-          <ng-container *ngIf="productForm">
-            <form [formGroup]="productForm">
-              <div class="row row-space">
-                <div class="col-md-5">
-
-                  <div class="input-group">
-                    <label class="label" for="reference">{{'Designation'|translate}}</label>
-                    <input class="form-control" formControlName="reference" id="reference" type="text"/>
-                    <i *ngIf="productForm.controls.reference?.valid " class="fa fa-check-circle"
-                       style="color:green;"></i>
-                    <i *ngIf="productForm.controls.reference.invalid" class="fa fa-times-circle"
-                       style="color:firebrick;"></i>
-
-                  </div>
-                </div>
-
-                <div class="col-7">
-
-                  <div class="input-group">
-                    <label class="label" for="designation">{{'Reference'|translate}}</label>
-                    <input class="form-control" formControlName="designation" id="designation" type="text"/>
-                    <div *ngIf="productForm.controls.designation?.valid && quotationForm.controls.designation?.touched">
-                      <i class="fa fa-check-circle" style="color:green;"></i>
-                    </div>
-                    <div
-                      *ngIf="!productForm.controls.designation?.valid && quotationForm.controls.designation?.touched">
-                      <i class="fa fa-times-circle" style="color:firebrick;"></i>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="row row-space">
-                <div class="col-md-5">
-
-                  <label class="label" for="category">{{'Categorie'|translate}}</label>
-
-
-                  <ng-select [(ngModel)]="selectedCategorie" class="input-" formControlName="category"
-                             labelForId="category" id="category">
-
-                    <ng-option *ngFor="let categorie of categories" [value]="categorie">{{categorie.label}}</ng-option>
-
-                  </ng-select>
-
-                  <div *ngIf="quotationForm.controls.category?.valid && quotationForm.controls.category?.touched">
-                    <i class="fa fa-check-circle" style="color:green;"></i>
-                  </div>
-                  <div *ngIf="!quotationForm.controls.category?.valid && quotationForm.controls.category?.touched">
-                    <i class="fa fa-times-circle" style="color:firebrick;"></i>
-                  </div>
-
-
-                </div>
-              </div>
-
-            </form>
-          </ng-container>
-
-
-        </div>
-        <div class="modal-footer">
-          <button (click)="addProduct()" [disabled]="!productForm?.valid" class="btn "
-                  type="submit">{{'SUBMIT'|translate}}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
+</div>

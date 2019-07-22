@@ -1,63 +1,74 @@
-<button class="btn btn-success" routerLink="/add-quotation"><i class="fa fa-plus"></i>Add quotation</button>
+<app-loader *ngIf="loadingGet"></app-loader>
 
-<br>
-<br>
+<div *ngIf="errorGet&&!loadingGet" class="alert alert-danger">
+  {{errorGet}}
+</div>
 
-<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table  table-bordered row-border table-hover text-center"
-       datatable
-       style="width:100%">
-  <thead class="thead-dark">
-  <tr>
-    <th>{{'QUOTATION_ID'|translate|titlecase}}</th>
-    <th>{{'PROVIDER'|translate|titlecase}}</th>
-    <th>{{'DATE'|translate|titlecase}}</th>
-    <th>{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
-    <th>{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
-    <th>{{'TAX_STAMP'|translate|titlecase}}</th>
-    <th>{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
-    <th>{{'STATUS'|translate|titlecase}} </th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let quotation of quotations;let i = index;">
-    <td>{{quotation.id}}</td>
-    <td>{{quotation.provider?.name}}</td>
-    <td>{{quotation?.creationDate}}</td>
-    <td>{{quotation.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td>{{quotation.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td>{{quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td>{{quotation.totalTTC + quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
-    <td class="text-center text-white">
+<div *ngIf="!loadingGet" class="animated fadeIn">
+  <button class="btn btn-success" routerLink="/add-quotation"><i class="fa fa-plus"></i>Add quotation</button>
 
-      <span *ngIf="quotation.confirmed === null" class="badge badge-pill badge-secondary">
-        <h6><i class="fas fa-redo-alt"></i> Pending</h6></span>
-      <span *ngIf="quotation.confirmed === false " class="badge badge-pill badge-danger">
-        <h6><i class="fas fa-exclamation-circle"></i> Rejected</h6></span>
-      <span *ngIf="quotation.confirmed === true &&!quotation.hasBill" class="badge badge-pill badge-success">
-        <h6><i class="fas fa-check"></i> Approved</h6></span>
-      <span *ngIf="quotation.hasBill" class="badge badge-pill badge-success">
-        <h6><i class="fas fa-check"></i> Bill created</h6></span>
+  <br>
+  <br>
 
+  <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+         class="table  table-bordered row-border table-hover text-center"
+         datatable
+         style="width:100%">
+    <thead class="thead-dark">
+    <tr>
+      <th>{{'QUOTATION_ID'|translate|titlecase}}</th>
+      <th>{{'PROVIDER'|translate|titlecase}}</th>
+      <th>{{'DATE'|translate|titlecase}}</th>
+      <th>{{'TOTAL'|translate|titlecase}} {{'HT'|translate}}</th>
+      <th>{{'TOTAL'|translate|titlecase}} {{'TVA'|translate}}</th>
+      <th>{{'TAX_STAMP'|translate|titlecase}}</th>
+      <th>{{'TOTAL'|translate|titlecase}} {{'TTC'|translate}}</th>
+      <th>{{'STATUS'|translate|titlecase}} </th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let quotation of quotations;let i = index;">
+      <td>{{quotation.id}}</td>
+      <td>{{quotation.provider?.name}}</td>
+      <td>{{quotation?.creationDate}}</td>
+      <td>{{quotation.totalHT|number:'.3'}} {{'CURRENCY'|translate}}</td>
+      <td>{{quotation.totalTVA|number:'.3'}} {{'CURRENCY'|translate}}</td>
+      <td>{{quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
+      <td>{{quotation.totalTTC + quotation.taxStamp|number:'.3'}} {{'CURRENCY'|translate}}</td>
+      <td class="text-center text-white">
 
-    </td>
-    <td>
-      <div class="btn-group btn-group-lg" style="width: 80%">
-        <button *ngIf="quotation.confirmed!==null" [routerLink]="'/quotations/detail/'+quotation.id"
-                class="btn btn-outline-dark btn-circle btn-lg" type="button">
-          <h6><i class="fa fa-eye"></i></h6></button>
-        <button *ngIf="quotation.confirmed===null" [routerLink]="'/quotations/detail/'+quotation.id+'/confirm'"
-                class="btn btn-outline-dark btn-circle btn-lg" type="button">
-          <h6><i class="fa fa-eye"></i></h6></button>
-        <button (click)="onDeleteQuotation(i)" *ngIf="quotation.confirmed===null"
-                class="btn btn-danger btn-circle btn-lg" type="button"><h6><i
-          class="fa fa-trash "></i></h6></button>
-        <button *ngIf="quotation.confirmed && !quotation.hasBill " class="btn btn-success btn-circle btn-lg"
-                [routerLink]="'/add-bill/'+quotation.id" type="button"><h6><i class="fa fa-plus"></i> Bill</h6></button>
-      </div>
-    </td>
-  </tr>
+        <span *ngIf="quotation.confirmed === null" class="badge badge-pill badge-secondary">
+          <h6><i class="fas fa-redo-alt"></i> Pending</h6></span>
+        <span *ngIf="quotation.confirmed === false " class="badge badge-pill badge-danger">
+          <h6><i class="fas fa-exclamation-circle"></i> Rejected</h6></span>
+        <span *ngIf="quotation.confirmed === true &&!quotation.hasBill" class="badge badge-pill badge-success">
+          <h6><i class="fas fa-check"></i> Approved</h6></span>
+        <span *ngIf="quotation.hasBill" class="badge badge-pill badge-success">
+          <h6><i class="fas fa-check"></i> Bill created</h6></span>
 
 
-  </tbody>
-</table>
+      </td>
+      <td>
+        <div class="btn-group btn-group-lg" style="width: 80%">
+          <button *ngIf="quotation.confirmed!==null" [routerLink]="'/quotations/detail/'+quotation.id"
+                  class="btn btn-outline-dark btn-circle btn-lg" type="button">
+            <h6><i class="fa fa-eye"></i></h6></button>
+          <button *ngIf="quotation.confirmed===null" [routerLink]="'/quotations/detail/'+quotation.id+'/confirm'"
+                  class="btn btn-outline-dark btn-circle btn-lg" type="button">
+            <h6><i class="fa fa-eye"></i></h6></button>
+          <button (click)="onDeleteQuotation(i)" *ngIf="quotation.confirmed===null"
+                  class="btn btn-danger btn-circle btn-lg" type="button"><h6><i
+            class="fa fa-trash "></i></h6></button>
+          <button *ngIf="quotation.confirmed && !quotation.hasBill " [routerLink]="'/add-bill/'+quotation.id"
+                  class="btn btn-success btn-circle btn-lg" type="button"><h6><i class="fa fa-plus"></i> Bill</h6>
+          </button>
+        </div>
+      </td>
+    </tr>
+
+
+    </tbody>
+  </table>
+
+</div>

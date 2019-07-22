@@ -17,6 +17,7 @@ import {DetailQuotationComponent} from './detail-quotation/detail-quotation.comp
 import {QuotationFormComponent} from './quotation-form/quotation-form.component';
 import {ConfirmQuotationComponent} from './confirm-quotation/confirm-quotation.component';
 import {AddBillComponent} from './add-bill/add-bill.component';
+import {StatsComponent} from './stats/stats.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'bills',
     component: BillsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'stats',
+    component: StatsComponent,
     canActivate: [AuthGuard]
   },
   {

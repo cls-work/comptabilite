@@ -2,62 +2,74 @@
 
 <!------ Include the above in your HEAD tag ---------->
 
+<div class="animated fadeIn">
 
+  <div class="form-gap"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 offset-md-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center">
+              <h1><i class="fa fa-key"></i></h1>
+              <h2 class="text-center">{{'AUTHENTICATION'|translate|titlecase}}</h2>
+              <div class="card-body">
 
-<div class="form-gap"></div>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4 offset-md-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="text-center">
-            <h1><i class="fa fa-key" ></i></h1>
-            <h2 class="text-center">{{'AUTHENTICATION'|translate|titlecase}}</h2>
-            <div class="card-body">
+                <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" autocomplete="off" class="form" id="register-form"
+                      role="form">
 
-              <form id="register-form" role="form" autocomplete="off" class="form"  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-                <div class="form-group">
-                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-text"><i class="fa fa-envelope"></i></div>
-                    <input type="text" placeholder="{{'USERNAME'|translate}}" formControlName="usernameOrEmail"  class="form-control" id="username" [ngClass]="{ 'is-invalid':loginForm.get('usernameOrEmail').touched && loginForm.get('usernameOrEmail').invalid }"/>
-                    <div *ngIf="submitted && f.usernameOrEmail.errors" >
-                      <div *ngIf="f.usernameOrEmail.errors.required">{{'USERNAME_REQ' | translate}}</div>
+                  <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                      <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+                      <input
+                        [ngClass]="{ 'is-invalid':loginForm.get('usernameOrEmail').touched && loginForm.get('usernameOrEmail').invalid }"
+                        class="form-control" formControlName="usernameOrEmail"
+                        id="username" placeholder="{{'USERNAME'|translate}}"
+                        type="text"/>
+                      <div *ngIf="submitted && f.usernameOrEmail.errors">
+                        <div *ngIf="f.usernameOrEmail.errors.required">{{'USERNAME_REQ' | translate}}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-           <div class="form-group">
-                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-text"><i class="fa fa-key"></i></div>
-                    <input type="password"  placeholder="{{'PASSWORD'|translate}}" formControlName="password" class="form-control" id="password"  [ngClass]="{ 'is-invalid':loginForm.get('password').touched && loginForm.get('password').invalid }" />
+                  <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                      <div class="input-group-text"><i class="fa fa-key"></i></div>
+                      <input
+                        [ngClass]="{ 'is-invalid':loginForm.get('password').touched && loginForm.get('password').invalid }"
+                        class="form-control" formControlName="password"
+                        id="password" placeholder="{{'PASSWORD'|translate}}"
+                        type="password"/>
 
-                    <div *ngIf="submitted && f.password.errors" >
-                      <div *ngIf="f.password.errors.required">{{'PASSWORD_REQ' | translate}}</div>
+                      <div *ngIf="submitted && f.password.errors">
+                        <div *ngIf="f.password.errors.required">{{'PASSWORD_REQ' | translate}}</div>
 
 
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <input type="submit" value="{{'LOG_IN'|translate}}" [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block"/>
-                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-                <a routerLink="/reset-password">{{'FORGOT_PASSWORD'|translate}}</a>
+                  <input [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block" type="submit"
+                         value="{{'LOG_IN'|translate}}"/>
+                  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                  <a routerLink="/reset-password">{{'FORGOT_PASSWORD'|translate}}</a>
 
 
-              </form>
+                </form>
 
-              <span>
-                <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.usernameOrEmail.valid " ></i>
-                <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.usernameOrEmail.invalid"></i>
-                {{'USERNAME_MIN' | translate}}<br>
-                 <i class="fa fa-check-circle" style="color:green;" *ngIf="loginForm.controls.password.valid " ></i>
+                <span>
+                <i *ngIf="loginForm.controls.usernameOrEmail.valid " class="fa fa-check-circle"
+                   style="color:green;"></i>
+                <i *ngIf="loginForm.controls.usernameOrEmail.invalid" class="fa fa-times-circle"
+                   style="color:firebrick;"></i>
+                  {{'USERNAME_MIN' | translate}}<br>
+                 <i *ngIf="loginForm.controls.password.valid " class="fa fa-check-circle" style="color:green;"></i>
                 <i class="fa fa-times-circle" style="color:firebrick;" *ngIf="loginForm.controls.password.invalid"></i>
-                {{'PASSWORD_MIN' | translate}}
+                  {{'PASSWORD_MIN' | translate}}
 
               </span>
 
 
-
+              </div>
             </div>
           </div>
         </div>

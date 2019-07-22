@@ -4,6 +4,11 @@ import {ProductModel} from '../_models/product.model';
 import {ProductService} from '../_services/product.service';
 import {CategoryModel} from '../_models/category.model';
 import {CategoryService} from '../_services/category.service';
+import * as Noty from 'noty';
+import {TranslateService} from '../_services/translate.service';
+
+
+declare let $: any;
 
 @Component({
   selector: 'app-purchase-form',
@@ -12,7 +17,10 @@ import {CategoryService} from '../_services/category.service';
 })
 export class PurchaseFormComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private productService: ProductService, private categoryService: CategoryService) {
+  constructor(private formBuilder: FormBuilder,
+              private productService: ProductService,
+              private categoryService: CategoryService,
+              private translateService: TranslateService) {
   }
 
   @Input() orderForm: FormGroup;
@@ -51,7 +59,6 @@ export class PurchaseFormComponent implements OnInit {
         });
 
 
-    console.log(this.orderForm.controls.purchases);
     this.productForm = this.formBuilder.group({
       reference: ['', Validators.required],
       designation: ['', Validators.required],
@@ -59,6 +66,13 @@ export class PurchaseFormComponent implements OnInit {
 
       // @ts-ignore
     });
+
+    this.categoryService.getAllCategories()
+      .subscribe(
+        (categories: CategoryModel[]) => {
+          this.categories = categories;
+          this.categories = categories;
+        });
 
   }
 
@@ -77,7 +91,6 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   addItem(): void {
-    console.log('add new product');
     this.purchases = this.orderForm.get('purchases') as FormArray;
     this.purchases.push(this.createItem());
   }
@@ -86,7 +99,32 @@ export class PurchaseFormComponent implements OnInit {
     console.log(this.orderForm.value);
   }
 
-  addPurchase() {
+  addProduct() {
+    this.productService.postProduct(this.productForm.value)
+      .subscribe((data: ProductModel) => {
+
+          this.products.push(data);
+          $('#Product').modal('toggle');
+
+          new Noty({
+            theme: 'metroui',
+            type: 'success',
+            timeout: 5000,
+            text: this.translateService.data['PRODUCT_ADD_SUCCESS'] || 'PRODUCT_ADD_SUCCESS'
+          }).show();
+
+        }
+        ,
+        () => {
+          new Noty({
+            theme: 'metroui',
+            type: 'error',
+            timeout: 5000,
+            text: this.translateService.data['PRODUCT_ADD_ERROR'] || 'PRODUCT_ADD_ERROR'
+          }).show();
+        }
+      );
+
 
   }
 
@@ -166,37 +204,6 @@ export class PurchaseFormComponent implements OnInit {
     // @ts-ignore
     this.orderForm.get('purchases').removeAt(i);
     this.calculateTotals();
-  }
-
-  addProduct() {
-    this.productService.postProduct(this.productForm.value)
-      .subscribe((res) => {
-          this.productService.getAllProducts()
-            .subscribe(
-              (products: any) => {
-                console.log('first to execute');
-                this.errorProduct = false;
-                this.submittedProduct = true;
-                this.products = products;
-                setTimeout(() => {
-                  this.submittedProduct = false;
-                }, 3000);
-              });
-        }
-        ,
-        () => {
-          this.errorProduct = true;
-          this.submittedProduct = true;
-          console.log('erreur');
-          setTimeout(() => {
-            this.submittedProduct = false;
-          }, 3000);
-        }
-      ).add(() => {
-      console.log('finally');
-    });
-
-
   }
 
 

@@ -5,7 +5,7 @@ import {ProviderModel} from '../_models/provider.model';
 import {QuotationService} from '../_services/quotation.service';
 import {TranslateService} from '../_services/translate.service';
 import {DataTableDirective} from 'angular-datatables';
-import {DATATABLE_LANG_DE, DATATABLE_LANG_EN, DATATABLE_LANG_FR} from '../_globals/vars';
+import {BASE_URL_FILES, DATATABLE_LANG_DE, DATATABLE_LANG_EN, DATATABLE_LANG_FR} from '../_globals/vars';
 
 @Component({
   selector: 'app-list-quotation',
@@ -19,11 +19,15 @@ export class ListQuotationComponent implements OnInit {
 
   dtTrigger: Subject<QuotationModel[]> = new Subject();
   dtOptions: any = {};
-
+  BASE_URL_FILES = BASE_URL_FILES;
 
   provider: ProviderModel;
   quotations: QuotationModel[];
   currentLang;
+  doc: string;
+
+  loadingGet;
+  errorGet;
 
 
   constructor(private quotationService: QuotationService,
@@ -45,9 +49,7 @@ export class ListQuotationComponent implements OnInit {
     this.getAllQuotations();
 
 
-
     this.provider = {adresse: 'adresse', id: '1', name: 'provider 1'};
-
 
 
   }
@@ -122,13 +124,19 @@ export class ListQuotationComponent implements OnInit {
   }
 
   getAllQuotations() {
+    this.errorGet = null;
+    this.loadingGet = true;
     this.quotationService.findAllQuotations().subscribe(
       (data: any) => {
         this.quotations = data;
         console.log(this.quotations);
+        //this.doc = this.BASE_URL_FILES + this.quotations[3].fileStorageProperties[0].uploadDir;
+        console.log(this.doc);
         this.dtTrigger.next();
-      }, (error) => {
-
+        this.loadingGet = false;
+      }, () => {
+        this.loadingGet = false;
+        this.errorGet = 'Une erreur s\'est produite lors du chargement des données';
       }
     );
   }

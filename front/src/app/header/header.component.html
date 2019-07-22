@@ -32,6 +32,11 @@
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/historicals" *ngIf="currentUser&&currentUser.role===adminRole">{{'HISTORY'|translate|titlecase}}<span class="sr-only">(current)</span></a>
+
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a *ngIf="currentUser&&currentUser.role===adminRole" class="nav-link"
+           routerLink="/stats">{{'STATS'|translate|titlecase}}<span class="sr-only">(current)</span></a>
       </li>
 
     </ul>

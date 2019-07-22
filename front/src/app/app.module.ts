@@ -43,6 +43,8 @@ import {ConfirmQuotationComponent} from './confirm-quotation/confirm-quotation.c
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AddBillComponent} from './add-bill/add-bill.component';
 import {PurchaseFormComponent} from './purchase-form/purchase-form.component';
+import {NgxDocViewerModule} from 'ngx-doc-viewer';
+import {StatsComponent} from './stats/stats.component';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -75,7 +77,9 @@ export function setupTranslateFactory(service: TranslateService) {
     PurchaseFormComponent,
     ConfirmQuotationComponent,
 
-    AddBillComponent
+    AddBillComponent,
+
+    StatsComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +92,7 @@ export function setupTranslateFactory(service: TranslateService) {
     NgSelectModule,
     NgxPrintModule,
     NgSelectModule,
+    NgxDocViewerModule,
     BrowserAnimationsModule,
 
   ],

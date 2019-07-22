@@ -217,7 +217,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
           theme: 'metroui',
           type: 'success',
           timeout: 5000,
-          text: this.translateService.data['PRODUCT_ADD_SUCCESS'] || 'PRODUCT_ADD_SUCCESS'
+          text: this.translateService.data['QUOTATION_ADD_SUCCESS'] || 'QUOTATION_ADD_SUCCESS'
         }).show();
         this.router.navigate(['quotations/list']);
         // @ts-ignore
@@ -229,7 +229,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
           theme: 'metroui',
           type: 'error',
           timeout: 5000,
-          text: this.translateService.data['PRODUCT_ADD_ERROR'] || 'PRODUCT_ADD_ERROR'
+          text: this.translateService.data['QUOTATION_ADD_ERROR'] || 'QUOTATION_ADD_ERROR'
         }).show();
       });
   }
@@ -367,27 +367,28 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
 
 
     this.providerService.postProvider(this.providerForm.value)
-      .subscribe((res) => {
-          console.log('provider added');
-          this.errorProvider = false;
-          this.submittedProvider = true;
-          setTimeout(() => {
-            this.submittedProvider = false;
-          }, 3000);
-          this.providerService.getAllProviders()
-            .subscribe(
-              (providers: any) => {
-                this.providers = providers;
-              });
+      .subscribe((data: ProviderModel) => {
+
+          this.providers.push(data);
+          $('#add-provider').modal('toggle');
+
+
+          new Noty({
+            theme: 'metroui',
+            type: 'success',
+            timeout: 5000,
+            text: this.translateService.data['PROVIDER_ADD_SUCCESS'] || 'PROVIDER_ADD_SUCCESS'
+          }).show();
+
         }
         ,
         () => {
-          this.errorProvider = true;
-          this.submittedProvider = true;
-          setTimeout(() => {
-            this.submittedProvider = false;
-          }, 3000);
-          console.log('erreur');
+          new Noty({
+            theme: 'metroui',
+            type: 'error',
+            timeout: 5000,
+            text: this.translateService.data['PROVIDER_ADD_ERROR'] || 'PROVIDER_ADD_ERROR'
+          }).show();
         }
       );
   }

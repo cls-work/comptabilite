@@ -1,100 +1,100 @@
-<table datatable class="table  table-bordered row-border table-hover" style="width:100%"  [dtTrigger]="dtTrigger"
-       [dtOptions]="dtOptions">
-  <thead class="thead-dark">
-  <tr>
-    <th>ID</th>
-    <th>Date</th>
-    <th>Facture ID</th>
-    <th>User name</th>
-    <th>message</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item  of historicals">
-    <td>{{item.id}}</td>
-    <td>{{item.date}}</td>
-    <td>{{item.bill?.billId}}</td>
-    <td>{{item.user.name}}</td>
-    <td>{{item.message}}</td>
-  </tr>
-
-
-  </tbody>
-</table>
-
-<!--
-<app-loader *ngIf="loading"></app-loader>
-
-<div class="container">
-
-
-  <table class="table table-bordered table-responsive-md table-striped text-center">
+<div class="animated fadeIn">
+  <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table  table-bordered row-border table-hover" datatable
+         style="width:100%">
     <thead class="thead-dark">
-
-
     <tr>
-      <th class="text-center">ID
-        <span class="arrow-up arrow up" (click)="orderBy('id','asc');disableArrow(0,'arrow-up')"></span>
-        <span class="arrow-down arrow down" (click)="orderBy('id','desc');disableArrow(0,'arrow-down')"></span>
-      </th>
-      <th class="text-center">Date
-        <span class="arrow-up arrow up" (click)="orderBy('date','asc');disableArrow(1,'arrow-up')"></span>
-        <span class="arrow-down arrow down hide" (click)="orderBy('date','desc');disableArrow(1,'arrow-down')"></span>
-      </th>
-      <th class="text-center">Facture ID
-        <span class="arrow-up arrow up" (click)="orderBy('bill.billId','asc');disableArrow(2,'arrow-up')"></span>
-        <span class="arrow-down arrow down "
-              (click)="orderBy('bill.billId','desc');disableArrow(2,'arrow-down')"></span>
-      </th>
-      <th class="text-center">User name
-        <span class="arrow-up arrow up" (click)="orderBy('user.name','asc');disableArrow(3,'arrow-up')"></span>
-        <span class="arrow-down arrow down" (click)="orderBy('user.name','desc');disableArrow(3,'arrow-down')"></span>
-      </th>
-      <th class="text-center">message
-        <span class="arrow-up arrow up" (click)="orderBy('message','asc');disableArrow(4,'arrow-up')"></span>
-        <span class="arrow-down arrow down" (click)="orderBy('message','desc');disableArrow(4,'arrow-down')"></span>
-      </th>
-      <th colspan="2">
-        <input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken"
-               (input)="initializeConfig(perPage,1,historyLengthAfterSearch())"/>
-      </th>
-      <th>
-        <select name="" id="perPage" [(ngModel)]="perPage"
-                (click)="initializeConfig(perPage,1,historyLengthAfterSearch())">
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-      </th>
-
+      <th>ID</th>
+      <th>Date</th>
+      <th>User name</th>
+      <th>message</th>
     </tr>
     </thead>
-
-    <ng-container
-      *ngIf="(historicals|filterHistory:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredHistory">
-      <tr *ngFor="let item of filteredHistory">
-
-
-        <td><p>{{item.id}}</p></td>
-        <td><p>{{item.date}}</p></td>
-        <td><p>{{item.bill.billId}}</p></td>
-        <td><p>{{item.user.name}}</p></td>
-        <td><p>{{item.message}}</p></td>
+    <tbody>
+    <tr *ngFor="let item  of historicals">
+      <td>{{item.id}}</td>
+      <td>{{item.date}}</td>
+      <td>{{item.user.name}}</td>
+      <td>{{item.message}}</td>
+    </tr>
 
 
-      </tr>
-    </ng-container>
-
-
+    </tbody>
   </table>
 
-  <ul class="pagination pagination-right">
-    <pagination-controls (pageChange)="pageChanged($event)"
-                         [nextLabel]="'NEXT'|translate"
-                         [previousLabel]="'PREVIOUS'|translate"></pagination-controls>
-  </ul>
+  <!--
+  <app-loader *ngIf="loading"></app-loader>
+
+  <div class="container">
 
 
+    <table class="table table-bordered table-responsive-md table-striped text-center">
+      <thead class="thead-dark">
+
+
+      <tr>
+        <th class="text-center">ID
+          <span class="arrow-up arrow up" (click)="orderBy('id','asc');disableArrow(0,'arrow-up')"></span>
+          <span class="arrow-down arrow down" (click)="orderBy('id','desc');disableArrow(0,'arrow-down')"></span>
+        </th>
+        <th class="text-center">Date
+          <span class="arrow-up arrow up" (click)="orderBy('date','asc');disableArrow(1,'arrow-up')"></span>
+          <span class="arrow-down arrow down hide" (click)="orderBy('date','desc');disableArrow(1,'arrow-down')"></span>
+        </th>
+        <th class="text-center">Facture ID
+          <span class="arrow-up arrow up" (click)="orderBy('bill.billId','asc');disableArrow(2,'arrow-up')"></span>
+          <span class="arrow-down arrow down "
+                (click)="orderBy('bill.billId','desc');disableArrow(2,'arrow-down')"></span>
+        </th>
+        <th class="text-center">User name
+          <span class="arrow-up arrow up" (click)="orderBy('user.name','asc');disableArrow(3,'arrow-up')"></span>
+          <span class="arrow-down arrow down" (click)="orderBy('user.name','desc');disableArrow(3,'arrow-down')"></span>
+        </th>
+        <th class="text-center">message
+          <span class="arrow-up arrow up" (click)="orderBy('message','asc');disableArrow(4,'arrow-up')"></span>
+          <span class="arrow-down arrow down" (click)="orderBy('message','desc');disableArrow(4,'arrow-down')"></span>
+        </th>
+        <th colspan="2">
+          <input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken"
+                 (input)="initializeConfig(perPage,1,historyLengthAfterSearch())"/>
+        </th>
+        <th>
+          <select name="" id="perPage" [(ngModel)]="perPage"
+                  (click)="initializeConfig(perPage,1,historyLengthAfterSearch())">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </th>
+
+      </tr>
+      </thead>
+
+      <ng-container
+        *ngIf="(historicals|filterHistory:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredHistory">
+        <tr *ngFor="let item of filteredHistory">
+
+
+          <td><p>{{item.id}}</p></td>
+          <td><p>{{item.date}}</p></td>
+          <td><p>{{item.bill.billId}}</p></td>
+          <td><p>{{item.user.name}}</p></td>
+          <td><p>{{item.message}}</p></td>
+
+
+        </tr>
+      </ng-container>
+
+
+    </table>
+
+    <ul class="pagination pagination-right">
+      <pagination-controls (pageChange)="pageChanged($event)"
+                           [nextLabel]="'NEXT'|translate"
+                           [previousLabel]="'PREVIOUS'|translate"></pagination-controls>
+    </ul>
+
+
+  </div>
+
+  -->
 </div>
-
--->

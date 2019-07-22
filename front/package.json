@@ -39,6 +39,7 @@
     "jspdf": "^1.5.3",
     "jszip": "^3.2.1",
     "jwt-decode": "^2.2.0",
+    "ngx-doc-viewer": "^0.1.20",
     "ngx-pagination": "^4.0.0",
     "ngx-print": "^1.2.0-beta.2",
     "noty": "^3.2.0-beta",

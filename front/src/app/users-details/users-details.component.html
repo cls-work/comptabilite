@@ -1,58 +1,69 @@
 <app-loader *ngIf="loading"></app-loader>
 
+<div class="animated fadeIn">
+  <div *ngIf="userDeleted" class="alert alert-success" role="alert">
+    <a class="text-success">
+      {{'USER_DELETED_SUCCESS'|translate}}
+    </a>
+  </div>
 
-<div *ngIf="userDeleted" class="alert alert-success" role="alert">
-  <a class="text-success">
-    {{'USER_DELETED_SUCCESS'|translate}}
-  </a>
+  <table class="table table-bordered table-responsive-md table-striped text-center">
+    <thead class="thead-dark">
+
+
+    <tr>
+      <th class="text-center">{{'NAME'|translate|titlecase}}  </th>
+      <th class="text-center">{{'USERNAME'|translate|titlecase}}  </th>
+      <th class="text-center">{{'EMAIL'|translate|titlecase}}  </th>
+      <th class="text-center">{{'ROLE'|translate|titlecase}} </th>
+      <!-- <th colspan="2"><input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
+
+       </th>-->
+      <th><a class="btn btn-light" routerLink="/user-form"><i class="fa fa-plus"> </i></a></th>
+
+    </tr>
+    </thead>
+    <!--<ng-container *ngIf="//(bills|filter:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
+  -->
+    <tr *ngFor="let user of users">
+
+
+      <td>
+        <p>{{user.name}}</p>
+      </td>
+      <td>
+        <p>{{user.username}}</p>
+      </td>
+      <td>
+        <p>{{user.email}}</p>
+      </td>
+      <td>
+        <p>{{user.roles[0].name|translate|titlecase}}</p>
+      </td>
+
+
+      <td>
+
+
+        <div class="btn-group btn-group-lg" style="width: 80%">
+          <button
+            [routerLink]="['/user-form/',user.id]" class="btn btn-outline-dark btn-circle" type="button">
+            <h6><i class="fa fa-edit"></i></h6></button>
+          <button (click)="deleteUser(user.id)" class="btn btn-outline-dark btn-circle" type="button"><h6><i
+            class="fa fa-trash"></i></h6></button>
+
+        </div>
+        <!--
+                <button [routerLink]="['/user-form/',user.id]" class="btn btn-outline-secondary"
+                type="button">{{'EDIT'|translate|titlecase}}</button>
+        -->
+      </td>
+
+
+    </tr>
+    <!-- </ng-container>
+   -->
+
+
+  </table>
 </div>
-
-<table class="table table-bordered table-responsive-md table-striped text-center">
-  <thead class="thead-dark">
-
-
-  <tr>
-    <th class="text-center">{{'NAME'|translate|titlecase}}  </th>
-    <th class="text-center">{{'USERNAME'|translate|titlecase}}  </th>
-    <th class="text-center">{{'EMAIL'|translate|titlecase}}  </th>
-    <th class="text-center">{{'ROLE'|translate|titlecase}} </th>
-    <!-- <th colspan="2"><input id="search" placeholder="{{'KEYWORD'|translate}}" [(ngModel)]="searchToken" (input)="initializeConfig(5,1,billsLengthAfterSearch())"/>
-
-     </th>-->
-    <th><a class="btn btn-light" routerLink="/user-form"><i class="fa fa-plus"> </i></a></th>
-
-  </tr>
-  </thead>
-  <!--<ng-container *ngIf="//(bills|filter:searchToken|orderBy:orderByColumn:orderByOrder|paginate:config)as filteredBills">
--->
-  <tr *ngFor="let user of users">
-
-
-    <td>
-      <p>{{user.name}}</p>
-    </td>
-    <td>
-      <p>{{user.username}}</p>
-    </td>
-    <td>
-      <p>{{user.email}}</p>
-    </td>
-    <td>
-      <p>{{user.roles[0].name|translate|titlecase}}</p>
-    </td>
-
-
-    <td>
-      <button [routerLink]="['/user-form/',user.id]" class="btn btn-outline-secondary"
-              type="button">{{'EDIT'|translate|titlecase}}</button>
-    </td>
-    <td (click)="deleteUser(user.id)">
-      <button class="btn btn-outline-danger" type="button">{{'DELETE'|translate|titlecase}}</button>
-    </td>
-
-  </tr>
-  <!-- </ng-container>
- -->
-
-
-</table>

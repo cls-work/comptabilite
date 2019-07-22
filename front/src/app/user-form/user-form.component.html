@@ -7,112 +7,125 @@
           {{'ERROR_FORM_USER'|translate}}
         </a>
 </span>
-<ng-container *ngIf="userForm">
+<div class="animated fadeIn">
+  <ng-container *ngIf="userForm">
 
 
-  <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
-    <div class="wrapper wrapper--w680">
-      <div class="card card-4">
-        <div class="card-body">
-          <h2 class="title" *ngIf="!user">{{'ADD_USER'|translate}}</h2>
-          <h2 class="title" *ngIf="user">{{'EDIT_USER'|translate}}</h2>
-          <form [formGroup]="userForm">
-            <div class="row row-space">
-              <div class="col-md-5">
-                <div class="input-group">
-                  <label class="label" for="name">{{'NAME'|translate}}</label>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+      <div class="wrapper wrapper--w680">
+        <div class="card card-4">
+          <div class="card-body">
+            <h2 *ngIf="!user" class="title">{{'ADD_USER'|translate}}</h2>
+            <h2 *ngIf="user" class="title">{{'EDIT_USER'|translate}}</h2>
+            <form [formGroup]="userForm">
+              <div class="row row-space">
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <label class="label" for="name">{{'NAME'|translate}}</label>
 
-                  <input class="input--style-4" type="text"
-                         [class.alert-danger]="userForm.controls.name.invalid&&(userForm.controls.name.dirty||userForm.controls.name.touched)"
-                         formControlName="name" id="name" />
-                  <i class="fa fa-check-circle" style="color:green" *ngIf="userForm.controls.name.valid" ></i>
-                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.name.invalid"> </i>
-                  <small>{{'NAME_MIN' | translate}}  </small>
+                    <input
+                      [class.alert-danger]="userForm.controls.name.invalid&&(userForm.controls.name.dirty||userForm.controls.name.touched)"
+                      class="input--style-4"
+                      formControlName="name"
+                      id="name" type="text"/>
+                    <i *ngIf="userForm.controls.name.valid" class="fa fa-check-circle" style="color:green"></i>
+                    <i *ngIf="userForm.controls.name.invalid" class="fa fa-times-circle" style="color:firebrick"> </i>
+                    <small>{{'NAME_MIN' | translate}}  </small>
+                  </div>
                 </div>
+                <div class="col-6">
+                  <div *ngIf="roles" class="input-group">
+                    <label class="label">{{'USER_TYPE'|translate}}</label>
+                    <div class="p-t-10">
+                      <label *ngFor="let role of roles" class="radio-container m-r-45"
+                             for="role{{role.id}}">{{role.name|translate|titlecase}}
+                        <input formControlName="roleId" id="role{{role.id}}" name="roleId" type="radio"
+                               value="{{role.id}}">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+
               </div>
-              <div class="col-6">
-                <div class="input-group" *ngIf="roles">
-                  <label class="label" >{{'USER_TYPE'|translate}}</label>
-                  <div class="p-t-10">
-                    <label class="radio-container m-r-45" *ngFor="let role of roles" for="role{{role.id}}">{{role.name|translate|titlecase}}
-                      <input type="radio" formControlName="roleId" name="roleId" value="{{role.id}}" id="role{{role.id}}">
-                      <span class="checkmark"></span>
-                    </label>
+              <div class="row row-space">
+
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <label class="label" for="username">{{'USERNAME'|translate}}</label>
+                    <input
+                      [class.alert-danger]="userForm.controls.username.invalid&&(userForm.controls.username.dirty||userForm.controls.username.touched)"
+                      class="input--style-4" formControlName="username" id="username"
+                      type="text"/>
+                    <i *ngIf="userForm.controls.username.valid" class="fa fa-check-circle" style="color:green"></i>
+                    <i *ngIf="userForm.controls.username.invalid" class="fa fa-times-circle"
+                       style="color:firebrick"> </i>
+                    <small> {{'USERNAME_MIN' | translate}} </small>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="input-group">
+                    <label class="label" for="email">{{'EMAIL'|translate}}</label>
+                    <input class="input--style-4" formControlName="email" id="email" type="text">
+
+                    <i *ngIf="userForm.controls.email.valid" class="fa fa-check-circle" style="color:green"></i>
+                    <i *ngIf="userForm.controls.email.invalid" class="fa fa-times-circle" style="color:firebrick"> </i>
+
+
                   </div>
                 </div>
               </div>
 
 
-            </div>
-            <div class="row row-space">
+              <div class="row row-space">
+                <div class="col-md-5">
+                  <div class="input-group">
+                    <label class="label" for="password">{{'PASSWORD'|translate}}</label>
+                    <input class="input--style-4" formControlName="password" id="password" type="password">
 
-              <div class="col-md-5">
-                <div class="input-group">
-                  <label class="label" for="username">{{'USERNAME'|translate}}</label>
-                  <input class="input--style-4"  type="text" formControlName="username" id="username"
-                         [class.alert-danger]="userForm.controls.username.invalid&&(userForm.controls.username.dirty||userForm.controls.username.touched)"/>
-                  <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.username.valid" ></i>
-                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.username.invalid" > </i>
-                  <small> {{'USERNAME_MIN' | translate}} </small>
+                    <i *ngIf="userForm.controls.password.valid" class="fa fa-check-circle" style="color:green"></i>
+                    <i *ngIf="userForm.controls.password.invalid" class="fa fa-times-circle"
+                       style="color:firebrick"> </i>
+                    <small> {{'PASSWORD_MIN' | translate}}</small>
+                  </div>
                 </div>
+                <div class="col-6">
+                  <div class="input-group">
+                    <label class="label" for="repeatPassword">Répeter Mot de passe</label>
+                    <input class="input--style-4" formControlName="repeatPassword" id="repeatPassword" type="password">
+
+                    <i *ngIf="userForm.controls.repeatPassword.valid" class="fa fa-check-circle"
+                       style="color:green"></i>
+                    <i *ngIf="userForm.controls.repeatPassword.invalid" class="fa fa-times-circle"
+                       style="color:firebrick"> </i>
+
+                  </div>
+                </div>
+
               </div>
 
-              <div class="col-6">
-                <div class="input-group">
-                  <label class="label" for="email">{{'EMAIL'|translate}}</label>
-                  <input class="input--style-4" type="text" formControlName="email" id="email"  >
-
-                  <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.email.valid" ></i>
-                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.email.invalid" > </i>
-
-
-
-                </div>
+              <div *ngIf="!user" class="p-t-15">
+                <button (click)="addUser()" [disabled]="!userForm.valid" class="btn btn--radius-2 btn--blue"
+                        type="submit">{{'ADD_USER'|translate}}</button>
               </div>
-            </div>
-
-
-            <div class="row row-space">
-              <div class="col-md-5">
-                <div class="input-group">
-                  <label for="password" class="label">{{'PASSWORD'|translate}}</label>
-                  <input type="password" formControlName="password" id="password" class="input--style-4">
-
-                       <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.password.valid"></i>
-                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.password.invalid"> </i>
-                  <small> {{'PASSWORD_MIN' | translate}}</small>
-                </div>
+              <div *ngIf="user" class="p-t-15">
+                <button (click)="editUser()" [disabled]="!userForm.valid||!checkEqualPasswords()"
+                        class="btn btn--radius-2 btn--blue"
+                        type="submit">{{'EDIT_USER'|translate}}</button>
               </div>
-              <div class="col-6">
-                <div class="input-group">
-                  <label for="repeatPassword" class="label">Répeter Mot de passe</label>
-                  <input type="password" formControlName="repeatPassword" id="repeatPassword" class="input--style-4">
-
-                  <i class="fa fa-check-circle" style="color:green"  *ngIf="userForm.controls.repeatPassword.valid" ></i>
-                  <i class="fa fa-times-circle" style="color:firebrick" *ngIf="userForm.controls.repeatPassword.invalid" > </i>
-
-                </div>
+              <div class="p-t-15">
+                <button class="btn btn--radius-2 btn--blue" routerLink="/users">{{'ABORT'|translate|titlecase}}</button>
               </div>
 
-            </div>
 
-            <div class="p-t-15" *ngIf="!user">
-              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="addUser()" [disabled]="!userForm.valid">{{'ADD_USER'|translate}}</button>
-            </div>
-            <div class="p-t-15" *ngIf="user">
-              <button class="btn btn--radius-2 btn--blue" type="submit" (click)="editUser()" [disabled]="!userForm.valid||!checkEqualPasswords()">{{'EDIT_USER'|translate}}</button>
-            </div>
-            <div class="p-t-15">
-              <button class="btn btn--radius-2 btn--blue" routerLink="/users">{{'ABORT'|translate|titlecase}}</button>
-            </div>
+            </form>
 
 
-          </form>
-
-
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</ng-container>
-
+  </ng-container>
+</div>

@@ -59,7 +59,8 @@
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
               "src/assets/css/colReorder.dataTables.min.css",
               "node_modules/noty/lib/noty.css",
-              "node_modules/noty/lib/themes/metroui.css"
+              "node_modules/noty/lib/themes/metroui.css",
+              "src/assets/css/animate.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

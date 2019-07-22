@@ -1,4 +1,6 @@
 export const BASE_URL = 'http://localhost:8080/';
+export const BASE_URL_FILES = BASE_URL + 'downloadFile/';
+
 export const BILLS = 'bills/';
 export const QUOTATIONS = 'quotations/';
 export const PRODUCTS = 'products/';
@@ -12,7 +14,7 @@ export const NEW_PASSWORD = 'new-password/';
 export const HISTORICALS = 'historicals';
 export const ROLES = 'roles/';
 export const LANG = 'lang/';
-export const DELETEFILE = 'deleteFile/' ;
+export const DELETEFILE = 'deleteFile/';
 export const PROVIDERS = 'providers/';
 export const CATEGORY = 'categories/';
 
