@@ -14,7 +14,7 @@ public interface HistoricalService {
 
     List<Historical> findAllHistoricalsByUser(User user);
 
-    List<Historical> findAllHistoricalsByBill(Bill bill);
+    Historical findHistoricalById(Long historicalId);
 
-    Historical findById(Long historicalId);
+    boolean existsById(Long historicalId);
 }

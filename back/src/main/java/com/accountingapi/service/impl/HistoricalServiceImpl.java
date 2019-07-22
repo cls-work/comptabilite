@@ -1,7 +1,6 @@
-/*
+
 package com.accountingapi.service.impl;
 
-import com.accountingapi.model.Bill;
 import com.accountingapi.model.Historical;
 import com.accountingapi.repository.HistoricalRepository;
 import com.accountingapi.security.model.User;
@@ -17,26 +16,30 @@ public class HistoricalServiceImpl implements HistoricalService {
     @Autowired
     HistoricalRepository historicalRepository;
 
+
     @Override
     public Historical addHistorical(Historical historical) {
         return historicalRepository.save(historical);
     }
 
+    @Override
     public List<Historical> findAllHistoricals() {
         return historicalRepository.findAll();
     }
 
+    @Override
     public List<Historical> findAllHistoricalsByUser(User user) {
         return historicalRepository.findAllByUser(user);
     }
 
-    public List<Historical> findAllHistoricalsByBill(Bill bill) {
-        return historicalRepository.findAllByBill(bill);
-    }
-
-    public Historical findById(Long historicalId) {
+    @Override
+    public Historical findHistoricalById(Long historicalId) {
         return historicalRepository.findById(historicalId).get();
     }
 
+    @Override
+    public boolean existsById(Long historicalId) {
+        return historicalRepository.existsById(historicalId);
+    }
 }
-*/
+

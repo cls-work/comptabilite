@@ -13,5 +13,4 @@ public interface HistoricalRepository extends JpaRepository<Historical, Long> {
 
     List<Historical> findAllByUser(User user);
 
-    List<Historical> findAllByBill(Bill bill);
 }

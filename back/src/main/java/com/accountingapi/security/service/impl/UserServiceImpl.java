@@ -30,4 +30,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.getAllByRoles(roles);
     }
 
+    @Override
+    public boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username).get();
+    }
+
 }

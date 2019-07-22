@@ -17,4 +17,8 @@ public interface UserService {
     User findUserById(Long userId);
 
     List<User> findAllByRoles(Set<Role> roles);
+
+    boolean existsById(Long id);
+
+    User findUserByUsername(String username);
 }

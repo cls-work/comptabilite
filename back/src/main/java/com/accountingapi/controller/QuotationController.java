@@ -2,6 +2,7 @@ package com.accountingapi.controller;
 
 import com.accountingapi.dto.QuotationRequestDto;
 import com.accountingapi.model.FileStorageProperties;
+import com.accountingapi.model.Historical;
 import com.accountingapi.model.Purchase;
 import com.accountingapi.model.Quotation;
 import com.accountingapi.security.JWT.CurrentUser;
@@ -10,6 +11,7 @@ import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.RoleRepository;
 import com.accountingapi.security.service.impl.UserServiceImpl;
+import com.accountingapi.service.HistoricalService;
 import com.accountingapi.service.impl.EmailServiceImpl;
 import com.accountingapi.service.impl.FileStorageServiceImpl;
 import com.accountingapi.service.impl.PurchaseServiceImpl;
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -51,6 +55,9 @@ public class QuotationController {
     @Autowired
     FileStorageServiceImpl fileStorageService;
 
+    @Autowired
+    HistoricalService historicalService;
+
     // -------------------Retrieve All Quotations---------------------------------------------
     @GetMapping
     public ResponseEntity<List<Quotation>> findAllQuotations() {
@@ -83,6 +90,8 @@ public class QuotationController {
 
         }
         quotationService.addQuotation(quotation);
+        User currUser = userService.findUserByUsername(currentUser.getUsername());
+        historicalService.addHistorical(new Historical("New Quotation Added", currUser));
         return new ResponseEntity<Quotation>(quotation, HttpStatus.CREATED);
     }
 
@@ -98,13 +107,15 @@ public class QuotationController {
     // -------------------Delete a Quotation---------------------------------------------
 
     @DeleteMapping("/{quotationId}")
-    public ResponseEntity<?> deleteQuotationById(@PathVariable("quotationId") Long quotationId) {
+    public ResponseEntity<?> deleteQuotationById(@CurrentUser UserPrincipal currentUser, @PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
             Quotation quotation = quotationService.findQuotationById(quotationId);
             if (quotation.getConfirmed() != null) {
                 List<Purchase> purchases = quotation.getPurchases();
                 //for(Purchase purchase:purchases) purchaseService.deletePurchaseById(purchase.getId());
                 quotationService.deleteQuotationById(quotationId);
+                User currUser = userService.findUserByUsername(currentUser.getUsername());
+                historicalService.addHistorical(new Historical("Quotation with ID " + quotationId + " deleted", currUser));
                 System.out.println("Quotation deleted");
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
@@ -117,12 +128,14 @@ public class QuotationController {
     // -------------------Confirm Quotation By ID---------------------------------------------
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/confirm/{quotationId}")
-    public ResponseEntity<?> confirmQuotation(@PathVariable("quotationId") Long quotationId) {
+    public ResponseEntity<?> confirmQuotation(@CurrentUser UserPrincipal currentUser, @PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
             Quotation quotation = quotationService.findQuotationById(quotationId);
             if (quotation.getConfirmed() == null) {
                 quotation.setConfirmed(true);
                 quotationService.updateQuotation(quotation);
+                User currUser = userService.findUserByUsername(currentUser.getUsername());
+                historicalService.addHistorical(new Historical("Quotation with ID " + quotationId + " confirmed", currUser));
                 return new ResponseEntity(HttpStatus.OK);
             } else
                 return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
@@ -133,12 +146,14 @@ public class QuotationController {
     // -------------------Reject Quotation By ID---------------------------------------------
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/reject/{quotationId}")
-    public ResponseEntity<?> rejectQuotation(@PathVariable("quotationId") Long quotationId) {
+    public ResponseEntity<?> rejectQuotation(@CurrentUser UserPrincipal currentUser, @PathVariable("quotationId") Long quotationId) {
         if (quotationService.existsById(quotationId)) {
             Quotation quotation = quotationService.findQuotationById(quotationId);
             if (quotation.getConfirmed() == null) {
                 quotation.setConfirmed(false);
                 quotationService.updateQuotation(quotation);
+                User currUser = userService.findUserByUsername(currentUser.getUsername());
+                historicalService.addHistorical(new Historical("Quotation with ID " + quotationId + " rejected", currUser));
                 return new ResponseEntity(HttpStatus.OK);
             } else
                 return new ResponseEntity("Quotation with id " + quotationId + " already treated", HttpStatus.CONFLICT);
