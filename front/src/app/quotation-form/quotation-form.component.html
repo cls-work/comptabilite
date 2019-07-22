@@ -260,6 +260,7 @@
 
   </ng-container>-->
 
+</ng-container>
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -325,91 +326,6 @@
     </div>
   </div>
 
-
-  <!-- Modal -->
-  <div class="modal fade" id="ProductLogin" tabindex="-1" role="dialog"
-       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Add new product</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-
-        <div class="modal-body">
-          <div class="alert alert-dark" role="alert" *ngIf="submittedProduct&&errorProduct">
-            {{'ERROR'|translate}}
-          </div>
-          <div class="alert alert-dark" role="alert" *ngIf="submittedProduct&&!errorProduct">
-            {{'NEW_PRODUCT_ADDED'|translate}}
-          </div>
-          <ng-container *ngIf="productForm">
-            <form [formGroup]="productForm">
-              <div class="row row-space">
-                <div class="col-md-5">
-
-                  <div class="input-group">
-                    <label class="label" for="reference">{{'Designation'|translate}}</label>
-                    <input class="form-control" type="text" formControlName="reference" id="reference"/>
-                    <i class="fa fa-check-circle" style="color:green;"
-                       *ngIf="productForm.controls.reference.valid "></i>
-                    <i class="fa fa-times-circle" style="color:firebrick;"
-                       *ngIf="productForm.controls.reference.invalid"></i>
-
-                  </div>
-                </div>
-
-                <div class="col-7">
-
-                  <div class="input-group">
-                    <label class="label" for="designation">{{'Reference'|translate}}</label>
-                    <input class="form-control" type="text" formControlName="designation" id="designation"/>
-                    <i class="fa fa-check-circle" style="color:green;"
-                       *ngIf="productForm.controls.designation.valid "></i>
-                    <i class="fa fa-times-circle" style="color:firebrick;"
-                       *ngIf="productForm.controls.designation.invalid"></i>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="row row-space">
-                <div class="col-md-5">
-
-                  <label class="label" for="category">{{'Categorie'|translate}}</label>
-
-
-                  <ng-select [(ngModel)]="selectedCategorie" class="input-" formControlName="category"
-                             labelForId="category">
-
-                    <ng-option *ngFor="let categorie of categories" [value]="categorie">{{categorie.label}}</ng-option>
-
-                  </ng-select>
-
-                  <i class="fa fa-check-circle" style="color:green;"
-                     *ngIf="productForm.controls.category.valid "></i>
-                  <i class="fa fa-times-circle" style="color:firebrick;"
-                     *ngIf="productForm.controls.category.invalid"></i>
-
-
-                </div>
-              </div>
-
-            </form>
-          </ng-container>
-
-
-        </div>
-        <div class="modal-footer">
-          <button class="btn " type="submit" (click)="addProduct()"
-                  [disabled]="!productForm.valid">{{'SUBMIT'|translate}}</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 

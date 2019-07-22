@@ -33,6 +33,7 @@ export class PurchaseFormComponent implements OnInit {
 
 
 
+
   ngOnInit() {
     this.taxType = 0;
     this.submittedProduct = false;
@@ -62,6 +63,12 @@ export class PurchaseFormComponent implements OnInit {
       // @ts-ignore
     });
 
+    this.categoryService.getAllCategories()
+      .subscribe(
+        (categories: CategoryModel[]) => {
+          this.categories = categories;
+        });
+
   }
 
   createItem(): FormGroup {
@@ -87,7 +94,34 @@ export class PurchaseFormComponent implements OnInit {
     console.log(this.orderForm.value);
   }
 
-  addPurchase() {
+  addProduct() {
+    this.productService.postProduct(this.productForm.value)
+      .subscribe((res) => {
+
+          this.errorProduct = false;
+          this.submittedProduct = true;
+          setTimeout(() => {
+            this.submittedProduct = false;
+          }, 3000);
+          this.productService.getAllProducts()
+            .subscribe(
+              (products: any) => {
+                this.products = products;
+              });
+        }
+        ,
+        () => {
+          this.errorProduct = true;
+          this.submittedProduct = true;
+          console.log('erreur');
+          setTimeout(() => {
+            this.submittedProduct = false;
+          }, 3000);
+        }
+      ).add(() => {
+      console.log('finally');
+    });
+
 
   }
 
@@ -169,32 +203,7 @@ export class PurchaseFormComponent implements OnInit {
     this.calculateTotals();
   }
 
-  addProduct() {
-    this.productService.postProduct(this.productForm.value)
-        .subscribe((res) => {
-            this.productService.getAllProducts()
-              .subscribe(
-                (products: any) => {
-                  console.log('first to execute');
-                  this.errorProduct = false;
-                  this.submittedProduct = true ;
-                  this.products = products;
-                  setTimeout(() => {this.submittedProduct = false; } , 3000);
-                });
-          }
-          ,
-          () => {
-            this.errorProduct = true ;
-            this.submittedProduct = true ;
-            console.log('erreur');
-            setTimeout(() => {this.submittedProduct = false; } , 3000);
-          }
-        ).add(() => {
-          console.log('finally');
-    });
 
-
-  }
 
 
   calculateAllPrices() {
