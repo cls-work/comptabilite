@@ -1,7 +1,9 @@
 package com.accountingapi.service.impl;
 
 import com.accountingapi.model.Bill;
+import com.accountingapi.model.Category;
 import com.accountingapi.model.Product;
+import com.accountingapi.repository.CategoryRepository;
 import com.accountingapi.repository.ProductRepository;
 import com.accountingapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    CategoryServiceImpl categoryService;
 
 
     //Add Product
@@ -57,6 +62,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean existsByReference(String reference) {
         return productRepository.existsByReference(reference);
+    }
+
+    @Override
+    public List<Product> findProductsByCategory(Category category) {
+        return productRepository.findAllByCategory(category);
+
     }
 
 }

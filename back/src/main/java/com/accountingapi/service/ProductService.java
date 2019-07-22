@@ -1,5 +1,6 @@
 package com.accountingapi.service;
 
+import com.accountingapi.model.Category;
 import com.accountingapi.model.Product;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface ProductService {
     boolean existsById(Long productId);
 
     boolean existsByReference(String reference);
+
+    List<Product> findProductsByCategory(Category category);
 }

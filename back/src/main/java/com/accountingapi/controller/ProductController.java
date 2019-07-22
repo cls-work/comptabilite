@@ -1,8 +1,11 @@
 package com.accountingapi.controller;
 
+import com.accountingapi.model.Category;
 import com.accountingapi.model.Product;
+import com.accountingapi.model.ProductsCategory;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.service.impl.CategoryServiceImpl;
 import com.accountingapi.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,6 +26,9 @@ public class ProductController {
 
     @Autowired
     ProductServiceImpl productService;
+
+    @Autowired
+    CategoryServiceImpl categoryService;
 
     // -------------------Retrieve All Products---------------------------------------------
     @GetMapping
@@ -72,6 +79,21 @@ public class ProductController {
         return new ResponseEntity("Product with id" + product.getId() + " not found",
                 HttpStatus.NOT_FOUND);
     }
+
+    // -------------------Retrieve All Products By All Categories---------------------------------------------
+    @GetMapping("/productsByCategory")
+    public ResponseEntity<?> FindAllProductsByCategories() {
+        List<ProductsCategory> productsCategoryList = new ArrayList<>();
+        List<Category> categories = categoryService.findAllCategories();
+        for (Category category : categories) {
+            ProductsCategory productsCategory = new ProductsCategory(category, productService.findProductsByCategory(category));
+            productsCategoryList.add(productsCategory);
+
+        }
+        return new ResponseEntity<>(productsCategoryList, HttpStatus.OK);
+
+    }
+
 
 
 }
