@@ -110,7 +110,6 @@ public class PurchaseController {
             for (Product product : products) {
                 List<Purchase> purchases = purchaseService.findAllPurchasesByProduct(product);
                 purchasesCategory.addPurchases(purchases);
-
             }
             purchasesCategoryList.add(purchasesCategory);
         }
