@@ -1,5 +1,6 @@
 package com.accountingapi.repository;
 
+import com.accountingapi.model.Product;
 import com.accountingapi.model.Purchase;
 import com.accountingapi.model.Quotation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,6 @@ import java.util.List;
 public interface PurchaseRepository extends JpaRepository<Purchase,Long> {
 
     List<Purchase> findAllByQuotation(Quotation quotation);
+
+    List<Purchase> findAllByProduct(Product product);
 }

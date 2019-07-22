@@ -1,6 +1,7 @@
 package com.accountingapi.service.impl;
 
 import com.accountingapi.model.Bill;
+import com.accountingapi.model.Product;
 import com.accountingapi.model.Purchase;
 import com.accountingapi.model.Quotation;
 import com.accountingapi.repository.PurchaseRepository;
@@ -61,6 +62,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public List<Purchase> findAllPurchases() {
         return purchaseRepository.findAll();
+    }
+
+    @Override
+    public List<Purchase> findAllPurchasesByProduct(Product product) {
+        return purchaseRepository.findAllByProduct(product);
     }
 
 }

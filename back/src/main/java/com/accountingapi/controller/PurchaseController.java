@@ -1,6 +1,11 @@
 package com.accountingapi.controller;
 
+import com.accountingapi.model.Category;
+import com.accountingapi.model.Product;
 import com.accountingapi.model.Purchase;
+import com.accountingapi.model.PurchasesCategory;
+import com.accountingapi.service.impl.CategoryServiceImpl;
+import com.accountingapi.service.impl.ProductServiceImpl;
 import com.accountingapi.service.impl.PurchaseServiceImpl;
 import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,6 +27,12 @@ public class PurchaseController {
 
     @Autowired
     QuotationServiceImpl quotationService;
+
+    @Autowired
+    CategoryServiceImpl categoryService;
+
+    @Autowired
+    ProductServiceImpl productService;
 
     // -------------------Retrieve All Purchases By QUOTATION ID---------------------------------------------
     @GetMapping("/quotation/{quotationId}")
@@ -83,6 +95,22 @@ public class PurchaseController {
         if (purchaseService.existsById(purchaseId))
             return new ResponseEntity<Purchase>(purchaseService.findPurchaseById(purchaseId), HttpStatus.OK);
         else return new ResponseEntity("Purchase not found", HttpStatus.NOT_FOUND);
+    }
+
+    // -------------------Retrieve All Purchases By All Categories---------------------------------------------
+    @GetMapping("/purchasesByCategory")
+    public ResponseEntity<?> FindAllPurchasesByCategories() {
+        List<PurchasesCategory> purchasesCategoryList = new ArrayList<>();
+        List<Category> categories = categoryService.findAllCategories();
+        for (Category category : categories) {
+            List<Product> products = productService.findProductsByCategory(category);
+            for (Product product : products) {
+                PurchasesCategory purchasesCategory = new PurchasesCategory(category, purchaseService.findAllPurchasesByProduct(product));
+                purchasesCategoryList.add(purchasesCategory);
+            }
+        }
+        return new ResponseEntity<>(purchasesCategoryList, HttpStatus.OK);
+
     }
 
 

@@ -2,7 +2,7 @@ package com.accountingapi.controller;
 
 import com.accountingapi.model.Category;
 import com.accountingapi.model.Product;
-import com.accountingapi.model.ProductsCategory;
+import com.accountingapi.model.PurchasesCategory;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.service.impl.CategoryServiceImpl;
@@ -80,19 +80,7 @@ public class ProductController {
                 HttpStatus.NOT_FOUND);
     }
 
-    // -------------------Retrieve All Products By All Categories---------------------------------------------
-    @GetMapping("/productsByCategory")
-    public ResponseEntity<?> FindAllProductsByCategories() {
-        List<ProductsCategory> productsCategoryList = new ArrayList<>();
-        List<Category> categories = categoryService.findAllCategories();
-        for (Category category : categories) {
-            ProductsCategory productsCategory = new ProductsCategory(category, productService.findProductsByCategory(category));
-            productsCategoryList.add(productsCategory);
 
-        }
-        return new ResponseEntity<>(productsCategoryList, HttpStatus.OK);
-
-    }
 
 
 
