@@ -7,6 +7,8 @@ import com.accountingapi.model.Purchase;
 import com.accountingapi.model.Quotation;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.security.model.Role;
+import com.accountingapi.security.model.RoleName;
 import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.RoleRepository;
 import com.accountingapi.security.service.impl.UserServiceImpl;
@@ -25,7 +27,9 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -70,8 +74,19 @@ public class QuotationController {
         User admin = (User) userService.findUserById((long) 2);
         //EmailService.createQuotationMail(currentUser,admin);
         System.out.println("test1");
-        emailService.createQuotationMail(quotationCreator, admin);
-*/
+       */
+        User currUser = userService.findUserByUsername(currentUser.getUsername());
+        System.out.println("test1");
+        Set<Role> role = new HashSet<>();
+        System.out.println("test2");
+        role.add(roleRepository.findById((long) 2).get());
+        System.out.println("test3");
+        List<User> admins = userService.findAllByRoles(role);
+        System.out.println("test4");
+        for (User admin : admins) {
+            emailService.createQuotationMail(currUser, admin);
+        }
+        System.out.println("test5");
         Quotation quotation = quotationRequestDto.getQuotation();
         List<Purchase> purchases = quotation.getPurchases();
         for (Purchase purchase : purchases) purchase.setQuotation(quotation);
@@ -85,7 +100,6 @@ public class QuotationController {
 
         }
         quotationService.addQuotation(quotation);
-        User currUser = userService.findUserByUsername(currentUser.getUsername());
         historicalService.addHistorical(new Historical("New Quotation Added", currUser));
         return new ResponseEntity<Quotation>(quotation, HttpStatus.CREATED);
     }

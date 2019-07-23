@@ -106,16 +106,16 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void createQuotationMail(User quotationCreator, User admin) throws IOException, MessagingException {
-
+/*
         //Generate admin token
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        "sinda",
-                        "testsinda")
+                        "skan",
+                        "skander")
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
-
+*/
 
         Mail mail = new Mail();
         mail.setTo(admin.getEmail());
@@ -127,7 +127,7 @@ public class EmailServiceImpl implements EmailService {
         mail.setModel(model);
         // true = text/html
         String message = "\nUser " + quotationCreator.getName() + " has just added a new quotation. Please check the pdf file and click on the link to confirm or reject it. \n";
-        String mailContent = message + "<br/><a href=\"" + mail.getModel().get("url").toString() + "/token=" + jwt + "\">Click here</a>";
+        String mailContent = message + "<br/><a href=\"" + mail.getModel().get("url").toString() + "\">Click here</a>";
         emailService.sendEmailWithAttachment(mail, mailContent);
 
     }
