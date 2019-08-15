@@ -4,7 +4,6 @@ package com.accountingapi.controller;
 import com.accountingapi.model.CheckPayment;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-        import com.accountingapi.service.CheckService;
 import com.accountingapi.service.impl.CheckServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

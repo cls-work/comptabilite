@@ -70,27 +70,16 @@ public class QuotationController {
     // -------------------Create a Quotation and sending an email to Admin---------------------------------------------
     @PostMapping
     public ResponseEntity<Quotation> addQuotation(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody QuotationRequestDto quotationRequestDto) throws IOException, MessagingException {
-        /*User quotationCreator = userService.findUserById((long) 1);
-        User admin = (User) userService.findUserById((long) 2);
-        //EmailService.createQuotationMail(currentUser,admin);
-        System.out.println("test1");
-       */
+        //Getting Current User
         User currUser = userService.findUserByUsername(currentUser.getUsername());
-        System.out.println("test1");
-        Set<Role> role = new HashSet<>();
-        System.out.println("test2");
-        role.add(roleRepository.findById((long) 2).get());
-        System.out.println("test3");
-        List<User> admins = userService.findAllByRoles(role);
-        System.out.println("test4");
-        for (User admin : admins) {
-            emailService.createQuotationMail(currUser, admin);
-        }
-        System.out.println("test5");
+
         Quotation quotation = quotationRequestDto.getQuotation();
+
+        //Setting Purchases
         List<Purchase> purchases = quotation.getPurchases();
         for (Purchase purchase : purchases) purchase.setQuotation(quotation);
 
+        //Setting Files
         if (quotationRequestDto.getDocumentIds() != null) {
 
             List<Long> documentsIds = quotationRequestDto.getDocumentIds();
@@ -101,7 +90,16 @@ public class QuotationController {
         }
         quotationService.addQuotation(quotation);
         historicalService.addHistorical(new Historical("New Quotation Added", currUser));
-        return new ResponseEntity<Quotation>(quotation, HttpStatus.CREATED);
+
+        //Sending email to all Administrators
+        Set<Role> role = new HashSet<>();
+        role.add(roleRepository.findByName(RoleName.ROLE_ADMIN).get());
+        List<User> admins = userService.findAllByRoles(role);
+        for (User admin : admins) {
+            emailService.createQuotationMail(currUser, admin);
+            System.out.println("mail sended to " + admin.getName());
+        }
+        return new ResponseEntity<>(quotation, HttpStatus.CREATED);
     }
 
     // -------------------Retrieve One Quotation By ID---------------------------------------------
