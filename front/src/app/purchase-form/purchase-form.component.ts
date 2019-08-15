@@ -76,6 +76,10 @@ export class PurchaseFormComponent implements OnInit {
 
   }
 
+  get purchase() {
+    return this.orderForm.get('purchases') as FormArray;
+  }
+
   createItem(): FormGroup {
     return this.formBuilder.group({
       product: ['', Validators.required],
