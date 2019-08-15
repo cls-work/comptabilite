@@ -1,3 +1,4 @@
+/*
 package com.accountingapi.dto;
 
 import com.accountingapi.model.Bill;
@@ -27,3 +28,4 @@ public class BillDocumentDto {
         this.documentIds = documentIds;
     }
 }
+*/

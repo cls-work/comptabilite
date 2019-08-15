@@ -1,6 +1,8 @@
 package com.accountingapi.security.model;
 
+import com.accountingapi.model.Bill;
 import com.accountingapi.model.Historical;
+import com.accountingapi.model.Quotation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -30,16 +32,13 @@ public class User {
     @Column(nullable = true)
     private String lang;
 
-    @NotBlank
     @Size(max = 40)
     private String name;
 
-    @NotBlank
     @Size(max = 15)
     private String username;
 
     //@NaturalId
-    @NotBlank
     @Size(max = 40)
     @Email
     private String email;
@@ -49,7 +48,8 @@ public class User {
     @Size(max = 100)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -58,6 +58,15 @@ public class User {
     @JsonIgnore
     @OneToMany(targetEntity= Historical.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Historical> historicals = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.MERGE)
+    private List<Quotation> quotationsCreated;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "acceptedBy", cascade = CascadeType.MERGE)
+    private List<Quotation> quotationsAccepted;
 
 
     public User() {
@@ -77,6 +86,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getName() {
@@ -127,11 +144,20 @@ public class User {
         this.historicals = historicals;
     }
 
-    public String getLang() {
-        return lang;
+
+    public List<Quotation> getQuotationsCreated() {
+        return quotationsCreated;
     }
 
-    public void setLang(String lang) {
-        this.lang = lang;
+    public void setQuotationsCreated(List<Quotation> quotationsCreated) {
+        this.quotationsCreated = quotationsCreated;
+    }
+
+    public List<Quotation> getQuotationsAccepted() {
+        return quotationsAccepted;
+    }
+
+    public void setQuotationsAccepted(List<Quotation> quotationsAccepted) {
+        this.quotationsAccepted = quotationsAccepted;
     }
 }

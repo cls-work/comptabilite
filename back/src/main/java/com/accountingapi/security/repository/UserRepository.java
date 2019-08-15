@@ -1,5 +1,6 @@
 package com.accountingapi.security.repository;
 
+import com.accountingapi.security.model.Role;
 import com.accountingapi.security.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Set;
 
 
 @Repository
@@ -27,6 +28,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
 
     User getById(Long id);
+
+    List<User> getAllByRoles(Set<Role> roles);
 
     @Modifying
     @Query("update User u set u.password = :password where u.id = :id")

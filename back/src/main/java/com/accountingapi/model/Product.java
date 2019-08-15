@@ -1,77 +1,46 @@
 package com.accountingapi.model;
 
 
+import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
 
+@JsonAutoDetect
 public class Product {
 
+
     @Id
-    @Column(name="product_id",unique=true,nullable = false)
-    private String productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "reference", unique = true, nullable = false)
+    private String reference;
 
     @Column(nullable = false)
     private String designation;
 
-    @Column(nullable = false)
-    private int quantity;
 
-    @Column(nullable = false)
-    private Double unitPrice;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    @Column(nullable = false)
-    private Double discount;
-
-    @Column(nullable = false)
-    private Double TVA;
-
-    @Column(nullable = false)
-    private Double unitPriceAfterDiscount;
-
-    @Column(nullable = false)
-    private Double amountHT= Double.valueOf(0);
-
-    @Column(nullable = false)
-    private Double amountTVA;
-
-    @Column(nullable = false)
-    private Double amountTTC;
-
-    @ManyToOne
-    @JoinColumn(name = "billId")
-    private Bill bill= new Bill();
-
-    //************Constructor*****************
-
-
-    public Product() {
+    public Long getId() {
+        return id;
     }
 
-    public Product(String productId, String designation, int quantity, Double unitPrice, Double discount, Double TVA, Double unitPriceAfterDiscount, Double amountHT, Double amountTVA, Double amountTTC, Bill bill) {
-        this.productId = productId;
-        this.designation = designation;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-        this.discount = discount;
-        this.TVA = TVA;
-        this.unitPriceAfterDiscount = unitPriceAfterDiscount;
-        this.amountHT = amountHT;
-        this.amountTVA = amountTVA;
-        this.amountTTC = amountTTC;
-        this.bill = bill;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-
-    //************Getters & Setters************
-
-
-    public String getProductId() {
-        return productId;
+    public String getReference() {
+        return reference;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getDesignation() {
@@ -82,76 +51,23 @@ public class Product {
         this.designation = designation;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public Double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
-    public Double getTVA() {
-        return TVA;
-    }
-
-    public void setTVA(Double TVA) {
-        this.TVA = TVA;
-    }
-
-    public Double getUnitPriceAfterDiscount() {
-        return unitPriceAfterDiscount;
-    }
-
-    public void setUnitPriceAfterDiscount(Double unitPriceAfterDiscount) {
-        this.unitPriceAfterDiscount = unitPriceAfterDiscount;
-    }
-
-    public Double getAmountHT() {
-        return amountHT;
-    }
-
-    public void setAmountHT(Double amountHT) {
-        this.amountHT = amountHT;
-    }
-
-    public Double getAmountTVA() {
-        return amountTVA;
-    }
-
-    public void setAmountTVA(Double amountTVA) {
-        this.amountTVA = amountTVA;
-    }
-
-    public Double getAmountTTC() {
-        return amountTTC;
-    }
-
-    public void setAmountTTC(Double amountTTC) {
-        this.amountTTC = amountTTC;
-    }
-
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", reference='" + reference + '\'' +
+                ", reference='" + reference + '\'' +
+                ", designation='" + designation + '\'' +
+                ", category=" + category +
+                '}';
     }
 }
 

@@ -1,6 +1,9 @@
+
 package com.accountingapi.model;
 
+import com.accountingapi.security.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,126 +15,43 @@ import java.util.List;
 public class Bill {
 
     @Id
-    @Column(name = "billId",unique=true,nullable = false)
-    private String billId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
 
     @Column(nullable = false)
-    private String provider;
-
-    @Column(nullable = false)
-    private Date date;
-
-    @Column(nullable = false)
-    private Double totalHT= Double.valueOf(0);
-
-    @Column(nullable = false)
-    private Double totalTTC=Double.valueOf(0);
-
-    @Column(nullable = false)
-    private Double totalTVA=Double.valueOf(0);
-
-    @Column(nullable = false)
-    private Double taxStamp;
-
-    @Column(nullable = false)
-    private Double checkReference= Double.valueOf(0);
-
-    @Column(nullable = false)
-    private Boolean checkPayment;
+    @CreationTimestamp
+    private Date creationDate;
 
     @JsonIgnore
     @Column(nullable = false)
-    private Boolean isDeleted=false;
+    private Boolean isDeleted = false;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "bill")
-    private List<Product> products;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quotation_id", referencedColumnName = "id")
+    private Quotation quotation;
 
-    @JsonIgnore
-    @OneToMany(targetEntity=Historical.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Historical> historicals = new ArrayList<>();
-
-
-    @OneToMany(targetEntity=FileStorageProperties.class, mappedBy="bill",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileStorageProperties> fileStorageProperties= new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "checkPayment_id", referencedColumnName = "id")
+    private CheckPayment checkPayment;
 
 
-
-
-    //************Getters & Setters************
-
-
-    public String getBillId() {
-        return billId;
+    public Long getId() {
+        return id;
     }
 
-    public void setBillId(String billId) {
-        this.billId = billId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getProvider() {
-        return provider;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Double getTotalHT() {
-        return totalHT;
-    }
-
-    public void setTotalHT(Double totalHT) {
-        this.totalHT = totalHT;
-    }
-
-    public Double getTotalTTC() {
-        return totalTTC;
-    }
-
-    public void setTotalTTC(Double totalTTC) {
-        this.totalTTC = totalTTC;
-    }
-
-    public Double getTotalTVA() {
-        return totalTVA;
-    }
-
-    public void setTotalTVA(Double totalTVA) {
-        this.totalTVA = totalTVA;
-    }
-
-    public Double getTaxStamp() {
-        return taxStamp;
-    }
-
-    public void setTaxStamp(Double taxStamp) {
-        this.taxStamp = taxStamp;
-    }
-
-    public Double getCheckReference() {
-        return checkReference;
-    }
-
-    public void setCheckReference(Double checkReference) {
-        this.checkReference = checkReference;
-    }
-
-    public Boolean getCheckPayment() {
-        return checkPayment;
-    }
-
-    public void setCheckPayment(Boolean checkPayment) {
-        this.checkPayment = checkPayment;
-    }
 
     public Boolean getDeleted() {
         return isDeleted;
@@ -141,44 +61,31 @@ public class Bill {
         isDeleted = deleted;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Quotation getQuotation() {
+        return quotation;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setQuotation(Quotation quotation) {
+        this.quotation = quotation;
     }
 
-    public List<Historical> getHistoricals() {
-        return historicals;
+
+    public CheckPayment getCheckPayment() {
+        return checkPayment;
     }
 
-    public void setHistoricals(List<Historical> historicals) {
-        this.historicals = historicals;
-    }
-
-    public List<FileStorageProperties> getFileStorageProperties() {
-        return fileStorageProperties;
-    }
-
-    public void setFileStorageProperties(List<FileStorageProperties> fileStorageProperties) {
-        this.fileStorageProperties = fileStorageProperties;
+    public void setCheckPayment(CheckPayment checkPayment) {
+        this.checkPayment = checkPayment;
     }
 
     @Override
     public String toString() {
         return "Bill{" +
-                "billId='" + billId + '\'' +
-                ", provider='" + provider + '\'' +
-                ", date=" + date +
-                ", totalHT=" + totalHT +
-                ", totalTTC=" + totalTTC +
-                ", totalTVA=" + totalTVA +
-                ", taxStamp=" + taxStamp +
-                ", checkReference=" + checkReference +
-                ", checkPayment=" + checkPayment +
+                "id='" + id + '\'' +
+                ", creationDate=" + creationDate +
                 ", isDeleted=" + isDeleted +
-                ", products=" + products +
+                ", quotation=" + quotation +
+                ", checkPayment=" + checkPayment +
                 '}';
     }
 }

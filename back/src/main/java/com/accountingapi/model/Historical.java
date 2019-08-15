@@ -1,7 +1,11 @@
 package com.accountingapi.model;
+
+import com.accountingapi.security.JWT.UserPrincipal;
 import com.accountingapi.security.model.User;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,19 +18,28 @@ public class Historical {
     @Column(name = "message",unique=false,nullable = true)
     private String message;
 
-    @ManyToOne()
-    @JoinColumn(name="BillId")
-    private Bill bill;
-
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
 
-    @Column(name = "date",unique=false,nullable = false)
-    private String date;
+    @Column(name = "date")
+    @CreationTimestamp
+    private Date date;
 
+    //************Constructors************
 
-    //************Getters & Setters************
+    public Historical(String message, User user) {
+        this.message = message;
+        this.user = user;
+    }
+
+    public Historical(String message, User user, Date date) {
+        this.message = message;
+        this.user = user;
+        this.date = date;
+    }
+
+//************Getters & Setters************
 
     public Long getId() {
         return id;
@@ -45,14 +58,6 @@ public class Historical {
     }
 
 
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
-
     public User getUser() {
         return user;
     }
@@ -61,11 +66,11 @@ public class Historical {
         this.user = user;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

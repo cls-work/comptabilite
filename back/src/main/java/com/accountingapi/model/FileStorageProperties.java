@@ -1,7 +1,6 @@
 package com.accountingapi.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.persistence.*;
@@ -22,11 +21,6 @@ public class FileStorageProperties{
 
     @Column(name = "size",unique=false,nullable = true)
     private long size;
-
-    @JsonIgnore
-    @ManyToOne()
-    @JoinColumn(name="BillId")
-    private Bill bill;
 
 
     //Constructor
@@ -61,13 +55,6 @@ public class FileStorageProperties{
         this.id = id;
     }
 
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
 
     public String getFileType() {
         return fileType;
