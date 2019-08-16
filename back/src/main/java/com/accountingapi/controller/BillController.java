@@ -1,20 +1,22 @@
+
 package com.accountingapi.controller;
-
-
-import com.accountingapi.dto.BillRequestDto;
 import com.accountingapi.model.Bill;
-import com.accountingapi.model.FileStorageProperties;
-import com.accountingapi.repository.FileStorageRepository;
+import com.accountingapi.model.Historical;
+import com.accountingapi.model.Quotation;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
+import com.accountingapi.security.model.User;
 import com.accountingapi.security.repository.UserRepository;
-import com.accountingapi.service.BillService;
-import com.accountingapi.service.HistoricalService;
+import com.accountingapi.security.service.impl.UserServiceImpl;
+import com.accountingapi.service.impl.BillServiceImpl;
+import com.accountingapi.service.impl.FileStorageServiceImpl;
+import com.accountingapi.service.impl.HistoricalServiceImpl;
+import com.accountingapi.service.impl.QuotationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -24,106 +26,76 @@ import java.util.List;
 public class BillController {
 
     @Autowired
-    BillService billService;
+    BillServiceImpl billService;
 
-    @Autowired
-    HistoricalService historicalService;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    FileStorageRepository fileStorageRepository;
+    FileStorageServiceImpl fileStorageService;
 
+    @Autowired
+    QuotationServiceImpl quotationService;
 
-    /*
-        Displaying all bills
-     */
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @GetMapping("")
-    public List<Bill> displayAllBills() {
-        return billService.findAll();
+    @Autowired
+    UserServiceImpl userService;
+
+    @Autowired
+    HistoricalServiceImpl historicalService;
+
+    // -------------------Retrieve All Bills---------------------------------------------
+    @GetMapping
+    public ResponseEntity<List<Bill>> findAllBills() {
+        List<Bill> bills = billService.findAllBills();
+        if (bills.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
 
-    /*
-        Get Bill by its id
-     */
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    // -------------------Retrieve One Bill By ID---------------------------------------------
     @GetMapping("/{id}")
-    public Bill getBillById(@PathVariable("id") String id) {
-        return billService.getBillById(id);
+    public ResponseEntity<Bill> findBillById(@PathVariable("id") Long id) {
+        if (billService.existsById(id))
+            return new ResponseEntity<Bill>(billService.findBillById(id), HttpStatus.OK);
+        else return new ResponseEntity("Bill not found", HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Delete a Bill---------------------------------------------
 
-    /*
-        Delete bill by its id
-     */
 
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public Boolean deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
-
-        Bill bill = billService.getBillById(id);
-        bill.setDeleted(true);
-        historicalService.addHistoricalForBill(currentUser, "deleted a Bill", bill);
-        billService.updateBill(bill);
-        return bill.getDeleted();
-    }
-
-    /*
-        add a new Bill
-    */
-
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PostMapping("")
-    public Bill addBill(@CurrentUser UserPrincipal currentUser, @RequestBody BillRequestDto billRequestDto) {
-        Bill bill = billRequestDto.toBill();
-
-
-        if (billRequestDto.getDocumentIds() != null) {
-
-            List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
-            bill.setFileStorageProperties(documents);
-           // documents.forEach(elt -> elt.setBill(bill));
-
+    public ResponseEntity<?> deleteBill(@CurrentUser UserPrincipal currentUser, @PathVariable Long id) {
+        if (billService.existsById(id)) {
+            Bill bill = billService.findBillById(id);
+            bill.setDeleted(true);
+            billService.updateBill(bill);
+            User currUser = userService.findUserByUsername(currentUser.getUsername());
+            historicalService.addHistorical(new Historical("Bill with id " + id + " Deleted", currUser));
+            return new ResponseEntity<>("Bill's attribute isDeleted setted to true", HttpStatus.NO_CONTENT);
         }
-        Bill newBill = billService.addBill(bill);
-        historicalService.addHistoricalForBill(currentUser, "added a new BillId= "+bill.getBillId(), bill);
-        return newBill;
+        return new ResponseEntity("Quotation with id" + id + " not found", HttpStatus.NOT_FOUND);
 
 
     }
 
 
-    /*
-        update a bill
-     */
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping("/{billId}")
-    public Bill editBill(@CurrentUser UserPrincipal currentUser, @PathVariable String billId, @Valid @RequestBody BillRequestDto billRequestDto) {
-
-        Bill bill = billRequestDto.toBill();
-        bill.setBillId(billId);
-
-        if (billRequestDto.getDocumentIds() != null) {
-
-            List<Long> documentsIds = billRequestDto.getDocumentIds();
-            List<FileStorageProperties> documents = (List<FileStorageProperties>) fileStorageRepository.findAllById(documentsIds);
-            bill.setFileStorageProperties(documents);
-            //documents.forEach(elt -> elt.setBill(bill));
-
-        }
-
-        Bill newBill = billService.updateBill(bill);
-        historicalService.addHistoricalForBill(currentUser, "updated a Bill", bill);
-        return newBill;
+    // -------------------Create a Bill---------------------------------------------
+    @PostMapping
+    public ResponseEntity<Bill> addBill(@CurrentUser UserPrincipal currentUser, @RequestBody Bill bill) {
+        billService.addBill(bill);
+        Quotation quotation = quotationService.findQuotationById(bill.getQuotation().getId());
+        quotation.setHasBill(true);
+        quotationService.updateQuotation(quotation);
+        User currUser = userService.findUserByUsername(currentUser.getUsername());
+        historicalService.addHistorical(new Historical("New bill Created", currUser));
+        return new ResponseEntity<Bill>(bill, HttpStatus.CREATED);
 
     }
 
 
 }
+
+

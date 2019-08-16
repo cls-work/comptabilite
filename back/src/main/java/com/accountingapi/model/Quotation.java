@@ -1,21 +1,24 @@
 package com.accountingapi.model;
 
 import com.accountingapi.security.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 public class Quotation {
 
     @Id
-    @Column(name = "id",unique=true,nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private Date creationDate;
 
     @Column(nullable = false)
@@ -34,26 +37,33 @@ public class Quotation {
     private Boolean isConfirmed=null;
 
 
-    @OneToOne(mappedBy = "quotation")
+    @OneToOne(mappedBy = "quotation", cascade = CascadeType.MERGE)
+    @JsonIgnore
     private Bill bill;
 
-    @ManyToOne
-    @JoinColumn(name="createdBy", nullable=false)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "createdBy")
     private User createdBy;
 
-    @ManyToOne
-    @JoinColumn(name="acceptedBy", nullable=false)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "acceptedBy", nullable = true)
     private User acceptedBy;
 
-    @ManyToOne
-    @JoinColumn(name="provider_id", nullable=false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "provider_id")
     private Provider provider;
 
-    @OneToMany(mappedBy="user")
+
+    @OneToMany(mappedBy = "quotation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Purchase> purchases;
 
+    @JsonIgnore
     @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
+
+    private boolean hasBill = false;
 
     public Long getId() {
         return id;
@@ -160,11 +170,20 @@ public class Quotation {
         this.fileStorageProperties = fileStorageProperties;
     }
 
+
+    public boolean isHasBill() {
+        return hasBill;
+    }
+
+    public void setHasBill(boolean hasBill) {
+        this.hasBill = hasBill;
+    }
+
     @Override
     public String toString() {
         return "Quotation{" +
                 "id=" + id +
-                ", creattionDate=" + creationDate +
+                ", creationDate=" + creationDate +
                 ", totalHT=" + totalHT +
                 ", totalTTC=" + totalTTC +
                 ", totalTVA=" + totalTVA +
@@ -175,6 +194,8 @@ public class Quotation {
                 ", acceptedBy=" + acceptedBy +
                 ", provider=" + provider +
                 ", purchases=" + purchases +
+                ", fileStorageProperties=" + fileStorageProperties +
+                ", hasBill=" + hasBill +
                 '}';
     }
 }

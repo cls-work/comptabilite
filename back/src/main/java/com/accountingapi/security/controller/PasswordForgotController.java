@@ -39,17 +39,15 @@ public class PasswordForgotController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordResetTokenRepository passwordResetTokenRepository;
-
-    @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private TokenVerificationService tokenVerificationService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    EmailService emailService;
+    @Autowired
+    PasswordResetTokenRepository passwordResetTokenRepository;
+    @Autowired
+    private TokenVerificationService tokenVerificationService;
 
 
     /*
@@ -58,8 +56,8 @@ public class PasswordForgotController {
 
     @PostMapping(value = "")
     public ResponseEntity<?> processForgotPasswordForm(@Valid @RequestBody PasswordForgotDto form,
-                                            BindingResult result,
-                                            HttpServletRequest httpServletRequest) throws IOException, MessagingException {
+                                                       BindingResult result,
+                                                       HttpServletRequest httpServletRequest) throws IOException, MessagingException {
 
         if (result.hasErrors()){
             return new ResponseEntity(new ApiResponse(false, "Result error."),
@@ -74,32 +72,8 @@ public class PasswordForgotController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        //Token Creation-Save
-        PasswordResetToken token = new PasswordResetToken();
-        token.setToken(UUID.randomUUID().toString());
-        token.setUser(user);
-        token.setExpiryDate(60);
-        passwordResetTokenRepository.save(token);
-
-
-        //Mail Creation-Save
-        Mail mail = new Mail();
-        mail.setTo(user.getEmail());
-
-        String toServer="localhost";
-        String toServerPort="4200";
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("token", token);
-        model.put("user", user);
-        //String appUrl = "http://"+httpServletRequest.getServerName()+":"+httpServletRequest.getServerPort()+httpServletRequest.getContextPath();
-        String appUrl = "http://"+toServer+":"+toServerPort;
-        String url = appUrl +"/reset-password/"+token.getToken();
-        model.put("resetUrl", url );
-
-
-        mail.setModel(model);
-        emailService.sendEmailWithAttachment(mail);
+        //sending mail
+        emailService.createResetMail(user);
 
         return new ResponseEntity(new ApiResponse(true, "Email successfully sent. "),
                 HttpStatus.ACCEPTED);
@@ -123,7 +97,7 @@ public class PasswordForgotController {
     @PostMapping(value = "/new-password")
     public ResponseEntity<?> newPassword(@Valid @RequestBody NewPasswordDto newPasswordDto){
         if (tokenVerificationService.verifyEmail(newPasswordDto.getToken()).getStatusCode()==HttpStatus.BAD_REQUEST){
-                return tokenVerificationService.verifyEmail(newPasswordDto.getToken());
+            return tokenVerificationService.verifyEmail(newPasswordDto.getToken());
         }
 
         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(newPasswordDto.getToken());

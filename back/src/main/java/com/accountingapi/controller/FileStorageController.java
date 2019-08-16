@@ -1,10 +1,6 @@
 package com.accountingapi.controller;
 
 import com.accountingapi.model.FileStorageProperties;
-import com.accountingapi.repository.FileStorageRepository;
-import com.accountingapi.security.JWT.CurrentUser;
-import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.security.payload.ApiResponse;
 import com.accountingapi.service.BillService;
 import com.accountingapi.service.FileStorageService;
 import com.accountingapi.service.HistoricalService;
@@ -13,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,15 +29,6 @@ public class FileStorageController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    @Autowired
-    private FileStorageRepository fileStorageRepository;
-
-    @Autowired
-    private BillService billService;
-
-    @Autowired
-    private HistoricalService historicalService;
-
 
     @PostMapping("/uploadFile")
     public FileStorageProperties uploadFile(@RequestParam("file") MultipartFile file) {
@@ -55,7 +41,7 @@ public class FileStorageController {
 
         FileStorageProperties fileStorageProperties = new FileStorageProperties(fileName,
                 file.getContentType(), file.getSize());
-        fileStorageRepository.save(fileStorageProperties);
+        fileStorageService.saveFile(fileStorageProperties);
 
         return fileStorageProperties;
     }
@@ -82,7 +68,7 @@ public class FileStorageController {
         }
 
         // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
+        if (contentType == null) {
             contentType = "application/octet-stream";
         }
 
@@ -91,23 +77,12 @@ public class FileStorageController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+    /*
 
     @GetMapping("/getAllFiles/{billId}")
-    public List<FileStorageProperties> getAllFilesByBillId(@PathVariable  String billId){
+    public List<FileStorageProperties> getAllFilesByBillId(@PathVariable String billId) {
         return billService.findFilesByBillId(billId);
     }
+    */
 
-   @DeleteMapping("/deleteFile/{fileId}")
-    public ResponseEntity<?> deleteFileById(@CurrentUser UserPrincipal currentUser, @PathVariable Long fileId){
-        FileStorageProperties fileStorageProperties= fileStorageRepository.getOne(fileId);
-        if(fileStorageProperties!=null) {
-            fileStorageRepository.delete(fileStorageProperties);
-            /*String [] fileName=fileStorageProperties.getUploadDir().split("\\.");
-            String mesage = "deleted file '"+fileName[0];*/
-            return new ResponseEntity(new ApiResponse(true, "File deleted successfully "),
-                    HttpStatus.ACCEPTED);
-        }
-        return new ResponseEntity(new ApiResponse(false, "File does not exist"),
-                HttpStatus.BAD_REQUEST);
-    }
 }

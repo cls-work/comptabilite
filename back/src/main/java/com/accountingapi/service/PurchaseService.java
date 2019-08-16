@@ -2,49 +2,26 @@ package com.accountingapi.service;
 
 import com.accountingapi.model.Bill;
 import com.accountingapi.model.Product;
-import com.accountingapi.repository.PurchaseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.accountingapi.model.Purchase;
+import com.accountingapi.model.Quotation;
 
 import java.util.List;
 
-@Service
-public class PurchaseService {
+public interface PurchaseService {
 
-    @Autowired
-    PurchaseRepository purchaseRepository;
+    Purchase addPurchase(Purchase purchase);
 
-    @Autowired
-    BillService billService;
+    void deletePurchaseById(Long purchaseId);
 
-    //Add Product
-    public void addProduct(String billId, List<Product> products){
+    Purchase updatePurchase(Purchase purchase);
 
-        Bill bill=billService.getBillById(billId);
+    Purchase findPurchaseById(Long purchaseId);
 
-        for (Product product:products) {
-            product.setProductId(LogicService.getAlphaNumericString(20));
-            bill.setTotalHT(bill.getTotalHT()+product.getAmountHT());
-            bill.setTotalTVA(bill.getTotalTVA()+product.getAmountTVA());
-            bill.setTotalTTC(bill.getTotalTTC()+product.getAmountTTC());
-            billService.updateBill(bill);
-            productRepository.save(product);
-        }
+    List<Purchase> findAllPurchasesByQuotation(Long quotationId);
 
-    }
+    boolean existsById(Long purchaseId);
 
+    List<Purchase> findAllPurchases();
 
-    //Update Product
-    public Product updateProduct(Product product) {
-        return productRepository.save(product);
-    }
-
-    //Find Product by its id
-    public Product getProductById(String id){
-        return productRepository.findByProductId(id);
-    }
-
-
-
-
+    List<Purchase> findAllPurchasesByProduct(Product product);
 }

@@ -1,85 +1,87 @@
 package com.accountingapi.controller;
 
-
-import com.accountingapi.model.Bill;
+import com.accountingapi.model.Category;
 import com.accountingapi.model.Product;
+import com.accountingapi.model.PurchasesCategory;
 import com.accountingapi.security.JWT.CurrentUser;
 import com.accountingapi.security.JWT.UserPrincipal;
-import com.accountingapi.service.BillService;
-import com.accountingapi.service.HistoricalService;
-import com.accountingapi.service.ProductService;
+import com.accountingapi.service.impl.CategoryServiceImpl;
+import com.accountingapi.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    ProductService productService;
 
     @Autowired
-    BillService billService;
+    ProductServiceImpl productService;
 
     @Autowired
-    HistoricalService historicalService;
+    CategoryServiceImpl categoryService;
 
-
-    /*
-        Get product by its id
-    */
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @GetMapping("/{billId}")
-    public List<Product> getProductsByBillId(@PathVariable("billId") String billId){
-        return billService.getProductsByBillId(billId);
+    // -------------------Retrieve All Products---------------------------------------------
+    @GetMapping
+    public ResponseEntity<List<Product>> findAllProducts() {
+        List<Product> products = productService.findAllProducts();
+        if (products.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    /*
-        add a new product
-     */
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PostMapping("/{billId}")
-    public void addProduct (@CurrentUser UserPrincipal currentUser,@PathVariable("billId") String billId, @Valid  @RequestBody List<Product> products) {
-        Bill bill = billService.getBillById(billId);
-        var lambdaContext = new Object() {
-            String message;
-        };
-        products.forEach(elt->{
-            lambdaContext.message ="added a product = '"+elt.getDesignation()+"' in billId= "+bill.getBillId();
-            historicalService.addHistoricalForBill(currentUser, lambdaContext.message, bill);
-        });
-        productService.addProduct(billId,products);
+    // -------------------Retrieve One Product By ID---------------------------------------------
+    @GetMapping("/{productId}")
+    public ResponseEntity<Product> findProductById(@PathVariable("productId") Long productId) {
+        if (productService.existsById(productId))
+            return new ResponseEntity<Product>(productService.findProductById(productId), HttpStatus.OK);
+        else return new ResponseEntity("Product not found", HttpStatus.NOT_FOUND);
     }
 
+    // -------------------Create a Product---------------------------------------------
+    @PostMapping()
+    public ResponseEntity<?> addProduct(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody Product product) {
+        if (productService.existsByReference(product.getReference()))
+            return new ResponseEntity("Product with same reference already exists", HttpStatus.CONFLICT);
+        productService.addProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    }
 
-    /*
-        Delete product by its id
-     */
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    // -------------------Delete a Product---------------------------------------------
     @DeleteMapping("/{productId}")
     @Transactional
-    public void deleteProductById (@PathVariable("productId") String productId){
-         billService.deleteProductById(productId);
+    public ResponseEntity<?> deleteProductById(@PathVariable("productId") Long productId) {
+        if (productService.existsById(productId)) {
+            productService.deleteProductById(productId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity("Product with id" + productId + " not found", HttpStatus.NOT_FOUND);
+
     }
 
-    /*
-        update product by its id
-     */
-
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping("/{productId}")
-    public Product editProduct (@PathVariable String productId,@Valid @RequestBody Product product){
-
-        product.setProductId(productId);
-        return productService.updateProduct(product);
+    // -------------------Update a Product---------------------------------------------
+    @PutMapping
+    public ResponseEntity<?> updateProduct(@Valid @RequestBody Product product) {
+        if (productService.existsById(product.getId())) {
+            productService.updateProduct(product);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        return new ResponseEntity("Product with id" + product.getId() + " not found",
+                HttpStatus.NOT_FOUND);
     }
+
+
+
+
 
 }

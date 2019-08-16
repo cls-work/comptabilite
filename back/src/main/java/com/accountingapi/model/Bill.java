@@ -1,6 +1,9 @@
+
 package com.accountingapi.model;
 
+import com.accountingapi.security.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -12,41 +15,32 @@ import java.util.List;
 public class Bill {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private String id;
+    private Long id;
 
     @Column(nullable = false)
+    @CreationTimestamp
     private Date creationDate;
-
-    @Column(nullable = false)
-    private Double checkReference = Double.valueOf(0);
-
-    @Column(nullable = false)
-    private Boolean checkPayment;
 
     @JsonIgnore
     @Column(nullable = false)
     private Boolean isDeleted = false;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quotation_id", referencedColumnName = "id")
     private Quotation quotation;
 
-
-    @JsonIgnore
-    @OneToMany(targetEntity = Historical.class, mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Historical> historicals = new ArrayList<>();
-
-
-    @OneToMany(targetEntity = FileStorageProperties.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileStorageProperties> fileStorageProperties = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "checkPayment_id", referencedColumnName = "id")
+    private CheckPayment checkPayment;
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,21 +52,6 @@ public class Bill {
         this.creationDate = creationDate;
     }
 
-    public Double getCheckReference() {
-        return checkReference;
-    }
-
-    public void setCheckReference(Double checkReference) {
-        this.checkReference = checkReference;
-    }
-
-    public Boolean getCheckPayment() {
-        return checkPayment;
-    }
-
-    public void setCheckPayment(Boolean checkPayment) {
-        this.checkPayment = checkPayment;
-    }
 
     public Boolean getDeleted() {
         return isDeleted;
@@ -90,20 +69,13 @@ public class Bill {
         this.quotation = quotation;
     }
 
-    public List<Historical> getHistoricals() {
-        return historicals;
+
+    public CheckPayment getCheckPayment() {
+        return checkPayment;
     }
 
-    public void setHistoricals(List<Historical> historicals) {
-        this.historicals = historicals;
-    }
-
-    public List<FileStorageProperties> getFileStorageProperties() {
-        return fileStorageProperties;
-    }
-
-    public void setFileStorageProperties(List<FileStorageProperties> fileStorageProperties) {
-        this.fileStorageProperties = fileStorageProperties;
+    public void setCheckPayment(CheckPayment checkPayment) {
+        this.checkPayment = checkPayment;
     }
 
     @Override
@@ -111,12 +83,9 @@ public class Bill {
         return "Bill{" +
                 "id='" + id + '\'' +
                 ", creationDate=" + creationDate +
-                ", checkReference=" + checkReference +
-                ", checkPayment=" + checkPayment +
                 ", isDeleted=" + isDeleted +
                 ", quotation=" + quotation +
-                ", historicals=" + historicals +
-                ", fileStorageProperties=" + fileStorageProperties +
+                ", checkPayment=" + checkPayment +
                 '}';
     }
 }
