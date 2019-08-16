@@ -24,18 +24,18 @@ export class PurchaseFormComponent implements OnInit {
   }
 
   @Input() orderForm: FormGroup;
-  purchases: FormArray;
-  products: ProductModel[];
-  taxType;
-  selectedProduct: any;
-  productForm: FormGroup;
-  submittedProduct: boolean;
-  errorProduct: boolean;
-  selectedCategorie: any;
-  categories: CategoryModel[];
-  totalTTC: number;
-  totalTVA: number;
-  totalHT: number;
+  purchases: FormArray = null;
+  products: ProductModel[] = null;
+  taxType = null;
+  selectedProduct: any = null;
+  productForm: FormGroup = null;
+  submittedProduct: boolean = null;
+  errorProduct: boolean = null;
+  selectedCategorie: any = null;
+  categories: CategoryModel[] = null;
+  totalTTC: number = null;
+  totalTVA: number = null;
+  totalHT: number = null;
 
 
   ngOnInit() {
@@ -74,6 +74,10 @@ export class PurchaseFormComponent implements OnInit {
           this.categories = categories;
         });
 
+  }
+
+  get purchase() {
+    return this.orderForm.get('purchases') as FormArray
   }
 
   createItem(): FormGroup {

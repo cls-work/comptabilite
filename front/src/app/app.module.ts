@@ -47,6 +47,7 @@ import {NgxDocViewerModule} from 'ngx-doc-viewer';
 import {StatsComponent} from './stats/stats.component';
 import {NgxEchartsModule} from 'ngx-echarts';
 import {StatsService} from './_services/stats.service';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -100,6 +101,7 @@ export function setupTranslateFactory(service: TranslateService) {
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     ProviderService,
     BillService,
     UserService,

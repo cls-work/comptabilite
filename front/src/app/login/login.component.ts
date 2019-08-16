@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,20 +14,21 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = '';
+  error = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      usernameOrEmail: ['' , Validators.compose(
+      usernameOrEmail: ['', Validators.compose(
         [Validators.minLength(5), Validators.required])],
-      password: ['' , Validators.compose(
+      password: ['', Validators.compose(
         [Validators.minLength(6), Validators.required])],
     });
 
@@ -39,11 +40,14 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onSubmit() {
     this.submitted = true;
 
+    this.error = null;
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;

@@ -3,6 +3,8 @@ import {QuotationService} from '../_services/quotation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as Noty from 'noty';
 import {TranslateService} from '../_services/translate.service';
+import {AuthenticationService} from '../_services/authentication.service';
+import {ROLE_ADMIN} from '../_globals/vars';
 
 @Component({
   selector: 'app-confirm-quotation',
@@ -12,17 +14,27 @@ import {TranslateService} from '../_services/translate.service';
 export class ConfirmQuotationComponent implements OnInit {
 
   quotationId: string;
+  currentUser;
 
   constructor(private quotationService: QuotationService,
               private route: ActivatedRoute,
               private router: Router,
+              private authService: AuthenticationService,
               private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.quotationId = this.route.snapshot.params['quotationId'];
+    this.authService.currentUser
+      .subscribe(x => {
+        this.currentUser = x;
+        console.log(this.currentUser);
+      });
 
-
+  }
+  
+  get roleAdmin(){
+    return ROLE_ADMIN;
   }
 
   onConfirmClick() {

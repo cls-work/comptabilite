@@ -21,7 +21,7 @@ declare let $: any;
 })
 export class QuotationFormComponent implements OnInit, AfterViewInit {
 
-  providers: ProviderModel[];
+  providers: ProviderModel[] = [];
   providers_distinct_name: ProviderModel[];
   providers_filtred: ProviderModel[];
   providername: any;
@@ -179,7 +179,7 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
       product: ['', Validators.required],
       quantity: ['', Validators.required],
       unitPrice: ['', Validators.required],
-      discount: ['', Validators.required],
+      discount: ['0'],
       tva: ['19', Validators.required],
       unitPriceAfterDiscount: [''],
       amountHT: [''],
@@ -301,8 +301,8 @@ export class QuotationFormComponent implements OnInit, AfterViewInit {
 
 
       baseContext.QuotationToSend = baseContext.formBuilder.group({
-        documentIds: [data.response.map((item) => item.id)],
-        quotation: [baseContext.quotationForm.value]
+          documentIds: [data.response.map((item) => item.id)],
+          quotation: [baseContext.quotationForm.value]
         }
       );
 

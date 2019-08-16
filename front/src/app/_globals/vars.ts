@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:8080/';
+export const BASE_URL = 'http://compta.clsolution.tn:9100/';
 export const BASE_URL_FILES = BASE_URL + 'downloadFile/';
 
 export const BILLS = 'bills/';

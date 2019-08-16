@@ -57,8 +57,10 @@
                 </form>
 
                 <span>
-                <i *ngIf="loginForm.controls.usernameOrEmail.valid " class="fa fa-check-circle"
+                  <ng-container *ngIf="loginForm.controls.usernameOrEmail.valid ">
+                <i class="fa fa-check-circle"
                    style="color:green;"></i>
+                    </ng-container>
                 <i *ngIf="loginForm.controls.usernameOrEmail.invalid" class="fa fa-times-circle"
                    style="color:firebrick;"></i>
                   {{'USERNAME_MIN' | translate}}<br>
