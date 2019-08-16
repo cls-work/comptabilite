@@ -17,6 +17,8 @@ import {AuthenticationService} from './_services/authentication.service';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {BillFormComponent} from './bill-form/bill-form.component';
 import {DisableControlDirective} from './_directives/disable-controle.directive';
+import {FilterBillsPipe} from './_pipes/filter-bills.pipe';
+import {OrderByPipe} from './_pipes/order-by.pipe';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {HeaderComponent} from './header/header.component';
 import {UsersDetailsComponent} from './users-details/users-details.component';
@@ -27,26 +29,12 @@ import {HistoricalsListComponent} from './historicals-list/historicals-list.comp
 import {DataTablesModule} from 'angular-datatables';
 import {HistoricalService} from './_services/historical.service';
 import {LoaderComponent} from './loader/loader.component';
+import {FilterHistoryPipe} from './_pipes/filter-history';
 import {DisplayFileComponent} from './display-file/display-file.component';
-import {ListQuotationComponent} from './list-quotation/list-quotation.component';
-import {DetailQuotationComponent} from './detail-quotation/detail-quotation.component';
-import {NgxPrintModule} from 'ngx-print';
-import {SumPipe, SumTva} from './_pipes/sum.pipe';
-import {ToWordsPipe} from './_pipes/toWords.pipe';
 
-import {QuotationService} from './_services/quotation.service';
-import {QuotationFormComponent} from './quotation-form/quotation-form.component';
-import {NgSelectModule} from '@ng-select/ng-select';
-import {ProviderService} from './_services/provider.service';
-import {ProviderFormComponent} from './provider-form/provider-form.component';
-import {ConfirmQuotationComponent} from './confirm-quotation/confirm-quotation.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AddBillComponent} from './add-bill/add-bill.component';
-import {PurchaseFormComponent} from './purchase-form/purchase-form.component';
-import {NgxDocViewerModule} from 'ngx-doc-viewer';
-import {StatsComponent} from './stats/stats.component';
-import {NgxEchartsModule} from 'ngx-echarts';
-import {StatsService} from './_services/stats.service';
+import { ChecksComponent } from './checks/checks.component';
+import {CheckService} from './_services/check.service';
+
 
 export function setupTranslateFactory(service: TranslateService) {
   return () => service.use('en');
@@ -62,24 +50,19 @@ export function setupTranslateFactory(service: TranslateService) {
     AddProductsComponent,
     BillFormComponent,
     DisableControlDirective,
+    OrderByPipe,
     HeaderComponent,
     UsersDetailsComponent,
     ResetPasswordComponent,
     TranslatePipe,
-    SumPipe,
     HistoricalsListComponent,
     LoaderComponent,
+    FilterBillsPipe,
+    FilterHistoryPipe,
     DisplayFileComponent,
-    ListQuotationComponent,
-    DetailQuotationComponent,
-    SumTva,
-    ToWordsPipe,
-    QuotationFormComponent,
-    ProviderFormComponent,
-    PurchaseFormComponent,
-    ConfirmQuotationComponent,
-    AddBillComponent,
-    StatsComponent
+    ChecksComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -88,30 +71,23 @@ export function setupTranslateFactory(service: TranslateService) {
     AppRoutingModule,
     FormsModule,
     NgxPaginationModule,
-    DataTablesModule,
-    NgSelectModule,
-    NgxEchartsModule,
-    NgxPrintModule,
-    NgSelectModule,
-    NgxDocViewerModule,
-    BrowserAnimationsModule,
+    DataTablesModule
 
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    ProviderService,
     BillService,
     UserService,
     AuthenticationService,
-    StatsService,
+    CheckService,
     HistoricalService,
     TranslateService, {
       provide: APP_INITIALIZER,
       useFactory: setupTranslateFactory,
       deps: [TranslateService],
       multi: true
-    }, /*
+    },/*
     {
       provide: APP_INITIALIZER,
       useFactory: setupBillsTranslateFactory,
@@ -130,7 +106,7 @@ export function setupTranslateFactory(service: TranslateService) {
       deps: [ TranslateService ],
       multi: true
     }*/
-    QuotationService
+
   ],
   bootstrap: [AppComponent]
 })

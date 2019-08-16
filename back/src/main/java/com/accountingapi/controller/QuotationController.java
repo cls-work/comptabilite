@@ -90,7 +90,7 @@ public class QuotationController {
         }
         quotationService.addQuotation(quotation);
         historicalService.addHistorical(new Historical("New Quotation Added", currUser));
-
+        /*
         //Sending email to all Administrators
         Set<Role> role = new HashSet<>();
         role.add(roleRepository.findByName(RoleName.ROLE_ADMIN).get());
@@ -99,6 +99,7 @@ public class QuotationController {
             emailService.createQuotationMail(currUser, admin);
             System.out.println("mail sended to " + admin.getName());
         }
+        */
         return new ResponseEntity<>(quotation, HttpStatus.CREATED);
     }
 
